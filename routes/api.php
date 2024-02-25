@@ -2,7 +2,8 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\Api\DormitoryController;
+use App\Http\Controllers\Api\RoomController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -17,3 +18,12 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::resources([
+    'dormitories' => DormitoryController::class,
+]);
+
+Route::resources([
+    'room' => RoomController::class,
+]);
+
