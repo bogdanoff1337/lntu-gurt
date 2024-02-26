@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\DormitoryController;
+use App\Http\Controllers\Api\OrdersController;
 use App\Http\Controllers\Api\RoomController;
 /*
 |--------------------------------------------------------------------------
@@ -26,4 +27,9 @@ Route::resources([
 Route::resources([
     'room' => RoomController::class,
 ]);
+
+Route::resources([
+    'orders' => OrdersController::class,
+]);
+
 

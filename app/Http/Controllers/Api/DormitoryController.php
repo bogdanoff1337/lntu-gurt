@@ -3,8 +3,11 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\DormitoryRequest;
 use Illuminate\Http\Request;
 use App\Http\Resources\Api\Dormitory as DormitoryResource;
+use App\Models\Dormitory;
+
 class DormitoryController extends Controller
 {
     /**
@@ -12,7 +15,7 @@ class DormitoryController extends Controller
      */
     public function index()
     {
-        $dormitories = \App\Models\Dormitory::all();
+        $dormitories = Dormitory::all();
 
         return DormitoryResource::collection($dormitories);
     }
@@ -28,9 +31,11 @@ class DormitoryController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(DormitoryRequest $request)
     {
-        //
+        $dormitories = Dormitory::create($request->validate());
+
+        return new DormitoryResource($dormitories);
     }
 
     /**
@@ -54,7 +59,11 @@ class DormitoryController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $dormitories = Dormitory::findOrFail($id);
+
+        $dormitories->update($request->validate());
+        
+        return new DormitoryResource($dormitories);
     }
 
     /**
@@ -62,6 +71,10 @@ class DormitoryController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $dormitories = Dormitory::findOrFail($id);
+
+        $dormitories->delete();
+
+        return response()->json();
     }
 }

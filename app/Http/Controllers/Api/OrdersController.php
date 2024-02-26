@@ -3,22 +3,22 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\RoomRequest;
+use App\Http\Requests\OrderRequest;
 use Illuminate\Http\Request;
-use App\Models\Room;
-use App\Http\Resources\Api\Room as RoomResource;
+use App\Models\Order;
+use App\Http\Resources\Api\Order as OrderResource;
 
 
-class RoomController extends Controller
+class OrdersController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $rooms = Room::query()->paginate();
+        $orders = Order::query()->paginate();
 
-        return RoomResource::collection($rooms);
+        return OrderResource::collection($orders);
     }
 
     /**
@@ -26,17 +26,17 @@ class RoomController extends Controller
      */
     public function create()
     {
-        
+        //
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(RoomRequest $request)
+    public function store(OrderRequest $request)
     {
-        $room = Room::create($request->validate());
+        $order = Order::create($request->validate());
 
-        return new RoomResource($room);
+        return new OrderResource($order);
     }
 
     /**
@@ -58,13 +58,13 @@ class RoomController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(OrderRequest $request, string $id)
     {
-        $room = Room::findOrFail($id);
+        $order = Order::findOrFail($id);
 
-        $room->update($request->validate());
+        $order->update($request->validate());
 
-        return new RoomResource($room);
+        return new OrderResource($order);
     }
 
     /**
@@ -72,9 +72,9 @@ class RoomController extends Controller
      */
     public function destroy(string $id)
     {
-        $room = Room::findOrFail($id);
+        $order = Order::findOrFail($id);
 
-        $room->delete();
+        $order->delete();
 
         return response()->json();
     }
