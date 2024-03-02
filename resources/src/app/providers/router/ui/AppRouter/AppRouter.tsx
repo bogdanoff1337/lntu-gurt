@@ -12,7 +12,7 @@ const AppRouter = ({ className }: { className?: string }) => {
 
 			return (
 				<Route
-					element={<RequireAuth auth={route.auth}>{element}</RequireAuth>}
+					element={element}
 					key={route.path}
 					path={route.path}
 				/>
