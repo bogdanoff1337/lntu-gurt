@@ -1,0 +1,11 @@
+.ProductsActionsGroup {
+	display: inline-flex;
+
+	@media (max-width: em($mobile)) {
+		column-gap: rem(20);
+	}
+
+	@media (min-width: em($mobile)) {
+		column-gap: rem(30);
+	}
+}
