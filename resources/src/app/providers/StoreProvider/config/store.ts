@@ -6,9 +6,7 @@ import { rtkApi } from "@/shared/api/rtkApi";
 import { ExtraArgumentType } from "./StateSchema";
 
 export const createReduxStore = () => {
-	const rootReducer = combineSlices(
-
-	);
+	const rootReducer = combineSlices();
 
 	const extraArgument: ExtraArgumentType = {
 		api: $api,

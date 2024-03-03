@@ -1,6 +1,6 @@
 import { FC } from "react";
-import cls from "./Cart.module.scss";
 import { classNames } from "@/shared/lib/classNames/classNames";
+import cls from "./Cart.module.scss";
 
 interface CartProps {
 	className?: string
@@ -8,8 +8,6 @@ interface CartProps {
 
 export const Cart: FC<CartProps> = ({ className }) => {
 	return (
-		<div className={classNames(cls.Cart, {}, [className])}>
-			
-		</div>
-	)
-}
+		<div className={classNames(cls.Cart, {}, [className])} />
+	);
+};

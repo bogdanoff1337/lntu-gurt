@@ -1,6 +1,6 @@
 import { FC } from "react";
-import cls from "./Favorite.module.scss";
 import { classNames } from "@/shared/lib/classNames/classNames";
+import cls from "./Favorite.module.scss";
 
 interface FavoriteProps {
 	className?: string
@@ -8,8 +8,6 @@ interface FavoriteProps {
 
 export const Favorite: FC<FavoriteProps> = ({ className }) => {
 	return (
-		<div className={classNames(cls.Favorite, {}, [className])}>
-			
-		</div>
-	)
-}
+		<div className={classNames(cls.Favorite, {}, [className])} />
+	);
+};

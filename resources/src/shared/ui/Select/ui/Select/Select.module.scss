@@ -1,0 +1,89 @@
+.Select {
+    $p: &;
+    position: relative;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    cursor: pointer;
+
+    border-radius: 12px;
+    &_active {
+        #{$p}__arrow {
+            margin-top: -6px;
+
+            transform: rotate(180deg) translateY(100%);
+        }
+
+        #{$p}__placeholder {
+            border: 1px solid #5a25ec;
+        }
+
+        #{$p} {
+            &__options {
+                opacity: 1;
+            }
+        }
+    }
+
+    &_nonActive {
+        #{$p} {
+            &__options {
+                pointer-events: none;
+
+                opacity: 0;
+            }
+        }
+    }
+
+    &__options {
+        // position: absolute;
+        // z-index: 10;
+
+        display: grid;
+
+        width: 100%;
+
+        background-color: rgba(255, 255, 255, 1);
+    }
+    &__placeholder {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+
+        box-sizing: border-box;
+        width: 100%;
+        height: 30px;
+        padding: 5px;
+
+        cursor: pointer;
+
+        color: rgba(0, 0, 0, 0.6);
+        border: 1px;
+        border: 1px solid rgba(0, 0, 0, 0.6);
+        border-radius: 2px;
+        background: rgb(255, 255, 255);
+
+        font-family: "Montserrat";
+        line-height: 20px;
+
+        &:hover {
+            border: 1px solid #5a25ec;
+        }
+
+        &[data-selected="true"] {
+            color: rgb(0, 0, 0);
+        }
+    }
+
+    &__arrow {
+        // position: absolute;
+        // top: 100%;
+        // right: 5%;
+
+        // transition: transform 0.2s ease-in-out, margin-top 0.2s ease-in-out;
+        // transform: translateY(-100%);
+        // pointer-events: none;
+    }
+}
