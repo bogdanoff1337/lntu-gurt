@@ -4,7 +4,6 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-
 class Room extends Model
 {
     use HasFactory;
@@ -19,4 +18,9 @@ class Room extends Model
         'gender',
         'section',
     ];
+
+    public function images()
+    {
+        return $this->belongsTo(Image::class);
+    }
 }
