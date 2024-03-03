@@ -16,7 +16,7 @@ export default defineConfig({
 		host: "0.0.0.0",
 	},
 	plugins: [
-		// svgr({ exportAsDefault: true }),
+		svgr(),
 		laravel({
 			input: [`${clientRoot}/src/main.tsx`],
 			refresh: true,
