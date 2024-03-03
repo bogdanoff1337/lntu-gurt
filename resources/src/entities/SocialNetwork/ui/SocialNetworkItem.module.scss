@@ -1,0 +1,18 @@
+.SocialNetworkItem {
+	&__link {
+		display: block;
+
+		transition: color $primaryTransition;
+
+		color: $lightPurpleColor2;
+
+		&:hover {
+			color: $lightgreyColor;
+		} 
+	}
+
+
+	&__icon {
+
+	}
+}
