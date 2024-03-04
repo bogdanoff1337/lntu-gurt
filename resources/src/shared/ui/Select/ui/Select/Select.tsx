@@ -4,16 +4,12 @@ import {
 import { classNames as cn } from "../../../../lib/classNames/classNames";
 import { OptionType, SelectProps } from "../../model/types/types";
 import { Option } from "../Option/Option";
-import ArrowDown from "./arrowDown.svg?react";
+import ArrowDown from "./assets/arrow-down.svg?react";
 import cls from "./Select.module.scss";
 
 export const Select: FC<SelectProps> = (props) => {
 	const {
-		options,
-		placeholder,
-		selected,
-		onSelect,
-		onClose,
+		options, placeholder, selectedValue, onSelect, onClose,
 	} = props;
 
 	const [isOpen, setIsOpen] = useState(false);
@@ -23,9 +19,11 @@ export const Select: FC<SelectProps> = (props) => {
 
 	useEffect(() => {
 		const handleClick = (e: MouseEvent) => {
-			if (e.target instanceof Node && !rootRef.current?.contains(e.target)) {
+			if (
+				e.target instanceof Node && !rootRef.current?.contains(e.target)
+			) {
 				// eslint-disable-next-line
-				isOpen && onClose?.();
+                isOpen && onClose?.();
 				setIsOpen(false);
 			}
 		};
@@ -35,7 +33,7 @@ export const Select: FC<SelectProps> = (props) => {
 		return () => {
 			window.removeEventListener("click", handleClick);
 		};
-	}, [onClose]);
+	}, [isOpen, onClose]);
 
 	useEffect(() => {
 		const placeholderEl = placeholderRef.current;
@@ -49,15 +47,16 @@ export const Select: FC<SelectProps> = (props) => {
 		placeholderEl.addEventListener("keydown", handleEnterKeyDown);
 
 		// eslint-disable-next-line
-		return () => {
+        return () => {
 			placeholderEl.removeEventListener("keydown", handleEnterKeyDown);
 		};
 	}, []);
 
-	const handleOptionClick = (value: OptionType["value"]) => {
-		setIsOpen(false);
+	const handleOptionClick = (value: OptionType["slug"]) => () => {
 		onSelect?.(value);
+		setIsOpen((prev) => !prev);
 	};
+
 	const handlePlaceHolderClick: MouseEventHandler<HTMLDivElement> = () => {
 		setIsOpen((prev) => !prev);
 	};
@@ -71,24 +70,25 @@ export const Select: FC<SelectProps> = (props) => {
 		<div
 			className={cn(cls.Select, mods, [])}
 			ref={rootRef}
-			onClick={handlePlaceHolderClick}
 		>
-			<div
-				className={cls.Select__placeholder}
-				data-selected={!!selected?.value}
-				role="button"
-				tabIndex={0}
-				ref={placeholderRef}
-			>
-				{selected?.title || placeholder}
+			<div className={cls.Select__box} onClick={handlePlaceHolderClick}>
+				<div
+					className={cls.Select__placeholder}
+					role="button"
+					data-selected={!!selectedValue}
+					tabIndex={0}
+					ref={placeholderRef}
+				>
+					{selectedValue || placeholder}
+				</div>
+				<ArrowDown className={cls.Select__arrow} />
 			</div>
-			<ArrowDown className={cls.Select__arrow} />
 			<ul className={cls.Select__options}>
 				{options.map((option) => (
 					<Option
-						key={option.value}
+						key={option.slug}
 						option={option}
-						onClick={handleOptionClick}
+						onClick={handleOptionClick(option.slug)}
 					/>
 				))}
 			</ul>

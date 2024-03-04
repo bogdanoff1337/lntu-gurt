@@ -1,24 +1,16 @@
 import {
-	FC, MouseEventHandler, useEffect, useRef,
+	FC, useEffect, useRef,
 } from "react";
 import { OptionType } from "../../model/types/types";
 import cls from "./Option.module.scss";
 
 type OptionProps = {
 	option: OptionType;
-	onClick: (value: OptionType["value"]) => void;
+	onClick: (value: OptionType["slug"]) => void;
 };
 
-export const Option: FC<OptionProps> = (props) => {
-	const {
-		option: { value, title },
-		onClick,
-	} = props;
+export const Option: FC<OptionProps> = ({ option: { id, slug, adress }, onClick }) => {
 	const optionRef = useRef<HTMLLIElement>(null);
-
-	const handleClick = (clickedValue: OptionType["value"]): MouseEventHandler<HTMLLIElement> => () => {
-		onClick(clickedValue);
-	};
 
 	useEffect(() => {
 		const option = optionRef.current;
@@ -27,30 +19,30 @@ export const Option: FC<OptionProps> = (props) => {
 			return;
 		}
 
-		const handleEnterKeyDown = (event: KeyboardEvent) => {
-			if (document.activeElement === option && event.key === "Enter") {
-				onClick(value);
+		const handleEnterKeyDown = (e: KeyboardEvent) => {
+			if (document.activeElement === option && e.key === "Enter") {
+				onClick(slug);
 			}
 		};
 
 		option.addEventListener("keydown", handleEnterKeyDown);
 
 		// eslint-disable-next-line
-        return () => {
+	    return () => {
 			option.removeEventListener("keydown", handleEnterKeyDown);
 		};
-	}, [value, onClick]);
+	}, [slug, onClick]);
 
 	return (
 		<li
 			className={cls.Option}
-			value={value}
-			onClick={handleClick(value)}
+			value={slug}
+			onClick={() => onClick(slug)}
 			// eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex
 			tabIndex={0}
 			ref={optionRef}
 		>
-			{title}
+			{`${slug}: ${adress}`}
 		</li>
 	);
 };

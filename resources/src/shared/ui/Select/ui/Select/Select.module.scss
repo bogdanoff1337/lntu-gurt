@@ -2,22 +2,37 @@
     $p: &;
     position: relative;
 
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-
-    cursor: pointer;
+    // display: flex;
+    // align-items: center;
+    // flex-direction: column;
+    // justify-content: space-between;
 
     border-radius: 12px;
+
+    &__box {
+        display: flex;
+        align-items: center;
+
+        padding: rem(4) rem(8);
+
+        
+        cursor: pointer;
+
+        border: 1px solid #3f409b;
+        border-radius: 8px;
+
+        gap: rem(20);
+    }
     &_active {
         #{$p}__arrow {
-            margin-top: -6px;
+            // margin-top: -6px;
 
-            transform: rotate(180deg) translateY(100%);
+            // transform: rotate(180deg) translateY(100%);
+            transform: rotate(180deg);
         }
 
         #{$p}__placeholder {
-            border: 1px solid #5a25ec;
+            // border: 1px solid #5a25ec;
         }
 
         #{$p} {
@@ -30,6 +45,7 @@
     &_nonActive {
         #{$p} {
             &__options {
+                cursor: none;
                 pointer-events: none;
 
                 opacity: 0;
@@ -38,14 +54,23 @@
     }
 
     &__options {
-        // position: absolute;
-        // z-index: 10;
-
         display: grid;
 
         width: 100%;
+        padding: rem(2);
+    
 
+        transition: opacity $primaryTransition;
+
+        border: 1px solid #3f409b;
+        border-radius: 8px;
         background-color: rgba(255, 255, 255, 1);
+        // position: absolute;
+        // z-index: 10;
+        
+        > *:not(:last-child) {
+            border-bottom: rem(1) solid #3f409b;
+        }
     }
     &__placeholder {
         display: flex;
@@ -57,20 +82,12 @@
         height: 30px;
         padding: 5px;
 
-        cursor: pointer;
 
         color: rgba(0, 0, 0, 0.6);
-        border: 1px;
-        border: 1px solid rgba(0, 0, 0, 0.6);
-        border-radius: 2px;
         background: rgb(255, 255, 255);
 
         font-family: "Montserrat";
         line-height: 20px;
-
-        &:hover {
-            border: 1px solid #5a25ec;
-        }
 
         &[data-selected="true"] {
             color: rgb(0, 0, 0);
@@ -78,6 +95,7 @@
     }
 
     &__arrow {
+        transition: transform $primaryTransition;
         // position: absolute;
         // top: 100%;
         // right: 5%;

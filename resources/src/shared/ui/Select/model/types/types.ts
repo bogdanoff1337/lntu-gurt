@@ -1,13 +1,13 @@
 export type SelectProps = {
-	selected: OptionType | null;
+	selectedValue: string | null;
 	options: OptionType[];
 	placeholder?: string;
-	status?: "default" | "invalid";
-	onSelect?: (selected: OptionType["value"]) => void;
+	onSelect?: (selected: string) => void;
 	onClose?: () => void;
 };
 
 export type OptionType = {
-	title: string;
-	value: string
+	id: string
+	slug: string;
+	adress: string;
 };

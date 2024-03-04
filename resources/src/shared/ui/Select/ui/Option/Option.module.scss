@@ -1,21 +1,17 @@
 .Option {
     display: flex;
-    justify-content: flex-start;
     align-items: center;
+    justify-content: flex-start;
+
     height: 30px;
     padding: 5px;
-    border: 1px;
-    cursor: pointer;
-    font-family: "Montserrat";
-    font-style: normal;
-    font-weight: 400;
-    font-size: 14px;
-    line-height: 20px;
-    background-color: rgba(255, 255, 255, 1);
-    color: rgb(0, 0, 0);
-    border: 1px solid #383838;
-    border-radius: 2px;
 
+    cursor: pointer;
+
+    color: rgb(0, 0, 0);
+
+    border-bottom: #000;
+    
     &:hover {
       background-color: rgba(0, 0, 0, 0.1);
   }
