@@ -13,4 +13,9 @@ class Dormitory extends Model
         'slug',
         'address',
     ];
+
+    public function rooms()
+    {
+        return $this->hasMany(Room::class, 'dormitory_id');
+    }
 }

@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('photos')->default('null');// TODO: add file validation
             $table->foreignId('dormitory_id')->constrained();
+            $table->foreignId('faculty_id')->constrained();
             $table->integer('number')->index();
             $table->integer('floor');
             $table->integer('places');

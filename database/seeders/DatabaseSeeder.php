@@ -16,6 +16,7 @@ class DatabaseSeeder extends Seeder
             DormitorySeeder::class,
             RoomSeeder::class,
             OrderSeeder::class,
+            FacultySeeder::class,
         ]);
     }
 }

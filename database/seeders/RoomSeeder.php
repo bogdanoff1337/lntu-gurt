@@ -25,6 +25,7 @@ class RoomSeeder extends Seeder
         for ($i = 1; $i <= 100; $i++) {
             $room = DB::table('rooms')->insertGetId([
                 'dormitory_id' => rand(1, 3),
+                'faculty_id' => rand(1, 8),
                 'number' => $i,
                 'floor' => rand(1, 9), 
                 'places' => rand(1, 4), 
