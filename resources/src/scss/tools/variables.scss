@@ -2,27 +2,8 @@
 $layoutColor: #fff;
 
 $primaryTextColor: #212121;
-$whiteTextColor: #fff;
 
-$overlayZindex: 50;
-$oneLevelMenuZIndex: 100;
-$twoLevelCatalogZIndex: 200;
-$threeLevelCategoryZIndex: 300;
-$headerZIndex: 400;
-$modelZIndex: 500;
-$filtersZIndex: 300;
-$modalZindex: 600;
-
-
-$accentColor: #D03664;
-$accentHoverColor: #AA2B51;
-$lightPurpleColor: #FFEAF1;
-$lightPurpleColor2: #FFC5D6;
-$discountColor: #F99C11;
-$greyColor: #585858;
-$lightgreyColor: #C7C7C7;
-$morelightgrayColor: #E1E1E1;
-$wrongColor: #FF0000;
+$blueColor: #3F409B;
 
 $primaryTransition: 0.3s ease;
 $secondaryTransition: 0.2s ease;
@@ -36,7 +17,6 @@ $fontColor: $primaryTextColor; //? color
 $minWidth: 320; //? min width of layout
 $containerPadding: 30; //? padding for container
 $maxWidthContainer: 1252; //? width container
-
 
 
 //** Break-points:

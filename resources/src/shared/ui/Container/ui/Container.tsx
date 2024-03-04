@@ -5,18 +5,11 @@ import cls from "./Container.module.scss";
 interface ContainerProps {
 	className?: string;
 	children?: ReactNode;
-	modifier?: ContainerModifier;
 }
 
-export enum ContainerModifier {
-	DEFAULT = "Container_default",
-	AUTH = "Container_auth",
-	ABOUT = "Container_about",
-}
-
-export const Container: FC<ContainerProps> = ({ className, children, modifier = ContainerModifier.DEFAULT }) => {
+export const Container: FC<ContainerProps> = ({ className, children }) => {
 	return (
-		<div className={cn(cls.Container, {}, [className, cls[modifier]])}>
+		<div className={cn(cls.Container, {}, [className])}>
 			{children}
 		</div>
 	);

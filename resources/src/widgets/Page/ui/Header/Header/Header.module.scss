@@ -1,3 +1,11 @@
 .Header {
-	
+	padding: rem(16) 0;
+
+	border-top: rem(2) solid $blueColor;
+	border-bottom: rem(2) solid $blueColor;
+	&__container {
+		display: flex;
+		align-items: center;
+		column-gap: rem(140);
+	}
 }
