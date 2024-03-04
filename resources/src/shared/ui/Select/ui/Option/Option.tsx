@@ -6,10 +6,10 @@ import cls from "./Option.module.scss";
 
 type OptionProps = {
 	option: OptionType;
-	onClick: (value: OptionType["slug"]) => void;
+	onClick: (value: OptionType["value"]) => void;
 };
 
-export const Option: FC<OptionProps> = ({ option: { id, slug, adress }, onClick }) => {
+export const Option: FC<OptionProps> = ({ option: { id, value, address }, onClick }) => {
 	const optionRef = useRef<HTMLLIElement>(null);
 
 	useEffect(() => {
@@ -21,7 +21,7 @@ export const Option: FC<OptionProps> = ({ option: { id, slug, adress }, onClick 
 
 		const handleEnterKeyDown = (e: KeyboardEvent) => {
 			if (document.activeElement === option && e.key === "Enter") {
-				onClick(slug);
+				onClick(value);
 			}
 		};
 
@@ -31,18 +31,18 @@ export const Option: FC<OptionProps> = ({ option: { id, slug, adress }, onClick 
 	    return () => {
 			option.removeEventListener("keydown", handleEnterKeyDown);
 		};
-	}, [slug, onClick]);
+	}, [onClick, value]);
 
 	return (
 		<li
 			className={cls.Option}
-			value={slug}
-			onClick={() => onClick(slug)}
+			value={value}
+			onClick={() => onClick(value)}
 			// eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex
 			tabIndex={0}
 			ref={optionRef}
 		>
-			{`${slug}: ${adress}`}
+			<span className={cls.Option__dorm}>{value}:</span> {address}
 		</li>
 	);
 };

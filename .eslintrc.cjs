@@ -7,13 +7,8 @@ const overwritedAirbnbRules = {
 	"react/jsx-indent": [2, "tab"],
 	"import/extensions": [0],
 	"react/prop-types": [0],
-	"react/function-component-definition": [
-		2,
-		{
-			namedComponents: "arrow-function",
-			unnamedComponents: "arrow-function",
-		},
-	],
+	"react/function-component-definition": [0],
+	"func-names": [0],
 	"react/require-default-props": [0],
 	"react/jsx-props-no-spreading": [0],
 	"arrow-body-style": [0],
@@ -33,6 +28,7 @@ const overwritedAirbnbRules = {
 	radix: [0],
 	"jsx-a11y/label-has-associated-control": [0],
 	"react/no-array-index-key": [1],
+	"react/destructuring-assignment": [0],
 };
 
 const temporarilyDisabled = {

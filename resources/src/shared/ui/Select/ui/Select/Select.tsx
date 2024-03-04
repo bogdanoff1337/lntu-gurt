@@ -7,11 +7,9 @@ import { Option } from "../Option/Option";
 import ArrowDown from "./assets/arrow-down.svg?react";
 import cls from "./Select.module.scss";
 
-export const Select: FC<SelectProps> = (props) => {
-	const {
-		options, placeholder, selectedValue, onSelect, onClose,
-	} = props;
-
+export const Select: FC<SelectProps> = ({
+	options, placeholder, selectedValue, onSelect, onClose, SelectShell,
+}) => {
 	const [isOpen, setIsOpen] = useState(false);
 
 	const rootRef = useRef<HTMLDivElement>(null);
@@ -52,7 +50,7 @@ export const Select: FC<SelectProps> = (props) => {
 		};
 	}, []);
 
-	const handleOptionClick = (value: OptionType["slug"]) => () => {
+	const handleOptionClick = (value: string) => () => {
 		onSelect?.(value);
 		setIsOpen((prev) => !prev);
 	};
@@ -71,24 +69,26 @@ export const Select: FC<SelectProps> = (props) => {
 			className={cn(cls.Select, mods, [])}
 			ref={rootRef}
 		>
-			<div className={cls.Select__box} onClick={handlePlaceHolderClick}>
+			<div
+				className={cls.Select__box}
+				onClick={handlePlaceHolderClick}
+				tabIndex={0}
+				ref={placeholderRef}
+				role="button"
+			>
 				<div
 					className={cls.Select__placeholder}
-					role="button"
-					data-selected={!!selectedValue}
-					tabIndex={0}
-					ref={placeholderRef}
 				>
-					{selectedValue || placeholder}
+					{<selectShell /> || placeholder}
 				</div>
 				<ArrowDown className={cls.Select__arrow} />
 			</div>
 			<ul className={cls.Select__options}>
 				{options.map((option) => (
 					<Option
-						key={option.slug}
+						key={option.id}
 						option={option}
-						onClick={handleOptionClick(option.slug)}
+						onClick={handleOptionClick(option.value)}
 					/>
 				))}
 			</ul>
