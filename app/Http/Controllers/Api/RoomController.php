@@ -8,28 +8,15 @@ use Illuminate\Http\Request;
 use App\Models\Room;
 use App\Http\Resources\Api\Room as RoomResource;
 use App\Models\Image;
-use Illuminate\Support\Facades\Storage;
+
 class RoomController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request)
+    public function index()
     {
-        $dormitory_id = $request->input('dormitory_id');
-        $gender = $request->input('gender');
-
-        $roomsQuery = Room::query();
-
-        if ($dormitory_id) {
-            $roomsQuery->where('dormitory_id', $dormitory_id);
-        }
-
-        if ($gender) {
-            $roomsQuery->where('gender', $gender);
-        }
-
-        $rooms = $roomsQuery->paginate();
+        $rooms = Room::with('images')->paginate();
 
         return RoomResource::collection($rooms);
     }
@@ -39,7 +26,7 @@ class RoomController extends Controller
      */
     public function create()
     {
-
+        
     }
 
     /**
@@ -47,18 +34,20 @@ class RoomController extends Controller
      */
     public function store(RoomRequest $request)
     {
-        // Створюємо кімнату
-        $validatedData = $request->validated();
-        $room = Room::create($validatedData);
-    
-        // Зберігаємо фотографії на сервері та оновлюємо шляхи до них у базі даних
-        $images = [];
-        foreach ($request->file('photos') as $photo) {
-            $path = $photo->store('room-photos', 'public');
-            $images[] = $path;
+        $room = Room::create($request->validate());
+
+
+        if($request->hasfile('images'))
+        {
+            foreach($request->file('images') as $imagefile)
+            {
+                $image = new Image;
+                $path = $imagefile->store('/images/resource', ['disk' => 'photos_room']);
+                $image->url = $path;
+                $image->room_id = $room->id;
+                $image->save();
+            }
         }
-        $room->update(['photos' => $images]);
-    
         return new RoomResource($room);
     }
 
