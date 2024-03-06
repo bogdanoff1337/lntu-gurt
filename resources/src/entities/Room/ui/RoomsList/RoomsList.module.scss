@@ -1,0 +1,12 @@
+.RoomList {
+    display: flex;
+    align-items: center;
+
+    flex-wrap: wrap;
+    justify-content: center;
+
+    max-width: rem(1240);
+    margin: 0 auto;
+    gap: 56px;
+
+}

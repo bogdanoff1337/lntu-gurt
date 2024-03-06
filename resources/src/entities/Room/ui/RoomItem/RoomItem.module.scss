@@ -1,0 +1,25 @@
+.RoomItem {
+    max-width: rem(268);
+    max-height: rem(285);
+
+    padding: rem(25);
+
+    border: 1px solid $blueColor;
+
+    border-radius: rem(15);
+    gap: 20;
+    &__img {
+        width: rem(218);
+        height: rem(176);
+        margin-bottom: rem(18);
+
+        border-radius: rem(15);
+        background-color: $blueColor;
+    }
+    &__roomNumber {
+        text-align: center;
+
+        font-size: rem(28);
+        font-weight: 500;
+    }
+}

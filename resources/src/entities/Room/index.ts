@@ -6,3 +6,4 @@ export type { RoomSchema } from "./model/types/Room";
 
 export { fetchRooms } from "./model/services/fetchRooms";
 export { roomSlice } from "./model/slice/roomSlice";
+export { RoomsList } from "./ui/RoomsList/RoomsList";

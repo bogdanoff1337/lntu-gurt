@@ -2,6 +2,7 @@ import { FC, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { Page } from "@/widgets/Page";
 import {
+	RoomsList,
 	fetchRooms, getRoomsData,
 } from "@/entities/Room";
 import { classNames as cn } from "@/shared/lib/classNames/classNames";
@@ -39,23 +40,17 @@ export const MainPage: FC<MainPageProps> = ({ className }) => {
 	// };
 
 	// useEffect(() => {
-	// 	$api.get("dormitories")
-	// 		.then((response) => {
-	// 			setData(response.data.data);
-	// 			setSelectedValue(response.data.data[0]);
-	// 		});
+	// $api.get("dormitories")
+	// 	.then((response) => {
+	// 		setData(response.data.data);
+	// 		setSelectedValue(response.data.data[0]);
+	// 	});
 	// }, []);
-
-	useEffect(() => {
-		dispatch(fetchRooms());
-	}, [dispatch]);
-
-	const data = useSelector(getRoomsData);
-	console.log(data);
 
 	return (
 		<Page className={cn(cls.MainPage, {}, [className])}>
 			MainPage
+			<RoomsList />
 			{/* <Select
 				options={data}
 				selectedValue={selectedValue}
