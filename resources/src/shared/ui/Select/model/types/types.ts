@@ -8,13 +8,12 @@ export type SelectProps = {
 	onClose?: () => void;
 	SelectShell: FC<OptionType>;
 };
-
 export type OptionType = {
-	data: Gurt
+	data: Gurt[];
 };
 
-type Gurt = {
-	id: string
+export type Gurt = {
+	id: string;
 	slug: string;
 	address: string;
 };

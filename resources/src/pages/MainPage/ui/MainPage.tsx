@@ -1,54 +1,69 @@
-import axios from "axios";
-import { FC, useEffect, useState } from "react";
+import { FC, useEffect } from "react";
+import { useSelector } from "react-redux";
 import { Page } from "@/widgets/Page";
-import { $api } from "@/shared/api/api";
+import {
+	fetchRooms, getRoomsData,
+} from "@/entities/Room";
 import { classNames as cn } from "@/shared/lib/classNames/classNames";
 // import options from "@/shared/ui/Select/model/data/options.json";
-import { OptionType } from "@/shared/ui/Select/model/types/types";
-import { Select } from "@/shared/ui/Select/ui/Select/Select";
+import { useAppDispatch } from "@/shared/lib/hooks/useAppDispatch/useAppDispatch";
 import cls from "./MainPage.module.scss";
 
 interface MainPageProps {
 	className?: string;
 }
 
-const GurtShell: FC<OptionType> = ({ data }) => {
-	return (
-		<>
-			<span className={cls.Option__dorm}>{data.slug}:</span>
-			<span>{data.address}</span>
-		</>
-	);
-};
+// const GurtShell: FC<OptionType> = ({ data }) => {
+// 	return (
+// 		<>
+// 			<span className={cls.Option__dorm}>{data.slug}:</span>
+// 			<span>{data.address}</span>
+// 		</>
+// 	);
+// };
 
 export const MainPage: FC<MainPageProps> = ({ className }) => {
-	const [selectedValue, setSelectedValue] = useState<string | null>(null);
+	const dispatch = useAppDispatch();
 
-	const [data, setData] = useState([]);
+	// useEffect(() => {
+	// 	dispatch(fetchDormitories());
+	// }, [dispatch]);
+	//= =================================================
 
-	const onGurtSelect = (value: string) => {
-		setSelectedValue(value);
-	};
+	// const [selectedValue, setSelectedValue] = useState<string | null>(null);
+
+	// const [data, setData] = useState([]);
+
+	// const onGurtSelect = (value: string) => {
+	// 	setSelectedValue(value);
+	// };
+
+	// useEffect(() => {
+	// 	$api.get("dormitories")
+	// 		.then((response) => {
+	// 			setData(response.data.data);
+	// 			setSelectedValue(response.data.data[0]);
+	// 		});
+	// }, []);
 
 	useEffect(() => {
-		$api.get("dormitories")
-			.then((response) => {
-				setData(response.data.data);
-				setSelectedValue(response.data.data[0]);
-			});
-	}, []);
+		dispatch(fetchRooms());
+	}, [dispatch]);
+
+	const data = useSelector(getRoomsData);
+	console.log(data);
 
 	return (
 		<Page className={cn(cls.MainPage, {}, [className])}>
 			MainPage
-			<Select
+			{/* <Select
 				options={data}
 				selectedValue={selectedValue}
 				onSelect={onGurtSelect}
 				placeholder="Виберіть гуртожиток"
 				// @ts-ignore
 				SlotShell={GurtShell}
-			/>
+			/> */}
 		</Page>
 	);
 };
