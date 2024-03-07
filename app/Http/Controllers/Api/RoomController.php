@@ -7,7 +7,7 @@ use App\Http\Requests\RoomRequest;
 use Illuminate\Http\Request;
 use App\Models\Room;
 use App\Http\Resources\Api\Room as RoomResource;
-
+use App\Models\Image;
 
 class RoomController extends Controller
 {
@@ -16,7 +16,7 @@ class RoomController extends Controller
      */
     public function index()
     {
-        $rooms = Room::query()->paginate();
+        $rooms = Room::with('images')->paginate();
 
         return RoomResource::collection($rooms);
     }
@@ -26,7 +26,7 @@ class RoomController extends Controller
      */
     public function create()
     {
-        
+
     }
 
     /**
@@ -36,6 +36,18 @@ class RoomController extends Controller
     {
         $room = Room::create($request->validate());
 
+
+        if($request->hasfile('images'))
+        {
+            foreach($request->file('images') as $imagefile)
+            {
+                $image = new Image;
+                $path = $imagefile->store('/images/resource', ['disk' => 'photos_room']);
+                $image->url = $path;
+                $image->room_id = $room->id;
+                $image->save();
+            }
+        }
         return new RoomResource($room);
     }
 
@@ -44,7 +56,7 @@ class RoomController extends Controller
      */
     public function show(string $id)
     {
-        //
+        return RoomResource::collection(Room::with('images')->where('id', $id)->get());
     }
 
     /**

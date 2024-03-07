@@ -16,7 +16,7 @@ class Room extends JsonResource
     {
         return [
             'id' => $this->id,
-            'photos' => $this->photos,
+            'photos' => $this->images->pluck('url'),
             'dormitory_id' => $this->dormitory_id,
             'places' => $this->places,
             'number' => $this->number,
