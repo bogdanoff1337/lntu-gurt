@@ -9,5 +9,10 @@ class Faculty extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['slug'];
+    protected $fillable = ['slug', 'image'];
+
+    public function rooms()
+    {
+        return $this->hasMany(Room::class, 'faculty_id');
+    }
 }

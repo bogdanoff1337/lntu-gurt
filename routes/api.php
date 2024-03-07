@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\DormitoryController;
 use App\Http\Controllers\Api\OrdersController;
 use App\Http\Controllers\Api\RoomController;
+use App\Http\Controllers\Api\FacultyController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -25,11 +26,15 @@ Route::resources([
 ]);
 
 Route::resources([
-    'room' => RoomController::class,
+    'rooms' => RoomController::class,
 ]);
 
 Route::resources([
     'orders' => OrdersController::class,
+]);
+
+Route::resources([
+    'faculties' => FacultyController::class,
 ]);
 
 
