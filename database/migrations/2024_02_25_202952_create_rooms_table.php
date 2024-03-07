@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('dormitory_id')->constrained();
             $table->foreignId('faculty_id')->constrained();
-            $table->integer('number')->index();
+            $table->string('number');
             $table->integer('floor');
             $table->integer('places');
             $table->enum('section', ['Ліворуч', 'Праворуч']);
