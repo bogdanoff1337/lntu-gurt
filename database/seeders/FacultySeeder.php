@@ -14,14 +14,14 @@ class FacultySeeder extends Seeder
     public function run(): void
     {
         DB::table('faculties')->insert([
-            ['slug' => 'ФАКУЛЬТЕТ ЦИФРОВИХ, ОСВІТНІХ ТА СОЦІАЛЬНИХ ТЕХНОЛОГІЙ', 'image' => '1'],
-            ['slug' => 'ФАКУЛЬТЕТ АГРАРНИХ ТЕХНОЛОГІЙ ТА ЕКОЛОГІЇ', 'image' => '2'],
-            ['slug' => 'ФАКУЛЬТЕТ МИТНОЇ СПРАВИ, МАТЕРІАЛІВ ТА ТЕХНОЛОГІЙ', 'image' => '3'],
-            ['slug' => 'ФАКУЛЬТЕТ ТРАНСПОРТУ ТА МЕХАНІЧНОЇ ІНЖЕНЕРІЇ', 'image' => '4'],
-            ['slug' => 'ФАКУЛЬТЕТ АРХІТЕКТУРИ БУДІВНИЦТВА ТА ДИЗАЙНУ', 'image' => '5'],
-            ['slug' => 'ФАКУЛЬТЕТ БІЗНЕМУ ТА ПРАВА', 'image' => '6'],
-            ['slug' => 'ФАКУЛЬТЕТ КОМП’ЮТЕРНИХ ТА ІНФОРМАЦІЙНИХ ТЕХНОЛОГІЙ', 'image' => '7'],
-            ['slug' => 'КАФЕДРА ВІЙСЬКОВОЇ ПІДГОТОВКИ', 'image' => '8'],
+            ['slug' => 'ФАКУЛЬТЕТ ЦИФРОВИХ, ОСВІТНІХ ТА СОЦІАЛЬНИХ ТЕХНОЛОГІЙ', 'image' => 'photos/uploads/facult/FCOST.svg'],
+            ['slug' => 'ФАКУЛЬТЕТ АГРАРНИХ ТЕХНОЛОГІЙ ТА ЕКОЛОГІЇ', 'image' => 'photos/uploads/facult/FATE.svg'],
+            ['slug' => 'ФАКУЛЬТЕТ МИТНОЇ СПРАВИ, МАТЕРІАЛІВ ТА ТЕХНОЛОГІЙ', 'image' => 'photos/uploads/facult/FMSMT.svg'],
+            ['slug' => 'ФАКУЛЬТЕТ ТРАНСПОРТУ ТА МЕХАНІЧНОЇ ІНЖЕНЕРІЇ', 'image' => 'photos/uploads/facult/FTMI.svg'],
+            ['slug' => 'ФАКУЛЬТЕТ АРХІТЕКТУРИ БУДІВНИЦТВА ТА ДИЗАЙНУ', 'image' => 'photos/uploads/facult/FABD.svg'],
+            ['slug' => 'ФАКУЛЬТЕТ БІЗНЕМУ ТА ПРАВА', 'image' => 'photos/uploads/facult/FBP.svg'],
+            ['slug' => 'ФАКУЛЬТЕТ КОМП’ЮТЕРНИХ ТА ІНФОРМАЦІЙНИХ ТЕХНОЛОГІЙ', 'image' => 'photos/uploads/facult/FKIT.svg'],
+            ['slug' => 'КАФЕДРА ВІЙСЬКОВОЇ ПІДГОТОВКИ', 'image' => 'photos/uploads/facult/KVP.svg'],
         ]);
     }
 }

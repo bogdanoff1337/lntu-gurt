@@ -26,7 +26,7 @@ class RoomController extends Controller
      */
     public function create()
     {
-        
+
     }
 
     /**
@@ -56,7 +56,7 @@ class RoomController extends Controller
      */
     public function show(string $id)
     {
-        //
+        return RoomResource::collection(Room::with('images')->where('id', $id)->get());
     }
 
     /**
