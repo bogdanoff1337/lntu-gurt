@@ -4,11 +4,13 @@ import {
 import { CombinedState } from "@reduxjs/toolkit/query";
 import { AxiosInstance } from "axios";
 import { DormitorySchema } from "@/entities/Dormitory";
-import { RoomSchema } from "@/entities/Room";
+import { FacultiesSchema } from "@/entities/Faculties";
+import { RoomSchema } from "@/entities/Rooms";
 
 export interface StateSchema {
 	dormitories: DormitorySchema;
 	room: RoomSchema
+	faculties: FacultiesSchema
 }
 
 export type StateSchemaKey = keyof StateSchema;

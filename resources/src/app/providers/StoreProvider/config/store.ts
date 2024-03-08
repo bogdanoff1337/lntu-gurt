@@ -2,7 +2,8 @@ import {
 	combineSlices, configureStore,
 } from "@reduxjs/toolkit";
 import { dormitoriesSlice } from "@/entities/Dormitory";
-import { roomSlice } from "@/entities/Room";
+import { facultiesSlice } from "@/entities/Faculties";
+import { roomSlice } from "@/entities/Rooms";
 import { $api } from "@/shared/api/api";
 import { rtkApi } from "@/shared/api/rtkApi";
 import { ExtraArgumentType } from "./StateSchema";
@@ -11,6 +12,7 @@ export const createReduxStore = () => {
 	const rootReducer = combineSlices(
 		dormitoriesSlice,
 		roomSlice,
+		facultiesSlice,
 	);
 
 	const extraArgument: ExtraArgumentType = {

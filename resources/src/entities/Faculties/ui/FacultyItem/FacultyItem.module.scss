@@ -1,0 +1,30 @@
+.FacultyItem {
+    display: flex;
+    overflow: hidden;
+    flex-direction: column;
+
+    max-width: rem(240);
+
+    cursor: pointer;
+    transition: scale $primaryTransition;
+    scale: 1;
+
+    border-radius: rem(12);
+
+    line-height: 1.7;
+    row-gap: rem(15);
+    &:hover {
+        scale: 1.1;
+    }
+
+    &__img {
+    }
+
+    &__facultName {
+        margin: auto 0;
+
+        text-align: center;
+
+        color: $blueColor;
+    }
+}

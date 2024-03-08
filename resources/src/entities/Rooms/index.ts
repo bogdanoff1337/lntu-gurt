@@ -1,5 +1,6 @@
 export {
-	getRoomsData, getRoomsIsLoading, getRoomsError,
+	getRoomsData,
+	getRoomsIsLoading, getRoomsError,
 } from "./model/selectors/roomSelector";
 
 export type { RoomSchema } from "./model/types/Room";

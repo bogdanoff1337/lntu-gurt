@@ -17,7 +17,7 @@ export const roomSlice = createSlice({
 			})
 			.addCase(fetchRooms.fulfilled, (
 				state,
-				action: PayloadAction<RoomData>,
+				action: PayloadAction<any>,
 			) => {
 				state.isLoading = false;
 				state.data = action.payload;

@@ -1,13 +1,10 @@
-import { FC, useEffect } from "react";
-import { useSelector } from "react-redux";
+import { FC } from "react";
 import { Page } from "@/widgets/Page";
-import {
-	RoomsList,
-	fetchRooms, getRoomsData,
-} from "@/entities/Room";
+import { FacultiesList } from "@/entities/Faculties/";
 import { classNames as cn } from "@/shared/lib/classNames/classNames";
 // import options from "@/shared/ui/Select/model/data/options.json";
 import { useAppDispatch } from "@/shared/lib/hooks/useAppDispatch/useAppDispatch";
+import { Container } from "@/shared/ui/Container";
 import cls from "./MainPage.module.scss";
 
 interface MainPageProps {
@@ -29,6 +26,7 @@ export const MainPage: FC<MainPageProps> = ({ className }) => {
 	// useEffect(() => {
 	// 	dispatch(fetchDormitories());
 	// }, [dispatch]);
+
 	//= =================================================
 
 	// const [selectedValue, setSelectedValue] = useState<string | null>(null);
@@ -47,11 +45,15 @@ export const MainPage: FC<MainPageProps> = ({ className }) => {
 	// 	});
 	// }, []);
 
+	//= ============================================
+
 	return (
 		<Page className={cn(cls.MainPage, {}, [className])}>
-			MainPage
-			<RoomsList />
-			{/* <Select
+			<Container className={cls.MainPage__container}>
+				{/* <RoomsList /> */}
+				{/* <FacultList /> */}
+
+				{/* <Select
 				options={data}
 				selectedValue={selectedValue}
 				onSelect={onGurtSelect}
@@ -59,6 +61,32 @@ export const MainPage: FC<MainPageProps> = ({ className }) => {
 				// @ts-ignore
 				SlotShell={GurtShell}
 			/> */}
+				{/* <FacultiesList /> */}
+			</Container>
+		</Page>
+	);
+
+	return (
+		<Page className={cn(cls.MainPage, {}, [className])}>
+			<Container className={cls.Header__container}>
+				<h1>Головна сторінка</h1>
+				{/* <RoomsList /> */}
+			</Container>
+		</Page>
+	);
+	return (
+		<Page className={cn(cls.MainPage, {}, [className])}>
+			<Container className={cls.Header__container}>
+				<h1>Головна сторінка</h1>
+				{/* <Select
+				options={data}
+				selectedValue={selectedValue}
+				onSelect={onGurtSelect}
+				placeholder="Виберіть гуртожиток"
+				// @ts-ignore
+				SlotShell={GurtShell}
+			/> */}
+			</Container>
 		</Page>
 	);
 };
