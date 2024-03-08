@@ -1,6 +1,8 @@
 import { FC } from "react";
+import { OrderPage } from "@/pages/OrderPage";
 import { Page } from "@/widgets/Page";
 import { FacultiesList } from "@/entities/Faculties/";
+import { RoomsList } from "@/entities/Rooms";
 import { classNames as cn } from "@/shared/lib/classNames/classNames";
 // import options from "@/shared/ui/Select/model/data/options.json";
 import { useAppDispatch } from "@/shared/lib/hooks/useAppDispatch/useAppDispatch";
@@ -49,19 +51,10 @@ export const MainPage: FC<MainPageProps> = ({ className }) => {
 
 	return (
 		<Page className={cn(cls.MainPage, {}, [className])}>
+			<h1 className={cls.MainPage__title}>Факультети</h1>
 			<Container className={cls.MainPage__container}>
-				{/* <RoomsList /> */}
-				{/* <FacultList /> */}
-
-				{/* <Select
-				options={data}
-				selectedValue={selectedValue}
-				onSelect={onGurtSelect}
-				placeholder="Виберіть гуртожиток"
-				// @ts-ignore
-				SlotShell={GurtShell}
-			/> */}
 				{/* <FacultiesList /> */}
+				<OrderPage />
 			</Container>
 		</Page>
 	);
@@ -70,7 +63,7 @@ export const MainPage: FC<MainPageProps> = ({ className }) => {
 		<Page className={cn(cls.MainPage, {}, [className])}>
 			<Container className={cls.Header__container}>
 				<h1>Головна сторінка</h1>
-				{/* <RoomsList /> */}
+				<RoomsList />
 			</Container>
 		</Page>
 	);

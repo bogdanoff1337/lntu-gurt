@@ -16,10 +16,4 @@ export const routes: AppRouteProps[] = [
 		element: <MainPage />,
 		auth: "only",
 	},
-	{
-		path: getFacultiesRoutePath(),
-		element: <FacultiesPage />,
-		auth: "only",
-	},
-
 ];

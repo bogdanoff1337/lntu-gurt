@@ -1,0 +1,34 @@
+
+
+.Button {
+    display: inline-flex;
+
+    cursor: pointer;
+
+    &_clear {
+        color: $blueColor;
+        border: none;
+        outline: none;
+        background: none;
+    }
+
+    &_outline {
+        padding: em(8) em(16);
+
+        color: $blueColor;
+        border: em(1) solid $blueColor;
+        border-radius: em(16);
+        background: none;
+    }
+
+    &_fill {
+        padding: em(8) em(16);
+
+        border-radius: em(34);
+    }
+
+    &_padding {
+        padding: em(8) em(16);
+    }
+}
+

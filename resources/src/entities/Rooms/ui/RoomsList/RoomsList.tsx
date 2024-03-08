@@ -29,6 +29,8 @@ export const RoomsList: FC<RoomsListProps> = ({
 
 	// console.log(data);
 
+	// const d.log(data);
+
 	// const dispatch = useAppDispatch();
 
 	// useEffect(() => {
