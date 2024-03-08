@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('rooms', function (Blueprint $table) {
             $table->id();
-            $table->string('photos')->default('null');// TODO: add file validation
             $table->foreignId('dormitory_id')->constrained();
-            $table->integer('number')->index();
+            $table->foreignId('faculty_id')->constrained();
+            $table->string('number');
             $table->integer('floor');
             $table->integer('places');
             $table->enum('section', ['Ліворуч', 'Праворуч']);

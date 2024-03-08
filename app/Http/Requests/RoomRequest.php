@@ -25,7 +25,7 @@ class RoomRequest extends FormRequest
             'places' => 'required|numeric',
             'section' => 'required|string',
             'number' => 'required|numeric',
-            'photos' => 'required|string', // TODO: add file validation
+            'photos.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048', // TODO: add file validation
             'dormitory_id' => 'required|exists:dormitories,id',
             'floor' => 'required|numeric',
             'block' => 'required|string',
