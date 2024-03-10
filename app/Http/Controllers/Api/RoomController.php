@@ -14,12 +14,23 @@ class RoomController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $rooms = Room::with('images')->paginate();
+        $rooms = Room::with('images')
+            ->when($request->faculty_id, function ($query, $faculty_id) {
+                return $query->where('faculty_id', $faculty_id);
+            })
+            ->when($request->dormitory_id, function ($query, $dormitory_id) {
+                return $query->where('dormitory_id', $dormitory_id);
+            })
+            ->when($request->gender, function ($query, $gender) {
+                return $query->where('gender', $gender);
+            })
+            ->paginate();
 
         return RoomResource::collection($rooms);
     }
+
 
     /**
      * Show the form for creating a new resource.
