@@ -17,6 +17,7 @@ class Faculty extends JsonResource
         return [
             'id' => $this->id,
             'slug' => $this->slug,
+            'slug_short' => $this->slug_short,
             'image' => $this->image,
         ];
     }

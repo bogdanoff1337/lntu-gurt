@@ -9,7 +9,7 @@ class Faculty extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['slug', 'image'];
+    protected $fillable = ['slug', 'image', 'slug_short'];
 
     public function rooms()
     {

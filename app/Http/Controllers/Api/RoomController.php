@@ -4,9 +4,10 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\RoomRequest;
+use App\Http\Resources\Api\Room\Short;
 use Illuminate\Http\Request;
 use App\Models\Room;
-use App\Http\Resources\Api\Room as RoomResource;
+use App\Http\Resources\Api\Room\Full;
 use App\Models\Image;
 
 class RoomController extends Controller
@@ -17,6 +18,9 @@ class RoomController extends Controller
     public function index(Request $request)
     {
         $rooms = Room::with('images')
+            ->when($request->id, function ($query, $id) {
+                return $query->where('id', $id);
+            })
             ->when($request->faculty_id, function ($query, $faculty_id) {
                 return $query->where('faculty_id', $faculty_id);
             })
@@ -26,9 +30,9 @@ class RoomController extends Controller
             ->when($request->gender, function ($query, $gender) {
                 return $query->where('gender', $gender);
             })
-            ->paginate();
+            ->paginate(12);
 
-        return RoomResource::collection($rooms);
+        return Short::collection($rooms);
     }
 
 
@@ -67,8 +71,9 @@ class RoomController extends Controller
      */
     public function show(string $id)
     {
-        return RoomResource::collection(Room::with('images')->where('id', $id)->get());
+        return new Full(Room::with('images')->find($id));
     }
+
 
     /**
      * Show the form for editing the specified resource.
