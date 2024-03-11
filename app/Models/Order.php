@@ -19,4 +19,9 @@ class Order extends Model
         'phone',
         'benefits',
     ];
+
+    public function room()
+    {
+        return $this->belongsTo(Room::class);
+    }
 }
