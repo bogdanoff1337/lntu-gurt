@@ -12,9 +12,9 @@ const clientRoot = path.resolve("resources");
 
 // https://vitejs.dev/config/
 export default defineConfig({
-	server: {
-		host: "0.0.0.0",
-	},
+	// server: {
+	// 	host: "0.0.0.0",
+	// },
 	plugins: [
 		svgr(),
 		laravel({

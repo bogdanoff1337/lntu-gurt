@@ -1,6 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { ThunkConfig } from "@/app/providers/StoreProvider";
-import { Faculty } from "../types/FacultiesSchema";
+import { Faculty } from "../types/EntityFacultiesSchema";
 
 export const fetchFaculties = createAsyncThunk<any, void, ThunkConfig<string>>(
 	"page/facultiesSlice",
