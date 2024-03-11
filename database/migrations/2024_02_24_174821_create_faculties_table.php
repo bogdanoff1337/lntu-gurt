@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('faculties', function (Blueprint $table) {
             $table->id();
             $table->string('slug');
+            $table->string('slug_short');
             $table->string('image');
             $table->timestamps();
         });

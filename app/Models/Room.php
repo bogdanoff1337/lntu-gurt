@@ -11,6 +11,7 @@ class Room extends Model
     protected $fillable = [
         'photos',
         'dormitory_id',
+        'faculty_id',
         'places',
         'number',
         'floor',
