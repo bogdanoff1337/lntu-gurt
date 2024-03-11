@@ -1,0 +1,26 @@
+.FacultyItem {
+
+
+    &__link {
+        display: flex;
+        flex-direction: column;
+
+        line-height: 1.7;
+        row-gap: rem(14);
+    }
+
+    &__slug {
+        text-align: center;
+
+        font-size: rem(14);
+    }
+}
+
+
+.Skeleton {
+}
+
+
+.FacultySkeleton {
+    
+}

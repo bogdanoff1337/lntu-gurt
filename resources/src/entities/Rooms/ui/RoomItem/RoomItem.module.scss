@@ -1,0 +1,32 @@
+.RoomItem {
+    max-width: rem(268);
+    max-height: rem(285);
+
+    padding: rem(25);
+
+    cursor: pointer;
+    transition: scale 0.3s linear;
+
+    border: 1px solid $blueColor;
+    border-radius: rem(15);
+    scale: 1;
+
+    &:hover {
+        scale: 1.05;
+    }
+    &__img {
+        width: rem(218);
+        height: rem(176);
+        margin-bottom: rem(18);
+
+        transition: background-color 0.3s linear;
+
+        border-radius: rem(15);
+    }
+    &__roomNumber {
+        text-align: center;
+
+        font-size: rem(28);
+        font-weight: 500;
+    }
+}

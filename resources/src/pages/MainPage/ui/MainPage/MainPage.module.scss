@@ -1,0 +1,7 @@
+.MainPage {
+    padding: 20px;
+
+    > *:not(:last-child) {
+        margin-bottom: rem(80);
+    }
+}
