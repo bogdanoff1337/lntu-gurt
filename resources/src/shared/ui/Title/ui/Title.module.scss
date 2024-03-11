@@ -1,0 +1,12 @@
+.Title {
+   font-size: rem(32);
+
+   &_medium {
+      font-weight: 500;
+   }
+
+   &_sub {
+      font-size: rem(14);
+      line-height: 170%;
+   }
+}

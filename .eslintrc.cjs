@@ -51,8 +51,6 @@ const overwritedFsdRules = {
 		{
 			ignorePatterns: [
 				"**/StoreProvider/**",
-				"@/entities/Country",
-				"@/entities/Currency",
 			],
 		},
 	],
@@ -70,14 +68,15 @@ module.exports = {
 		project: ["./tsconfig.json", "./tsconfig.node.json"],
 	},
 	plugins: ["prettier"],
-	overrides: [
-		{
-			files: ["config/**"],
-			rules: {
-				"@conarti/feature-sliced/layers-slices": [0],
-			},
-		},
-	],
+	// overrides: [
+	// 	{
+	// 		// ? If you want to disable eslint rules for some files
+	// 		files: ["config/**"],
+	// 		rules: {
+	// 			"@conarti/feature-sliced/layers-slices": [0],
+	// 		},
+	// 	},
+	// ],
 	rules: {
 		...overwritedAirbnbRules,
 		...overwritedFsdRules,
