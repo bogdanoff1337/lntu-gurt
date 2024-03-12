@@ -23,13 +23,13 @@ class RoomRequest extends FormRequest
     {
         return [
             'places' => 'required|numeric',
-            'section' => 'required|string',
-            'number' => 'required|numeric',
-            'photos' => 'required|string', // TODO: add file validation
+            'section' => 'in:Ліворуч,Праворуч',
+            'number' => 'required|string',
             'dormitory_id' => 'required|exists:dormitories,id',
+            'faculty_id' => 'required|exists:faculties,id',
             'floor' => 'required|numeric',
-            'block' => 'required|string',
-            'gender' => 'required|string',
+            'block' => 'in:Перший,Другий',
+            'gender' => 'in:Чоловік,Жінка',
         ];
     }
 }

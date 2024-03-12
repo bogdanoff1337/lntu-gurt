@@ -1,0 +1,19 @@
+
+
+.Skeleton {
+	display: inline-block;
+
+	animation: pulse 1.2s ease-in-out infinite;
+
+	background: linear-gradient(-90deg, #E2EEF1 0%, #fff 50%, #E2EEF1 100%);
+	background-size: 400% 400%;
+
+	@keyframes pulse {
+	  0% {
+		 background-position: 0% 0%
+	  }
+	  100% {
+		 background-position: -135% 0%
+	  }
+	}
+}

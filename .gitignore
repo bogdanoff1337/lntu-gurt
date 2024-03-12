@@ -1,7 +1,5 @@
 /.phpunit.cache
 /node_modules
-/storage/*.key
-/vendor
 .env.backup
 .env.production
 .phpunit.result.cache

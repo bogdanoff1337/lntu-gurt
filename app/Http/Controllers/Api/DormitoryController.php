@@ -15,7 +15,7 @@ class DormitoryController extends Controller
      */
     public function index()
     {
-        $dormitories = Dormitory::all();
+        $dormitories = Dormitory::query()->paginate();
 
         return DormitoryResource::collection($dormitories);
     }

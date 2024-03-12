@@ -14,9 +14,9 @@ class DormitorySeeder extends Seeder
     public function run(): void
     {
         DB::table('dormitories')->insert([
-            ['slug' => 'Гуртожиток 1', 'address' => 'Адреса 1'],
-            ['slug' => 'Гуртожиток 2', 'address' => 'Адреса 2'],
-            ['slug' => 'Гуртожиток 3', 'address' => 'Адреса 3'],
+            ['slug' => 'Гуртожиток №1', 'address' => 'м. Луцьк, вул. Даньшина, 8'],
+            ['slug' => 'Гуртожиток №2', 'address' => ' м. Луцьк, пр-т. Відродження, 22'],
+            ['slug' => 'Гуртожиток №3', 'address' => 'м. Луцьк, вул. С Ковалевської,29'],
         ]);
     }
 }

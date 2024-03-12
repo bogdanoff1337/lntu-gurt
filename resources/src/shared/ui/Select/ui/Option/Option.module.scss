@@ -1,0 +1,22 @@
+.Option {
+    position: relative;
+
+    display: flex;
+    align-items: center;
+
+    box-sizing: content-box;
+    padding: rem(15);
+
+    cursor: pointer;
+
+    color: $blueColor;
+
+    font-weight: 300;
+
+    &:hover {
+        background-color: rgba(0, 0, 0, 0.1);
+    }
+    &__dorm {
+      font-weight: 400;
+    }
+}

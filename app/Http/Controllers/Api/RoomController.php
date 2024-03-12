@@ -4,29 +4,44 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\RoomRequest;
+use App\Http\Resources\Api\Room\Short;
 use Illuminate\Http\Request;
 use App\Models\Room;
-use App\Http\Resources\Api\Room as RoomResource;
-
+use App\Http\Resources\Api\Room\Full;
+use App\Models\Image;
 
 class RoomController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $rooms = Room::query()->paginate();
+        $rooms = Room::with('images')
+            ->when($request->id, function ($query, $id) {
+                return $query->where('id', $id);
+            })
+            ->when($request->faculty_id, function ($query, $faculty_id) {
+                return $query->where('faculty_id', $faculty_id);
+            })
+            ->when($request->dormitory_id, function ($query, $dormitory_id) {
+                return $query->where('dormitory_id', $dormitory_id);
+            })
+            ->when($request->gender, function ($query, $gender) {
+                return $query->where('gender', $gender);
+            })
+            ->paginate(12);
 
-        return RoomResource::collection($rooms);
+        return Short::collection($rooms);
     }
+
 
     /**
      * Show the form for creating a new resource.
      */
     public function create()
     {
-        
+
     }
 
     /**
@@ -36,6 +51,18 @@ class RoomController extends Controller
     {
         $room = Room::create($request->validate());
 
+
+        if($request->hasfile('images'))
+        {
+            foreach($request->file('images') as $imagefile)
+            {
+                $image = new Image;
+                $path = $imagefile->store('/images/resource', ['disk' => 'photos_room']);
+                $image->url = $path;
+                $image->room_id = $room->id;
+                $image->save();
+            }
+        }
         return new RoomResource($room);
     }
 
@@ -44,8 +71,9 @@ class RoomController extends Controller
      */
     public function show(string $id)
     {
-        //
+        return new Full(Room::with('images')->find($id));
     }
+
 
     /**
      * Show the form for editing the specified resource.
