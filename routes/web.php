@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Route;
 | routes are loaded by the RouteServiceProvider and all of them will
 | be assigned to the "web" middleware group. Make something great!
 |
+Route::get('/admin/{any?}', fn () => view("control"))->where('any', '.*');
 */
 
-Route::get('{any?}', fn () => view("app"))->where('any', '.*');
+Route::get('{any?}', fn () => view("main"))->where('any', '.*');
