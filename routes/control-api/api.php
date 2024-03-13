@@ -20,21 +20,23 @@ use App\Http\Controllers\Api\FacultyController;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+Route::middleware('ControlMiddlware')->group(function (){
 
-Route::resource('dormitories', DormitoryController::class)->except([
-    'create', 'store', 'update', 'destroy'
-]);
+    Route::resource('dormitories', DormitoryController::class)->except([
+        'create', 'store', 'update', 'destroy'
+    ]);
 
-Route::resource('rooms', RoomController::class)->except([
-    'create', 'store', 'update', 'destroy'
-]);
+    Route::resource('rooms', RoomController::class)->except([
+        'create', 'store', 'update', 'destroy'
+    ]);
 
-Route::resource('orders', OrdersController::class)->except([
-    'create', 'store', 'update', 'destroy'
-]);
+    Route::resource('orders', OrdersController::class)->except([
+        'create', 'store', 'update', 'destroy'
+    ]);
 
-Route::resource('faculties', FacultyController::class)->except([
-    'create', 'store', 'update', 'destroy'
-]);
+    Route::resource('faculties', FacultyController::class)->except([
+        'create', 'store', 'update', 'destroy'
+    ]);
+});
 
 
