@@ -7,5 +7,5 @@
     "jsx": "react-jsx",
     "allowSyntheticDefaultImports": true
   },
-  "include": ["vite.config.ts", ".eslintrc.cjs", ".stylelintrc.cjs"]
+  "include": ["vite.control.config.ts", "vite.main.config.ts", ".eslintrc.cjs", ".stylelintrc.cjs"]
 }

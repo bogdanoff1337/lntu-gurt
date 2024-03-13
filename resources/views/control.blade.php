@@ -7,7 +7,7 @@
    <title>App</title>
 
    @viteReactRefresh
-   @vite('resources/src/main.tsx')
+   @vite('resources/main/src/main.tsx')
   </head>
   <body>
     <div id="root"></div>

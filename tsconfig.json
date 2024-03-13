@@ -16,7 +16,7 @@
     "jsx": "react-jsx",
     "baseUrl": ".",
     "paths": {
-     "@/*": ["resources/src/*"],
+     "@/*": ["resources/main/src/*"],
     },
 
     /* Linting */
@@ -26,7 +26,7 @@
     "noFallthroughCasesInSwitch": true,
 
   },
-  "include": ["resources/src", "model"],
+  "include": ["resources/main/src", "model"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
 

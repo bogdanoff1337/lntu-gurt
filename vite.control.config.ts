@@ -18,19 +18,19 @@ export default defineConfig({
 	plugins: [
 		svgr(),
 		laravel({
-			input: [`${clientRoot}/src/main.tsx`],
+			input: [`${clientRoot}/main/src/main.tsx`],
 			refresh: true,
 		}),
 		react(),
 	],
 	resolve: {
-		alias: [{ find: "@", replacement: `/${clientRoot}/src` }],
+		alias: [{ find: "@", replacement: `/${clientRoot}/main/src` }],
 	},
 
 	css: {
 		preprocessorOptions: {
 			scss: {
-				additionalData: readFileSync(path.resolve(`${clientRoot}/src/scss/tools/index.scss`), {
+				additionalData: readFileSync(path.resolve(`${clientRoot}main/src/scss/tools/index.scss`), {
 					encoding: "utf8",
 					flag: "r",
 				}),

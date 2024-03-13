@@ -5,9 +5,9 @@
     "main": "index.js",
     "type": "module",
     "scripts": {
-        "start:vite": "vite",
+        "start:vite": "vite --config vite.main.config",
         "build:vite": "tsc && vite build",
-        "build:vite:without:check": "vite build",
+        "build:vite:without:check": "vite build --config vite.main.config",
         "lint:ts": "eslint \"**/*.{ts,tsx}\"",
         "lint:ts:fix": "eslint --fix \"**/*.{ts,tsx}\"",
         "lint:scss": "stylelint \"**/*.scss\"",
