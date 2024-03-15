@@ -1,8 +1,10 @@
 import { AxiosInstance } from "axios";
 import { EntityFacultiesSchema, entityFacultiesSlice } from "@/entities/Faculties";
+import { EntityRoomsSchema, entityRoomsSlice } from "@/entities/Rooms";
 
 export interface StateSchema {
 	[entityFacultiesSlice.name]: EntityFacultiesSchema,
+	[entityRoomsSlice.name]: EntityRoomsSchema,
 }
 
 export type StateSchemaKey = keyof StateSchema;

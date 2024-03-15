@@ -20,7 +20,7 @@ use App\Http\Controllers\Api\FacultyController;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
-Route::middleware('ControlMiddlware')->group(function (){
+
 
     Route::resource('dormitories', DormitoryController::class)->except([
         'create', 'store', 'update', 'destroy'
@@ -37,6 +37,6 @@ Route::middleware('ControlMiddlware')->group(function (){
     Route::resource('faculties', FacultyController::class)->except([
         'create', 'store', 'update', 'destroy'
     ]);
-});
+
 
 

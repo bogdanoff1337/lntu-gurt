@@ -1,85 +1,105 @@
 import {
-	FC, MouseEventHandler, useEffect, useRef, useState,
+	FC, useCallback, useEffect, useMemo, useRef, useState,
 } from "react";
 import { classNames as cn } from "../../../../lib/classNames/classNames";
-import { OptionType, SelectProps } from "../../model/types/types";
 import { Option } from "../Option/Option";
 import ArrowDown from "./assets/arrow-down.svg?react";
 import cls from "./Select.module.scss";
 
+interface SelectProps {
+	id: number;
+	options: OptionType[];
+	placeholder?: string;
+	onUpdateQP: (id: number) => void;
+	className?: string;
+}
+
+export interface OptionType {
+	id: number;
+	slug: string;
+	address: string;
+}
+
 export const Select: FC<SelectProps> = ({
-	options, placeholder, selectedValue, onSelect, onClose, SelectShell,
+	options, placeholder, id, onUpdateQP, className,
 }) => {
 	const [isOpen, setIsOpen] = useState(false);
+	const [activeSelectId, setActiveSelectId] = useState<number | null>(+id || null);
 
 	const rootRef = useRef<HTMLDivElement>(null);
-	const placeholderRef = useRef<HTMLDivElement>(null);
+	const summaryRef = useRef<HTMLDivElement>(null);
 
 	useEffect(() => {
-		const handleClick = (e: MouseEvent) => {
+		const onOverlayClick = (e: MouseEvent) => {
 			if (
 				e.target instanceof Node && !rootRef.current?.contains(e.target)
 			) {
-				// eslint-disable-next-line
-                isOpen && onClose?.();
 				setIsOpen(false);
 			}
 		};
 
-		window.addEventListener("click", handleClick);
+		window.addEventListener("click", onOverlayClick);
 
 		return () => {
-			window.removeEventListener("click", handleClick);
+			window.removeEventListener("click", onOverlayClick);
 		};
-	}, [isOpen, onClose]);
+	}, [isOpen]);
 
 	useEffect(() => {
-		const placeholderEl = placeholderRef.current;
-		if (!placeholderEl) return;
+		const summaryEl = summaryRef.current;
 
 		const handleEnterKeyDown = (e: KeyboardEvent) => {
 			if (e.key === "Enter") {
 				setIsOpen((prev) => !prev);
 			}
 		};
-		placeholderEl.addEventListener("keydown", handleEnterKeyDown);
 
-		// eslint-disable-next-line
-        return () => {
-			placeholderEl.removeEventListener("keydown", handleEnterKeyDown);
-		};
+		if (summaryEl) {
+			summaryEl.addEventListener("keydown", handleEnterKeyDown);
+
+			return () => {
+				summaryEl.removeEventListener("keydown", handleEnterKeyDown);
+			};
+		}
 	}, []);
 
-	const handleOptionClick = (value: string) => () => {
-		onSelect?.(value);
+	const onOptionClick = (id: number) => () => {
+		setActiveSelectId(id);
 		setIsOpen((prev) => !prev);
+		onUpdateQP(id);
 	};
 
-	const handlePlaceHolderClick: MouseEventHandler<HTMLDivElement> = () => {
+	const onClickSummary = useCallback(() => {
 		setIsOpen((prev) => !prev);
-	};
+	}, []);
 
-	const mods = {
-		[cls.Select_active]: isOpen,
-		[cls.Select_nonActive]: !isOpen,
-	};
+	const selectedOption = useMemo(() => {
+		return options.find((option) => option.id === activeSelectId);
+	}, [activeSelectId, options]);
 
 	return (
 		<div
-			className={cn(cls.Select, mods, [])}
+			className={cn(cls.Select, {
+				[cls.Select_active]: isOpen,
+				[cls.Select_nonActive]: !isOpen,
+			}, [className])}
 			ref={rootRef}
 		>
 			<div
-				className={cls.Select__box}
-				onClick={handlePlaceHolderClick}
+				className={cls.Select__summary}
+				onClick={onClickSummary}
 				tabIndex={0}
-				ref={placeholderRef}
+				ref={summaryRef}
 				role="button"
 			>
 				<div
 					className={cls.Select__placeholder}
 				>
-					{<selectShell /> || placeholder}
+					{selectedOption && (
+						<>
+							<b className={cls.Option__bold}>{selectedOption?.slug}:</b> {selectedOption?.address}
+						</>
+					) || placeholder}
 				</div>
 				<ArrowDown className={cls.Select__arrow} />
 			</div>
@@ -88,7 +108,7 @@ export const Select: FC<SelectProps> = ({
 					<Option
 						key={option.id}
 						option={option}
-						onClick={handleOptionClick(option.value)}
+						onClick={onOptionClick(option.id)}
 					/>
 				))}
 			</ul>

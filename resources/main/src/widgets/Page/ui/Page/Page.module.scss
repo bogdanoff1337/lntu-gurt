@@ -9,16 +9,12 @@
 	&__main {
 		flex: 1 1 auto;
 
-		@media (min-width: em($tablet)) {
-			margin-bottom: rem(80);
-		}
+		height: 100%;
 
-		@media (max-width: em($tablet)) {
-			margin-bottom: rem(60);
-		}
+		padding-top: rem(50);
+		// padding-bottom: rem(80);
 	}
 
 	&__header {
-		margin-bottom: rem(30);
 	}
 }

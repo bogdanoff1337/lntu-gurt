@@ -6,8 +6,9 @@
    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
    <title>App</title>
 
-   @viteReactRefresh
-   @vite('resources/main/src/main.tsx')
+   {{ Vite::useBuildDirectory('/control') }}
+
+   @vite('src/main.ts')
   </head>
   <body>
     <div id="root"></div>

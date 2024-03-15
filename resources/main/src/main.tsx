@@ -9,9 +9,9 @@ import StoreProvider from "@/app/providers/StoreProvider/ui/StoreProvider";
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
 	<ErrorBoundary>
 		<StoreProvider>
-				<BrowserRouter>
-					<App />
-				</BrowserRouter>
+			<BrowserRouter>
+				<App />
+			</BrowserRouter>
 		</StoreProvider>
 	</ErrorBoundary>,
 );

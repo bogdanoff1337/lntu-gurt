@@ -17,7 +17,6 @@ export default defineConfig({
 			buildDirectory: "main",
 			publicDirectory: "../../public",
 			refresh: true,
-
 		}),
 		react(),
 	],

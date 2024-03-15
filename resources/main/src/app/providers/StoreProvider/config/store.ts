@@ -4,10 +4,12 @@ import {
 import { entityFacultiesSlice } from "@/entities/Faculties";
 import { $api } from "@/shared/api/api";
 import { ExtraArgumentType } from "./StateSchema";
+import { entityRoomsSlice } from "@/entities/Rooms";
 
 export const createReduxStore = () => {
 	const rootReducer = combineSlices(
 		entityFacultiesSlice,
+		entityRoomsSlice,
 	);
 
 	const extraArgument: ExtraArgumentType = {

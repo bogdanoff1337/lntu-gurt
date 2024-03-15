@@ -29,9 +29,12 @@ const overwritedAirbnbRules = {
 	"jsx-a11y/label-has-associated-control": [0],
 	"react/no-array-index-key": [1],
 	"react/destructuring-assignment": [0],
+	"consistent-return": [0],
 };
 
 const temporarilyDisabled = {
+	"jsx-a11y/no-noninteractive-tabindex": [0],
+	"@typescript-eslint/no-unused-expressions": [0],
 	"jsx-a11y/no-noninteractive-element-interactions": [0],
 	"@typescript-eslint/no-unused-vars": [0],
 	"max-len": [0],

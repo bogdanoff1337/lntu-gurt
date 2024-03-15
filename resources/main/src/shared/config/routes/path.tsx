@@ -1,2 +1,2 @@
 export const getMainRoutePath = () => "/";
-export const getFacultiesRoutePath = () => "/faculties";
+export const getRoomsRoutePath = () => "/rooms";

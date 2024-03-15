@@ -1,9 +1,12 @@
 import { FC, useEffect, useMemo } from "react";
 import { useSelector } from "react-redux";
-import { FacultyItem, FacultyItemSkeleton, entityFacultiesActions, entityFacultiesSelectors } from "@/entities/Faculties";
+import {
+	FacultyItem, FacultyItemSkeleton, entityFacultiesActions, entityFacultiesSelectors,
+} from "@/entities/Faculties";
 import { classNames as cn } from "@/shared/lib/classNames/classNames";
 import { useAppDispatch } from "@/shared/lib/hooks/useAppDispatch/useAppDispatch";
 import { CardGrid } from "@/shared/ui/CardGrid";
+import { PageLoader } from "@/shared/ui/PageLoader";
 import cls from "./FacultiesList.module.scss";
 
 interface FacultiesListProps {
@@ -21,34 +24,19 @@ export const FacultiesList: FC<FacultiesListProps> = ({ className }) => {
 
 	const facultiesItems = useMemo(() => {
 		return facultiesData?.map(({ id, image, slug }) => (
-			<FacultyItem key={id} image={image} slug={slug} />
+			<FacultyItem key={id} image={image} slug={slug} id={id} />
 		));
 	}, [facultiesData]);
 
 	if (facultiesDataIsLoading) {
-		<CardGrid className={cn(cls.FacultiesList, {}, [className])}>
-			<FacultyItemSkeleton />
-			<FacultyItemSkeleton />
-			<FacultyItemSkeleton />
-			<FacultyItemSkeleton />
-			<FacultyItemSkeleton />
-			<FacultyItemSkeleton />
-			<FacultyItemSkeleton />
-			<FacultyItemSkeleton />
-		</CardGrid>;
+		return (
+			<PageLoader />
+		);
 	}
 
 	return (
 		<CardGrid className={cn(cls.FacultiesList, {}, [className])}>
 			{facultiesItems}
-         <FacultyItemSkeleton />
-			<FacultyItemSkeleton />
-			<FacultyItemSkeleton />
-			<FacultyItemSkeleton />
-			<FacultyItemSkeleton />
-			<FacultyItemSkeleton />
-			<FacultyItemSkeleton />
-			<FacultyItemSkeleton />
 		</CardGrid>
 	);
 };

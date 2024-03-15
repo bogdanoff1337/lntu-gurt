@@ -1,10 +1,4 @@
-export {
-	getRoomsData,
-	getRoomsIsLoading, getRoomsError,
-} from "./model/selectors/roomSelector";
-
-export type { RoomSchema } from "./model/types/Room";
-
-export { fetchRooms } from "./model/services/fetchRooms";
-export { roomSlice } from "./model/slice/roomSlice";
-export { RoomsList } from "./ui/RoomsList/RoomsList";
+export { entityRoomsSlice, entityRoomsActions } from "./model/slice/entityRoomsSlice";
+export * as entityRoomsSelectors from "./model/selectors";
+export type { EntityRoomsSchema } from "./model/types/EntityRoomsSchema";
+export { RoomItem } from "./ui/RoomItem/RoomItem";
