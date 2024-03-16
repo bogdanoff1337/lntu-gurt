@@ -20,6 +20,7 @@ class Short extends JsonResource
             'photos' => $this->images->pluck('url')->first(),
             'dormitory' => Dormitory::make($this->dormitory),
             'faculty' => $this->faculty->only('id', 'slug','slug_short'),
+            'gender' => $this->gender,
             'number' => $this->number,
         ];
     }

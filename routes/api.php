@@ -21,20 +21,20 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::resources([
-    'dormitories' => DormitoryController::class,
+Route::resource('dormitories', DormitoryController::class)->except([
+    'create', 'store', 'update', 'destroy'
 ]);
 
-Route::resources([
-    'rooms' => RoomController::class,
+Route::resource('rooms', RoomController::class)->except([
+    'create', 'store', 'update', 'destroy'
 ]);
 
-Route::resources([
-    'orders' => OrdersController::class,
+Route::resource('orders', OrdersController::class)->except([
+    'create', 'store', 'update', 'destroy'
 ]);
 
-Route::resources([
-    'faculties' => FacultyController::class,
+Route::resource('faculties', FacultyController::class)->except([
+    'create', 'store', 'update', 'destroy'
 ]);
 
 

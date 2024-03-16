@@ -11,23 +11,6 @@ use App\Http\Resources\Api\Order as OrderResource;
 
 class OrdersController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        $orders = Order::query()->paginate();
-
-        return OrderResource::collection($orders);
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
 
     /**
      * Store a newly created resource in storage.
@@ -39,43 +22,4 @@ class OrdersController extends Controller
         return new OrderResource($order);
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(OrderRequest $request, string $id)
-    {
-        $order = Order::findOrFail($id);
-
-        $order->update($request->validate());
-
-        return new OrderResource($order);
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        $order = Order::findOrFail($id);
-
-        $order->delete();
-
-        return response()->json();
-    }
 }
