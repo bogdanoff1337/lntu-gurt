@@ -7,7 +7,7 @@ export interface EntityRoomsSchema {
 export interface RoomsData {
 	data: Room[];
 	links: Link[];
-	meta: Meta;	
+	meta: Meta;
 }
 
 interface Meta {

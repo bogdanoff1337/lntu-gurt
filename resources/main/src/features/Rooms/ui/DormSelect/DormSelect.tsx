@@ -1,10 +1,10 @@
 import { FC, useCallback } from "react";
+import { entityRoomsActions } from "@/entities/Rooms";
+import { useQueryParams } from "@/shared/hooks/useQueryParams/useQueryParams";
+import { useAppDispatch } from "@/shared/lib/hooks/useAppDispatch/useAppDispatch";
 import { updateUrlParams } from "@/shared/lib/updateUrlParams/updateUrlParams";
 import { Select } from "@/shared/ui/Select/ui/Select/Select";
 import { DormField } from "./DormField";
-import { useQueryParams } from "@/shared/hooks/useQueryParams/useQueryParams";
-import { entityRoomsActions } from "@/entities/Rooms";
-import { useAppDispatch } from "@/shared/lib/hooks/useAppDispatch/useAppDispatch";
 
 interface DormSelectProps {
 	className?: string;
@@ -31,7 +31,6 @@ const optionModal = [
 export const DormSelect: FC<DormSelectProps> = ({ className }) => {
 	const { dormitory_id, faculty_id, gender } = useQueryParams();
 	const dispatch = useAppDispatch();
-
 
 	const onUpdateQP = useCallback((id: number) => {
 		updateUrlParams({ dormitory_id: id });

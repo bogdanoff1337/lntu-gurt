@@ -5,9 +5,6 @@ import { EntityRoomsSchema, Room, RoomsData } from "../types/EntityRoomsSchema";
 const initialState: EntityRoomsSchema = {
 };
 
-
-
-
 export const entityRoomsSlice = createSliceWithThunk({
 	name: "entityRooms",
 	initialState,
@@ -21,7 +18,7 @@ export const entityRoomsSlice = createSliceWithThunk({
 						params: {
 							faculty_id,
 							dormitory_id,
-							gender
+							gender,
 						},
 					});
 

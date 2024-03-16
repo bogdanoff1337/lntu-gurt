@@ -9,8 +9,8 @@ interface OptionProps {
 	option: OptionType;
 	onClick: () => void;
 	SlotField?: FC<any>;
-	
-};
+
+}
 
 export const Option: FC<OptionProps> = ({ option, onClick, SlotField }) => {
 	const optionRef = useRef<HTMLLIElement>(null);

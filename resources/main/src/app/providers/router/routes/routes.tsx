@@ -1,10 +1,9 @@
 import { RouteProps } from "react-router-dom";
 import { MainPage } from "@/pages/MainPage";
 import { RoomsPage } from "@/pages/RoomsPage";
-
 import {
 	getMainRoutePath,
-	getRoomsRoutePath
+	getRoomsRoutePath,
 } from "@/shared/config/routes/path";
 
 export type AppRouteProps = RouteProps & {

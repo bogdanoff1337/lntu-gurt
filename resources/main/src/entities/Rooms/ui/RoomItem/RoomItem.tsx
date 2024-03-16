@@ -11,8 +11,6 @@ interface RoomItemProps {
 	to?: string;
 }
 
-
-
 export const RoomItem: FC<RoomItemProps> = ({
 	className, image, alt = "faculty", slug, to = "/",
 }) => {

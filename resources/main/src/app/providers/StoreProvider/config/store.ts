@@ -2,9 +2,9 @@ import {
 	combineSlices, configureStore,
 } from "@reduxjs/toolkit";
 import { entityFacultiesSlice } from "@/entities/Faculties";
+import { entityRoomsSlice } from "@/entities/Rooms";
 import { $api } from "@/shared/api/api";
 import { ExtraArgumentType } from "./StateSchema";
-import { entityRoomsSlice } from "@/entities/Rooms";
 
 export const createReduxStore = () => {
 	const rootReducer = combineSlices(
