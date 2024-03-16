@@ -1,8 +1,17 @@
-.MainPage {
+.RoomsPage {
 
     &__title {
-        margin-bottom: rem(50);
+        
 
-        text-align: center;
+    }
+
+
+    &__selectsGroup {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: rem(40);
+
+        margin-bottom: rem(50);
     }
 }

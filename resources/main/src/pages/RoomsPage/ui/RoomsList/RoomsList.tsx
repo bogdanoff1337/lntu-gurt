@@ -23,9 +23,9 @@ export const RoomsList: FC<RoomsListProps> = ({ className }) => {
 	const roomsData = useSelector(entityRoomsSelectors.getEntityRoomsData);
 	const roomsDataIsLoading = useSelector(entityRoomsSelectors.getEntityRoomsIsLoading);
 
-	const { faculty_id, dormitory_id } = useQueryParams();
+	const { faculty_id, dormitory_id, gender } = useQueryParams();
 	useEffect(() => {
-		dispatch(entityRoomsActions.getRoomsByParams({ faculty_id: +faculty_id!, dormitory_id: +dormitory_id! }));
+		dispatch(entityRoomsActions.getRoomsByParams({ faculty_id: +faculty_id!, dormitory_id: +dormitory_id!, gender: gender as string }));
 	}, [dispatch, dormitory_id, faculty_id]);
 
 	// const roomsItems = useMemo(() => {

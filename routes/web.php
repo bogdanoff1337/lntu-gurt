@@ -13,10 +13,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('control/{any?}', function ($any = null) {
+Route::get('admin/{any?}', function ($any = null) {
     return view("control");
 })->where('any', '.*');
 
 Route::get('{any?}', function ($any = null) {
     return view("main");
-})->where('any', '.*');
+})->where('any', '^(?!admin).*$');

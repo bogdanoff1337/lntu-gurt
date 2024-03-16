@@ -33,6 +33,7 @@ const overwritedAirbnbRules = {
 };
 
 const temporarilyDisabled = {
+	"no-mixed-operators": [0],
 	"jsx-a11y/no-noninteractive-tabindex": [0],
 	"@typescript-eslint/no-unused-expressions": [0],
 	"jsx-a11y/no-noninteractive-element-interactions": [0],

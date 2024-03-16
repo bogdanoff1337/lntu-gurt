@@ -20,8 +20,8 @@ export const entityRoomsSlice = createSliceWithThunk({
 					const response = await extra.api.get<RoomsData>("rooms", {
 						params: {
 							faculty_id,
-							// dormitory_id,
-							// gender
+							dormitory_id,
+							gender
 						},
 					});
 

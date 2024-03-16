@@ -12,16 +12,17 @@ interface SelectProps {
 	placeholder?: string;
 	onUpdateQP: (id: number) => void;
 	className?: string;
+	SlotField?: FC<any>;
 }
 
 export interface OptionType {
 	id: number;
 	slug: string;
-	address: string;
+	address?: string;
 }
 
 export const Select: FC<SelectProps> = ({
-	options, placeholder, id, onUpdateQP, className,
+	options, placeholder, id, onUpdateQP, className, SlotField,
 }) => {
 	const [isOpen, setIsOpen] = useState(false);
 	const [activeSelectId, setActiveSelectId] = useState<number | null>(+id || null);
@@ -95,11 +96,7 @@ export const Select: FC<SelectProps> = ({
 				<div
 					className={cls.Select__placeholder}
 				>
-					{selectedOption && (
-						<>
-							<b className={cls.Option__bold}>{selectedOption?.slug}:</b> {selectedOption?.address}
-						</>
-					) || placeholder}
+					{selectedOption && (SlotField && <SlotField option={selectedOption} /> || selectedOption.slug) || placeholder}
 				</div>
 				<ArrowDown className={cls.Select__arrow} />
 			</div>
@@ -109,6 +106,7 @@ export const Select: FC<SelectProps> = ({
 						key={option.id}
 						option={option}
 						onClick={onOptionClick(option.id)}
+						SlotField={SlotField}
 					/>
 				))}
 			</ul>

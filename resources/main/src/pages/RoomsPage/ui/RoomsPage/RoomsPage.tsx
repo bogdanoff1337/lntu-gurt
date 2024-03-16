@@ -1,6 +1,6 @@
 import { FC } from "react";
 import { Page } from "@/widgets/Page";
-import { DormSelect } from "@/features/Selects";
+import { DormSelect, GenderSelect } from "@/features/Rooms";
 import { useQueryParams } from "@/shared/hooks/useQueryParams/useQueryParams";
 import { classNames as cn } from "@/shared/lib/classNames/classNames";
 import { Container } from "@/shared/ui/Container";
@@ -20,8 +20,11 @@ export const RoomsPage: FC<RoomsPageProps> = ({ className }) => {
 		<Page className={cn(cls.RoomsPage, {}, [className])}>
 			<section className={cls.RoomsPage__section}>
 				<Container className={cls.RoomsPage__container}>
-					<DormSelect id={+dormitory_id!} />
-					<Title className={cls.RoomsPage__title}>Кімнати</Title>
+					<div className={cls.RoomsPage__selectsGroup}>
+						<DormSelect />
+						<GenderSelect />
+					</div>
+					
 					<RoomsList />
 				</Container>
 			</section>

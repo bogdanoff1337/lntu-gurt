@@ -4,7 +4,7 @@
 
     width: max-content;
 
-    border-radius: 12px;
+    border-radius: rem(12);
 
     font-size: rem(20);
 
@@ -13,13 +13,12 @@
         align-items: center;
 
         box-sizing: content-box;
-        margin-bottom: rem(1);
-        padding: 15px;
+        padding: rem(15);
 
         cursor: pointer;    
 
         border: rem(1) solid $blueColor;
-        border-radius: 8px;
+        border-radius: rem(8);
         gap: rem(20);
     }
     &_active {
@@ -53,18 +52,21 @@
     }
 
     &__options {
+        position: absolute;
+        top: calc(100% + rem(1));
+        left: 0;
+
         display: grid;
 
         width: 100%;
 
         transition: opacity $primaryTransition;
 
-        border: 1px solid #3f409b;                                                                      
-        border-radius: 8px;
+        border: rem(1) solid #3f409b;                                                                      
+        border-radius: rem(8);
         background-color: rgba(255, 255, 255, 1);
 
         > *:not(:last-child) {
-            // border-bottom: rem(1) solid #3f409b;
             &::after {
                 position: absolute;
                 bottom: 0;

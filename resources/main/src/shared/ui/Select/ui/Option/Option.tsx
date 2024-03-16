@@ -5,12 +5,14 @@ import { classNames as cn } from "../../../../lib/classNames/classNames";
 import { OptionType } from "../Select/Select";
 import cls from "./Option.module.scss";
 
-type OptionProps = {
+interface OptionProps {
 	option: OptionType;
-	onClick: (slug: string) => void;
+	onClick: () => void;
+	SlotField?: FC<any>;
+	
 };
 
-export const Option: FC<OptionProps> = ({ option: { id, slug, address }, onClick }) => {
+export const Option: FC<OptionProps> = ({ option, onClick, SlotField }) => {
 	const optionRef = useRef<HTMLLIElement>(null);
 
 	useEffect(() => {
@@ -18,7 +20,7 @@ export const Option: FC<OptionProps> = ({ option: { id, slug, address }, onClick
 
 		const handleEnterKeyDown = (e: KeyboardEvent) => {
 			if (document.activeElement === option && e.key === "Enter") {
-				onClick(slug);
+				onClick();
 			}
 		};
 
@@ -29,18 +31,18 @@ export const Option: FC<OptionProps> = ({ option: { id, slug, address }, onClick
 				option.removeEventListener("keydown", handleEnterKeyDown);
 			};
 		}
-	}, [onClick, slug]);
+	}, [onClick]);
 
 	return (
 		<li
 			className={cn(cls.Option, {
-				[cls.Option_active]: id === slug,
+				// [cls.Option_active]: id === slug,
 			}, [])}
-			onClick={() => onClick(slug)}
+			onClick={() => onClick()}
 			tabIndex={0}
 			ref={optionRef}
 		>
-			<b className={cls.Option__bold}>{slug}:</b> {address}
+			{SlotField && <SlotField option={option} /> || option.slug}
 		</li>
 	);
 };
