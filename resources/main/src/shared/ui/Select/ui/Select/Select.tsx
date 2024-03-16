@@ -26,10 +26,27 @@ export const Select: FC<SelectProps> = ({
 }) => {
 	const [isOpen, setIsOpen] = useState(false);
 	const [activeSelectId, setActiveSelectId] = useState<number | null>(+id || null);
+	const [size, setSize] = useState<string>("");
 
 	const rootRef = useRef<HTMLDivElement>(null);
 	const summaryRef = useRef<HTMLDivElement>(null);
+	const optionsRef = useRef<HTMLUListElement>(null);
 
+	useEffect(() => {
+		const widthMenu = summaryRef.current?.scrollWidth;
+		const widthSelect = optionsRef.current?.scrollWidth;
+		const addWidth = 70;
+
+		if (widthSelect && widthMenu) {
+			if (widthSelect > widthMenu) {
+				setSize(`${widthSelect}px`);
+				console.log("width select active", widthSelect);
+			} else {
+				setSize(`${widthMenu}px`);
+				console.log("width menu active", widthMenu);
+			}
+		}
+	}, []);
 	useEffect(() => {
 		const onOverlayClick = (e: MouseEvent) => {
 			if (
@@ -80,6 +97,7 @@ export const Select: FC<SelectProps> = ({
 
 	return (
 		<div
+			style={{ width: size }}
 			className={cn(cls.Select, {
 				[cls.Select_active]: isOpen,
 				[cls.Select_nonActive]: !isOpen,
@@ -100,13 +118,17 @@ export const Select: FC<SelectProps> = ({
 				</div>
 				<ArrowDown className={cls.Select__arrow} />
 			</div>
-			<ul className={cls.Select__options}>
+			<ul
+				className={cls.Select__options}
+				ref={optionsRef}
+			>
 				{options.map((option) => (
 					<Option
 						key={option.id}
 						option={option}
 						onClick={onOptionClick(option.id)}
 						SlotField={SlotField}
+						activeSelectId={activeSelectId}
 					/>
 				))}
 			</ul>

@@ -8,7 +8,7 @@
     padding: rem(15);
 
     cursor: pointer;
-
+  
     color: $blueColor;
 
     font-weight: 300;
@@ -18,5 +18,9 @@
     }
     &__bold {
       font-weight: 400;
+    }
+
+    &_active {
+        background-color: rgba(0, 0, 0, 0.1);
     }
 }
