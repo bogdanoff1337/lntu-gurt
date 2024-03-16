@@ -33,17 +33,19 @@ export const Select: FC<SelectProps> = ({
 	const optionsRef = useRef<HTMLUListElement>(null);
 
 	useEffect(() => {
-		const widthMenu = summaryRef.current?.scrollWidth;
-		const widthSelect = optionsRef.current?.scrollWidth;
-		const addWidth = 70;
+		if (summaryRef.current && optionsRef.current) {
+			const addWidth = 40;
+			const widthMenu = summaryRef.current.scrollWidth + addWidth;
+			const widthSelect = optionsRef.current.scrollWidth;
 
-		if (widthSelect && widthMenu) {
-			if (widthSelect > widthMenu) {
-				setSize(`${widthSelect}px`);
-				console.log("width select active", widthSelect);
-			} else {
-				setSize(`${widthMenu}px`);
-				console.log("width menu active", widthMenu);
+			if (widthSelect && widthMenu) {
+				if (widthSelect > widthMenu) {
+					setSize(`${widthSelect}px`);
+					console.log("width select active", widthSelect);
+				} else {
+					setSize(`${widthMenu}px`);
+					console.log("width menu active", widthMenu);
+				}
 			}
 		}
 	}, []);
