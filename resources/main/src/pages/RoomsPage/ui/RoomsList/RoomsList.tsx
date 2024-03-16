@@ -13,6 +13,7 @@ import { updateUrlParams } from "@/shared/lib/updateUrlParams/updateUrlParams";
 import { CardGrid } from "@/shared/ui/CardGrid";
 import { PageLoader } from "@/shared/ui/PageLoader";
 import cls from "./RoomsList.module.scss";
+import { getRoomsRoutePath } from "@/shared/config/routes/path";
 
 interface RoomsListProps {
 	className?: string
@@ -26,13 +27,13 @@ export const RoomsList: FC<RoomsListProps> = ({ className }) => {
 	const { faculty_id, dormitory_id, gender } = useQueryParams();
 	useEffect(() => {
 		dispatch(entityRoomsActions.getRoomsByParams({ faculty_id: +faculty_id!, dormitory_id: +dormitory_id!, gender: gender as string }));
-	}, [dispatch, dormitory_id, faculty_id]);
+	}, [dispatch]);
 
-	// const roomsItems = useMemo(() => {
-	// 	return facultiesData?.map(({ id, image, slug }) => (
-	// 		<RoomItem key={id} image={image} slug={slug} />
-	// 	));
-	// }, [facultiesData]);
+	const roomsItems = useMemo(() => {
+		return roomsData?.map(({ id, photos, number }) => (
+			<RoomItem key={id} image={photos} number={number} to={getRoomsRoutePath(id)} />
+		));
+	}, [roomsData]);
 
 	if (roomsDataIsLoading) {
 		return (
@@ -42,8 +43,7 @@ export const RoomsList: FC<RoomsListProps> = ({ className }) => {
 
 	return (
 		<CardGrid className={cn(cls.RoomsList, {}, [className])}>
-			{/* {facultiesItems} */}
-			1
+			{roomsItems}
 		</CardGrid>
 	);
 };

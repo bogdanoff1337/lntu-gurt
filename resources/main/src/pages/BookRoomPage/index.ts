@@ -1,0 +1,1 @@
+export { BookRoomPage } from "./ui/BookRoomPage/BookRoomPage";

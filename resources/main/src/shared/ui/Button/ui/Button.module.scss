@@ -1,0 +1,21 @@
+.Button {
+   display: inline-flex;
+
+   padding: em(25) em(50);
+
+   transition: $blueColor $primaryTransition;
+
+   color: $whiteColor;
+   
+   border-radius: em(15);
+   background-color: $blueColor;
+
+   font-weight: 600;
+
+   &:hover {
+      background-color: $blueColorHover;
+   }
+
+   @include adaptiveValue("font-size", 28, 18, 0, $widthTo: $tablet);
+
+}
