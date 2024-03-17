@@ -1,0 +1,35 @@
+.Img {
+   width: 100%;
+   height: 100%;
+   object-fit: cover;
+
+   border-radius: rem(15) !important;
+}
+
+:global {
+
+   .swiper-slide {
+
+      aspect-ratio: 680 / 410;
+      @media (min-width: em($mobile)) {
+         width: rem(660) !important;
+         height: rem(410) !important;
+   
+         transition: transform $primaryTransition !important;
+         transform: scale(0.8) !important;
+      }
+      
+   }
+
+   .swiper-slide-active {
+      @media (min-width: em($mobile)) {
+         transform: scale(1) !important;
+      }
+
+   }
+
+   .swiper-wrapper {
+      
+   }
+
+}

@@ -1,0 +1,29 @@
+//* Vars
+$layoutColor: #fff;
+
+
+$primaryTextColor: #3F409B;
+
+$blueColor: #3F409B;
+$blueColorHover: rgba(63, 64, 155, 0.8);
+$whiteColor: #fff;
+
+$primaryTransition: 0.3s ease;
+$secondaryTransition: 0.2s ease;
+
+//** Fonts by default:
+$fontFamily: "Rubik"; //? name
+$lineHeight: 17;
+$fontSize: 15; //? size
+$fontColor: $primaryTextColor; //? color
+
+$minWidth: 320; //? min width of layout
+$containerPadding: 30; //? padding for container
+$maxWidthContainer: 1252; //? width container
+
+
+//** Break-points:
+$pc: $containerPadding * 2 + $maxWidthContainer;
+$tablet: 991.98;
+$mobile: 767.98;
+$smallMobile: 479.98;

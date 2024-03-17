@@ -1,0 +1,43 @@
+.RoomItem {
+
+    &__link {
+        display: flex;
+        flex-direction: column;
+
+        padding: rem(23) rem(25) rem(36) rem(25);
+
+        border: rem(1) solid rgb(63, 64, 155);
+
+        border-radius: rem(15);
+        background: rgb(255, 255, 255);
+        box-shadow: rem(5) rem(5) rem(14.5) 0 rgba(0, 0, 0, 0.25)
+    }
+
+    &__image {
+        width: 100%;
+
+        border-radius: rem(15);
+        aspect-ratio: 218 / 176;
+        object-fit: cover;
+        
+        &:not(:last-child) {
+            margin-bottom: rem(28);
+        }
+    }
+
+    &__number {
+        text-align: center;
+
+        font-size: rem(28);
+        font-weight: 500;
+    }
+}
+
+
+.Skeleton {
+}
+
+
+.FacultySkeleton {
+    
+}

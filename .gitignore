@@ -1,5 +1,7 @@
 /.phpunit.cache
 /node_modules
+/resources/main/node_modules
+/resources/control/node_modules
 .env.backup
 .env.production
 .phpunit.result.cache

@@ -1,0 +1,12 @@
+.Container {
+	&_active {
+      box-sizing: content-box;
+      max-width: rem($maxWidthContainer);
+      margin: 0 auto;
+      padding: 0 rem($containerPadding);
+
+      @media (max-width: em($mobile)) {
+         padding: 0 rem(15);
+      }
+   }
+}

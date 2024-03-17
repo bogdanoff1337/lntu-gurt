@@ -1,0 +1,17 @@
+.RoomsPage {
+
+    &__title {
+        
+
+    }
+
+
+    &__selectsGroup {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: rem(40);
+
+        margin-bottom: rem(50);
+    }
+}

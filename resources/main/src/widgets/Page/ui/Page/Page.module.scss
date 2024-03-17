@@ -1,0 +1,20 @@
+.Page {
+	display: flex;
+	flex-direction: column;
+
+	height: 100%;
+	margin-top: rem(46);
+	margin-bottom: rem(95);
+
+	&__main {
+		flex: 1 1 auto;
+
+		height: 100%;
+
+		padding-top: rem(50);
+		// padding-bottom: rem(80);
+	}
+
+	&__header {
+	}
+}

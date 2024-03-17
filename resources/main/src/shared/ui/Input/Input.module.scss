@@ -1,0 +1,18 @@
+.Input {
+    width: 100%;
+    min-width: 0;
+    padding: rem(16);
+ 
+    border: rem(1) solid $blueColor;
+ 
+    border-radius: rem(15);
+ 
+    font-size: rem(24);
+    line-height: rem(28);
+ 
+ 
+ 
+    &::placeholder {
+       color: rgba(63, 64, 155, 0.57);
+    }
+}
