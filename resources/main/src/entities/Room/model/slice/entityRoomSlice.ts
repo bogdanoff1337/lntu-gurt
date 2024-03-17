@@ -3,6 +3,7 @@ import { createSliceWithThunk } from "@/shared/lib/createSliceWithThunk";
 import { EntityRoomSchema, RoomData } from "../types/EntityRoomSchema";
 
 const initialState: EntityRoomSchema = {
+	isLoading: true,
 };
 
 export const entityRoomSlice = createSliceWithThunk({
@@ -14,9 +15,8 @@ export const entityRoomSlice = createSliceWithThunk({
 				extra, rejectWithValue,
 			}) => {
 				try {
-					const response = await extra.api.get<RoomData>("rooms", {
+					const response = await extra.api.get<RoomData>(`rooms/${id}`, {
 						params: {
-							id
 						},
 					});
 

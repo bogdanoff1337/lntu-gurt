@@ -29,8 +29,8 @@ Route::resource('rooms', RoomController::class)->except([
     'create', 'store', 'update', 'destroy'
 ]);
 
-Route::resource('orders', OrdersController::class)->except([
-    'create', 'store', 'update', 'destroy'
+Route::resource('book', OrdersController::class)->except([
+    'create','update', 'destroy'
 ]);
 
 Route::resource('faculties', FacultyController::class)->except([

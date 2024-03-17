@@ -1,3 +1,5 @@
 .RoomsList {
-   
+   display: grid;
+   gap: rem(40);
+   grid-template-columns: repeat(auto-fill, minmax(em(270), 1fr));
 }

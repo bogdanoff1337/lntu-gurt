@@ -8,10 +8,9 @@ export interface RoomData {
 	data: Room[];
 }
 
-
 export interface Room {
 	id: number;
-	photos: string;
+	photos: string[];
 	dormitory: {
 		id: number;
 		slug: string;
@@ -21,6 +20,12 @@ export interface Room {
 		id: number;
 		slug: string;
 		slug_short: string;
+		image: string;
 	};
+	places: number;
 	number: string;
+	floor: number;
+	block: string;
+	gender: string;
+	section: string;
 }
