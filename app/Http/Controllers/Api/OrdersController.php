@@ -17,7 +17,7 @@ class OrdersController extends Controller
      */
     public function store(OrderRequest $request)
     {
-        $order = Order::create($request->validate());
+        $order = Order::create($request->validated());
 
         return new OrderResource($order);
     }

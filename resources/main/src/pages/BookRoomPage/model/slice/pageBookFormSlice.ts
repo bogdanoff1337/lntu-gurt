@@ -28,9 +28,7 @@ export const pageBookFormSlice = createSliceWithThunk({
 				const formData = getPageBookFormData(getState() as StateSchema);
 
 				try {
-					const response = await extra.api.post<PageBookRoomSchema>("book", {
-						formData,
-					});
+					const response = await extra.api.post<PageBookRoomSchema>("book", formData);
 
 					if (!response.data) {
 						throw new Error();
