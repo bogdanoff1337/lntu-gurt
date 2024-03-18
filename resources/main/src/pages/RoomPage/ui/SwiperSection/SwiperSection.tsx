@@ -12,9 +12,9 @@ import cls from "./SwiperSection.module.scss";
 
 interface SwiperSectionProps {
 	className?: string;
-	photos: { 
+	photos: {
 		id: number;
-		url: string; 
+		url: string;
 	}[]
 }
 
