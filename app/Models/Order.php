@@ -11,9 +11,9 @@ class Order extends Model
 
     protected $fillable = [
         'room_id',
-        'firstName',
-        'lastName',
-        'fatherName',
+        'first_name',
+        'last_name',
+        'father_name',
         'address',
         'gender',
         'phone',

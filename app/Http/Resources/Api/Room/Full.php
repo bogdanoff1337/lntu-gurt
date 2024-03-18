@@ -18,7 +18,12 @@ class Full extends JsonResource
     {
         return [
             'id' => $this->id,
-            'photos' => $this->images->pluck('url'),
+            'photos' => $this->images->map(function ($image) {
+                return [
+                    'id' => $image->id,
+                    'url' => $image->url,
+                ];
+            }),
             'dormitory' => Dormitory::make($this->dormitory),
             'faculty' => Faculty::make($this->faculty),
             'places' => $this->places,

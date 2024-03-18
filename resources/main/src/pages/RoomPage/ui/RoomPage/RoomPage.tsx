@@ -1,21 +1,16 @@
 import { FC, useEffect } from "react";
 import { useSelector } from "react-redux";
-import { useMediaQuery } from "react-responsive";
 import { useParams } from "react-router-dom";
-import { Pagination } from "swiper/modules";
-import { Swiper, SwiperSlide } from "swiper/react";
 import { Page } from "@/widgets/Page";
-// import { Carrousel } from "@/features/Carrousel";
 import { entityRoomActions, entityRoomSelectors } from "@/entities/Room";
 import { getBookRoutePath } from "@/shared/config/routes/path";
-import { Devices } from "@/shared/const/common";
 import { classNames as cn } from "@/shared/lib/classNames/classNames";
 import { useAppDispatch } from "@/shared/lib/hooks/useAppDispatch/useAppDispatch";
 import { NavLinkButton } from "@/shared/ui/Button";
 import { Container } from "@/shared/ui/Container";
 import { PageLoader } from "@/shared/ui/PageLoader";
 import { Title } from "@/shared/ui/Title";
-import { SwiperSection } from "../../SwiperSection/SwiperSection";
+import { SwiperSection } from "../SwiperSection/SwiperSection";
 import cls from "./RoomPage.module.scss";
 
 interface RoomPageProps {
