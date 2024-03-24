@@ -1,17 +1,15 @@
 import { FC, useEffect, useMemo } from "react";
+import { useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
 import { Page } from "@/widgets/Page";
+import { entityRoomSelectors } from "@/entities/Room";
 import { classNames as cn } from "@/shared/lib/classNames/classNames";
-import { Button } from "@/shared/ui/Button/ui/Button";
+import { useAppDispatch } from "@/shared/lib/hooks/useAppDispatch/useAppDispatch";
 import { Container } from "@/shared/ui/Container";
-import { Input } from "@/shared/ui/Input/Input";
 import { Title } from "@/shared/ui/Title";
+import { pageBookFormActions } from "../..";
 import { BookForm } from "../BookForm/BookForm";
 import cls from "./BookRoomPage.module.scss";
-import { useParams } from "react-router-dom";
-import { pageBookFormActions } from "../..";
-import { useAppDispatch } from "@/shared/lib/hooks/useAppDispatch/useAppDispatch";
-import { useSelector } from "react-redux";
-import { entityRoomSelectors } from "@/entities/Room";
 
 interface BookRoomPageProps {
 	className?: string;
@@ -24,7 +22,7 @@ export const BookRoomPage: FC<BookRoomPageProps> = ({ className }) => {
 
 	useEffect(() => {
 		dispatch(pageBookFormActions.changeRoomId(+id!));
-	}, [])
+	}, [dispatch, id]);
 
 	return (
 		<Page className={cn(cls.BookRoomPage, {}, [className])}>

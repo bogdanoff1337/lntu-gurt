@@ -1,0 +1,121 @@
+.PrimaryField {
+   $p: &;
+   position: relative;
+
+   padding-top: rem(21);
+   padding-bottom: rem(18);
+
+   font-size: rem(24);
+
+
+   .PrimaryField_error &__wrapper {
+      &:before {
+         width: 100%;
+
+         background: $redColor;
+      }
+   }
+
+   &:focus-within {
+      #{$p} {
+         &__placeholder {
+            top: 0;
+            left: 0;
+   
+            font-size: rem(16);
+         }    
+
+         &__wrapper {
+            &::before {
+               width: 100%;
+            }
+         }
+
+
+         &__input {
+            &::placeholder {
+               opacity: 1;
+            }
+         }
+      }        
+   }
+
+   &__placeholder {
+      position: absolute;
+      top: rem(21);
+      left: rem(3);
+
+      transition: top, left, font-size, 0.35s ease;
+
+      line-height: rem(21);
+   }
+
+
+   &__wrapper {
+      position: relative;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+
+      &:before {
+         position: absolute;
+         bottom: 0;
+
+         width: 0;
+         height: rem(2);
+
+         content: "";
+         transition: width 0.35s ease;
+
+         background: $blueColor;
+      }
+   }
+
+   &__input {
+      width: 100%;
+      padding-left: rem(3);
+
+      border-bottom: $purpleColor solid rem(2);
+      background-color: transparent;
+
+      line-height: rem(21);
+
+      &::placeholder {
+         transition: opacity 0.35s ease;
+
+         opacity: 0;
+      }
+   }
+
+   &__error {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+
+      transition: opacity $primaryTransition;
+
+      color: $redColor;
+
+      font-size: rem(12);
+
+
+      &_enter {
+         opacity: 0;
+
+         &_active {
+            opacity: 1;
+         }
+      }
+
+      &_exit {
+         opacity: 1;
+
+         &_active {
+            opacity: 0;
+         }
+      }
+ 
+   }
+}

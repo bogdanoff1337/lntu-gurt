@@ -1,0 +1,32 @@
+.RegisterPage {
+   &__title {
+      margin-bottom: rem(30);
+
+      text-align: center;
+   }
+}
+
+
+.Shell {
+   padding: rem(90) rem(15);
+
+   border-radius: rem(15);
+   box-shadow: 0 0 rem(40.4) rem(-2) rgba(63, 64, 155, 0.39);
+
+   &__container {
+      display: flex;
+      flex-direction: column;
+   }
+
+
+   &__fields {
+      display: grid;
+      gap: rem(10);
+
+      margin-bottom: rem(40);
+   }
+
+   &__submit {
+      align-self: center;
+   }
+}

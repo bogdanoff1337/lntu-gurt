@@ -9,10 +9,13 @@ interface OptionProps {
 	option: OptionType;
 	onClick: () => void;
 	SlotField?: FC<any>;
+	activeSelectId: number | null;
 
 }
 
-export const Option: FC<OptionProps> = ({ option, onClick, SlotField }) => {
+export const Option: FC<OptionProps> = ({
+	option, onClick, SlotField, activeSelectId,
+}) => {
 	const optionRef = useRef<HTMLLIElement>(null);
 
 	useEffect(() => {
@@ -36,7 +39,7 @@ export const Option: FC<OptionProps> = ({ option, onClick, SlotField }) => {
 	return (
 		<li
 			className={cn(cls.Option, {
-				// [cls.Option_active]: id === slug,
+				[cls.Option_active]: option.id === activeSelectId,
 			}, [])}
 			onClick={() => onClick()}
 			tabIndex={0}

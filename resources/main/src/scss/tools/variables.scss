@@ -7,6 +7,10 @@ $primaryTextColor: #3F409B;
 $blueColor: #3F409B;
 $blueColorHover: rgba(63, 64, 155, 0.8);
 $whiteColor: #fff;
+$redColor: #ff0000;
+$purpleColor: #9596c8;
+
+$headerZIndex: 500;
 
 $primaryTransition: 0.3s ease;
 $secondaryTransition: 0.2s ease;
@@ -20,6 +24,8 @@ $fontColor: $primaryTextColor; //? color
 $minWidth: 320; //? min width of layout
 $containerPadding: 30; //? padding for container
 $maxWidthContainer: 1252; //? width container
+$authWidthContainer: 880; //? width container
+$formWidthContainer: 440; //? width container
 
 
 //** Break-points:

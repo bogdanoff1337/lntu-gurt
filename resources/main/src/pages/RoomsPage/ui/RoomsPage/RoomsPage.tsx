@@ -19,7 +19,6 @@ export const RoomsPage: FC<RoomsPageProps> = ({ className }) => {
 						<DormSelect />
 						<GenderSelect />
 					</div>
-
 					<RoomsList />
 				</Container>
 			</section>

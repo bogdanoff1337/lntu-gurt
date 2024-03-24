@@ -1,7 +1,7 @@
 import { FC, ReactNode } from "react";
 import { NavLink } from "react-router-dom";
-import { classNames } from "../../../lib/classNames/classNames";
-import cls from "./style.module.scss";
+import { classNames } from "../../../../lib/classNames/classNames";
+import cls from "../common/style.module.scss";
 
 interface NavLinkButtonProps {
 	className?: string;

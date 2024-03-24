@@ -6,7 +6,7 @@ import { entityRoomActions, entityRoomSelectors } from "@/entities/Room";
 import { getBookRoutePath } from "@/shared/config/routes/path";
 import { classNames as cn } from "@/shared/lib/classNames/classNames";
 import { useAppDispatch } from "@/shared/lib/hooks/useAppDispatch/useAppDispatch";
-import { NavLinkButton } from "@/shared/ui/Button";
+import { NavLinkButton } from "@/shared/ui/Buttons";
 import { Container } from "@/shared/ui/Container";
 import { PageLoader } from "@/shared/ui/PageLoader";
 import { Title } from "@/shared/ui/Title";

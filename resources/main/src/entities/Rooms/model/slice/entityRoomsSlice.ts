@@ -9,7 +9,7 @@ export const entityRoomsSlice = createSliceWithThunk({
 	name: "entityRooms",
 	initialState,
 	reducers: (create) => ({
-		getRoomsByParams: create.asyncThunk<any, { faculty_id?: number, dormitory_id?: number, gender?: string }, ThunkConfig<string>>(
+		getRoomsByParams: create.asyncThunk<any, { faculty_id?: string | number, dormitory_id?: string | number, gender?: string }, ThunkConfig<string>>(
 			async ({ faculty_id, dormitory_id, gender }, {
 				extra, rejectWithValue,
 			}) => {

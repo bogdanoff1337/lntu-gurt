@@ -33,10 +33,14 @@ export const DormSelect: FC<DormSelectProps> = ({ className }) => {
 	const dispatch = useAppDispatch();
 
 	const onUpdateQP = useCallback((id: number) => {
-		updateUrlParams({ dormitory_id: id });
+		dispatch(entityRoomsActions.getRoomsByParams({
+			faculty_id: faculty_id as string,
+			dormitory_id: id,
+			gender: gender as string,
+		}));
 
-		dispatch(entityRoomsActions.getRoomsByParams({ faculty_id: +faculty_id!, dormitory_id: id, gender: gender as string }));
-	}, []);
+		updateUrlParams({ dormitory_id: id });
+	}, [dispatch, faculty_id, gender]);
 
 	return (
 		<Select

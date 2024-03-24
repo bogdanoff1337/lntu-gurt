@@ -1,5 +1,5 @@
 .FacultyItem {
-
+    $p: &;
 
     &__link {
         display: flex;
@@ -7,6 +7,17 @@
 
         line-height: 1.7;
         row-gap: rem(14);
+        &:hover {
+            #{$p} {
+                &__image {
+                    transform: scale(1.1);
+                }
+            }
+        }
+    }
+
+    &__image {
+        transition: transform $primaryTransition;
     }
 
     &__slug {

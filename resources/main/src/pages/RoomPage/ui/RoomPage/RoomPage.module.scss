@@ -1,8 +1,9 @@
 .RoomPage {
    display: flex;
    flex-direction: column;
-   gap: rem(80);
+   gap: rem(20);
 
+   padding-bottom: rem(20); //! 
 
    &__container {
       display: flex;

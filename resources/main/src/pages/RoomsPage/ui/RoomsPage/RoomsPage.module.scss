@@ -1,4 +1,5 @@
 .RoomsPage {
+    padding-bottom: rem(20);
 
     &__title {
         
@@ -8,10 +9,20 @@
 
     &__selectsGroup {
         display: flex;
-        align-items: center;
         justify-content: center;
-        gap: rem(40);
 
-        margin-bottom: rem(50);
+        gap: rem(10) rem(40);
+
+
+        @include adaptiveValue("margin-bottom", 50, 15, 0, $widthTo: $smallMobile);
+
+        @media (min-width: em($tablet)) {
+            align-items: center;
+
+        }
+
+        @media (max-width: em($tablet)) {
+            flex-direction: column;
+        }
     }
 }

@@ -4,9 +4,24 @@
       max-width: rem($maxWidthContainer);
       margin: 0 auto;
       padding: 0 rem($containerPadding);
+   }
 
+   &_auth {
+      box-sizing: content-box;
+      max-width: rem($authWidthContainer);
+      margin: 0 auto;
+      padding: 0 rem($containerPadding);
+   }
+
+   &_active, &_auth {
       @media (max-width: em($mobile)) {
          padding: 0 rem(15);
       }
+   }
+
+   &_form {
+      box-sizing: content-box;
+      max-width: rem($formWidthContainer);
+      margin: 0 auto;
    }
 }

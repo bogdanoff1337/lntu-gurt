@@ -1,9 +1,9 @@
 .Button {
    display: inline-flex;
 
-   padding: em(25) em(50);
+   padding: em(15) em(35);
 
-   transition: $blueColor $primaryTransition;
+   transition: background-color $primaryTransition;
 
    color: $whiteColor;
    

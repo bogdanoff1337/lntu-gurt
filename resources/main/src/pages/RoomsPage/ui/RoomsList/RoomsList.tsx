@@ -6,6 +6,7 @@ import {
 	FacultyItem, entityFacultiesActions, entityFacultiesSelectors,
 } from "@/entities/Faculties";
 import { RoomItem, entityRoomsActions, entityRoomsSelectors } from "@/entities/Rooms";
+import { getRoomsRoutePath } from "@/shared/config/routes/path";
 import { useQueryParams } from "@/shared/hooks/useQueryParams/useQueryParams";
 import { classNames as cn } from "@/shared/lib/classNames/classNames";
 import { useAppDispatch } from "@/shared/lib/hooks/useAppDispatch/useAppDispatch";
@@ -13,7 +14,6 @@ import { updateUrlParams } from "@/shared/lib/updateUrlParams/updateUrlParams";
 import { CardGrid } from "@/shared/ui/CardGrid";
 import { PageLoader } from "@/shared/ui/PageLoader";
 import cls from "./RoomsList.module.scss";
-import { getRoomsRoutePath } from "@/shared/config/routes/path";
 
 interface RoomsListProps {
 	className?: string
@@ -24,9 +24,14 @@ export const RoomsList: FC<RoomsListProps> = ({ className }) => {
 	const roomsData = useSelector(entityRoomsSelectors.getEntityRoomsData);
 	const roomsDataIsLoading = useSelector(entityRoomsSelectors.getEntityRoomsIsLoading);
 
-	const { faculty_id, dormitory_id, gender } = useQueryParams();
+	// const { faculty_id, dormitory_id, gender } = useQueryParams();
 	useEffect(() => {
-		dispatch(entityRoomsActions.getRoomsByParams({ faculty_id: +faculty_id!, dormitory_id: +dormitory_id!, gender: gender as string }));
+		const { faculty_id, dormitory_id, gender } = queryString.parse(window.location.search);
+		dispatch(entityRoomsActions.getRoomsByParams({
+			faculty_id: faculty_id as string,
+			dormitory_id: dormitory_id as string,
+			gender: gender as string,
+		}));
 	}, [dispatch]);
 
 	const roomsItems = useMemo(() => {

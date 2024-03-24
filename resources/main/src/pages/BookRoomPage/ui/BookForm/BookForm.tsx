@@ -1,8 +1,10 @@
-import { FC, FormEvent, useCallback, useEffect } from "react";
+import {
+	FC, FormEvent, useCallback, useEffect,
+} from "react";
 import { useSelector } from "react-redux";
 import { classNames as cn } from "@/shared/lib/classNames/classNames";
 import { useAppDispatch } from "@/shared/lib/hooks/useAppDispatch/useAppDispatch";
-import { Button } from "@/shared/ui/Button";
+import { Button } from "@/shared/ui/Buttons";
 import { Input } from "@/shared/ui/Input/Input";
 import * as pageeBookFormSelectors from "../../model/selectors";
 import { pageBookFormActions } from "../../model/slice/pageBookFormSlice";
@@ -16,8 +18,6 @@ export const BookForm: FC<BookFormProps> = ({ className }) => {
 	const dispatch = useAppDispatch();
 
 	const formData = useSelector(pageeBookFormSelectors.getPageBookFormData);
-
-
 
 	const onChangeLastName = useCallback((value: string) => {
 		dispatch(pageBookFormActions.changeLastName(value));

@@ -1,0 +1,7 @@
+.FacultiesList {
+   display: grid;
+   grid-template-columns: repeat(auto-fit, minmax(em(200), 1fr));
+   // gap: rem(80);
+   @include adaptiveValue("gap", 80, 40, 0, $widthTo: $tablet);
+}
+

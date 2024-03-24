@@ -35,8 +35,8 @@ export const FacultiesList: FC<FacultiesListProps> = ({ className }) => {
 	}
 
 	return (
-		<CardGrid className={cn(cls.FacultiesList, {}, [className])}>
+		<div className={cn(cls.FacultiesList, {}, [className])}>
 			{facultiesItems}
-		</CardGrid>
+		</div>
 	);
 };

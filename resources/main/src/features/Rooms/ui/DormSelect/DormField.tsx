@@ -11,6 +11,5 @@ export const DormField: FC<DormFieldProps> = ({ option }) => {
 		<>
 			<b className={cls.Option__bold}>{option?.slug}:&nbsp;</b> {option?.address}
 		</>
-
 	);
 };

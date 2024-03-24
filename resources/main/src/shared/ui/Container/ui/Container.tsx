@@ -6,13 +6,22 @@ interface ContainerProps {
 	className?: string;
 	children?: ReactNode;
 	isDisabled?: boolean;
+	modifier?: ContainerModifier;
 }
 
-export const Container: FC<ContainerProps> = ({ className, children, isDisabled }) => {
+export enum ContainerModifier {
+	CONTAINER_AUTH = "Container_auth",
+	FORM = "Container_form",
+	ACTIVE = "Container_active",
+}
+
+export const Container: FC<ContainerProps> = ({
+	className, children, isDisabled, modifier = ContainerModifier.ACTIVE,
+}) => {
 	return (
 		<div className={cn(cls.Container, {
-			[cls.Container_active]: !isDisabled
-		}, [className])}>
+		}, [className, !isDisabled ? cls[modifier] : undefined])}
+		>
 			{children}
 		</div>
 	);

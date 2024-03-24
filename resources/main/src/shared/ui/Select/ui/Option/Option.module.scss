@@ -5,18 +5,25 @@
     align-items: center;
 
     box-sizing: content-box;
-    padding: rem(15);
+    padding: em(15);
 
     cursor: pointer;
+
+    transition: background-color $primaryTransition;
+
+    text-wrap: nowrap;
 
     color: $blueColor;
 
     font-weight: 300;
 
-    &:hover {
-        background-color: rgba(0, 0, 0, 0.1);
+    &:hover, &_active {
+      background-color: rgba(0, 0, 0, 0.1);
     }
+
     &__bold {
       font-weight: 400;
     }
+
+    @include adaptiveValue("font-size", 16, 10, 0, $mobile);
 }

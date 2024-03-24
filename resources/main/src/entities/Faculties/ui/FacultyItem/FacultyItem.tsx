@@ -19,7 +19,7 @@ export const FacultyItem: FC<FacultyItemProps> = ({
 	return (
 		<li className={cn(cls.FacultyItem, {}, [className])}>
 			<NavLink className={cls.FacultyItem__link} to={{ pathname: "/rooms", search: generateQueryString({ faculty_id: id }) }}>
-				<img className={cls.FacultyItem__img} src={image} alt={alt} />
+				<img className={cls.FacultyItem__image} src={image} alt={alt} />
 				<h3 className={cls.FacultyItem__slug}>{slug}</h3>
 			</NavLink>
 		</li>

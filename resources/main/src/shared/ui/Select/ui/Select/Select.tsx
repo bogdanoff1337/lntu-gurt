@@ -25,28 +25,28 @@ export const Select: FC<SelectProps> = ({
 	options, placeholder, id, onUpdateQP, className, SlotField,
 }) => {
 	const [isOpen, setIsOpen] = useState(false);
-	const [activeSelectId, setActiveSelectId] = useState<number | null>(+id || null);
-	const [size, setSize] = useState<string>("");
+	const [activeSelectId, setActiveSelectId] = useState<number | null>(id || null);
+	// const [size, setSize] = useState<string>("");
 
 	const rootRef = useRef<HTMLDivElement>(null);
 	const summaryRef = useRef<HTMLDivElement>(null);
 	const optionsRef = useRef<HTMLUListElement>(null);
 
-	useEffect(() => {
-		if (summaryRef.current && optionsRef.current) {
-			const addWidth = 40;
-			const widthMenu = summaryRef.current.scrollWidth + addWidth;
-			const widthSelect = optionsRef.current.scrollWidth;
+	// useEffect(() => {
+	// 	if (summaryRef.current && optionsRef.current) {
+	// 		const addWidth = 40;
+	// 		const widthMenu = summaryRef.current.scrollWidth + addWidth;
+	// 		const widthSelect = optionsRef.current.scrollWidth;
 
-			if (widthSelect && widthMenu) {
-				if (widthSelect > widthMenu) {
-					setSize(`${widthSelect}px`);
-				} else {
-					setSize(`${widthMenu}px`);
-				}
-			}
-		}
-	}, []);
+	// 		if (widthSelect && widthMenu) {
+	// 			if (widthSelect > widthMenu) {
+	// 				setSize(`${widthSelect}px`);
+	// 			} else {
+	// 				setSize(`${widthMenu}px`);
+	// 			}
+	// 		}
+	// 	}
+	// }, []);
 	useEffect(() => {
 		const onOverlayClick = (e: MouseEvent) => {
 			if (
@@ -82,9 +82,12 @@ export const Select: FC<SelectProps> = ({
 	}, []);
 
 	const onOptionClick = (id: number) => () => {
-		setActiveSelectId(id);
+		if (id !== activeSelectId) {
+			setActiveSelectId(id);
+			onUpdateQP(id);
+		}
+
 		setIsOpen((prev) => !prev);
-		onUpdateQP(id);
 	};
 
 	const onClickSummary = useCallback(() => {
@@ -97,7 +100,7 @@ export const Select: FC<SelectProps> = ({
 
 	return (
 		<div
-			style={{ width: size }}
+			// style={{ width: size }}
 			className={cn(cls.Select, {
 				[cls.Select_active]: isOpen,
 				[cls.Select_nonActive]: !isOpen,

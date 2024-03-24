@@ -13,27 +13,22 @@
         align-items: center;
 
         box-sizing: content-box;
-        padding: rem(15);
+        padding: em(15);
 
-        cursor: pointer;    
+        cursor: pointer;
 
-        border: rem(1) solid $blueColor;
-        border-radius: rem(8);
-        gap: rem(20);
+        border: em(1) solid $blueColor;
+        border-radius: em(8);
+        gap: em(20);
+
+        @include adaptiveValue("font-size", 16, 10, 0, $mobile);
     }
     &_active {
-        #{$p}__arrow {
-            // margin-top: -6px;
-
-            // transform: rotate(180deg) translateY(100%);
-            transform: rotate3d(1, 0, 0, 180deg);
-        }
-
-        #{$p}__placeholder {
-            // border: 1px solid #5a25ec;
-        }
-
         #{$p} {
+            &__arrow {
+                transform: rotate3d(1, 0, 0, 180deg);
+            }
+
             &__options {
                 opacity: 1;
             }
@@ -57,8 +52,6 @@
         left: 0;
 
         display: grid;
-
-        width: 100%;
 
         transition: opacity $primaryTransition;
 
@@ -89,10 +82,15 @@
 
         width: 100%;
 
+        text-wrap: nowrap;
+
         color: $blueColor;
     }
 
     &__arrow {
+        width: em(20);
+        height: em(20);
+
         transition: transform 0.45s linear;
     }
 }
