@@ -17,14 +17,8 @@ class OrderSeeder extends Seeder
 
         for ($i = 1; $i <= 100; $i++) {
             DB::table('orders')->insert([
-                'first_name' => 'Ім\'я' . $i,
-                'last_name' => 'Прізвище' . $i,
-                'father_name' => 'По батькові' . $i,
-                'address' => 'Адреса' . $i,
-                'gender' => $genders[array_rand($genders)],
-                'phone' => '0' . rand(100000000, 999999999), // Генеруємо випадковий номер телефону
-                'benefits' => $benefits[array_rand($benefits)],
-                'room_id' => rand(1, 100), // Припустимо, у вас є 100 кімнат
+                'student_id' => 1, //  N студентів
+                'room_id' => rand(1, 100), // 100 кімнат
                 'created_at' => now(),
                 'updated_at' => now(),
             ]);

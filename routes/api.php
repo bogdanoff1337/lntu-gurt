@@ -6,6 +6,8 @@ use App\Http\Controllers\Api\DormitoryController;
 use App\Http\Controllers\Api\OrdersController;
 use App\Http\Controllers\Api\RoomController;
 use App\Http\Controllers\Api\FacultyController;
+use App\Http\Controllers\Auth\StudentLoginController;
+use App\Http\Controllers\Auth\StudentRegisterController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -16,6 +18,9 @@ use App\Http\Controllers\Api\FacultyController;
 | be assigned to the "api" middleware group. Make something great!
 |
 */
+Route::post('login', [StudentLoginController::class, 'login']);
+Route::post('register', [StudentRegisterController::class, 'register']);
+
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
