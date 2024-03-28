@@ -24,4 +24,9 @@ class Order extends Model
     {
         return $this->belongsTo(Room::class);
     }
+
+    public function student()
+    {
+        return $this->belongsTo(Student::class);
+    }
 }
