@@ -31,11 +31,11 @@ class FacultyResource extends Resource
                     ->label('Коротка назва')
                     ->required()
                     ->placeholder('Коротка назва'),
-//                FileUpload::make('image')
-//                    ->image()
-//                    ->imageEditor()
-//                    ->label('Зображення')
-//                    ->disk('facult')
+                FileUpload::make('image')
+                    ->image()
+                    ->imageEditor()
+                    ->label('Зображення')
+                    ->disk('facult')
 
             ]);
     }
