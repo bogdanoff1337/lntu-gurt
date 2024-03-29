@@ -13,7 +13,7 @@ class FacultySeeder extends Seeder
      */
     public function run(): void
     {
-        DB::table('faculties')->updateOrInsert([
+        DB::table('faculties')->insert([
             ['slug' => 'ФАКУЛЬТЕТ ЦИФРОВИХ, ОСВІТНІХ ТА СОЦІАЛЬНИХ ТЕХНОЛОГІЙ', 'slug_short' => 'FDOST', 'image' => 'FCOST.svg'],
             ['slug' => 'ФАКУЛЬТЕТ АГРАРНИХ ТЕХНОЛОГІЙ ТА ЕКОЛОГІЇ', 'slug_short' => 'FATE', 'image' => 'FATE.svg'],
             ['slug' => 'ФАКУЛЬТЕТ МИТНОЇ СПРАВИ, МАТЕРІАЛІВ ТА ТЕХНОЛОГІЙ', 'slug_short' => 'FMSMT', 'image' => 'FMSMT.svg'],

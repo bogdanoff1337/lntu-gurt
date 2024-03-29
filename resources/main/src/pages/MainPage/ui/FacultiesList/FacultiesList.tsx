@@ -24,7 +24,7 @@ export const FacultiesList: FC<FacultiesListProps> = ({ className }) => {
 
 	const facultiesItems = useMemo(() => {
 		return facultiesData?.map(({ id, image, slug }) => (
-			<FacultyItem key={id} image={image} slug={slug} id={id} />
+			<FacultyItem key={id} image={`/photos/uploads/facult/${image}`} slug={slug} id={id} />
 		));
 	}, [facultiesData]);
 
