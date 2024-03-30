@@ -7,56 +7,52 @@ use App\Models\AccessToRegister;
 use App\Models\Student;
 use App\Http\Requests\StudentReguest;
 use Illuminate\Support\Facades\Hash;
-
+use Tymon\JWTAuth\Facades\JWTAuth;
 class StudentRegisterController extends Controller
 {
+    /**
+     * Create a new AuthController instance.
+     *
+     * @return void
+     */
+    public function __construct() {
+        $this->middleware('auth:api', ['except' => ['register']]);
+    }
+
     public function register(StudentReguest $request)
     {
-        $request->validated();
+        $data = $request->validated();
 
         $access = AccessToRegister::where('email', $request->email)
             ->where('access', true)
             ->first();
 
         if (!$access) {
-            return $this->sendError('Unauthorized', [], 401);
+            return response()->json(['error' => 'Unauthorized'], 401);
         }
 
-        $user = Student::create([
-            'email' => $request->email,
-            'password' => Hash::make($request->password)
+        if (Student::where('email', $data['email'])->exists()) {
+            return response()->json(['error' => 'Email already exists'], 400);
+        }
+
+        Student::create([
+            'email' => $data['email'],
+            'password' => Hash::make($data['password']),
         ]);
 
-        $token = $user->createToken($request->email)->accessToken;
-
-        $response = [
-            'status' => 'success',
-            'message' => 'User created successfully.',
-            'data' => [
-                'user' => $user,
-                'token' => $token,
-            ],
-        ];
-
-        return $this->sendResponse($response, 201);
-    }
-
-    private function sendResponse($data, $code)
-    {
-        return response()->json($data, $code);
-    }
-
-    private function sendError($error, $data = [], $code = 404)
-    {
-        $response = [
-            'status' => 'failed',
-            'message' => $error,
-        ];
-
-        if (!empty($data)) {
-            $response['data'] = $data;
+        if (!$token = JWTAuth::attempt($request->only('email', 'password'))) {
+            return response()->json(['error' => 'Unauthorized'], 401);
         }
 
-        return response()->json($response, $code);
+        return $this->respondWithToken($token);
+    }
+
+    protected function respondWithToken($token)
+    {
+        return response()->json([
+            'access_token' => $token,
+            'token_type' => 'bearer',
+            'expires_in' => JWTAuth::factory()->getTTL() * 60
+        ]);
     }
 }
