@@ -23,28 +23,17 @@ class StudentRegisterController extends Controller
     {
         $data = $request->validated();
 
-        /* $access = AccessToRegister::where('email', $request->email)
-          ->where('access', true)
+        $access = AccessToRegister::where('email', $request->email)
+            ->where('access', true)
             ->first();
 
         if (!$access) {
-<<<<<<< HEAD
             return $this->sendError('Unauthorized', [], 401);
-        } */
-        $user = Student::create([
-            'email' => $request->email,
-            'password' => Hash::make($request->password)
-        ]);
-
-        $token = $user->createToken($request->email)->accessToken;
-=======
-            return response()->json(['error' => 'Unauthorized'], 401);
-        }
+        } 
 
         if (Student::where('email', $data['email'])->exists()) {
-            return response()->json(['error' => 'Email already exists'], 400);
+            return response()->json(['status' => 400], );
         }
->>>>>>> cac13470d63a655d9afe87ceb59cceb713fb4c91
 
         Student::create([
             'email' => $data['email'],
@@ -52,10 +41,15 @@ class StudentRegisterController extends Controller
         ]);
 
         if (!$token = JWTAuth::attempt($request->only('email', 'password'))) {
-            return response()->json(['error' => 'Unauthorized'], 401);
+            return response()->json(['status' => 401]);
         }
 
         return $this->respondWithToken($token);
+    }
+
+    protected function sendError()
+    {
+        return response()->json(['status' => 401]);
     }
 
     protected function respondWithToken($token)
