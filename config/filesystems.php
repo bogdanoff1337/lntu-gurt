@@ -43,6 +43,13 @@ return [
             'visibility' => 'public',
         ],
 
+        'room' => [
+            'driver' => 'local',
+            'root' => base_path('/public/photos/uploads/room'),
+            'url' => env('APP_URL').'/uploads',
+            'visibility' => 'public',
+        ],
+
         's3' => [
             'driver' => 's3',
             'key' => env('AWS_ACCESS_KEY_ID'),
