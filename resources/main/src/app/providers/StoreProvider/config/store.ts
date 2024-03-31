@@ -1,19 +1,23 @@
 import {
 	combineSlices, configureStore,
 } from "@reduxjs/toolkit";
+import { pageBookFormSlice } from "@/pages/BookRoomPage";
+import { pageLoginAuthSlice } from "@/pages/LoginPage";
+import { pageRegisterAuthSlice } from "@/pages/RegisterPage";
 import { entityFacultiesSlice } from "@/entities/Faculties";
+import { entityRoomSlice } from "@/entities/Room";
 import { entityRoomsSlice } from "@/entities/Rooms";
 import { $api } from "@/shared/api/api";
 import { ExtraArgumentType } from "./StateSchema";
-import { entityRoomSlice } from "@/entities/Room";
-import { pageBookFormSlice } from "@/pages/BookRoomPage";
 
 export const createReduxStore = () => {
 	const rootReducer = combineSlices(
+		pageBookFormSlice,
+		pageRegisterAuthSlice,
+		pageLoginAuthSlice,
 		entityFacultiesSlice,
 		entityRoomsSlice,
 		entityRoomSlice,
-		pageBookFormSlice
 	);
 
 	const extraArgument: ExtraArgumentType = {

@@ -1,0 +1,1 @@
+export { AuthForm } from "../Auth/ui/AuthForm/AuthForm";

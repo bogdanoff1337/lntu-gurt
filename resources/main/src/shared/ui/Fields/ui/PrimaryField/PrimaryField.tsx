@@ -1,59 +1,78 @@
 import {
-	ChangeEvent, FC, useCallback,
+	ChangeEvent, FC, useCallback, useEffect, useState,
 } from "react";
 import { CSSTransition } from "react-transition-group";
-import { classNames } from "../../../../lib/classNames/classNames";
+import { classNames as cn } from "../../../../lib/classNames/classNames";
 import cls from "./PrimaryField.module.scss";
 
 interface PrimaryFieldProps {
 	className?: string;
 	placeholder: string;
-	value: string;
+	value?: string;
 	onChange?: (value: string) => void;
+	onBlur?: (e: ChangeEvent<HTMLInputElement>) => void;
 	errorMessage?: string;
+	isSuccess?: boolean;
+	type?: string
 }
 
 export const PrimaryField: FC<PrimaryFieldProps> = ({
-	className, placeholder, value, onChange, errorMessage,
+	className, placeholder, value, onChange, onBlur, errorMessage, type = "text", isSuccess,
 }) => {
+	const [isEmty, setIsEmty] = useState(true);
+
 	const onChangeHandler = useCallback((e: ChangeEvent<HTMLInputElement>) => {
 		onChange?.(e.target.value);
 	}, [onChange]);
 
+	const onBlurHandler = useCallback((e: ChangeEvent<HTMLInputElement>) => {
+		onBlur?.(e);
+
+		if (!e.target.value) {
+			setIsEmty(true);
+		} else {
+			setIsEmty(false);
+		}
+	}, [onBlur]);
+
 	return (
-		<div className={classNames(cls.PrimaryField, {
+		<div className={cn(cls.PrimaryField, {
 			[cls.PrimaryField_error]: errorMessage,
+			[cls.PrimaryField_success]: isSuccess,
+			[cls.PrimaryField_emty]: !isEmty,
 		}, [className])}
 		>
 			<span className={cls.PrimaryField__placeholder}>{placeholder}</span>
 			<div className={cls.PrimaryField__wrapper}>
 				<input
 					className={cls.PrimaryField__input}
-					type="text"
+					type={type}
 					placeholder={placeholder}
 					value={value}
 					onChange={onChangeHandler}
+					onBlur={onBlurHandler}
 					// {...props}
 				/>
 			</div>
-			<CSSTransition
+			{/* <CSSTransition
 				in={!!errorMessage}
-				timeout={300}
+				timeout={4000}
 				unmountOnExit
 				classNames={{
-					appear: cls.PrimaryField__error_appear,
-					appearActive: cls.PrimaryField__error_appear_active,
-					appearDone: cls.PrimaryField__error_appear_done,
+					// appear: cls.PrimaryField__error_appear,
+					// appearActive: cls.PrimaryField__error_appear_active,
+					// appearDone: cls.PrimaryField__error_appear_done,
 					enter: cls.PrimaryField__error_enter,
 					enterActive: cls.PrimaryField__error_enter_active,
-					enterDone: cls.PrimaryField__error_enter_done,
+					// enterDone: cls.PrimaryField__error_enter_done,
 					exit: cls.PrimaryField__error_exit,
 					exitActive: cls.PrimaryField__error_exit_active,
-					exitDone: cls.PrimaryField__error_exit_done,
+					// exitDone: cls.PrimaryField__error_exit_done,
 				}}
 			>
 				<span className={cls.PrimaryField__error}>{errorMessage}</span>
-			</CSSTransition>
+			</CSSTransition> */}
+			<span className={cls.PrimaryField__error}>{errorMessage}</span>
 		</div>
 	);
 };

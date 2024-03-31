@@ -1,0 +1,39 @@
+.AuthForm {
+   position: relative;
+
+   padding: rem(90) rem(15);
+
+   border-radius: rem(15);
+   box-shadow: 0 0 rem(40.4) rem(-2) rgba(63, 64, 155, 0.39);
+
+   &__container {
+      display: flex;
+      flex-direction: column;
+   }
+
+
+   &__fields {
+      display: grid;
+      gap: rem(10);
+
+      margin-bottom: rem(40);
+   }
+
+   &__submit {
+      align-self: center;
+   }
+
+   &__statusError {
+      position: absolute;
+      top: rem(15);
+      left: 0;
+
+      display: flex;
+      justify-content: center;
+
+      width: 100%;
+      padding: 0 rem(15);
+
+      color: $redColor;
+   }
+}

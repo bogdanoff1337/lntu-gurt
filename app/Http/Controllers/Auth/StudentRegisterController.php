@@ -14,14 +14,13 @@ class StudentRegisterController extends Controller
     {
         $request->validated();
 
-        $access = AccessToRegister::where('email', $request->email)
-            ->where('access', true)
+        /* $access = AccessToRegister::where('email', $request->email)
+          ->where('access', true)
             ->first();
 
         if (!$access) {
             return $this->sendError('Unauthorized', [], 401);
-        }
-
+        } */
         $user = Student::create([
             'email' => $request->email,
             'password' => Hash::make($request->password)

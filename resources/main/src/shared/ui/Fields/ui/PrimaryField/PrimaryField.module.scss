@@ -7,12 +7,47 @@
 
    font-size: rem(24);
 
+   &_emty {
+      #{$p} {
+         &__placeholder {
+            top: 0;
+            left: 0;
+   
+            font-size: rem(16);
+         }    
 
-   .PrimaryField_error &__wrapper {
-      &:before {
-         width: 100%;
+         &__wrapper {
+            &::before {
+               width: 100%;
+            }
+         }
 
-         background: $redColor;
+
+         &__input {
+            &::placeholder {
+               opacity: 1;
+            }
+         }
+      }    
+   }
+
+   &_error {
+      #{$p} {
+         &__wrapper {
+            &:after {
+               background: $redColor;
+            }
+         }
+      }
+   }
+
+   &_success {
+      #{$p} {
+         &__wrapper {
+            &:after {
+               background: $greenColor;
+            }
+         }
       }
    }
 
@@ -39,6 +74,7 @@
          }
       }        
    }
+
 
    &__placeholder {
       position: absolute;
@@ -67,9 +103,20 @@
          height: rem(2);
 
          content: "";
-         transition: width 0.35s ease;
+         transition: width $primaryTransition, background $primaryTransition;
 
-         background: $blueColor;
+         background: $blueColor;         
+      }
+
+      &:after {
+         position: absolute;
+         bottom: 0;
+
+         width: 100%;
+         height: rem(2);
+
+         content: "";
+         transition: background $primaryTransition;
       }
    }
 
@@ -89,12 +136,16 @@
       }
    }
 
+   &__success {
+      background-color: $greenColor;
+   }
+
    &__error {
       position: absolute;
       bottom: 0;
       left: 0;
 
-      transition: opacity $primaryTransition;
+      // transition: opacity $primaryTransition;
 
       color: $redColor;
 

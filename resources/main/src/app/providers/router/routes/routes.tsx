@@ -6,10 +6,12 @@ import { RoomPage } from "@/pages/RoomPage";
 import { RoomsPage } from "@/pages/RoomsPage";
 import {
 	getBookRoutePath,
+	getLoginRoutePath,
 	getMainRoutePath,
 	getRegisterRoutePath,
 	getRoomsRoutePath,
 } from "@/shared/config/routes/path";
+import { LoginPage } from "@/pages/LoginPage";
 
 export type AppRouteProps = RouteProps & {
 	auth?: string;
@@ -23,6 +25,10 @@ export const routes: AppRouteProps[] = [
 	{
 		path: getRegisterRoutePath(),
 		element: <RegisterPage />,
+	},
+	{
+		path: getLoginRoutePath(),
+		element: <LoginPage />,
 	},
 	{
 		path: getMainRoutePath(),
