@@ -18,8 +18,20 @@ use App\Http\Controllers\Auth\StudentRegisterController;
 | be assigned to the "api" middleware group. Make something great!
 |
 */
-Route::post('login', [StudentLoginController::class, 'login']);
-Route::post('register', [StudentRegisterController::class, 'register']);
+Route::group([
+
+    'middleware' => 'api',
+    'prefix' => 'auth'
+
+], function ($router) {
+
+    Route::post('login', [StudentLoginController::class, 'login']);
+    Route::post('logout', [StudentLoginController::class, 'logout']);
+    Route::post('refresh', [StudentLoginController::class, 'refresh']);
+    Route::post('me', [StudentLoginController::class, 'me']);
+    Route::post('register', [StudentRegisterController::class, 'register']);
+});
+
 
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
