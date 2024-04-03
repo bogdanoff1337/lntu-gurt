@@ -6,8 +6,7 @@ use App\Http\Controllers\Api\DormitoryController;
 use App\Http\Controllers\Api\OrdersController;
 use App\Http\Controllers\Api\RoomController;
 use App\Http\Controllers\Api\FacultyController;
-use App\Http\Controllers\Auth\StudentLoginController;
-use App\Http\Controllers\Auth\StudentRegisterController;
+use App\Http\Controllers\Auth\StudentAuthController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -25,33 +24,30 @@ Route::group([
 
 ], function ($router) {
 
-    Route::post('login', [StudentLoginController::class, 'login'])->name('login');
-    Route::post('logout', [StudentLoginController::class, 'logout'])->name('logout');
-    Route::post('refresh', [StudentLoginController::class, 'refresh'])->name('refresh');
-    Route::post('me', [StudentLoginController::class, 'me'])->name('me');
-    Route::post('register', [StudentRegisterController::class, 'register'])->name('refresh');
+    Route::post('login', [StudentAuthController::class, 'login'])->name('login');
+    Route::post('logout', [StudentAuthController::class, 'logout'])->name('logout');
+    Route::post('refresh', [StudentAuthController::class, 'refresh'])->name('refresh');
+    Route::post('me', [StudentAuthController::class, 'me'])->name('me');
+    Route::post('register', [StudentAuthController::class, 'register'])->name('refresh');
 });
 
+Route::group(['middleware' => 'auth:api'], function () {
+    Route::resource('dormitories', DormitoryController::class)->except([
+        'create', 'store', 'update', 'destroy'
+    ]);
 
+    Route::resource('rooms', RoomController::class)->except([
+        'create', 'store', 'update', 'destroy'
+    ]);
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+    Route::resource('book', OrdersController::class)->except([
+        'create', 'update', 'destroy'
+    ]);
+
+    Route::resource('faculties', FacultyController::class)->except([
+        'create', 'store', 'update', 'destroy'
+    ]);
 });
 
-Route::resource('dormitories', DormitoryController::class)->except([
-    'create', 'store', 'update', 'destroy'
-]);
-
-Route::resource('rooms', RoomController::class)->except([
-    'create', 'store', 'update', 'destroy'
-]);
-
-Route::resource('book', OrdersController::class)->except([
-    'create','update', 'destroy'
-]);
-
-Route::resource('faculties', FacultyController::class)->except([
-    'create', 'store', 'update', 'destroy'
-]);
 
 
