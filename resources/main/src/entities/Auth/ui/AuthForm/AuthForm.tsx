@@ -1,16 +1,16 @@
-import { FC, ReactNode } from "react";
+import { FC, ReactNode, SyntheticEvent } from "react";
+import { CSSTransition } from "react-transition-group";
 import { classNames as cn } from "@/shared/lib/classNames/classNames";
 import { Button } from "@/shared/ui/Buttons";
 import { Container, ContainerModifier } from "@/shared/ui/Container";
 import cls from "./AuthForm.module.scss";
-import { CSSTransition } from "react-transition-group";
 
 interface AuthFormProps {
 	className?: string;
 	children?: ReactNode;
 	submitName: string;
 	statusErrorMessage?: ReactNode;
-	onSubmit: () => void;
+	onSubmit: (e: SyntheticEvent) => void;
 }
 
 export const AuthForm: FC<AuthFormProps> = ({

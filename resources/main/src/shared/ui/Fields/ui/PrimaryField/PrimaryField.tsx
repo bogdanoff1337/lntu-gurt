@@ -1,11 +1,12 @@
 import {
-	ChangeEvent, FC, useCallback, useEffect, useState,
+	ChangeEvent, FC, InputHTMLAttributes, useCallback, useState,
 } from "react";
-import { CSSTransition } from "react-transition-group";
 import { classNames as cn } from "../../../../lib/classNames/classNames";
 import cls from "./PrimaryField.module.scss";
 
-interface PrimaryFieldProps {
+type InputAttrubutes = Omit<InputHTMLAttributes<HTMLInputElement>, "onChange">;
+
+interface PrimaryFieldProps extends InputAttrubutes {
 	className?: string;
 	placeholder: string;
 	value?: string;
@@ -13,11 +14,11 @@ interface PrimaryFieldProps {
 	onBlur?: (e: ChangeEvent<HTMLInputElement>) => void;
 	errorMessage?: string;
 	isSuccess?: boolean;
-	type?: string
+	type?: string;
 }
 
 export const PrimaryField: FC<PrimaryFieldProps> = ({
-	className, placeholder, value, onChange, onBlur, errorMessage, type = "text", isSuccess,
+	className, placeholder, value, onChange, onBlur, errorMessage, type = "text", isSuccess, ...anotherProps
 }) => {
 	const [isEmty, setIsEmty] = useState(true);
 
@@ -51,7 +52,7 @@ export const PrimaryField: FC<PrimaryFieldProps> = ({
 					value={value}
 					onChange={onChangeHandler}
 					onBlur={onBlurHandler}
-					// {...props}
+					{...anotherProps}
 				/>
 			</div>
 			{/* <CSSTransition

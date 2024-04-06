@@ -1,10 +1,10 @@
 import { PayloadAction } from "@reduxjs/toolkit";
-import { ThunkConfig } from "@/app/providers/StoreProvider";
+import { StateSchema, ThunkConfig } from "@/app/providers/StoreProvider";
 import { createSliceWithThunk } from "@/shared/lib/createSliceWithThunk";
-import { validateСonfirmPassword } from "@/shared/validate/validateConfirmPassword";
+import { validateConfirmPassword } from "@/shared/validate/validateConfirmPassword";
 import { validateEmail } from "@/shared/validate/validateEmail";
 import { validatePassword } from "@/shared/validate/validatePassword";
-import { PageLoginAuthSchema } from "../types/PageLoginAuthSchema";
+import { PageLoginAuthSchema, TokenData } from "../types/PageLoginAuthSchema";
 
 const initialState: PageLoginAuthSchema = {
 	data: {
@@ -18,6 +18,8 @@ const initialState: PageLoginAuthSchema = {
 			value: "",
 		},
 	},
+
+	isLoading: false,
 };
 
 export const pageLoginAuthSlice = createSliceWithThunk({
@@ -33,9 +35,7 @@ export const pageLoginAuthSlice = createSliceWithThunk({
 
 			if (ok) {
 				state.data.email.errorMessage = undefined;
-			}
-
-			if (!ok) {
+			} else if (!ok) {
 				state.data.email.errorMessage = message;
 			}
 		}),
@@ -46,30 +46,55 @@ export const pageLoginAuthSlice = createSliceWithThunk({
 		validataPassword: create.reducer((state) => {
 			const { ok, message } = validatePassword(state.data.password.value);
 			state.data.password.ok = ok;
+
 			if (ok) {
 				state.data.password.errorMessage = undefined;
-			}
-
-			if (!ok) {
+			} else if (!ok) {
 				state.data.password.errorMessage = message;
 			}
 		}),
 
-		changeConfirmPassword: create.reducer((state, action: PayloadAction<string>) => {
-			state.data.confirmPassword.value = action.payload;
-		}),
-		validataConfirmPassword: create.reducer((state) => {
-			const { ok, message } = validateСonfirmPassword(state.data.password.value, state.data.confirmPassword.value);
-			state.data.confirmPassword.ok = ok;
+		submitForm: create.asyncThunk<any, void, ThunkConfig<string>>(
+			async (_, {
+				extra, rejectWithValue, getState,
+			}) => {
+				const state = getState() as StateSchema;
 
-			if (ok) {
-				state.data.confirmPassword.errorMessage = undefined;
-			}
+				try {
+					console.log({
+						email: state.pageLoginAuth.data.email.value,
+						password: state.pageLoginAuth.data.password.value,
+					});
 
-			if (!ok) {
-				state.data.confirmPassword.errorMessage = message;
-			}
-		}),
+					const response = await extra.api.post<TokenData>("auth/login", {
+						email: state.pageLoginAuth.data.email.value,
+						password: state.pageLoginAuth.data.password.value,
+					});
+
+					if (!response.data) {
+						throw new Error();
+					}
+
+					return response.data;
+				} catch (e) {
+					return rejectWithValue("error");
+				}
+			},
+			{
+				pending: (state) => {
+					state.isLoading = true;
+				},
+				fulfilled: (state, action) => {
+					state.isLoading = false;
+
+					// state.data = action.payload;
+				},
+				rejected: (state, action) => {
+					state.isLoading = false;
+					// state.error = action.payload;
+				},
+			},
+		),
 	}),
 });
 

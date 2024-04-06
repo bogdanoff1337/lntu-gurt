@@ -1,4 +1,5 @@
-import { FC, useCallback } from "react";
+import { FC, SyntheticEvent, useCallback } from "react";
+import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { AuthForm } from "@/entities/Auth";
 import { useDebounce } from "@/shared/hooks/useDebaunce/useDebaunce";
@@ -16,8 +17,19 @@ export const LoginAuthForm: FC<LoginAuthFormProps> = ({ className }) => {
 	const data = useSelector(pageRegisterSelectors.getData);
 	const dispatch = useDispatch();
 
-	const onSubmit = useCallback(() => {
-	}, []);
+	// const {
+	// 	register,
+	// 	handleSubmit,
+	// 	watch,
+	// 	formState: { errors },
+	// } = useForm();
+
+	const onSubmit = useCallback((e: SyntheticEvent) => {
+		e.preventDefault();
+
+		// @ts-ignore
+		dispatch(pageLoginAuthActions.submitForm());
+	}, [dispatch]);
 
 	const onChangeEmail = useCallback((value: string) => {
 		dispatch(pageLoginAuthActions.changeEmail(value));
@@ -33,14 +45,6 @@ export const LoginAuthForm: FC<LoginAuthFormProps> = ({ className }) => {
 
 	const onBlurValidatePassword = useCallback(() => {
 		dispatch(pageLoginAuthActions.validataPassword());
-	}, [dispatch]);
-
-	const onChangeConfirmPassword = useCallback((value: string) => {
-		dispatch(pageLoginAuthActions.changeConfirmPassword(value));
-	}, [dispatch]);
-
-	const onBlurValidateConfirmPassword = useCallback(() => {
-		dispatch(pageLoginAuthActions.validataConfirmPassword());
 	}, [dispatch]);
 
 	return (
@@ -60,7 +64,7 @@ export const LoginAuthForm: FC<LoginAuthFormProps> = ({ className }) => {
 				onChange={onChangeEmail}
 				onBlur={onBlurValidateEmail}
 				value={data.email.value}
-				errorMessage={data.email.errorMessage}
+				errorMessage={data.password.errorMessage}
 				isSuccess={data.email.ok}
 			/>
 			<PrimaryField
@@ -70,15 +74,6 @@ export const LoginAuthForm: FC<LoginAuthFormProps> = ({ className }) => {
 				value={data.password.value}
 				errorMessage={data.password.errorMessage}
 				isSuccess={data.password.ok}
-				type="password"
-			/>
-			<PrimaryField
-				placeholder="Підтвердження пароля"
-				onChange={onChangeConfirmPassword}
-				onBlur={onBlurValidateConfirmPassword}
-				value={data.confirmPassword.value}
-				errorMessage={data.confirmPassword.errorMessage}
-				isSuccess={data.confirmPassword.ok}
 				type="password"
 			/>
 		</AuthForm>
