@@ -32,6 +32,7 @@ Route::group([
 });
 
 Route::group(['middleware' => 'auth:api'], function () {
+
     Route::resource('dormitories', DormitoryController::class)->except([
         'create', 'store', 'update', 'destroy'
     ]);
