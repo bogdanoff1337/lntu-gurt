@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Hash;
 use Tymon\JWTAuth\Facades\JWTAuth;
-
+use Illuminate\Support\Facades\Auth;
 class StudentAuthController extends Controller
 {
     /**
@@ -56,27 +56,25 @@ class StudentAuthController extends Controller
      * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function login(StudentReguest $request)
+    public function login(Request $request)
     {
-        $credentials = $request->validated();
+        $credentials = $request->only('email', 'password');
 
-        if (!$token = auth()->attempt($credentials)) {
-            return response()->json(['error' => 'Unauthorized'], 401);
+        if ($token = $this->guard()->attempt($credentials)) {
+            return $this->respondWithToken($token);
         }
 
-        $refreshToken = $this->refresh();
-        return response()->json($this->respondWithToken($token))
-            ->withCookie('refreshToken', $refreshToken->original['access_token'], 60 * 24 * 30);
+        return response()->json(['error' => 'Unauthorized'], 401);
     }
 
     /**
-     * Get the authenticated User.
+     * Get the authenticated User
      *
      * @return \Illuminate\Http\JsonResponse
      */
     public function me()
     {
-        return response()->json(auth()->user());
+        return response()->json($this->guard()->user());
     }
 
     /**
@@ -114,5 +112,15 @@ class StudentAuthController extends Controller
             'token_type' => 'bearer',
             'expires_in' => JWTAuth::factory()->getTTL() * 60
         ]);
+    }
+
+    /**
+     * Get the guard to be used during authentication.
+     *
+     * @return \Illuminate\Contracts\Auth\Guard
+     */
+    public function guard()
+    {
+        return Auth::guard();
     }
 }
