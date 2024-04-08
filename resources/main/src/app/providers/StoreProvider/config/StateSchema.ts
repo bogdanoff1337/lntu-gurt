@@ -25,5 +25,4 @@ export interface ThunkConfig<T> {
 	rejectValue: T;
 	extra: ExtraArgumentType;
 	// state: StateSchema;
-
 }

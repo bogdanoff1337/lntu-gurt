@@ -13,6 +13,6 @@ class Faculty extends Model
 
     public function rooms()
     {
-        return $this->hasMany(Room::class, 'faculty_id');
+        return $this->hasMany(Room::class);
     }
 }

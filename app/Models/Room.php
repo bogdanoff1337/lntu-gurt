@@ -9,7 +9,6 @@ class Room extends Model
     use HasFactory;
 
     protected $fillable = [
-        'photos',
         'dormitory_id',
         'faculty_id',
         'places',
@@ -27,11 +26,11 @@ class Room extends Model
 
     public function dormitory()
     {
-        return $this->belongsTo(Dormitory::class);
+        return $this->belongsTo(Dormitory::class, 'dormitory_id');
     }
 
     public function faculty()
     {
-        return $this->belongsTo(Faculty::class);
+        return $this->belongsTo(Faculty::class, 'faculty_id');
     }
 }

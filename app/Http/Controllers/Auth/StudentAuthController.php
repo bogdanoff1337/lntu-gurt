@@ -4,12 +4,14 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StudentReguest;
-use Tymon\JWTAuth\Facades\JWTAuth;
+use App\Models\AccessToRegister;
 use App\Models\Student;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Validator;
+use Tymon\JWTAuth\Facades\JWTAuth;
 
-class StudentLoginController extends Controller
+class StudentAuthController extends Controller
 {
     /**
      * Create a new AuthController instance.
@@ -18,9 +20,36 @@ class StudentLoginController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth:api', ['except' => ['login', 'me','login','logout']]);
+        $this->middleware('auth:api', ['except' => ['register','login', 'me','login','logout']]);
     }
 
+    public function register(StudentReguest $request)
+    {
+        $data = $request->validated();
+
+        $access = AccessToRegister::where('email', $request->email)
+            ->where('access', true)
+            ->first();
+
+        if (!$access) {
+            return $this->sendError('Unauthorized', [], 401);
+        }
+
+        if (Student::where('email', $data['email'])->exists()) {
+            return response()->json(['status' => 400], );
+        }
+
+        Student::create([
+            'email' => $data['email'],
+            'password' => Hash::make($data['password']),
+        ]);
+
+        if (!$token = JWTAuth::attempt($request->only('email', 'password'))) {
+            return response()->json(['status' => 403]);
+        }
+
+        return $this->respondWithToken($token);
+    }
     /**
      * Handle an incoming authentication request.
      *
@@ -35,21 +64,9 @@ class StudentLoginController extends Controller
             return response()->json(['error' => 'Unauthorized'], 401);
         }
 
-        return $this->respondWithToken($token);
-    }
-
-    private function sendError($error, $data = [], $code = 404)
-    {
-        $response = [
-            'status' => 'failed',
-            'message' => $error,
-        ];
-
-        if (!empty($data)) {
-            $response['data'] = $data;
-        }
-
-        return response()->json($response, $code);
+        $refreshToken = $this->refresh();
+        return response()->json($this->respondWithToken($token))
+            ->withCookie('refreshToken', $refreshToken->original['access_token'], 60 * 24 * 30);
     }
 
     /**
@@ -81,22 +98,21 @@ class StudentLoginController extends Controller
      */
     public function refresh()
     {
+//        Cookie::queue();
         return $this->respondWithToken(auth()->refresh());
     }
 
-    /**
-     * Get the token array structure.
-     *
-     * @param string $token
-     *
-     * @return \Illuminate\Http\JsonResponse
-     */
+    protected function sendError()
+    {
+        return response()->json(['status' => 403]);
+    }
+
     protected function respondWithToken($token)
     {
         return response()->json([
             'access_token' => $token,
             'token_type' => 'bearer',
-            'expires_in' => auth()->factory()->getTTL() * 60
+            'expires_in' => JWTAuth::factory()->getTTL() * 60
         ]);
     }
 }
