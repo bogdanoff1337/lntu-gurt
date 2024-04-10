@@ -31,7 +31,7 @@ Route::group([
     Route::post('register', [StudentAuthController::class, 'register'])->name('refresh');
 });
 
-Route::group(['middleware' => 'auth:api'], function () {
+/*Route::group(['middleware' => 'auth:api'], function () {
 
     Route::resource('dormitories', DormitoryController::class)->except([
         'create', 'store', 'update', 'destroy'
@@ -48,7 +48,25 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::resource('faculties', FacultyController::class)->except([
         'create', 'store', 'update', 'destroy'
     ]);
-});
+}); */
+
+
+
+Route::resource('dormitories', DormitoryController::class)->except([
+    'create', 'store', 'update', 'destroy'
+]);
+
+Route::resource('rooms', RoomController::class)->except([
+    'create', 'store', 'update', 'destroy'
+]);
+
+Route::resource('book', OrdersController::class)->except([
+    'create', 'update', 'destroy'
+]);
+
+Route::resource('faculties', FacultyController::class)->except([
+    'create', 'store', 'update', 'destroy'
+]);
 
 
 

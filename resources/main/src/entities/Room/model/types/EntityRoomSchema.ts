@@ -10,10 +10,11 @@ export interface RoomData {
 
 export interface Room {
 	id: number;
-	photos: {
-		id: number;
-		url: string;
-	}[];
+	// photos: {
+	// 	id: number;
+	// 	url: string;
+	// }[];
+	images: string[];
 	dormitory: {
 		id: number;
 		slug: string;

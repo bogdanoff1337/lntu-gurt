@@ -40,7 +40,7 @@ interface Meta {
 
 export interface Room {
 	id: number;
-	photos: string;
+	images: string;
 	dormitory: {
 		id: number;
 		slug: string;

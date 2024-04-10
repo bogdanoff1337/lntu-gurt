@@ -8,15 +8,13 @@ interface NavLinkButtonProps {
 	className?: string;
 	children: ReactNode;
 	to: string;
-	modifier: ButtonModifier;
+	modifier?: ButtonModifier;
 }
-
-
 
 export const NavLinkButton: FC<NavLinkButtonProps> = ({
 	className,
 	children,
-	modifier,
+	modifier = "",
 	to,
 }) => (
 	<NavLink to={to} className={classNames(cls.Button, {}, [className, modifier])}>

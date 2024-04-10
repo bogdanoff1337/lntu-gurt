@@ -17,7 +17,7 @@ class Short extends JsonResource
     {
         return [
             'id' => $this->id,
-            'photos' => $this->images[0],
+            'images' => $this->images[0],
             'dormitory' => Dormitory::make($this->dormitory),
             'faculty' => $this->faculty->only('id', 'slug','slug_short'),
             'gender' => $this->gender,

@@ -57,7 +57,7 @@ export const RoomPage: FC<RoomPageProps> = ({ className }) => {
 
 				</Container>
 			</section>
-			<SwiperSection photos={roomData!.photos} />
+			<SwiperSection images={roomData!.images} />
 			<div className={cls.RoomPage__section}>
 				<div className={cls.RoomPage__container}>
 					<NavLinkButton to={getBookRoutePath(id)}>Забронювати кімнату</NavLinkButton>
