@@ -4,6 +4,7 @@ import { classNames as cn } from "@/shared/lib/classNames/classNames";
 import { Button } from "@/shared/ui/Buttons";
 import { Container, ContainerModifier } from "@/shared/ui/Container";
 import cls from "./AuthForm.module.scss";
+import { PrimaryButton } from "@/shared/ui/Buttons/ui/PrimaryButton/PrimaryButton";
 
 interface AuthFormProps {
 	className?: string;
@@ -39,7 +40,8 @@ export const AuthForm: FC<AuthFormProps> = ({
 			<div className={cls.AuthForm__fields}>
 				{children}
 			</div>
-			<Button type="submit" className={cls.AuthForm__submit}>{submitName}</Button>
+			<PrimaryButton isLoading type="submit" Icon={<svg></svg>} className={cls.AuthForm__submit}>{submitName}</PrimaryButton>
+			
 		</Container>
 	</form>
 );

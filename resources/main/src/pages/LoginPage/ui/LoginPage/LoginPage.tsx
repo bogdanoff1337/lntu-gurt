@@ -5,8 +5,8 @@ import { Button } from "@/shared/ui/Buttons";
 import { Container, ContainerModifier } from "@/shared/ui/Container";
 import { PrimaryField } from "@/shared/ui/Fields";
 import { Title } from "@/shared/ui/Title";
-import cls from "./LoginPage.module.scss";
 import { LoginAuthForm } from "../LoginAuthForm/LoginAuthForm";
+import cls from "./LoginPage.module.scss";
 
 interface LoginPageProps {
 	className?: string;

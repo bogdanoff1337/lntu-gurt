@@ -1,5 +1,7 @@
 import { PayloadAction } from "@reduxjs/toolkit";
-import { StateSchema, ThunkConfig } from "@/app/providers/StoreProvider";
+import { StateSchema, ThunkConfig, store } from "@/app/providers/StoreProvider";
+import { entityAuthActions } from "@/entities/Auth";
+import { TOKEN_LOCALSTORAGE_KEY } from "@/shared/const/localstorage";
 import { createSliceWithThunk } from "@/shared/lib/createSliceWithThunk";
 import { validateConfirmPassword } from "@/shared/validate/validateConfirmPassword";
 import { validateEmail } from "@/shared/validate/validateEmail";
@@ -56,7 +58,7 @@ export const pageLoginAuthSlice = createSliceWithThunk({
 
 		submitForm: create.asyncThunk<any, void, ThunkConfig<string>>(
 			async (_, {
-				extra, rejectWithValue, getState,
+				extra, rejectWithValue, getState, dispatch,
 			}) => {
 				const state = getState() as StateSchema;
 
@@ -71,11 +73,13 @@ export const pageLoginAuthSlice = createSliceWithThunk({
 						password: state.pageLoginAuth.data.password.value,
 					});
 
+					dispatch(entityAuthActions.getUser());
+
+					localStorage.setItem(TOKEN_LOCALSTORAGE_KEY, response.data.access_token);
+
 					if (!response.data) {
 						throw new Error();
 					}
-					console.log(response.data);
-					// return response.data;
 				} catch (e) {
 					return rejectWithValue("error");
 				}

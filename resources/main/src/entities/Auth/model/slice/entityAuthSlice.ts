@@ -5,23 +5,13 @@ import { EntityAuthSchema, TokenData, UserData } from "../types/EntityAuthSchema
 
 const initialState: EntityAuthSchema = {
 	data: undefined,
-	isLoading: true,
+	isLoading: false,
 };
 
 export const entityAuthSlice = createSliceWithThunk({
-	name: "entityAuthSlice",
+	name: "entityAuth",
 	initialState,
 	reducers: (create) => ({
-		// setAuthData: (state, action: PayloadAction<User>) => {
-		// 	state.authData = action.payload;
-		// },
-		// initAuthData: (state) => {
-		// 	const user = localStorage.getItem(TOKEN_LOCALSTORAGE_KEY);
-		// 	if (user) {
-		// 		state.authData = JSON.parse(user);
-		// 	}
-		// 	state._inited = true;
-		// },
 		logout: create.reducer((state) => {
 			state.data = undefined;
 			localStorage.removeItem(TOKEN_LOCALSTORAGE_KEY);
@@ -59,4 +49,4 @@ export const entityAuthSlice = createSliceWithThunk({
 	}),
 });
 
-export const { actions: entityFacultiesActions, reducer: entityFacultiesReducer } = entityAuthSlice;
+export const { actions: entityAuthActions, reducer: entityAuthReducer } = entityAuthSlice;

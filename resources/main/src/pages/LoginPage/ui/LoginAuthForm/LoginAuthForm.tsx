@@ -51,7 +51,7 @@ export const LoginAuthForm: FC<LoginAuthFormProps> = ({ className }) => {
 		<AuthForm
 			className={cn(cls.LoginAuthForm, {}, [className])}
 			onSubmit={onSubmit}
-			submitName="Зареєструватися"
+			submitName="Реєстрація"
 			statusErrorMessage={(
 				<div className={cls.StatusError}>
 					<h2 className={cls.StatusError__title}>Немає доступу для реєстрації</h2>
@@ -64,7 +64,7 @@ export const LoginAuthForm: FC<LoginAuthFormProps> = ({ className }) => {
 				onChange={onChangeEmail}
 				onBlur={onBlurValidateEmail}
 				value={data.email.value}
-				errorMessage={data.password.errorMessage}
+				errorMessage={data.email.errorMessage}
 				isSuccess={data.email.ok}
 			/>
 			<PrimaryField

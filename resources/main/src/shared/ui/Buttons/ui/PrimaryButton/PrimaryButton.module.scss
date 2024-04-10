@@ -1,3 +1,13 @@
 .PrimaryButton {
-   
+   column-gap: rem(4);
+
+   &_icon {
+      
+   }
+
+   &__loader {
+      color: $whiteColor;
+
+      font-size: rem(6);
+   }
 }
