@@ -49,21 +49,7 @@ class RoomController extends Controller
      */
     public function store(RoomRequest $request)
     {
-        $room = Room::create($request->validate());
 
-
-        if($request->hasfile('images'))
-        {
-            foreach($request->file('images') as $imagefile)
-            {
-                $image = new Image;
-                $path = $imagefile->store('/images/resource', ['disk' => 'photos_room']);
-                $image->url = $path;
-                $image->room_id = $room->id;
-                $image->save();
-            }
-        }
-        return new RoomResource($room);
     }
 
     /**

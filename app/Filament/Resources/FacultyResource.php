@@ -3,7 +3,6 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\FacultyResource\Pages;
-use App\Filament\Resources\FacultyResource\RelationManagers;
 use App\Models\Faculty;
 use Filament\Forms;
 use Filament\Forms\Form;
@@ -12,7 +11,7 @@ use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
-
+use Filament\Tables\Columns\ImageColumn;
 class FacultyResource extends Resource
 {
     protected static ?string $model = Faculty::class;
@@ -52,9 +51,10 @@ class FacultyResource extends Resource
                     ->label('Коротка назва')
                     ->searchable()
                     ->sortable(),
-//                Tables\Columns\ImageColumn::make('image')
-//                    ->label('Зображення')
-//                    ->disk('facult')
+                ImageColumn::make('image')
+                    ->label('Зображення')
+                    ->disk('facult')
+                    ->circular(),
             ])
             ->filters([
                 //

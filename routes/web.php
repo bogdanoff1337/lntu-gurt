@@ -13,9 +13,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('admin/{any?}', function ($any = null) {
-    return view("control");
-})->where('any', '.*');
+//Route::get('admin/{any?}', function ($any = null) {
+//    return view("control");
+//})->where('any', '.*');
 
 Route::get('{any?}', function ($any = null) {
     return view("main");

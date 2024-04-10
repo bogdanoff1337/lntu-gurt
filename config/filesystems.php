@@ -39,14 +39,14 @@ return [
         'facult' => [
             'driver' => 'local',
             'root' => base_path('/public/photos/uploads/facult'),
-            'url' => env('APP_URL').'/uploads',
+            'url' => env('APP_URL').'/photos/uploads/facult',
             'visibility' => 'public',
         ],
 
         'room' => [
             'driver' => 'local',
             'root' => base_path('/public/photos/uploads/room'),
-            'url' => env('APP_URL').'/uploads',
+            'url' => env('APP_URL').'/photos/uploads/room',
             'visibility' => 'public',
         ],
 
