@@ -12,8 +12,8 @@ class Image extends Model
     protected $fillable = ['url', 'room_id'];
 
 
-    public function rooms()
+    public function room()
     {
-    return $this->belongsTo(Room::class, 'room_id');
+    return $this->belongsTo(Room::class);
     }
 }
