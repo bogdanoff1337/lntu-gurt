@@ -7,6 +7,7 @@ use App\Http\Controllers\Api\OrdersController;
 use App\Http\Controllers\Api\RoomController;
 use App\Http\Controllers\Api\FacultyController;
 use App\Http\Controllers\Auth\StudentAuthController;
+use App\Http\Controllers\Api\StudentProfileController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -68,5 +69,7 @@ Route::resource('faculties', FacultyController::class)->except([
     'create', 'store', 'update', 'destroy'
 ]);
 
-
+Route::resource('profile', StudentProfileController::class)->except([
+    'create', 'store', 'destroy', 'edit'
+]);
 

@@ -8,6 +8,8 @@ use Filament\Resources\Pages\ListRecords;
 
 class ListDormitories extends ListRecords
 {
+    protected static ?string $title = 'Список гуртожитків';
+
     protected static string $resource = DormitoryResource::class;
 
     protected function getHeaderActions(): array

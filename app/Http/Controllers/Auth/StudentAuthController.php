@@ -20,7 +20,7 @@ class StudentAuthController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth:api', ['except' => ['register','login', 'me','login','logout']]);
+        $this->middleware('auth:api', ['except' => ['register','login','logout','refresh']]);
     }
 
     public function register(StudentReguest $request)
@@ -74,6 +74,9 @@ class StudentAuthController extends Controller
      */
     public function me()
     {
+        if (!auth()->user()) {
+            return response()->json(['status' => 401]);
+        }
         return response()->json($this->guard()->user());
     }
 
@@ -84,9 +87,9 @@ class StudentAuthController extends Controller
      */
     public function logout()
     {
-        auth()->logout();
+        $this->guard()->logout();
 
-        return response()->json(['message' => 'Successfully logged out']);
+        return response()->json(['message' => 'Successfully logged out','status' => 404] );
     }
 
     /**
@@ -96,8 +99,7 @@ class StudentAuthController extends Controller
      */
     public function refresh()
     {
-//        Cookie::queue();
-        return $this->respondWithToken(auth()->refresh());
+        return $this->respondWithToken($this->guard()->refresh());
     }
 
     protected function sendError()
