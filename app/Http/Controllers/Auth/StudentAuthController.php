@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Hash;
 use Tymon\JWTAuth\Facades\JWTAuth;
 use Illuminate\Support\Facades\Auth;
+
 class StudentAuthController extends Controller
 {
     /**
@@ -20,7 +21,7 @@ class StudentAuthController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth:api', ['except' => ['register','login','logout','refresh']]);
+        $this->middleware('auth:api', ['except' => ['me','register','login','logout','refresh']]);
     }
 
     public function register(StudentReguest $request)
@@ -63,7 +64,6 @@ class StudentAuthController extends Controller
         if ($token = $this->guard()->attempt($credentials)) {
             return $this->respondWithToken($token);
         }
-
         return response()->json(['error' => 'Unauthorized'], 401);
     }
 
@@ -74,8 +74,8 @@ class StudentAuthController extends Controller
      */
     public function me()
     {
-        if (!auth()->user()) {
-            return response()->json(['status' => 401]);
+        if (!$this->guard()->user()) {
+            return response()->json(['messages' => 'Unauthorized'], 401);
         }
         return response()->json($this->guard()->user());
     }
