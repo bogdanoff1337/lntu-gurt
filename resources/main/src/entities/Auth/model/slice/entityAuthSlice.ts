@@ -5,7 +5,7 @@ import { EntityAuthSchema, TokenData, UserData } from "../types/EntityAuthSchema
 
 const initialState: EntityAuthSchema = {
 	data: undefined,
-	isLoading: false,
+	isLoading: true,
 };
 
 export const entityAuthSlice = createSliceWithThunk({
@@ -21,7 +21,7 @@ export const entityAuthSlice = createSliceWithThunk({
 				extra, rejectWithValue,
 			}) => {
 				try {
-					const response = await extra.api.get<UserData>("auth/me");
+					const response = await extra.api.post<UserData>("auth/me");
 
 					if (!response.data) {
 						throw new Error();
@@ -34,7 +34,7 @@ export const entityAuthSlice = createSliceWithThunk({
 			},
 			{
 				pending: (state) => {
-					state.isLoading = false;
+					state.isLoading = true;
 				},
 				fulfilled: (state, action) => {
 					state.isLoading = false;

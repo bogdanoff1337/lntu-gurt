@@ -2,8 +2,8 @@ import { ButtonHTMLAttributes, FC, ReactNode } from "react";
 import { Button } from "../..";
 import { classNames as cn } from "../../../../lib/classNames/classNames";
 import { Icon } from "../../../Icon";
+import { Loader } from "../../../Loader";
 import cls from "./PrimaryButton.module.scss";
-import { Loader } from "@/shared/ui/Loader";
 
 interface PrimaryButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 	className?: string;

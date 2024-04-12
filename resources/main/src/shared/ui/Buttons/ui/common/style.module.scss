@@ -3,13 +3,13 @@
    display: inline-flex;
    align-items: center;
 
-   padding: em(10) em(15);
+   padding: em(10, 22) em(15, 22);
 
    transition: background-color $primaryTransition;
 
    color: $whiteColor;
    
-   border-radius: em(9);
+   border-radius: em(9, 22);
    background-color: $blueColor;
 
    font-weight: 600;

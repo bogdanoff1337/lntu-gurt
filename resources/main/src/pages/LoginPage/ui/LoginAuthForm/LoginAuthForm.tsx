@@ -1,12 +1,14 @@
 import { FC, SyntheticEvent, useCallback } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
+import { redirect, useNavigate } from "react-router-dom";
 import { AuthForm } from "@/entities/Auth";
+import { getMainRoutePath } from "@/shared/config/routes/path";
 import { useDebounce } from "@/shared/hooks/useDebaunce/useDebaunce";
 import { classNames as cn } from "@/shared/lib/classNames/classNames";
 import { PrimaryField } from "@/shared/ui/Fields";
 import * as pageRegisterSelectors from "../../model/selectors";
-import { pageLoginAuthActions } from "../../model/slice/PageLoginAuthSchema";
+import { pageLoginAuthActions } from "../../model/slice/PageLoginAuthSlice";
 import cls from "./LoginAuthForm.module.scss";
 
 interface LoginAuthFormProps {
@@ -15,20 +17,20 @@ interface LoginAuthFormProps {
 
 export const LoginAuthForm: FC<LoginAuthFormProps> = ({ className }) => {
 	const data = useSelector(pageRegisterSelectors.getData);
-	const dispatch = useDispatch();
+	const isLoading = useSelector(pageRegisterSelectors.getIsLoading);
+	const navigate = useNavigate();
 
-	// const {
-	// 	register,
-	// 	handleSubmit,
-	// 	watch,
-	// 	formState: { errors },
-	// } = useForm();
+	const dispatch = useDispatch();
 
 	const onSubmit = useCallback((e: SyntheticEvent) => {
 		e.preventDefault();
 
 		// @ts-ignore
-		dispatch(pageLoginAuthActions.submitForm());
+		dispatch(pageLoginAuthActions.submitForm()).then((data) => {
+			if (data.meta.requestStatus === "fulfilled") {
+				navigate("/");
+			}
+		});
 	}, [dispatch]);
 
 	const onChangeEmail = useCallback((value: string) => {
@@ -52,6 +54,7 @@ export const LoginAuthForm: FC<LoginAuthFormProps> = ({ className }) => {
 			className={cn(cls.LoginAuthForm, {}, [className])}
 			onSubmit={onSubmit}
 			submitName="Реєстрація"
+			isLoading={isLoading}
 			statusErrorMessage={(
 				<div className={cls.StatusError}>
 					<h2 className={cls.StatusError__title}>Немає доступу для реєстрації</h2>
