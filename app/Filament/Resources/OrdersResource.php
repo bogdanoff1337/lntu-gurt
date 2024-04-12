@@ -14,8 +14,8 @@ use Filament\Tables\Table;
 class OrdersResource extends Resource
 {
     protected static ?string $model = Order::class;
-
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    public static ?string $navigationLabel = 'Замовлення';
+    protected static ?string $navigationIcon = 'heroicon-o-clipboard-document-list';
 
     public static function form(Form $form): Form
     {

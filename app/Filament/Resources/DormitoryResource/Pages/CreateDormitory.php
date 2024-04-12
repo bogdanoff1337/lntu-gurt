@@ -8,5 +8,7 @@ use Filament\Resources\Pages\CreateRecord;
 
 class CreateDormitory extends CreateRecord
 {
+    protected static ?string $title = 'Створення гуртожитку';
+
     protected static string $resource = DormitoryResource::class;
 }

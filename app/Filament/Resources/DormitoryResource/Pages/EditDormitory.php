@@ -8,6 +8,8 @@ use Filament\Resources\Pages\EditRecord;
 
 class EditDormitory extends EditRecord
 {
+    protected static ?string $title = 'Оновлення гуртожитку';
+
     protected static string $resource = DormitoryResource::class;
 
     protected function getHeaderActions(): array

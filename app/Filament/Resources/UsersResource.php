@@ -14,8 +14,10 @@ use Filament\Tables\Columns\TextColumn;
 class UsersResource extends Resource
 {
     protected static ?string $model = User::class;
+    protected static ?string $navigationGroup = 'Адміністратори';
+    protected static ?string $navigationLabel = 'Адміністратори';
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-users';
 
     public static function form(Form $form): Form
     {

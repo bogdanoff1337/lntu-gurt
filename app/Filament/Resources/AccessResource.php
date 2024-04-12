@@ -13,10 +13,11 @@ use Filament\Tables\Table;
 use Filament\Forms\Components\TextInput;
 class AccessResource extends Resource
 {
-    protected static $title = 'Доступи';
     protected static ?string $model = AccessToRegister::class;
+    protected static ?string $navigationGroup = 'Доступ до реєстрації';
+    public static ?string $navigationLabel = 'Доступ до реєстрації';
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-shield-check';
 
     public static function form(Form $form): Form
     {

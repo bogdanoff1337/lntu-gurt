@@ -15,6 +15,8 @@ use Filament\Forms\Components\Select;
 class RoomsResource extends Resource
 {
     protected static ?string $model = Room::class;
+    protected static ?string $navigationGroup = 'Основна інформація';
+    public static ?string $navigationLabel = 'Кімнати';
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
