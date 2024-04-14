@@ -15,10 +15,11 @@ interface PrimaryFieldProps extends InputAttrubutes {
 	errorMessage?: string;
 	isSuccess?: boolean;
 	type?: string;
+	register: any;
 }
 
 export const PrimaryField: FC<PrimaryFieldProps> = ({
-	className, placeholder, value, onChange, onBlur, errorMessage, type = "text", isSuccess, ...anotherProps
+	className, placeholder, value, onChange, onBlur, errorMessage, type = "text", isSuccess, register, ...anotherProps
 }) => {
 	const [isEmty, setIsEmty] = useState(true);
 
@@ -52,6 +53,7 @@ export const PrimaryField: FC<PrimaryFieldProps> = ({
 					value={value}
 					onChange={onChangeHandler}
 					onBlur={onBlurHandler}
+					{...register}
 					{...anotherProps}
 				/>
 			</div>

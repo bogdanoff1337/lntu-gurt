@@ -22,7 +22,7 @@ export const UserMenu: FC<UserMenuProps> = ({ className }) => {
 
 	const onClickHandler = useCallback(() => {
 		dispatch(featureMenuActions.setIsShow(!isShow));
-	}, [isShow]);
+	}, [dispatch, isShow]);
 
 	useEffect(() => {
 		const onKeydown = (e: KeyboardEvent) => {
@@ -40,7 +40,7 @@ export const UserMenu: FC<UserMenuProps> = ({ className }) => {
 
 	return (
 		<div className={cn(cls.UserMenu, {}, [className])}>
-			<button onClick={onClickHandler} className={cls.UserMenu__button}>
+			<button aria-label="Menu" onClick={onClickHandler} className={cls.UserMenu__button}>
 				<ProfileIcon className={cls.UserMenu__icon} />
 			</button>
 			<DropDown className={cls.UserMenu__dropDown} isShow={isShow && !isTablet} />
