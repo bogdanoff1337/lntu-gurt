@@ -79,6 +79,9 @@ export const pageLoginAuthSlice = createSliceWithThunk({
 					if (!response.data) {
 						throw new Error();
 					}
+					console.log(response);
+
+					return response.data;
 				} catch (e) {
 					return rejectWithValue("error");
 				}

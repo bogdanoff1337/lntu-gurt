@@ -1,0 +1,33 @@
+.Overlay {
+   position: fixed;
+   z-index: $overlayZindex;
+   inset: 0;
+
+   background: rgba(63, 64, 155, 0.53);
+}
+
+.Transition {
+   &_enter {
+      transition: 0.3s ease-in-out;
+   }
+
+   &_enterFrom {
+      opacity: 0;
+   }
+
+   &_enterTo {      
+      opacity: 1;
+   }
+
+   &_leave {
+      transition: 0.3s ease-out;
+   }
+
+   &_leaveFrom {
+      opacity: 1;
+   }
+
+   &_leaveTo {
+      opacity: 0;
+   }
+}

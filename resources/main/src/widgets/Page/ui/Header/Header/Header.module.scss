@@ -11,6 +11,7 @@
 	&__container {
 		display: flex;
 		align-items: center;
-		column-gap: rem(140);
+		justify-content: space-between;
+		// column-gap: rem(140);
 	}
 }

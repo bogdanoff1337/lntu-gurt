@@ -1,0 +1,39 @@
+.UserMenu {
+   position: relative;
+
+   &__button {
+      display: flex;
+      overflow: hidden;
+
+      border-radius: 50%;
+      
+   }
+
+   &__icon {
+   }
+
+   &__dropDown {
+      position: absolute;
+      top: calc(100% + rem(10));
+      right: 0;
+   }
+
+   &__item {
+
+   }
+}
+
+
+@keyframes arrow {
+   from {
+       transform: translateX(0);
+   }
+   
+   50% {
+       transform: translateX(rem(2))
+   }
+
+   to {
+       transform: translateX(0);
+   }
+}

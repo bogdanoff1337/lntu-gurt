@@ -6,6 +6,7 @@ import { AuthForm } from "@/entities/Auth";
 import { getMainRoutePath } from "@/shared/config/routes/path";
 import { useDebounce } from "@/shared/hooks/useDebaunce/useDebaunce";
 import { classNames as cn } from "@/shared/lib/classNames/classNames";
+import { useAppDispatch } from "@/shared/lib/hooks/useAppDispatch/useAppDispatch";
 import { PrimaryField } from "@/shared/ui/Fields";
 import * as pageRegisterSelectors from "../../model/selectors";
 import { pageLoginAuthActions } from "../../model/slice/PageLoginAuthSlice";
@@ -20,18 +21,17 @@ export const LoginAuthForm: FC<LoginAuthFormProps> = ({ className }) => {
 	const isLoading = useSelector(pageRegisterSelectors.getIsLoading);
 	const navigate = useNavigate();
 
-	const dispatch = useDispatch();
+	const dispatch = useAppDispatch();
 
 	const onSubmit = useCallback((e: SyntheticEvent) => {
 		e.preventDefault();
 
-		// @ts-ignore
 		dispatch(pageLoginAuthActions.submitForm()).then((data) => {
 			if (data.meta.requestStatus === "fulfilled") {
 				navigate("/");
 			}
 		});
-	}, [dispatch]);
+	}, [dispatch, navigate]);
 
 	const onChangeEmail = useCallback((value: string) => {
 		dispatch(pageLoginAuthActions.changeEmail(value));
