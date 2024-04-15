@@ -33,11 +33,11 @@ class StudentAuthController extends Controller
             ->first();
 
         if (!$access) {
-            return response()->json(['error' => 'forbidden' ], 403 );
+            return response()->json(['error' => 'forbidden' ], 403);
         }
 
         if (Student::where('email', $data['email'])->exists()) {
-            return response()->json(['error' => 'already exists' ], 400);
+            return response()->json(['error' => 'already exists' ], 409);
         }
 
         Student::create([
@@ -64,7 +64,8 @@ class StudentAuthController extends Controller
         if ($token = $this->guard()->attempt($credentials)) {
             return $this->respondWithToken($token);
         }
-        return response()->json(['error' => 'Unauthorized'], 401);
+
+        return response()->json(['error' => 'Not found'], 404);
     }
 
     /**
@@ -89,7 +90,7 @@ class StudentAuthController extends Controller
     {
         $this->guard()->logout();
 
-        return response()->json(['message' => 'logout'] );
+        return response()->json(['message' => 'logout']);
     }
 
     /**
@@ -100,11 +101,6 @@ class StudentAuthController extends Controller
     public function refresh()
     {
         return $this->respondWithToken($this->guard()->refresh());
-    }
-
-    protected function sendError()
-    {
-        return response()->json(['status' => 403]);
     }
 
     protected function respondWithToken($token)
