@@ -3,7 +3,7 @@ import { createSliceWithThunk } from "@/shared/lib/createSliceWithThunk";
 import { OverlaySchema } from "../types/OverlaySchema";
 
 const initialState: OverlaySchema = {
-	isShow: true,
+	isShow: false,
 };
 
 export const featureMenuSlice = createSliceWithThunk({

@@ -10,6 +10,7 @@ export interface PageLoginAuthSchema {
 interface Field {
 	value: string;
 	errorMessage?: string;
+	warnMessage?: string;
 	ok?: boolean;
 }
 

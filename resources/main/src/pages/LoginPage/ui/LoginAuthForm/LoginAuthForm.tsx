@@ -25,31 +25,19 @@ export const LoginAuthForm: FC<LoginAuthFormProps> = ({ className }) => {
 	const data = useSelector(pageRegisterSelectors.getData);
 	const isLoading = useSelector(pageRegisterSelectors.getIsLoading);
 	const navigate = useNavigate();
-	const {
-		register,
-		handleSubmit,
-		watch,
-		clearErrors,
-		formState: { errors },
-	} = useForm<Inputs>({
-		mode: "onBlur",
-	});
-
-	const onSubmit = async (data: Inputs) => {
-		console.log(data);
-	};
 
 	const dispatch = useAppDispatch();
 
-	// const onSubmit = useCallback((e: SyntheticEvent) => {
-	// 	e.preventDefault();
+	const onSubmit = useCallback((e: SyntheticEvent) => {
+		e.preventDefault();
 
-	// 	dispatch(pageLoginAuthActions.submitForm()).then((data) => {
-	// 		if (data.meta.requestStatus === "fulfilled") {
-	// 			navigate("/");
-	// 		}
-	// 	});
-	// }, [dispatch, navigate]);
+		dispatch(pageLoginAuthActions.submitForm()).then((data) => {
+			if (data.meta.requestStatus === "fulfilled") {
+				navigate("/");
+				dispatch(pageLoginAuthActions.clearFields());
+			}
+		});
+	}, [dispatch, navigate]);
 
 	const onChangeEmail = useCallback((value: string) => {
 		dispatch(pageLoginAuthActions.changeEmail(value));
@@ -70,7 +58,7 @@ export const LoginAuthForm: FC<LoginAuthFormProps> = ({ className }) => {
 	return (
 		<AuthForm
 			className={cn(cls.LoginAuthForm, {}, [className])}
-			onSubmit={handleSubmit(onSubmit)}
+			onSubmit={onSubmit}
 			submitName="Увійти"
 			isLoading={isLoading}
 			statusErrorMessage={(
@@ -81,40 +69,21 @@ export const LoginAuthForm: FC<LoginAuthFormProps> = ({ className }) => {
 			)}
 		>
 			<PrimaryField
-				// name="email"
 				placeholder="Email"
-				// onChange={onChangeEmail}
-				// onBlur={onBlurValidateEmail}
-				// value={data.email.value}
-				onFocus={() => clearErrors("email")}
-				errorMessage={errors.email?.message}
-				// isSuccess={!errors.email}
-				register={{
-					...register("email", {
-						required: { value: true, message: "Не заповнене поле" },
-						pattern: { value: /^\S+@\S+$/i, message: "Невірний формат пошти" },
-						maxLength: { value: 32, message: "Email повинен містити не більше 32 символів" },
-						minLength: { value: 8, message: "Email повинен містити не менше 4 символів" },
-					}),
-
-				}}
+				onChange={onChangeEmail}
+				onBlur={onBlurValidateEmail}
+				value={data.email.value}
+				errorMessage={data.email.errorMessage}
+				isSuccess={data.email.ok}
 			/>
 			<PrimaryField
 				placeholder="Пароль"
-				// onChange={onChangePassword}
-				// onBlur={onBlurValidatePassword}
-				// value={data.password.value}
-				onFocus={() => clearErrors("password")}
-				errorMessage={errors.password?.message}
-				// isSuccess={}
+				onChange={onChangePassword}
+				onBlur={onBlurValidatePassword}
+				value={data.password.value}
+				errorMessage={data.password.errorMessage}
+				isSuccess={data.password.ok}
 				type="password"
-				register={{
-					...register("password", {
-						required: { value: true, message: "Не заповнене поле" },
-						minLength: { value: 8, message: "Пароль повинен містити не менше 8 символів" },
-						maxLength: { value: 32, message: "Пароль повинен містити не більше 32 символів" },
-					}),
-				}}
 			/>
 		</AuthForm>
 
