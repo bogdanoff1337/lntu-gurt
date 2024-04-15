@@ -3,15 +3,13 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\StudentReguest;
 use App\Models\AccessToRegister;
 use App\Models\Student;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Hash;
 use Tymon\JWTAuth\Facades\JWTAuth;
 use Illuminate\Support\Facades\Auth;
-
+use App\Http\Requests\Student\StudentReguest;
 class StudentAuthController extends Controller
 {
     /**
@@ -21,7 +19,7 @@ class StudentAuthController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth:api', ['except' => ['me','register','login','logout','refresh']]);
+        $this->middleware('auth:api', ['except' => ['me','register','login','logout','refresh','update']]);
     }
 
     public function register(StudentReguest $request)
@@ -57,9 +55,9 @@ class StudentAuthController extends Controller
      * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function login(Request $request)
+    public function login(StudentReguest $request)
     {
-        $credentials = $request->only('email', 'password');
+        $credentials = $request->validated();
 
         if ($token = $this->guard()->attempt($credentials)) {
             return $this->respondWithToken($token);
@@ -81,6 +79,19 @@ class StudentAuthController extends Controller
         return response()->json($this->guard()->user());
     }
 
+
+    public function update(StudentRequest $request)
+    {
+        $user = $this->guard()->user();
+
+        if (!$user) {
+            return response()->json(['messages' => 'Unauthorized'], 401);
+        }
+
+        $user->update($request->validated());
+
+        return $this->respondWithToken($this->guard()->refresh());
+    }
     /**
      * Log the user out (Invalidate the token).
      *

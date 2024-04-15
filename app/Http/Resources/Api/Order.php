@@ -17,13 +17,7 @@ class Order extends JsonResource
         return [
             'id' => $this->id,
             'room_id' => $this->room_id,
-            'first_name' => $this->first_name,
-            'last_name' => $this->last_name,
-            'father_name' => $this->father_name,
-            'phone' => $this->phone,
-            'address' => $this->address,
-            'gender' => $this->gender,
-            'benefits' => $this->benefits,
+            'student_id' => $this->student_id,
         ];
     }
 }

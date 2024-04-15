@@ -23,13 +23,7 @@ class OrderRequest extends FormRequest
     {
         return [
             'room_id' => 'required|exists:rooms,id',
-            'first_name' => 'required|string',
-            'last_name' => 'required|string',
-            'father_name' => 'required|string',
-            'phone' => 'required|string|unique:orders',
-            'address' => 'required|string',
-            'benefits' => 'required|string',
-            'gender' => 'required|string',
+            'student_id' => 'required|exists:students,id',
         ];
     }
 }

@@ -10,14 +10,8 @@ class Order extends Model
     use HasFactory;
 
     protected $fillable = [
+        'student_id',
         'room_id',
-        'first_name',
-        'last_name',
-        'father_name',
-        'address',
-        'gender',
-        'phone',
-        'benefits',
     ];
 
     public function room()
