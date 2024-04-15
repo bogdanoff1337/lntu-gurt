@@ -14,14 +14,7 @@
             left: 0;
    
             font-size: rem(16);
-         }    
-
-         &__wrapper {
-            &::before {
-               width: 100%;
-            }
          }
-
 
          &__input {
             &::placeholder {
@@ -34,7 +27,7 @@
    &_error {
       #{$p} {
          &__wrapper {
-            &:after {
+            &:after, &:before {
                background: $redColor;
             }
          }
@@ -44,7 +37,17 @@
    &_success {
       #{$p} {
          &__wrapper {
-            &:after {
+            &:after, &:before {
+               background: $greenColor;
+            }
+         }
+      }
+   }
+
+   &_warn {
+      #{$p} {
+         &__wrapper {
+            &:after, &:before {
                background: $greenColor;
             }
          }
@@ -97,15 +100,16 @@
 
       &:before {
          position: absolute;
+         z-index: 1;
          bottom: 0;
 
          width: 0;
-         height: rem(2);
+         height: rem(3);
 
          content: "";
          transition: width $primaryTransition, background $primaryTransition;
 
-         background: $blueColor;         
+         background: $blueColor;     
       }
 
       &:after {
@@ -114,9 +118,11 @@
 
          width: 100%;
          height: rem(2);
-
+         
          content: "";
          transition: background $primaryTransition;
+
+         background: $blueColor;
       }
    }
 
@@ -134,10 +140,6 @@
 
          opacity: 0;
       }
-   }
-
-   &__success {
-      background-color: $greenColor;
    }
 
    &__error {

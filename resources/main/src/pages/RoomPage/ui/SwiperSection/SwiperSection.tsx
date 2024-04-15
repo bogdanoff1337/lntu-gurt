@@ -12,24 +12,25 @@ import cls from "./SwiperSection.module.scss";
 
 interface SwiperSectionProps {
 	className?: string;
-	photos: {
-		id: number;
-		url: string;
-	}[]
+	// photos: {
+	// 	id: number;
+	// 	url: string;
+	// }[]
+	images: string[];
 }
 
-export const SwiperSection: FC<SwiperSectionProps> = ({ className, photos }) => {
+export const SwiperSection: FC<SwiperSectionProps> = ({ className, images }) => {
 	const isMobile = useMediaQuery({ maxWidth: Devices.MOBILE });
 
 	const swiperSlidesItems = useMemo(() => {
-		return photos.map(({ id, url }) => {
+		return images.map((image, i) => {
 			return (
-				<SwiperSlide key={id}>
-					<img className={cls.Img} src={url} alt="" />
+				<SwiperSlide key={i}>
+					<img className={cls.Img} src={`/photos/uploads/room/${image}`} alt="" />
 				</SwiperSlide>
 			);
 		});
-	}, [photos]);
+	}, [images]);
 
 	return (
 		<section className={cn(cls.SwiperSection, {}, [className])}>

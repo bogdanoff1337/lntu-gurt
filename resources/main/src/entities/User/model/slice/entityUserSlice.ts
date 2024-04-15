@@ -10,7 +10,7 @@ export const entityRoomsSlice = createSliceWithThunk({
 	initialState,
 	reducers: (create) => ({
 		getRoomsByParams: create.asyncThunk<any, { }, ThunkConfig<string>>(
-			async ({  }, {
+			async ({ }, {
 				extra, rejectWithValue,
 			}) => {
 				try {

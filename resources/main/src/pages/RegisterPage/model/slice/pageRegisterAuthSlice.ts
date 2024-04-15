@@ -1,7 +1,9 @@
 import { PayloadAction } from "@reduxjs/toolkit";
-import { ThunkConfig } from "@/app/providers/StoreProvider";
+import { StateSchema, ThunkConfig } from "@/app/providers/StoreProvider";
+import { entityAuthActions } from "@/entities/Auth";
+import { TOKEN_LOCALSTORAGE_KEY } from "@/shared/const/localstorage";
 import { createSliceWithThunk } from "@/shared/lib/createSliceWithThunk";
-import { validateСonfirmPassword } from "@/shared/validate/validateConfirmPassword";
+import { validateConfirmPassword } from "@/shared/validate/validateConfirmPassword";
 import { validateEmail } from "@/shared/validate/validateEmail";
 import { validatePassword } from "@/shared/validate/validatePassword";
 import { PageRegisterAuthSchema } from "../types/PageRegisterAuthSchema";
@@ -10,13 +12,18 @@ const initialState: PageRegisterAuthSchema = {
 	data: {
 		email: {
 			value: "",
-
+			errorMessage: undefined,
+			ok: undefined,
 		},
 		password: {
 			value: "",
+			errorMessage: undefined,
+			ok: undefined,
 		},
 		confirmPassword: {
 			value: "",
+			errorMessage: undefined,
+			ok: undefined,
 		},
 	},
 	isLoading: false,
@@ -61,7 +68,7 @@ export const pageRegisterAuthSlice = createSliceWithThunk({
 			state.data.confirmPassword.value = action.payload;
 		}),
 		validataConfirmPassword: create.reducer((state) => {
-			const { ok, message } = validateСonfirmPassword(state.data.password.value, state.data.confirmPassword.value);
+			const { ok, message } = validateConfirmPassword(state.data.password.value, state.data.confirmPassword.value);
 			state.data.confirmPassword.ok = ok;
 
 			if (ok) {
@@ -73,39 +80,49 @@ export const pageRegisterAuthSlice = createSliceWithThunk({
 			}
 		}),
 
-		// submitForm: create.asyncThunk<any, any, ThunkConfig<string>>(
-		// 	async ({ faculty_id, dormitory_id, gender }, {
-		// 		extra, rejectWithValue,
-		// 	}) => {
-		// 		try {
-		// 			const response = await extra.api.post<any>("rooms", {
+		clearFields: create.reducer((state) => {
+			state.data.email.value = "";
+			state.data.password.value = "";
+			state.data.confirmPassword.value = "";
+		}),
 
-		// 			});
+		submitForm: create.asyncThunk<any, void, ThunkConfig<string>>(
+			async (_, {
+				extra, rejectWithValue, getState, dispatch,
+			}) => {
+				const state = getState() as StateSchema;
 
-		// 			if (!response.data) {
-		// 				throw new Error();
-		// 			}
+				try {
+					const response = await extra.api.post<any>("auth/register", {
+						email: state.pageRegisterAuth.data.email.value,
+						password: state.pageRegisterAuth.data.password.value,
+						confirmPassword: state.pageRegisterAuth.data.password.value,
+					});
 
-		// 			return response.data.data;
-		// 		} catch (e) {
-		// 			return rejectWithValue("error");
-		// 		}
-		// 	},
-		// 	{
-		// 		pending: (state) => {
-		// 			state.isLoading = true;
-		// 		},
-		// 		fulfilled: (state, action) => {
-		// 			state.isLoading = false;
-		// 			state.data = action.payload;
-		// 		},
-		// 		rejected: (state, action) => {
-		// 			state.isLoading = false;
-		// 			state.error = action.payload;
-		// 		},
-		// 	},
-		// ),
-		
+					if (!response.data) {
+						throw new Error();
+					}
+
+					localStorage.setItem(TOKEN_LOCALSTORAGE_KEY, response.data.access_token);
+
+					dispatch(entityAuthActions.getUser());
+				} catch (e) {
+					return rejectWithValue("error");
+				}
+			},
+			{
+				pending: (state) => {
+					state.isLoading = true;
+				},
+				fulfilled: (state, action) => {
+					state.isLoading = false;
+				},
+				rejected: (state, action) => {
+					state.isLoading = false;
+					// state.error = action.payload;
+				},
+			},
+		),
 	}),
 });
 

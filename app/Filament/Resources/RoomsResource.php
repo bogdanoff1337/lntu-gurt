@@ -3,9 +3,9 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\RoomsResource\Pages;
-use App\Filament\Resources\RoomsResource\RelationManagers;
 use App\Models\Room;
 use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Components\Repeater;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
@@ -15,6 +15,8 @@ use Filament\Forms\Components\Select;
 class RoomsResource extends Resource
 {
     protected static ?string $model = Room::class;
+    protected static ?string $navigationGroup = 'Основна інформація';
+    public static ?string $navigationLabel = 'Кімнати';
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
@@ -52,12 +54,13 @@ class RoomsResource extends Resource
                 Select::make('dormitory_id')
                     ->label('Гуртожиток')
                     ->options(\App\Models\Dormitory::pluck('slug', 'id')->toArray()),
-                FileUpload::make('images.url')
-                    ->label('Зображення кімнати')
-                    ->disk('room')
+                FileUpload::make('images')
+                    ->label('Зображення')
                     ->image()
                     ->imageEditor()
-                    ->multiple(),
+                    ->multiple()
+                    ->disk('room')
+
             ]);
     }
 

@@ -1,13 +1,15 @@
 .Button {
+   $p: &;
    display: inline-flex;
+   align-items: center;
 
-   padding: em(15) em(35);
+   padding: em(10, 22) em(15, 22);
 
    transition: background-color $primaryTransition;
 
    color: $whiteColor;
    
-   border-radius: em(15);
+   border-radius: em(9, 22);
    background-color: $blueColor;
 
    font-weight: 600;
@@ -16,6 +18,13 @@
       background-color: $blueColorHover;
    }
 
-   @include adaptiveValue("font-size", 28, 18, 0, $widthTo: $tablet);
+   &_invetion {
+      background-color: $purpleColor;
+      
+      &:hover {
+         background-color: $purpleColorHover;
+      }
+   }
 
+   @include adaptiveValue("font-size", 22, 18, 0, $widthTo: $tablet);
 }

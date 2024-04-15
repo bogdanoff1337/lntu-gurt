@@ -1,23 +1,43 @@
-import { FC, useCallback } from "react";
+import { FC, SyntheticEvent, useCallback } from "react";
+import { useForm, SubmitHandler } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
+import { redirect, useNavigate } from "react-router-dom";
 import { AuthForm } from "@/entities/Auth";
+import { getMainRoutePath } from "@/shared/config/routes/path";
 import { useDebounce } from "@/shared/hooks/useDebaunce/useDebaunce";
 import { classNames as cn } from "@/shared/lib/classNames/classNames";
+import { useAppDispatch } from "@/shared/lib/hooks/useAppDispatch/useAppDispatch";
 import { PrimaryField } from "@/shared/ui/Fields";
 import * as pageRegisterSelectors from "../../model/selectors";
-import { pageLoginAuthActions } from "../../model/slice/PageLoginAuthSchema";
+import { pageLoginAuthActions } from "../../model/slice/PageLoginAuthSlice";
 import cls from "./LoginAuthForm.module.scss";
 
 interface LoginAuthFormProps {
 	className?: string
 }
 
+type Inputs = {
+	email: string
+	password: string
+};
+
 export const LoginAuthForm: FC<LoginAuthFormProps> = ({ className }) => {
 	const data = useSelector(pageRegisterSelectors.getData);
-	const dispatch = useDispatch();
+	const isLoading = useSelector(pageRegisterSelectors.getIsLoading);
+	const navigate = useNavigate();
 
-	const onSubmit = useCallback(() => {
-	}, []);
+	const dispatch = useAppDispatch();
+
+	const onSubmit = useCallback((e: SyntheticEvent) => {
+		e.preventDefault();
+
+		dispatch(pageLoginAuthActions.submitForm()).then((data) => {
+			if (data.meta.requestStatus === "fulfilled") {
+				navigate("/");
+				dispatch(pageLoginAuthActions.clearFields());
+			}
+		});
+	}, [dispatch, navigate]);
 
 	const onChangeEmail = useCallback((value: string) => {
 		dispatch(pageLoginAuthActions.changeEmail(value));
@@ -35,19 +55,12 @@ export const LoginAuthForm: FC<LoginAuthFormProps> = ({ className }) => {
 		dispatch(pageLoginAuthActions.validataPassword());
 	}, [dispatch]);
 
-	const onChangeConfirmPassword = useCallback((value: string) => {
-		dispatch(pageLoginAuthActions.changeConfirmPassword(value));
-	}, [dispatch]);
-
-	const onBlurValidateConfirmPassword = useCallback(() => {
-		dispatch(pageLoginAuthActions.validataConfirmPassword());
-	}, [dispatch]);
-
 	return (
 		<AuthForm
 			className={cn(cls.LoginAuthForm, {}, [className])}
 			onSubmit={onSubmit}
-			submitName="Зареєструватися"
+			submitName="Увійти"
+			isLoading={isLoading}
 			statusErrorMessage={(
 				<div className={cls.StatusError}>
 					<h2 className={cls.StatusError__title}>Немає доступу для реєстрації</h2>
@@ -72,15 +85,7 @@ export const LoginAuthForm: FC<LoginAuthFormProps> = ({ className }) => {
 				isSuccess={data.password.ok}
 				type="password"
 			/>
-			<PrimaryField
-				placeholder="Підтвердження пароля"
-				onChange={onChangeConfirmPassword}
-				onBlur={onBlurValidateConfirmPassword}
-				value={data.confirmPassword.value}
-				errorMessage={data.confirmPassword.errorMessage}
-				isSuccess={data.confirmPassword.ok}
-				type="password"
-			/>
 		</AuthForm>
+
 	);
 };

@@ -19,6 +19,10 @@ class OrdersController extends Controller
     {
         $order = Order::create($request->validated());
 
+        if (!$order) {
+            return response()->json(['message' => 'Order not created'], 400);
+        }
+
         return new OrderResource($order);
     }
 

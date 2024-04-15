@@ -1,9 +1,23 @@
 .LoginPage {
+   display: grid;
+   place-items: center;
+
+   height: 100%;
+
+   &__container {
+      position: relative;
+
+      width: 100%;
+   }
    &__title {
-      margin-bottom: rem(30);
+      position: absolute;
+      bottom: calc(100% + rem(40));
+      left: 50%;
+
+      width: 100%;
+
+      transform: translateX(-50%);
 
       text-align: center;
    }
 }
-
-

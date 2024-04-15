@@ -35,8 +35,8 @@ export const RoomsList: FC<RoomsListProps> = ({ className }) => {
 	}, [dispatch]);
 
 	const roomsItems = useMemo(() => {
-		return roomsData?.map(({ id, photos, number }) => (
-			<RoomItem key={id} image={photos} number={number} to={getRoomsRoutePath(id)} />
+		return roomsData?.map(({ id, images, number }) => (
+			<RoomItem key={id} image={`/photos/uploads/room/${images}`} number={number} to={getRoomsRoutePath(id)} />
 		));
 	}, [roomsData]);
 

@@ -5,7 +5,7 @@ import { Dormitory, DormitoryData } from "../../types/DormitorySchema";
 export const fetchDormitories = createAsyncThunk<DormitoryData, void, ThunkConfig<string>>(
 	"mainPage/fetchDormitories",
 	async (_, thunkApi) => {
-		const { extra, rejectWithValue } = thunkApi;
+		const { extra, rejectWithValue, getState } = thunkApi;
 
 		try {
 			const response = await extra.api.get<DormitoryData>("/dormitories");

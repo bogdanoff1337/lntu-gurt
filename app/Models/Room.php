@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 class Room extends Model
 {
     use HasFactory;
@@ -13,15 +14,16 @@ class Room extends Model
         'faculty_id',
         'places',
         'number',
+        'images',
         'floor',
         'block',
         'gender',
         'section',
     ];
-
+    protected $casts = ['images' => 'array'];
     public function images()
     {
-        return $this->hasMany(Image::class, 'room_id');
+        return $this->hasMany(Image::class);
     }
 
     public function dormitory()

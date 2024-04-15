@@ -1,0 +1,49 @@
+.DropDown {
+   display: flex;
+
+   overflow: hidden;
+   flex-direction: column;
+
+   padding: rem(5);
+
+   border-radius: rem(15);
+
+   background: $whiteColor;
+
+   box-shadow: 0 0 rem(40.4) rem(-2) rgba(63, 64, 155, 0.39);
+   row-gap: rem(5);
+}
+
+.Transition {
+   &_enter {
+      transition: 0.1s ease-in-out;
+   }
+
+   &_enterFrom {
+      transform: scale(0.95);
+
+      opacity: 0;
+   }
+
+   &_enterTo {
+      transform: scale(1);
+      
+      opacity: 1;
+   }
+
+   &_leave {
+      transition: 0.1s ease-out;
+   }
+
+   &_leaveFrom {
+      transform: scale(1);
+
+      opacity: 1;
+   }
+
+   &_leaveTo {
+      transform: scale(0.95);
+
+      opacity: 0;
+   }
+}

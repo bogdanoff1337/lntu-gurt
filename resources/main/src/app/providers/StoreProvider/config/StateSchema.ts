@@ -15,7 +15,7 @@ export interface StateSchema {
 	pageLoginAuth: PageLoginAuthSchema;
 }
 
-export type StateSchemaKey = keyof StateSchema;
+// export type StateSchemaKey = keyof StateSchema;
 
 export interface ExtraArgumentType {
 	api: AxiosInstance;

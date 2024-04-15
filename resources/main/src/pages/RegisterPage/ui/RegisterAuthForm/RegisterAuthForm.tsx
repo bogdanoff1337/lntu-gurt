@@ -1,5 +1,6 @@
-import { FC, useCallback } from "react";
+import { FC, SyntheticEvent, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { AuthForm } from "@/entities/Auth";
 import { classNames as cn } from "@/shared/lib/classNames/classNames";
 import { PrimaryField } from "@/shared/ui/Fields";
@@ -13,10 +14,21 @@ interface RegisterAuthFormProps {
 
 export const RegisterAuthForm: FC<RegisterAuthFormProps> = ({ className }) => {
 	const data = useSelector(pageRegisterAuthSelectors.getData);
+	const isLoading = useSelector(pageRegisterAuthSelectors.getIsLoading);
+	const navigate = useNavigate();
 	const dispatch = useDispatch();
 
-	const onSubmit = useCallback(() => {
-	}, []);
+	const onSubmit = useCallback((e: SyntheticEvent) => {
+		e.preventDefault();
+
+		// @ts-ignore
+		dispatch(pageRegisterAuthActions.submitForm()).then((data) => {
+			if (data.meta.requestStatus === "fulfilled") {
+				navigate("/");
+				dispatch(pageRegisterAuthActions.clearFields());
+			}
+		});
+	}, [dispatch, navigate]);
 
 	const onChangeEmail = useCallback((value: string) => {
 		dispatch(pageRegisterAuthActions.changeEmail(value));
@@ -46,6 +58,7 @@ export const RegisterAuthForm: FC<RegisterAuthFormProps> = ({ className }) => {
 		<AuthForm
 			className={cn(cls.RegisterAuthForm, {}, [className])}
 			onSubmit={onSubmit}
+			isLoading={isLoading}
 			submitName="Зареєструватися"
 			statusErrorMessage={(
 				<div className={cls.StatusError}>
