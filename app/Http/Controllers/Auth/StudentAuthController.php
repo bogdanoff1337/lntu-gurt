@@ -33,11 +33,11 @@ class StudentAuthController extends Controller
             ->first();
 
         if (!$access) {
-            return $this->sendError('Unauthorized', [], 401);
+            return response()->json(['error' => 'forbidden' ], 403 );
         }
 
         if (Student::where('email', $data['email'])->exists()) {
-            return response()->json(['status' => 400], );
+            return response()->json(['error' => 'already exists' ], 400);
         }
 
         Student::create([
@@ -46,7 +46,7 @@ class StudentAuthController extends Controller
         ]);
 
         if (!$token = JWTAuth::attempt($request->only('email', 'password'))) {
-            return response()->json(['status' => 403]);
+            return response()->json(['error' => 'forbidden'], 403);
         }
 
         return $this->respondWithToken($token);
@@ -89,7 +89,7 @@ class StudentAuthController extends Controller
     {
         $this->guard()->logout();
 
-        return response()->json(['message' => 'Successfully logged out','status' => 404] );
+        return response()->json(['message' => 'logout'] );
     }
 
     /**
