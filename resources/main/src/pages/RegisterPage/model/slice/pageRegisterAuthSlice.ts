@@ -1,5 +1,6 @@
 import { PayloadAction } from "@reduxjs/toolkit";
 import { StateSchema, ThunkConfig } from "@/app/providers/StoreProvider";
+import { entityAuthActions } from "@/entities/Auth";
 import { TOKEN_LOCALSTORAGE_KEY } from "@/shared/const/localstorage";
 import { createSliceWithThunk } from "@/shared/lib/createSliceWithThunk";
 import { validateConfirmPassword } from "@/shared/validate/validateConfirmPassword";
@@ -79,14 +80,20 @@ export const pageRegisterAuthSlice = createSliceWithThunk({
 			}
 		}),
 
-		submitForm: create.asyncThunk<any, any, ThunkConfig<string>>(
+		clearFields: create.reducer((state) => {
+			state.data.email.value = "";
+			state.data.password.value = "";
+			state.data.confirmPassword.value = "";
+		}),
+
+		submitForm: create.asyncThunk<any, void, ThunkConfig<string>>(
 			async (_, {
-				extra, rejectWithValue, getState,
+				extra, rejectWithValue, getState, dispatch,
 			}) => {
 				const state = getState() as StateSchema;
 
 				try {
-					const response = await extra.api.post<any>("register", {
+					const response = await extra.api.post<any>("auth/register", {
 						email: state.pageRegisterAuth.data.email.value,
 						password: state.pageRegisterAuth.data.password.value,
 						confirmPassword: state.pageRegisterAuth.data.password.value,
@@ -96,7 +103,9 @@ export const pageRegisterAuthSlice = createSliceWithThunk({
 						throw new Error();
 					}
 
-					return response.data.data;
+					localStorage.setItem(TOKEN_LOCALSTORAGE_KEY, response.data.access_token);
+
+					dispatch(entityAuthActions.getUser());
 				} catch (e) {
 					return rejectWithValue("error");
 				}
@@ -107,7 +116,6 @@ export const pageRegisterAuthSlice = createSliceWithThunk({
 				},
 				fulfilled: (state, action) => {
 					state.isLoading = false;
-					localStorage.setItem(TOKEN_LOCALSTORAGE_KEY, action.payload.token);
 				},
 				rejected: (state, action) => {
 					state.isLoading = false;

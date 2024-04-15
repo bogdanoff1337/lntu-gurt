@@ -55,6 +55,14 @@ export const pageLoginAuthSlice = createSliceWithThunk({
 			}
 		}),
 
+		clearFields: create.reducer((state) => {
+			state.data.email.value = "";
+			state.data.email.ok = undefined;
+
+			state.data.password.value = "";
+			state.data.password.ok = undefined;
+		}),
+
 		submitForm: create.asyncThunk<any, void, ThunkConfig<string>>(
 			async (_, {
 				extra, rejectWithValue, getState, dispatch,
@@ -79,6 +87,8 @@ export const pageLoginAuthSlice = createSliceWithThunk({
 					if (!response.data) {
 						throw new Error();
 					}
+
+					return response.data;
 				} catch (e) {
 					return rejectWithValue("error");
 				}

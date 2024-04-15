@@ -1,11 +1,12 @@
 import { FC, SyntheticEvent, useCallback } from "react";
-import { useForm } from "react-hook-form";
+import { useForm, SubmitHandler } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { redirect, useNavigate } from "react-router-dom";
 import { AuthForm } from "@/entities/Auth";
 import { getMainRoutePath } from "@/shared/config/routes/path";
 import { useDebounce } from "@/shared/hooks/useDebaunce/useDebaunce";
 import { classNames as cn } from "@/shared/lib/classNames/classNames";
+import { useAppDispatch } from "@/shared/lib/hooks/useAppDispatch/useAppDispatch";
 import { PrimaryField } from "@/shared/ui/Fields";
 import * as pageRegisterSelectors from "../../model/selectors";
 import { pageLoginAuthActions } from "../../model/slice/PageLoginAuthSlice";
@@ -15,23 +16,28 @@ interface LoginAuthFormProps {
 	className?: string
 }
 
+type Inputs = {
+	email: string
+	password: string
+};
+
 export const LoginAuthForm: FC<LoginAuthFormProps> = ({ className }) => {
 	const data = useSelector(pageRegisterSelectors.getData);
 	const isLoading = useSelector(pageRegisterSelectors.getIsLoading);
 	const navigate = useNavigate();
 
-	const dispatch = useDispatch();
+	const dispatch = useAppDispatch();
 
 	const onSubmit = useCallback((e: SyntheticEvent) => {
 		e.preventDefault();
 
-		// @ts-ignore
 		dispatch(pageLoginAuthActions.submitForm()).then((data) => {
 			if (data.meta.requestStatus === "fulfilled") {
 				navigate("/");
+				dispatch(pageLoginAuthActions.clearFields());
 			}
 		});
-	}, [dispatch]);
+	}, [dispatch, navigate]);
 
 	const onChangeEmail = useCallback((value: string) => {
 		dispatch(pageLoginAuthActions.changeEmail(value));
@@ -53,7 +59,7 @@ export const LoginAuthForm: FC<LoginAuthFormProps> = ({ className }) => {
 		<AuthForm
 			className={cn(cls.LoginAuthForm, {}, [className])}
 			onSubmit={onSubmit}
-			submitName="Реєстрація"
+			submitName="Увійти"
 			isLoading={isLoading}
 			statusErrorMessage={(
 				<div className={cls.StatusError}>
@@ -80,5 +86,6 @@ export const LoginAuthForm: FC<LoginAuthFormProps> = ({ className }) => {
 				type="password"
 			/>
 		</AuthForm>
+
 	);
 };

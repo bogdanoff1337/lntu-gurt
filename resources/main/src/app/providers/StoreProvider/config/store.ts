@@ -4,6 +4,8 @@ import {
 import { pageBookFormSlice } from "@/pages/BookRoomPage";
 import { pageLoginAuthSlice } from "@/pages/LoginPage";
 import { pageRegisterAuthSlice } from "@/pages/RegisterPage";
+import { featureMenuSlice } from "@/features/Menu";
+import { featureOverlaySlice } from "@/features/Overlay/model/slice/featureOverlaySlice";
 import { entityAuthSlice } from "@/entities/Auth";
 import { entityFacultiesSlice } from "@/entities/Faculties";
 import { entityRoomSlice } from "@/entities/Room";
@@ -20,6 +22,8 @@ export const createReduxStore = () => {
 		entityRoomsSlice,
 		entityRoomSlice,
 		entityAuthSlice,
+		featureOverlaySlice,
+		featureMenuSlice,
 	);
 
 	const extraArgument: ExtraArgumentType = {

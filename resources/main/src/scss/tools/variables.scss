@@ -8,12 +8,15 @@ $blueColor: #3F409B;
 $blueColorHover: rgba(63, 64, 155, 0.8);
 $whiteColor: #fff;
 $greenColor: #6aff00;
+$yellowColor: #f2f20b;
 $redColor: #ff0000;
 $purpleColor: #9596c8;
 $purpleColorHover: #b4b5b8;
 
 
-$headerZIndex: 500;
+$headerZIndex: 900;
+$overlayZindex: 700;
+$asideZindex: 800;
 
 $primaryTransition: 0.3s ease;
 $secondaryTransition: 0.2s ease;
