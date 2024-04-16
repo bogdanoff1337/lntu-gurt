@@ -46,6 +46,7 @@ class OrdersResource extends Resource
                     ->sortable(),
                 Tables\Columns\SelectColumn::make("status")
                     ->options([
+                        'new' => 'Нове',
                         'approved' => 'Затверджено',
                         'rejected' => 'Відхилено',
                     ])
