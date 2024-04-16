@@ -14,14 +14,14 @@ class StudentFull extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        return [
-            'first_name' => $this->first_name ?? '',
-            'last_name' => $this->last_name ?? '',
-            'father_name' => $this->middle_name ?? '',
-            'phone' => $this->phone ?? '',
-            'address' => $this->city ?? '',
-            'gender' => $this->gender ?? '',
-            'benefits' => $this->benefits ?? '',
-        ];
+        return collect([
+            'first_name' => $this->first_name,
+            'last_name' => $this->last_name,
+            'father_name' => $this->middle_name,
+            'phone' => $this->phone,
+            'address' => $this->city,
+            'gender' => $this->gender,
+            'benefits' => $this->when($this->benefits !== null, $this->benefits),
+        ])->filter()->toArray();
     }
 }
