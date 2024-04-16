@@ -22,7 +22,6 @@ class StudentRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'email' => 'required|email|unique:students,email',
             'first_name' => 'required|string',
             'last_name' => 'required|string',
             'middle_name' => 'required|string',
