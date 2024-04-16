@@ -15,10 +15,11 @@ interface PrimaryFieldProps extends InputAttrubutes {
 	errorMessage?: string;
 	isSuccess?: boolean;
 	type?: string;
+	readOnly?: boolean;
 }
 
 export const PrimaryField: FC<PrimaryFieldProps> = ({
-	className, placeholder, value, onChange, onBlur, errorMessage, type = "text", isSuccess, ...anotherProps
+	className, placeholder, value, onChange, onBlur, errorMessage, type = "text", isSuccess, readOnly, ...anotherProps
 }) => {
 	const [isEmty, setIsEmty] = useState(true);
 	const inputRef = useRef<HTMLInputElement>(null);
@@ -48,6 +49,7 @@ export const PrimaryField: FC<PrimaryFieldProps> = ({
 			[cls.PrimaryField_error]: errorMessage,
 			[cls.PrimaryField_success]: isSuccess,
 			[cls.PrimaryField_emty]: !isEmty,
+			[cls.PrimaryField_readOnly]: readOnly,
 		}, [className])}
 		>
 			<span className={cls.PrimaryField__placeholder}>{placeholder}</span>

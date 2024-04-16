@@ -5,7 +5,7 @@ import { classNames } from "../../../lib/classNames/classNames";
 import { Portal } from "../../Portal";
 import cls from "./Modal.module.scss";
 
-interface ModalProps {
+export interface ModalProps {
 	className?: string;
 	oppened: boolean;
 	lazy?: boolean;

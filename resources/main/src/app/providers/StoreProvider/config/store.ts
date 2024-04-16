@@ -1,11 +1,11 @@
 import {
 	combineSlices, configureStore,
 } from "@reduxjs/toolkit";
-import { pageBookFormSlice } from "@/pages/BookRoomPage";
 import { pageLoginAuthSlice } from "@/pages/LoginPage";
+import { pageProfileSlice } from "@/pages/ProfilePage";
 import { pageRegisterAuthSlice } from "@/pages/RegisterPage";
 import { featureMenuSlice } from "@/features/Menu";
-import { featureOverlaySlice } from "@/features/Overlay/model/slice/featureOverlaySlice";
+import { featureOverlaySlice } from "@/features/Overlay";
 import { entityAuthSlice } from "@/entities/Auth";
 import { entityFacultiesSlice } from "@/entities/Faculties";
 import { entityRoomSlice } from "@/entities/Room";
@@ -15,7 +15,7 @@ import { ExtraArgumentType } from "./StateSchema";
 
 export const createReduxStore = () => {
 	const rootReducer = combineSlices(
-		pageBookFormSlice,
+		pageProfileSlice,
 		pageRegisterAuthSlice,
 		pageLoginAuthSlice,
 		entityFacultiesSlice,
@@ -24,6 +24,7 @@ export const createReduxStore = () => {
 		entityAuthSlice,
 		featureOverlaySlice,
 		featureMenuSlice,
+		pageProfileSlice,
 	);
 
 	const extraArgument: ExtraArgumentType = {

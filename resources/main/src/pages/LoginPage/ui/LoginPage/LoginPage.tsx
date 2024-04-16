@@ -12,7 +12,7 @@ interface LoginPageProps {
 export const LoginPage: FC<LoginPageProps> = ({ className }) => {
 	return (
 		<div className={cn(cls.LoginPage, {}, [className])}>
-			<Container className={cls.LoginPage__container} modifier={ContainerModifier.CONTAINER_AUTH}>
+			<Container className={cls.LoginPage__container} modifier={ContainerModifier.AUTH}>
 				<Title className={cls.LoginPage__title}>Бронювання кімнати студентом</Title>
 				<LoginAuthForm />
 			</Container>

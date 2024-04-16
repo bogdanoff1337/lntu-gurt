@@ -1,14 +1,14 @@
 import { RouteProps } from "react-router-dom";
-import { BookRoomPage } from "@/pages/BookRoomPage";
 import { LoginPage } from "@/pages/LoginPage";
 import { MainPage } from "@/pages/MainPage";
+import { ProfilePage } from "@/pages/ProfilePage";
 import { RegisterPage } from "@/pages/RegisterPage";
 import { RoomPage } from "@/pages/RoomPage";
 import { RoomsPage } from "@/pages/RoomsPage";
 import {
-	getBookRoutePath,
 	getLoginRoutePath,
 	getMainRoutePath,
+	getProfileRoutePath,
 	getRegisterRoutePath,
 	getRoomsRoutePath,
 } from "@/shared/config/routes/path";
@@ -55,8 +55,8 @@ export const routes: AppRouteProps[] = [
 		middleware: Middleware.AUTH,
 	},
 	{
-		path: getBookRoutePath(":id"),
-		element: <BookRoomPage />,
+		path: getProfileRoutePath(),
+		element: <ProfilePage />,
 		middleware: Middleware.AUTH,
 	},
 ];

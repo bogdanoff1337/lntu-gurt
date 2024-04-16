@@ -1,5 +1,4 @@
 import { AxiosInstance } from "axios";
-import { PageBookRoomSchema } from "@/pages/BookRoomPage";
 import { PageLoginAuthSchema } from "@/pages/LoginPage";
 import { PageRegisterAuthSchema } from "@/pages/RegisterPage";
 import { EntityFacultiesSchema } from "@/entities/Faculties";
@@ -10,7 +9,6 @@ export interface StateSchema {
 	entityFaculties: EntityFacultiesSchema;
 	entityRooms: EntityRoomsSchema;
 	entityRoom: EntityRoomSchema;
-	pageBookForm: PageBookRoomSchema;
 	pageRegisterAuth: PageRegisterAuthSchema;
 	pageLoginAuth: PageLoginAuthSchema;
 }

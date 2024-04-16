@@ -10,7 +10,7 @@ interface ContainerProps {
 }
 
 export enum ContainerModifier {
-	CONTAINER_AUTH = "Container_auth",
+	AUTH = "Container_auth",
 	FORM = "Container_form",
 	ACTIVE = "Container_active",
 }

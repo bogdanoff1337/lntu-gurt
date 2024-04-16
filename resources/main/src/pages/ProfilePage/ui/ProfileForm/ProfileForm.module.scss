@@ -1,5 +1,5 @@
 
-.BookForm {
+.ProfileForm {
    display: grid;
 
    row-gap: rem(60);
@@ -28,7 +28,9 @@
       @include adaptiveValue("font-size", 16, 8, 0, $widthTo: $tablet);
    }
 
-   &__submit {
+   &__buttons {
+      display: flex;
+      column-gap: rem(10);
       justify-self: center;
    }
 }

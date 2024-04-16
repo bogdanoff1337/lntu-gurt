@@ -12,7 +12,7 @@ interface RegisterPageProps {
 export const RegisterPage: FC<RegisterPageProps> = ({ className }) => {
 	return (
 		<div className={cn(cls.RegisterPage, {}, [className])}>
-			<Container className={cls.RegisterPage__container} modifier={ContainerModifier.CONTAINER_AUTH}>
+			<Container className={cls.RegisterPage__container} modifier={ContainerModifier.AUTH}>
 				<Title className={cls.RegisterPage__title}>Бронювання кімнати студентом</Title>
 				<RegisterAuthForm />
 			</Container>

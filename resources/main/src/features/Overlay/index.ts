@@ -1,2 +1,2 @@
 export { Overlay } from "./ui/Overlay/Overlay";
-export { featureOverlayActions } from "./model/slice/featureOverlaySlice";
+export { featureOverlayActions, featureOverlaySlice } from "./model/slice/featureOverlaySlice";

@@ -7,6 +7,14 @@
 
    font-size: rem(24);
 
+   &_readOnly {
+      #{$p} {
+         &__input {
+            pointer-events: none;
+         }
+      }
+   }
+
    &_emty {
       #{$p} {
          &__placeholder {
