@@ -84,6 +84,7 @@ export const ProfileForm: FC<ProfileFormProps> = ({ className }) => {
 					value={tempData.father_name}
 					placeholder="Вкажіть ім’я"
 					readOnly={readOnly}
+					Icon={!readOnly ? PenIcon : undefined}
 				/>
 				<PrimaryField
 					className={cls.Input}
@@ -91,6 +92,7 @@ export const ProfileForm: FC<ProfileFormProps> = ({ className }) => {
 					value={tempData.last_name}
 					placeholder="Вкажіть прізвище"
 					readOnly={readOnly}
+					Icon={!readOnly ? PenIcon : undefined}
 				/>
 				<PrimaryField
 					className={cls.Input}
@@ -98,6 +100,7 @@ export const ProfileForm: FC<ProfileFormProps> = ({ className }) => {
 					value={tempData.father_name}
 					placeholder="Вкажіть по батькові"
 					readOnly={readOnly}
+					Icon={!readOnly ? PenIcon : undefined}
 				/>
 				<PrimaryField
 					className={cls.Input}
@@ -105,6 +108,7 @@ export const ProfileForm: FC<ProfileFormProps> = ({ className }) => {
 					value={tempData.gender}
 					placeholder="Стать"
 					readOnly={readOnly}
+					Icon={!readOnly ? PenIcon : undefined}
 				/>
 				<PrimaryField
 					className={cls.Input}
@@ -112,6 +116,7 @@ export const ProfileForm: FC<ProfileFormProps> = ({ className }) => {
 					value={tempData.address}
 					placeholder="Місце проживання"
 					readOnly={readOnly}
+					Icon={!readOnly ? PenIcon : undefined}
 				/>
 				<PrimaryField
 					className={cls.Input}
@@ -119,6 +124,7 @@ export const ProfileForm: FC<ProfileFormProps> = ({ className }) => {
 					value={tempData.phone}
 					placeholder="Номер телефону"
 					readOnly={readOnly}
+					Icon={!readOnly ? PenIcon : undefined}
 				/>
 				<PrimaryField
 					className={cls.Input}
@@ -126,6 +132,7 @@ export const ProfileForm: FC<ProfileFormProps> = ({ className }) => {
 					value={tempData.benefits}
 					placeholder="Вкажіть пільгу"
 					readOnly={readOnly}
+					Icon={!readOnly ? PenIcon : undefined}
 				/>
 			</div>
 			<div className={cls.ProfileForm__buttons}>

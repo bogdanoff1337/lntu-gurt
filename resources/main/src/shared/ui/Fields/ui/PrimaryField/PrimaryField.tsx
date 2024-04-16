@@ -16,10 +16,11 @@ interface PrimaryFieldProps extends InputAttrubutes {
 	isSuccess?: boolean;
 	type?: string;
 	readOnly?: boolean;
+	Icon?: FC<React.SVGProps<SVGSVGElement>>;
 }
 
 export const PrimaryField: FC<PrimaryFieldProps> = ({
-	className, placeholder, value, onChange, onBlur, errorMessage, type = "text", isSuccess, readOnly, ...anotherProps
+	className, placeholder, value, onChange, onBlur, errorMessage, type = "text", isSuccess, Icon, readOnly, ...anotherProps
 }) => {
 	const [isEmty, setIsEmty] = useState(true);
 	const inputRef = useRef<HTMLInputElement>(null);
@@ -64,6 +65,7 @@ export const PrimaryField: FC<PrimaryFieldProps> = ({
 					onBlur={onBlurHandler}
 					{...anotherProps}
 				/>
+				{Icon && <Icon className={cls.PrimaryField__icon} />}
 			</div>
 			<span className={cls.PrimaryField__error}>{errorMessage}</span>
 		</div>

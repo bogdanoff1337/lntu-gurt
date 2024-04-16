@@ -87,6 +87,16 @@
    }
 
 
+   &__icon {
+      position: absolute;
+      top: 0;
+      right: 0;
+
+      width: rem(20);
+      height: rem(20);
+      fill: currentColor;
+   }
+
    &__placeholder {
       position: absolute;
       top: rem(21);
