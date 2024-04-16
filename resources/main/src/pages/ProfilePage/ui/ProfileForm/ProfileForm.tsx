@@ -1,5 +1,6 @@
 import {
 	FC, FormEvent, useCallback,
+	useEffect,
 } from "react";
 import { useSelector } from "react-redux";
 import { classNames as cn } from "@/shared/lib/classNames/classNames";
@@ -69,6 +70,10 @@ export const ProfileForm: FC<ProfileFormProps> = ({ className }) => {
 		e.preventDefault();
 
 		dispatch(pageProfileActions.postBookData());
+	}, [dispatch]);
+
+	useEffect(() => {
+		dispatch(pageProfileActions.getFormData());
 	}, [dispatch]);
 
 	if (isLoading) {

@@ -42,7 +42,7 @@ export const pageProfileSlice = createSliceWithThunk({
 				extra, rejectWithValue, getState,
 			}) => {
 				// @ts-ignore
-				const data = getState().pageProfile.data;
+				const { data } = getState().pageProfile;
 				// const state = getState() as RootState;
 
 				try {
@@ -74,7 +74,6 @@ export const pageProfileSlice = createSliceWithThunk({
 			async (_, {
 				extra, rejectWithValue,
 			}) => {
-
 				try {
 					// @ts-ignore
 					const response = await extra.api.get<ResponseData>("/api/profile");
