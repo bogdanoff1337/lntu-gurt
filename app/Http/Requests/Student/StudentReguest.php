@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Student;
 
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -24,6 +24,16 @@ class StudentReguest extends FormRequest
         return [
             'email' => 'required|email',
             'password' => 'required|min:8',
+        ];
+    }
+
+    public function messages(): array
+    {
+        return [
+            'email.required' => 'Email is required',
+            'email.email' => 'Email is not valid',
+            'password.required' => 'Password is required',
+            'password.min' => 'Password must be at least 8 characters',
         ];
     }
 }

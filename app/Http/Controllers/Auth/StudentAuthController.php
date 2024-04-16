@@ -3,14 +3,13 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\StudentReguest;
 use App\Models\AccessToRegister;
 use App\Models\Student;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Hash;
 use Tymon\JWTAuth\Facades\JWTAuth;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\Student\StudentReguest;
 class StudentAuthController extends Controller
 {
     /**
@@ -20,7 +19,7 @@ class StudentAuthController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth:api', ['except' => ['register','login','logout','refresh']]);
+        $this->middleware('auth:api', ['except' => ['me','register','login','logout','refresh','update']]);
     }
 
     public function register(StudentReguest $request)
@@ -32,11 +31,11 @@ class StudentAuthController extends Controller
             ->first();
 
         if (!$access) {
-            return $this->sendError('Unauthorized', [], 401);
+            return response()->json(['error' => 'forbidden' ], 403);
         }
 
         if (Student::where('email', $data['email'])->exists()) {
-            return response()->json(['status' => 400], );
+            return response()->json(['error' => 'already exists' ], 409);
         }
 
         Student::create([
@@ -45,7 +44,7 @@ class StudentAuthController extends Controller
         ]);
 
         if (!$token = JWTAuth::attempt($request->only('email', 'password'))) {
-            return response()->json(['status' => 403]);
+            return response()->json(['error' => 'forbidden'], 403);
         }
 
         return $this->respondWithToken($token);
@@ -56,15 +55,15 @@ class StudentAuthController extends Controller
      * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function login(Request $request)
+    public function login(StudentReguest $request)
     {
-        $credentials = $request->only('email', 'password');
+        $credentials = $request->validated();
 
         if ($token = $this->guard()->attempt($credentials)) {
             return $this->respondWithToken($token);
         }
 
-        return response()->json(['error' => 'Unauthorized'], 401);
+        return response()->json(['error' => 'Not found'], 404);
     }
 
     /**
@@ -74,12 +73,25 @@ class StudentAuthController extends Controller
      */
     public function me()
     {
-        if (!auth()->user()) {
-            return response()->json(['status' => 401]);
+        if (!$this->guard()->user()) {
+            return response()->json(['messages' => 'Unauthorized'], 401);
         }
         return response()->json($this->guard()->user());
     }
 
+
+    public function update(StudentRequest $request)
+    {
+        $user = $this->guard()->user();
+
+        if (!$user) {
+            return response()->json(['messages' => 'Unauthorized'], 401);
+        }
+
+        $user->update($request->validated());
+
+        return $this->respondWithToken($this->guard()->refresh());
+    }
     /**
      * Log the user out (Invalidate the token).
      *
@@ -89,7 +101,7 @@ class StudentAuthController extends Controller
     {
         $this->guard()->logout();
 
-        return response()->json(['message' => 'Successfully logged out','status' => 404] );
+        return response()->json(['message' => 'logout']);
     }
 
     /**
@@ -100,11 +112,6 @@ class StudentAuthController extends Controller
     public function refresh()
     {
         return $this->respondWithToken($this->guard()->refresh());
-    }
-
-    protected function sendError()
-    {
-        return response()->json(['status' => 403]);
     }
 
     protected function respondWithToken($token)

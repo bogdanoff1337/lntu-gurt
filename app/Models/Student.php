@@ -6,7 +6,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-class Student extends Authenticatable implements JWTSubject
+use Illuminate\Contracts\Auth\MustVerifyEmail;
+
+class Student extends Authenticatable implements JWTSubject , MustVerifyEmail
 {
     use HasFactory, Notifiable;
 

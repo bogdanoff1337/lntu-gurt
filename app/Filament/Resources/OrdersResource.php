@@ -10,6 +10,8 @@ use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
+use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\Select;
 
 class OrdersResource extends Resource
 {
@@ -21,9 +23,12 @@ class OrdersResource extends Resource
     {
         return $form
             ->schema([
-                Tables\Columns\TextInput::make("student.first_name")
+                Select::make("student_id")
                     ->label("Студент/вступник")
-
+                ->options(\App\Models\Student::pluck('email', 'id')->toArray()),
+                Select::make("room_id")
+                    ->label("Студент/вступник")
+                    ->options(\App\Models\Room::pluck('number', 'id')->toArray()),
             ]);
     }
 
@@ -31,7 +36,7 @@ class OrdersResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make("student.first_name")
+                Tables\Columns\TextColumn::make("student.email")
                     ->label("Студент/вступник")
                     ->searchable()
                     ->sortable(),
@@ -40,6 +45,10 @@ class OrdersResource extends Resource
                     ->searchable()
                     ->sortable(),
                 Tables\Columns\SelectColumn::make("status")
+                    ->options([
+                        'approved' => 'Затверджено',
+                        'rejected' => 'Відхилено',
+                    ])
                     ->label("Статус"),
             ])
             ->filters([
