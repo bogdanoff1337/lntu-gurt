@@ -51,7 +51,9 @@ Route::group(['middleware' => 'auth:api'], function () {
     ]);
 
     Route::resource('profile', StudentProfileController::class)->except([
-        'create', 'store', 'destroy', 'edit'
+        'create', 'store', 'destroy', 'edit', 'update',
     ]);
+
+    Route::patch('profile/me', [StudentProfileController::class, 'update']);
 });
 

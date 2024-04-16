@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Student;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\StudentRequest;
 use App\Http\Resources\Student\StudentFull;
 use Illuminate\Http\Request;
@@ -40,9 +42,7 @@ class StudentProfileController extends Controller
      */
     public function show(string $id)
     {
-//        $profile = auth()->user()->find($id);
-//
-//        return new StudentFull($profile);
+        //
     }
 
     /**
@@ -56,14 +56,22 @@ class StudentProfileController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(StudentRequest $request)
+    public function update(Request $request)
     {
-        $profile = auth()->user();
+        $id = $this->guard()->user();
+        dd($id);
+        $profile = Student::where('id', $id)->first();
 
-        $profile->update($request->validated());
+        if (!$profile) {
+            return response()->json(['error' => 'Профіль не знайдено'], 404);
+        }
 
-        return new StudentFull($profile);
+        $data = $request->validated();
+        $profile->update($data);
+
+        return response()->json(['message' => 'Профіль успішно оновлено'], 200);
     }
+
 
     /**
      * Remove the specified resource from storage.
