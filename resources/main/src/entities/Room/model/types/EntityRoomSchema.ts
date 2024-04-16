@@ -1,6 +1,7 @@
 export interface EntityRoomSchema {
 	data?: Room;
 	isLoading?: boolean;
+	isFetching: boolean;
 	error?: string;
 }
 

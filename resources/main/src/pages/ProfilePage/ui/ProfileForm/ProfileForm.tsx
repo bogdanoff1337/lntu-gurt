@@ -86,7 +86,7 @@ export const ProfileForm: FC<ProfileFormProps> = ({ className }) => {
 				<PrimaryField
 					className={cls.Input}
 					onChange={onChangeFirstName}
-					value={tempData.father_name}
+					value={tempData.first_name}
 					placeholder="Вкажіть ім’я"
 					readOnly={readOnly}
 					Icon={!readOnly ? PenIcon : undefined}

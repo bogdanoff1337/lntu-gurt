@@ -16,7 +16,6 @@ export interface Data {
 	benefits?: string
 }
 
-
 export interface ResponseData {
 	data: Data
 }

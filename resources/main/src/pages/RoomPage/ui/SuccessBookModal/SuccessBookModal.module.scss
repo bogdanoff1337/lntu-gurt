@@ -1,0 +1,75 @@
+.SuccessBookModal {
+   position: relative;
+
+   margin: 0 rem(10);
+
+   padding: rem(30) rem(35);
+   padding-top: rem(100);
+   padding-bottom: rem(100);
+
+   text-align: center;
+
+   &__title {
+      margin-bottom: rem(60);
+
+      font-size: rem(32);
+   }
+
+   &__paragraph {
+      display: flex;
+      flex-direction: column;
+      row-gap: rem(8);
+
+      font-size: rem(22);
+
+      &_1 {
+         margin-bottom: rem(130);
+      }
+
+      &_2 {
+      }
+   }
+
+   &__bold {
+      font-weight: 700;
+   }
+
+   &__closeButton {
+      position: absolute;
+      top: rem(30);
+      right: rem(35);
+   }
+}
+
+.CloseButton {
+   $p: &;
+
+   display: flex;
+   align-items: center;
+   justify-content: center;
+
+   width: rem(50);
+   height: rem(50);
+
+   transition: background-color $primaryTransition, color $primaryTransition;
+
+   border: rem(2) solid $blueColor;
+   border-radius: 50%;
+
+   &:hover {
+      background-color: $blueColor;
+
+      #{$p} {
+         &__icon {
+            fill: $whiteColor;
+         }
+      }
+   }
+
+   &__icon {
+      fill: $blueColor;
+
+      width: rem(20);
+      height: rem(20);
+   }
+}

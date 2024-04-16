@@ -37,17 +37,15 @@ export const pageProfileSlice = createSliceWithThunk({
 			state.readOnly = payload.payload;
 		}),
 
-		postBookData: create.asyncThunk<any, void, ThunkConfig<string>>(
+		patchFormData: create.asyncThunk<any, void, ThunkConfig<string>>(
 			async (_, {
 				extra, rejectWithValue, getState,
 			}) => {
 				// @ts-ignore
 				const { data } = getState().pageProfile;
-				// const state = getState() as RootState;
 
 				try {
-					// @ts-ignore
-					const response = await extra.api.post<any>("/api/profile", data);
+					const response = await extra.api.put<any>("profile", data);
 
 					if (!response.data) {
 						throw new Error();
@@ -76,7 +74,7 @@ export const pageProfileSlice = createSliceWithThunk({
 			}) => {
 				try {
 					// @ts-ignore
-					const response = await extra.api.get<ResponseData>("/api/profile");
+					const response = await extra.api.get<ResponseData>("profile");
 
 					if (!response.data) {
 						throw new Error();

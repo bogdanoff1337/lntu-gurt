@@ -16,14 +16,14 @@ interface SwiperSectionProps {
 	// 	id: number;
 	// 	url: string;
 	// }[]
-	images: string[];
+	images?: string[];
 }
 
 export const SwiperSection: FC<SwiperSectionProps> = ({ className, images }) => {
 	const isMobile = useMediaQuery({ maxWidth: Devices.MOBILE });
 
 	const swiperSlidesItems = useMemo(() => {
-		return images.map((image, i) => {
+		return images?.map((image, i) => {
 			return (
 				<SwiperSlide key={i}>
 					<img className={cls.Img} src={`/photos/uploads/room/${image}`} alt="" />
