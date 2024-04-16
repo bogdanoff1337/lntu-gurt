@@ -10,13 +10,13 @@ export const RequireAuth = ({ children, middleware }: { children: ReactNode, mid
 	const authData = useSelector(entityAuthSelectors.getData);
 	const location = useLocation();
 
-	// if (middleware === Middleware.AUTH && !authData) {
-	// 	return <Navigate replace state={{ from: location }} to={getLoginRoutePath()} />;
-	// }
+	if (middleware === Middleware.AUTH && !authData) {
+		return <Navigate replace state={{ from: location }} to={getLoginRoutePath()} />;
+	}
 
-	// if (middleware === Middleware.NO_AUTH && authData) {
-	// 	return <Navigate replace state={{ from: location }} to={getMainRoutePath()} />;
-	// }
+	if (middleware === Middleware.NO_AUTH && authData) {
+		return <Navigate replace state={{ from: location }} to={getMainRoutePath()} />;
+	}
 
 	return children;
 };
