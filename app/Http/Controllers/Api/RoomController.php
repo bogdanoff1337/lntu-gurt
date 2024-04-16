@@ -8,7 +8,6 @@ use App\Http\Resources\Api\Room\Short;
 use Illuminate\Http\Request;
 use App\Models\Room;
 use App\Http\Resources\Api\Room\Full;
-use App\Models\Image;
 
 class RoomController extends Controller
 {
@@ -17,7 +16,7 @@ class RoomController extends Controller
      */
     public function index(Request $request)
     {
-        $rooms = Room::with('images')
+        $rooms = Room::query()
             ->when($request->id, function ($query, $id) {
                 return $query->where('id', $id);
             })
@@ -57,7 +56,7 @@ class RoomController extends Controller
      */
     public function show(string $id)
     {
-        return new Full(Room::with('images')->find($id));
+        return new Full(Room::find($id));
     }
 
 

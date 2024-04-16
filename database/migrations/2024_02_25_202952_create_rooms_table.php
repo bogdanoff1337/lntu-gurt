@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('rooms', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('dormitory_id')->constrained();
-            $table->foreignId('faculty_id')->constrained();
+            $table->integer('dormitory_id');
+            $table->integer('faculty_id');
             $table->string('number');
             $table->integer('floor');
             $table->integer('places');

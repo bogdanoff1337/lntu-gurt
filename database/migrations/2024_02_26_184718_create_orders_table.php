@@ -13,8 +13,9 @@ return new class extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('student_id')->constrained();
-            $table->foreignId('room_id')->constrained();
+            $table->integer('student_id');
+            $table->integer('room_id');
+            $table->enum('status', ['approved', 'rejected']);
             $table->timestamps();
         });
     }
