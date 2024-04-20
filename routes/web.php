@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
+use Illuminate\Http\Request;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,3 +17,21 @@ Route::get('/admin/{any?}', fn () => view("control"))->where('any', '.*');
 */
 
 Route::get('{any?}', fn () => view("main"))->where('any', '.*');
+
+
+Route::get('/email/verify', function () {
+    return view('auth.verify-email');
+})->middleware('auth');
+
+Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $r) {
+    $r->fulfill();
+
+    return redirect('/');
+})->middleware(['auth', 'signed']);
+Route::post('/email/verification-notification', function (Request $r) {
+
+    $r->user()->sendEmailVerificationNotification();
+
+    return back()->with('resent', 'Verification link sent ');
+})->middleware(['auth', 'throttle:6,1'])->name('verification.send');
+

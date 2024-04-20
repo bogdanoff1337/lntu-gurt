@@ -23,6 +23,7 @@ class Student extends Authenticatable implements JWTSubject , MustVerifyEmail
         'phone',
         'city',
         'benefits',
+        'email_verified_at'
     ];
 
     protected $hidden = [
@@ -31,7 +32,7 @@ class Student extends Authenticatable implements JWTSubject , MustVerifyEmail
     ];
 
     protected $casts = [
-//        'email_verified_at' => 'datetime',
+        'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
 
@@ -53,5 +54,10 @@ class Student extends Authenticatable implements JWTSubject , MustVerifyEmail
     public function getJWTCustomClaims()
     {
         return [];
+    }
+
+    public function sendEmailVerificationNotification()
+    {
+        $this->notify(new \App\Notifications\StudentVerifyEmailQueued);
     }
 }

@@ -1,6 +1,5 @@
 <?php
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\DormitoryController;
 use App\Http\Controllers\Api\OrdersController;
@@ -51,7 +50,7 @@ Route::group(['middleware' => 'auth:api'], function () {
     ]);
 
     Route::resource('profile', StudentProfileController::class)->except([
-        'create', 'store', 'destroy', 'edit', 'update',
+        'create', 'store', 'destroy', 'edit',
     ]);
 
     Route::patch('profile/me', [StudentProfileController::class, 'update']);

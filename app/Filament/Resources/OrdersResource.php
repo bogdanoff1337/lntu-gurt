@@ -5,17 +5,21 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\OrdersResource\Pages;
 use App\Filament\Resources\OrdersResource\RelationManagers;
 use App\Models\Order;
-use Filament\Forms;
+use App\Models\Room;
+use Filament\Forms\Components\Checkbox;
+use Filament\Infolists\Components\Actions;
+use Illuminate\Database\Eloquent\Builder;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Filament\Forms\Components\TextInput;
+use Filament\Tables\Filters\Filter;
 use Filament\Forms\Components\Select;
 
 class OrdersResource extends Resource
 {
     protected static ?string $model = Order::class;
+
     public static ?string $navigationLabel = 'Замовлення';
     protected static ?string $navigationIcon = 'heroicon-o-clipboard-document-list';
 
@@ -35,13 +39,22 @@ class OrdersResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
+            ->paginated(false)
             ->columns([
                 Tables\Columns\TextColumn::make("student.email")
                     ->label("Студент/вступник")
                     ->searchable()
                     ->sortable(),
+                Tables\Columns\TextColumn::make("student.benefits")
+                    ->label("Пільги")
+                    ->searchable()
+                    ->sortable(),
                 Tables\Columns\TextColumn::make("room.number")
                     ->label("Кімната")
+                    ->searchable()
+                    ->sortable(),
+                Tables\Columns\TextColumn::make("room.places")
+                    ->label("Місця")
                     ->searchable()
                     ->sortable(),
                 Tables\Columns\SelectColumn::make("status")
@@ -50,10 +63,37 @@ class OrdersResource extends Resource
                         'approved' => 'Затверджено',
                         'rejected' => 'Відхилено',
                     ])
-                    ->label("Статус"),
+                    ->label("Статус")
+                    ->beforeStateUpdated(function ($record, $state) {
+                        if ($state === 'approved') {
+                            $room = Room::find($record->room_id);
+
+                            // Перевіряємо, чи кімната існує та чи кількість місць більше 0
+                            if ($room && $room->places <= 0) {
+                                // Повідомлення про неможливість затвердження замовлення
+                                throw new \Exception('Неможливо затвердити замовлення. Немає доступних місць у кімнаті.');
+                            }
+                        }
+
+                        return $state;
+                    }),
+
             ])
             ->filters([
-                //
+                Tables\Filters\Filter::make('has_benefits')
+                    ->label('Має пільги')
+                    ->form([
+                        Checkbox::make('has_benefits')
+                            ->label('Має пільги')
+                    ])
+                    ->query(function (Builder $query, array $data): Builder {
+                        return $query->when(
+                            $data['has_benefits'],
+                            fn (Builder $query): Builder => $query->whereHas('student', function (Builder $query) {
+                                $query->whereNotNull('benefits');
+                            }),
+                        );
+                    }),
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
@@ -65,6 +105,7 @@ class OrdersResource extends Resource
                     Tables\Actions\DeleteBulkAction::make(),
                 ]),
             ]);
+
     }
 
     public static function getRelations(): array

@@ -11,6 +11,11 @@ use Illuminate\Http\Request;
 
 class StudentProfileController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth:api', ['except' => ['update']]);
+    }
     /**
      * Display a listing of the resource.
      */
@@ -58,19 +63,19 @@ class StudentProfileController extends Controller
      */
     public function update(Request $request)
     {
-        $id = $this->guard()->user();
-        dd($id);
-        $profile = Student::where('id', $id)->first();
+        $validatedData = $request->all();
 
-        if (!$profile) {
-            return response()->json(['error' => 'Профіль не знайдено'], 404);
+        $user = Auth::user();
+
+        if(!$user) {
+            return response()->json(['error' => 'Unauthorized'], 401);
         }
 
-        $data = $request->validated();
-        $profile->update($data);
+        $user->update($validatedData);
 
-        return response()->json(['message' => 'Профіль успішно оновлено'], 200);
+        return new StudentFull($user);
     }
+
 
 
     /**

@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->integer('student_id');
             $table->integer('room_id');
-            $table->enum('status', ['approved', 'rejected'])->default('new');
+            $table->enum('status', ['approved', 'rejected','new'])->default('new');
             $table->timestamps();
         });
     }

@@ -8,6 +8,8 @@ use Filament\Resources\Pages\ListRecords;
 
 class ListOrders extends ListRecords
 {
+    protected static ?string $title = 'Список замовлень';
+
     protected static string $resource = OrdersResource::class;
 
     protected function getHeaderActions(): array
