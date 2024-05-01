@@ -1,5 +1,5 @@
-import { Menu } from "@headlessui/react";
 import { FC } from "react";
+import { NavLink } from "react-router-dom";
 import ArrowIcon from "@/shared/assets/common/arrow.svg?react";
 import { classNames as cn } from "@/shared/lib/classNames/classNames";
 import cls from "./MenuItem.module.scss";
@@ -9,19 +9,19 @@ interface MenuItemProps {
 	Icon: FC<React.SVGProps<SVGSVGElement>>;
 	name: string;
 	onClick?: () => void;
-	isHeaderMenu?: boolean;
+	to: string;
 }
 
 export const MenuItem: FC<MenuItemProps> = ({
-	className, Icon, name, onClick,
+	className, Icon, name, onClick, to,
 }) => {
 	return (
 		<li className={cn(cls.MenuItem, {}, [className])}>
-			<button className={cls.MenuItem__button} onClick={onClick}>
+			<NavLink className={cls.MenuItem__link} onClick={onClick} to={to}>
 				<Icon className={cls.MenuItem__icon} />
 				<span className={cls.MenuItem__name}>{name}</span>
 				<ArrowIcon className={cls.MenuItem__arrowIcon} />
-			</button>
+			</NavLink>
 		</li>
 	);
 };

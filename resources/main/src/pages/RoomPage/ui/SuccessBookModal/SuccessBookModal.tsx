@@ -1,6 +1,5 @@
 import { FC } from "react";
 import { classNames as cn } from "@/shared/lib/classNames/classNames";
-import { Button } from "@/shared/ui/Buttons";
 import { Modal, ModalProps } from "@/shared/ui/Modal";
 import CrossIcon from "../../assets/cross.svg?react";
 import cls from "./SuccessBookModal.module.scss";

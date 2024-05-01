@@ -20,7 +20,8 @@ export const UserMenu: FC<UserMenuProps> = ({ className }) => {
 	const dispatch = useAppDispatch();
 	const isTablet = useMediaQuery({ maxWidth: Devices.TABLET });
 
-	const onClickHandler = useCallback(() => {
+	const onClickHandler = useCallback((e: any) => {
+		e.stopPropagation();
 		dispatch(featureMenuActions.setIsShow(!isShow));
 	}, [dispatch, isShow]);
 

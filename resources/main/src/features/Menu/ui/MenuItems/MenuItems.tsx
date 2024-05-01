@@ -1,8 +1,8 @@
-import { FC, useCallback } from "react";
+import { FC, useCallback, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { entityAuthActions } from "@/entities/Auth";
 import { MenuItem } from "@/entities/Menu";
-import { getLoginRoutePath } from "@/shared/config/routes/path";
+import { getBookedRoutePath, getLoginRoutePath, getProfileRoutePath } from "@/shared/config/routes/path";
 import { useAppDispatch } from "@/shared/lib/hooks/useAppDispatch/useAppDispatch";
 import BedIcon from "../../assets/bed.svg?react";
 import LogoutIcon from "../../assets/logout.svg?react";
@@ -19,13 +19,29 @@ export const MenuItems: FC<MenuItemsProps> = ({ className }) => {
 	const onClickLogoutHandler = useCallback(() => {
 		dispatch(entityAuthActions.logout());
 		navigate(getLoginRoutePath());
-	}, []);
+	}, [dispatch, navigate]);
 
 	return (
 		<>
-			<MenuItem className={className} name="Профіль" Icon={UserIcon} />
-			<MenuItem className={className} name="Заброньована кімната" Icon={BedIcon} />
-			<MenuItem className={className} onClick={onClickLogoutHandler} name="Вихід" Icon={LogoutIcon} />
+			<MenuItem
+				className={className}
+				name="Профіль"
+				to={getProfileRoutePath()}
+				Icon={UserIcon}
+			/>
+			<MenuItem
+				className={className}
+				name="Заброньована кімната"
+				to={getBookedRoutePath()}
+				Icon={BedIcon}
+			/>
+			<MenuItem
+				className={className}
+				onClick={onClickLogoutHandler}
+				name="Вихід"
+				to={getLoginRoutePath()}
+				Icon={LogoutIcon}
+			/>
 		</>
 	);
 };

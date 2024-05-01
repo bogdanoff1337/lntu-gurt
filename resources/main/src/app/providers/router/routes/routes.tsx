@@ -6,12 +6,14 @@ import { RegisterPage } from "@/pages/RegisterPage";
 import { RoomPage } from "@/pages/RoomPage";
 import { RoomsPage } from "@/pages/RoomsPage";
 import {
+	getBookedRoutePath,
 	getLoginRoutePath,
 	getMainRoutePath,
 	getProfileRoutePath,
 	getRegisterRoutePath,
 	getRoomsRoutePath,
 } from "@/shared/config/routes/path";
+import { BookedPage } from "@/pages/BookedPage";
 
 export type AppRouteProps = RouteProps & {
 	middleware: Middleware
@@ -57,6 +59,11 @@ export const routes: AppRouteProps[] = [
 	{
 		path: getProfileRoutePath(),
 		element: <ProfilePage />,
+		middleware: Middleware.AUTH,
+	},
+	{
+		path: getBookedRoutePath(),
+		element: <BookedPage />,
 		middleware: Middleware.AUTH,
 	},
 ];

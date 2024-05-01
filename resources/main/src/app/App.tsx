@@ -6,15 +6,17 @@ import { useAppDispatch } from "@/shared/lib/hooks/useAppDispatch/useAppDispatch
 import { Loader } from "@/shared/ui/Loader";
 import { PageLoader } from "@/shared/ui/PageLoader";
 import { AppRouter } from "./providers/router";
+import { useClickWindowCloseMenu } from "@/features/Menu";
 
 const App = () => {
-	const entityAuthData = useSelector(entityAuthSelectors.getData);
 	const entityAuthIsLoading = useSelector(entityAuthSelectors.getIsLoading);
 	const dispatch = useAppDispatch();
 
 	useEffect(() => {
 		dispatch(entityAuthActions.getUser());
-	}, []);
+	}, [dispatch]);
+
+	useClickWindowCloseMenu();
 
 	if (entityAuthIsLoading) {
 		return <PageLoader />;

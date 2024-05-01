@@ -5,7 +5,7 @@ import { Page } from "@/widgets/Page";
 import { entityRoomActions, entityRoomSelectors } from "@/entities/Room";
 import { classNames as cn } from "@/shared/lib/classNames/classNames";
 import { useAppDispatch } from "@/shared/lib/hooks/useAppDispatch/useAppDispatch";
-import { Button, NavLinkButton, PrimaryButton } from "@/shared/ui/Buttons";
+import { PrimaryButton } from "@/shared/ui/Buttons";
 import { Container } from "@/shared/ui/Container";
 import { PageLoader } from "@/shared/ui/PageLoader";
 import { Title } from "@/shared/ui/Title";
@@ -73,11 +73,11 @@ export const RoomPage: FC<RoomPageProps> = ({ className }) => {
 					</Container>
 				</section>
 				<SwiperSection images={roomData!.images} />
-				<div className={cls.RoomPage__section}>
-					<div className={cls.RoomPage__container}>
+				<section className={cls.RoomPage__section}>
+					<Container className={cls.RoomPage__container}>
 						<PrimaryButton isLoading={roomDataIsFetching} onClick={onClickBook}>Забронювати кімнату</PrimaryButton>
-					</div>
-				</div>
+					</Container>
+				</section>
 			</Page>
 		</>
 		
