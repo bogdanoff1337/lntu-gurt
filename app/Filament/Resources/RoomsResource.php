@@ -5,13 +5,15 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\RoomsResource\Pages;
 use App\Models\Room;
 use Filament\Forms\Components\FileUpload;
-use Filament\Forms\Components\Repeater;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Select;
+use Illuminate\Database\Eloquent\Builder;
+use App\Models\Faculty;
+
 class RoomsResource extends Resource
 {
     protected static ?string $model = Room::class;
@@ -100,7 +102,24 @@ class RoomsResource extends Resource
                     ->sortable(),
             ])
             ->filters([
-                //
+                Tables\Filters\Filter::make('where_faculty')
+                    ->label('Факультет')
+                    ->form(function () {
+                        $faculties = Faculty::pluck('slug_short', 'slug_short')->toArray();
+                        return [
+                            Select::make('faculty.slug_short')
+                                ->label('Факультет')
+                                ->options($faculties)
+                        ];
+
+                    })
+                    ->query(function (Builder $query, array $data): Builder {
+                       return $query->when($data['faculty'], function (Builder $query, $faculty) {
+                            $query->whereHas('faculty', function (Builder $query) use ($faculty) {
+                                $query->where('slug_short', $faculty);
+                            });
+                           });
+                    }),
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),

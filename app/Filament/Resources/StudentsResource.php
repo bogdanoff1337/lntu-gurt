@@ -69,22 +69,20 @@ class StudentsResource extends Resource
                 Tables\Columns\TextColumn::make("last_name")
                     ->label("Призвіще")
                     ->searchable(),
-                Tables\Columns\TextColumn::make("middle_name")
-                    ->label("По-батькові")
-                    ->searchable(),
-                Tables\Columns\TextColumn::make("phone")
-                    ->label("Номер телефону")
-                    ->searchable(),
-                Tables\Columns\TextColumn::make("city")
-                    ->label("Місце проживання")
-                    ->searchable(),
-                Tables\Columns\TextColumn::make("benefits")
-                    ->label("Перелік пільг")
-                    ->searchable(),
                 Tables\Columns\TextColumn::make('email')
                     ->label('Email')
                     ->searchable()
                     ->sortable(),
+                Tables\Columns\TextColumn::make("benefits")
+                    ->label("Перелік пільг")
+                    ->searchable(),
+                Tables\Columns\TextColumn::make("city")
+                    ->label("Місце проживання")
+                    ->searchable(),
+
+                Tables\Columns\TextColumn::make("phone")
+                    ->label("Номер телефону")
+                    ->searchable(),
             ])
             ->filters([
                 //

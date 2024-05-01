@@ -31,8 +31,8 @@ class OrdersResource extends Resource
                     ->label("Студент/вступник")
                 ->options(\App\Models\Student::pluck('email', 'id')->toArray()),
                 Select::make("room_id")
-                    ->label("Студент/вступник")
-                    ->options(\App\Models\Room::pluck('number', 'id')->toArray()),
+                    ->label("Кімната")
+                    ->options(Room::where('places', '>', 0)->pluck('number', 'id')->toArray()),
             ]);
     }
 
@@ -53,16 +53,27 @@ class OrdersResource extends Resource
                     ->label("Кімната")
                     ->searchable()
                     ->sortable(),
+                Tables\Columns\TextColumn::make("room.faculty.slug_short")
+                    ->label("Факультет")
+                    ->searchable()
+                    ->sortable(),
                 Tables\Columns\TextColumn::make("room.places")
                     ->label("Місця")
                     ->searchable()
                     ->sortable(),
                 Tables\Columns\SelectColumn::make("status")
-                    ->options([
-                        'new' => 'Нове',
-                        'approved' => 'Затверджено',
-                        'rejected' => 'Відхилено',
-                    ])
+                    ->options(function ($record) {
+                        $options = [
+                            'approved' => 'Затверджено',
+                            'rejected' => 'Відхилено',
+                        ];
+
+                        if ($record->status !== 'new') {
+                            unset($options['new']);
+                        }
+
+                        return $options;
+                    })
                     ->label("Статус")
                     ->beforeStateUpdated(function ($record, $state) {
                         if ($state === 'approved') {
@@ -94,6 +105,26 @@ class OrdersResource extends Resource
                             }),
                         );
                     }),
+                Tables\Filters\Filter::make('where_faculty')
+                    ->label('Факультет')
+                    ->form([
+                            Select::make('room.faculty.slug_short')
+                            ->label('Факультет')
+                            ->options([
+                                'FKIT' => 'FKIT',
+                                'FDOST' => 'FDOST',
+                                // Додайте всі доступні факультети тут
+                            ])
+                    ])
+                    ->query(function (Builder $query, array $data): Builder {
+                        return $query->when(
+                            isset($data['faculty']),
+                            fn (Builder $query) => $query->whereHas('room.faculty', function (Builder $query) use ($data) {
+                                $query->where('slug_short', $data['faculty']);
+                            })
+                        );
+                    }),
+
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),

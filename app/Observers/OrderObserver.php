@@ -19,8 +19,6 @@ class OrderObserver
      */
     public function updated(Order $order): void
     {
-
-        // Перевіряємо, чи змінився статус замовлення
         if ($order->isDirty('status')) {
             $oldStatus = $order->getOriginal('status');
             $newStatus = $order->status;
@@ -29,13 +27,10 @@ class OrderObserver
                 $order->room_id = null;
             }
 
-            // Якщо статус змінився на 'approved' (затверджено), зменшуємо кількість місць у кімнаті
             if ($newStatus === 'approved') {
                 $room = Room::find($order->room_id);
 
-                // Перевіряємо, чи кімната існує та має доступні місця
                 if ($room && $room->places > 0) {
-                    // Якщо кількість місць перевищує 4, обмежуємо їх до 4
                     if ($room->places > 4) {
                         $room->update(['places' => 4]);
                     } else {
@@ -44,17 +39,17 @@ class OrderObserver
                 }
             }
 
-            if ($oldStatus === 'approved') {
+            if ($oldStatus === 'approved' && $newStatus === 'rejected') {
                 $room = Room::find($order->room_id);
 
-                // Перевіряємо, чи кімната існує
                 if ($room) {
                     $room->increment('places');
                 }
             }
         }
-
     }
+
+
 
     /**
      * Handle the Order "deleted" event.
