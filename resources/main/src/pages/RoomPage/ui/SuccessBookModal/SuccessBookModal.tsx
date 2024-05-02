@@ -8,17 +8,17 @@ type TModalProps = Omit<ModalProps, "children">;
 
 interface SuccessBookModalProps extends TModalProps {
 	className?: string;
-	setIsOpenModal: (value: boolean) => void;
-	onToggle: (value: boolean) => void;
+	setIsOpen: (value: boolean) => void;
+	isOpen: boolean;
 }
 
-export const SuccessBookModal: FC<SuccessBookModalProps> = ({ className, setIsOpenModal, ...anotherProps }) => {
+export const SuccessBookModal: FC<SuccessBookModalProps> = ({ className, setIsOpen, isOpen, ...anotherProps }) => {
 	return (
-		<Modal className={cn(cls.SuccessBookModal, {}, [className])} {...anotherProps}>
+		<Modal isOpen={isOpen} setIsOpen={setIsOpen} className={cn(cls.SuccessBookModal, {}, [className])} {...anotherProps}>
 			<button
 				aria-label="Close modal"
 				className={`${cls.CloseButton} ${cls.SuccessBookModal__closeButton}`}
-				onClick={() => setIsOpenModal(false)}
+				onClick={() => setIsOpen(false)}
 			>
 				<CrossIcon className={cls.CloseButton__icon} />
 			</button>

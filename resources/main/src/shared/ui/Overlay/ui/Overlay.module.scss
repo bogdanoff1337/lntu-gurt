@@ -19,6 +19,14 @@
 
 	background: rgba(63, 64, 155, 0.53);
 
+   &_aboveAllZindex {
+      z-index: $overlayZindex;
+   }
+
+   &_lowerHeaderZindex {
+      z-index: $overlayLowerHeaderZindex;
+   }
+
    &_enter {
       transition: opacity $primaryTransition;
    }

@@ -1,27 +1,45 @@
 import { Transition } from "@headlessui/react";
-import { FC, ReactNode } from "react";
-import { classNames as cn } from "../../../lib/classNames/classNames";
+import { FC, HTMLAttributes, ReactNode } from "react";
 import cls from "./Overlay.module.scss";
+import clsx from "clsx";
 
-interface OverlayProps {
+interface OverlayProps extends HTMLAttributes<HTMLDivElement> {
 	className?: string;
 	isShow: boolean;
 	children: ReactNode;
+	classNames?: {
+		enter: string,
+		enterFrom: string;
+		enterTo: string;
+		leave: string;
+		leaveFrom: string;
+		leaveTo: string;
+	}
+	modifier?: OverlayModifier;
 }
 
-export const Overlay: FC<OverlayProps> = ({ className, isShow, children }) => {
+export enum OverlayModifier {
+	AboveAllZindex = "Overlay_aboveAllZindex", 
+	LowerHeaderZindex = "Overlay_lowerHeaderZindex", 
+}
+
+export const Overlay: FC<OverlayProps> = ({
+	className, classNames, isShow, children, modifier = OverlayModifier.AboveAllZindex, ...anotherProps
+}) => {
 	return (
 		<Transition
 			show={isShow}
 			as="div"
-			className={cn(cls.Overlay, {}, [className])}
-			enter={cls.Overlay_enter}
-			enterFrom={cls.Overlay_enterFrom}
-			enterTo={cls.Overlay_enterTo}
-			leave={cls.Overlay_leave}
-			leaveFrom={cls.Overlay_leaveFrom}
-			leaveTo={cls.Overlay_leaveTo}
-		>{children}
+			className={clsx(cls.Overlay, [className, cls[modifier]])}
+			enter={clsx(cls.Overlay_enter, [classNames?.enter])}
+			enterFrom={clsx(cls.Overlay_enterFrom, [classNames?.enterFrom])}
+			enterTo={clsx(cls.Overlay_enterTo, [classNames?.enterTo])}
+			leave={clsx(cls.Overlay_leave, [classNames?.leave])}
+			leaveFrom={clsx(cls.Overlay_leaveFrom, [classNames?.leaveFrom])}
+			leaveTo={clsx(cls.Overlay_leaveTo, [classNames?.leaveTo])}
+			{...anotherProps}
+		>
+			{children}
 		</Transition>
 	);
 };

@@ -1,7 +1,7 @@
 import { Transition } from "@headlessui/react";
 import { FC } from "react";
 import { classNames as cn } from "@/shared/lib/classNames/classNames";
-import { Overlay } from "@/shared/ui/Overlay";
+import { Overlay, OverlayModifier } from "@/shared/ui/Overlay";
 import { Portal } from "@/shared/ui/Portal";
 import { MenuItems } from "../MenuItems/MenuItems";
 import cls from "./Aside.module.scss";
@@ -14,23 +14,25 @@ interface AsideProps {
 export const Aside: FC<AsideProps> = ({ className, isShow }) => {
 	return (
 		<Portal>
-			<Overlay isShow={isShow}>
-				<Transition
-					show={isShow}
-					as="aside"
+			<Overlay isShow={isShow} 
+				modifier={OverlayModifier.LowerHeaderZindex}
+				className={cls.Overlay}
+				classNames={{
+					enter: cls.Overlay_enter,
+					enterFrom: cls.Overlay_enterFrom,
+					enterTo: cls.Overlay_enterTo,
+					leave: cls.Overlay_leave,
+					leaveFrom: cls.Overlay_leaveFrom,
+					leaveTo: cls.Overlay_leaveTo,
+				}}>
+				<aside
 					className={cn(cls.Aside, {
-					}, [className])}
-					enter={cls.Aside_enter}
-					enterFrom={cls.Aside_enterFrom}
-					enterTo={cls.Aside_enterTo}
-					leave={cls.Aside_leave}
-					leaveFrom={cls.Aside_leaveFrom}
-					leaveTo={cls.Aside_leaveTo}
+					}, [className, cls.Overlay__aside])}
 				>
 					<ul className={cls.Aside__list}>
 						<MenuItems />
 					</ul>
-				</Transition>
+				</aside>
 			</Overlay>
 
 		</Portal>

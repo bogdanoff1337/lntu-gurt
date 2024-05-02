@@ -1,26 +1,6 @@
 .Modal {
 	$p: &;
-	position: fixed;
-
-	z-index: $modalZindex;
-	top: 0;
-	right: 0;
-	bottom: 0;
-	left: 0;
-
-	display: flex;
-	align-items: center;
-	justify-content: center;
-
-	width: 100%;
-	height: 100%;
-
-	transition: opacity 0.3s ease;
-
-	background: rgba(63, 64, 155, 0.53);
-
-
-	&__shell {
+	&__content {
 		padding: rem(30) rem(20);
 
 		transition: all 0.5s ease;
@@ -29,47 +9,54 @@
 
 		background-color: #fff;
 		box-shadow: 0px 4px 30px 0px rgba(0, 0, 0, 0.1);
-
 	}
 
-	&_closed {
-		pointer-events: none;
-		#{$p}__shell_animation {
-			animation: fadeOut 0.3s;
+	&_enter {
+		#{$p} {
+			&__content {
+				transition: transform $primaryTransition;
+			}
 		}
 	}
 
-	&_opened {
-		#{$p}__shell_animation {
-			animation: fadeIn 0.3s;
+	&_enterFrom {
+		#{$p} {
+			&__content {
+				transform: scale(0.2);
+			}
+		}
+	}
+
+	&_enterTo {
+		#{$p} {
+			&__content {
+				transform: scale(1);
+			}
+		}
+	}
+
+	&_leave {
+		#{$p} {
+			&__content {
+				transition: transform $primaryTransition;
+			}
+		}
+		
+	}
+
+	&_leaveFrom {
+		#{$p} {
+			&__content {
+				transform: scale(1);
+			}
+		}
+	}
+
+	&_leaveTo {
+		#{$p} {
+			&__content {
+				transform: scale(0.2);
+			}
 		}
 	}
 }
-
-
-@keyframes fadeIn {
-	from {
-	  transform: scale(0.2);
-
-	  opacity: 0;
-	}
-	to {
-	  transform: scale(1);
-
-	  opacity: 1;
-	}
-}
-
-@keyframes fadeOut {
-	from {
-		transform: scale(1);
-
-		opacity: 1;
-	}
-	to {
-		transform: scale(0.2);
-
-		opacity: 0;
-	}
-}
- 

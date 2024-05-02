@@ -1,70 +1,47 @@
+import { Transition } from "@headlessui/react";
 import React, {
-	FC, ReactNode, useEffect, useRef, useState,
+	FC, ReactNode,
 } from "react";
-import { classNames } from "../../../lib/classNames/classNames";
+import { classNames as cn } from "../../../lib/classNames/classNames";
+import { Overlay } from "../../Overlay";
 import { Portal } from "../../Portal";
 import cls from "./Modal.module.scss";
 
 export interface ModalProps {
 	className?: string;
-	oppened: boolean;
-	lazy?: boolean;
-	onToggle: (oppened: boolean) => void;
+	setIsOpen: (oppened: boolean) => void;
 	children: ReactNode;
+	isOpen: boolean;
 }
 
 export const Modal: FC<ModalProps> = ({
-	className, oppened, lazy, onToggle, children,
+	className, setIsOpen, isOpen, children,
 }) => {
-	const [isMounted, setIsMounted] = useState(false);
-	const timeoutRef = useRef<ReturnType<typeof setTimeout>>();
-
-	useEffect(() => {
-		if (oppened) {
-			setIsMounted(true);
-		}
-
-		if (!oppened) {
-			timeoutRef.current = setTimeout(() => {
-				setIsMounted(false);
-			}, 300);
-		}
-
-		return () => {
-			clearTimeout(timeoutRef.current);
-		};
-	}, [oppened]);
-
 	const onCloseHandler = () => {
-		onToggle(false);
-		timeoutRef.current = setTimeout(() => {
-			setIsMounted(false);
-		}, 300);
+		setIsOpen(false);
 	};
 
-	const onClickShell = (e: React.MouseEvent) => {
+	const onClickContent = (e: React.MouseEvent) => {
 		e.stopPropagation();
 	};
 
-	const modalMods = {
-		[cls.Modal_opened]: oppened,
-		[cls.Modal_closed]: !oppened,
-	};
-
-	if (lazy && !isMounted) {
-		return null;
-	}
-
 	return (
 		<Portal>
-			<div className={classNames(cls.Modal, modalMods, [])} onClick={onCloseHandler}>
+			<Overlay className={cls.Modal} isShow={isOpen} onClick={onCloseHandler} classNames={{
+				enter: cls.Modal_enter,
+				enterFrom: cls.Modal_enterFrom,
+				enterTo: cls.Modal_enterTo,
+				leave: cls.Modal_leave,
+				leaveFrom: cls.Modal_leaveFrom,
+				leaveTo: cls.Modal_leaveTo,
+			}}>
 				<div
-					className={classNames(cls.Modal__shell, {}, [cls.Modal__shell_animation, className])}
-					onClick={onClickShell}
+					className={cn(cls.Modal__content, {}, [className])}
+					onClick={onClickContent}
 				>
 					{children}
 				</div>
-			</div>
+			</Overlay>
 		</Portal>
 	);
 };

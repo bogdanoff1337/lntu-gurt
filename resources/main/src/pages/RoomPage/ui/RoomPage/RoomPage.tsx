@@ -46,7 +46,7 @@ export const RoomPage: FC<RoomPageProps> = ({ className }) => {
 
 	return (
 		<>
-			<SuccessBookModal setIsOpenModal={setIsOpenModal} onToggle={onToggleModal} lazy oppened={isOpenModal} />
+			<SuccessBookModal setIsOpen={setIsOpenModal} onToggle={onToggleModal} isOpen={isOpenModal} />
 			<Page className={cn(cls.RoomPage, {}, [className])}>
 				<section className={cls.RoomPage__section}>
 					<Container className={cls.RoomPage__container}>

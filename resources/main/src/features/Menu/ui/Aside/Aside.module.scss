@@ -17,31 +17,61 @@
       row-gap: rem(10);
    }
 
+
+}
+
+
+.Overlay {
+   $p: &;
+
    &_enter {
-      transition: 0.3s linear;
+      #{$p} {
+         &__aside {
+            transition: 0.3s linear;
+         }
+      }
    }
 
    &_enterFrom {
-      left: -100%;
+      #{$p} {
+         &__aside {
+            left: -100%;
+         }
+      }
    }
 
    &_enterTo {
-      left: 0;
+      #{$p} {
+         &__aside {
+            left: 0;
+         }
+      }
    }
 
    &_leave {
-      transition: 0.3s linear;
+      #{$p} {
+         &__aside {
+            transition: 0.3s linear;
+         }
+      }
    }
 
    &_leaveFrom {
-      left: 0;
+      #{$p} {
+         &__aside {
+            left: 0;
+         }
+      }
    }
 
    &_leaveTo {
-      left: -100%;
+      #{$p} {
+         &__aside {
+            left: -100%;
+         }
+      }
    }
 }
-
 
 
 
