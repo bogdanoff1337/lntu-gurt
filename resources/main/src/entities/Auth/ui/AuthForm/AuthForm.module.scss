@@ -35,5 +35,29 @@
       padding: 0 rem(15);
 
       color: $redColor;
+
+      &_enter {
+         transition: opacity $primaryTransition;
+      }
+
+      &_enterFrom {
+         opacity: 0;
+      }
+
+      &_enterTo {
+         opacity: 1;
+      }
+
+      &_leave {
+         transition: opacity $primaryTransition;
+      }
+
+      &_leaveFrom {
+         opacity: 1;
+      }
+
+      &_leaveTo {
+         opacity: 0;
+      }
    }
 }

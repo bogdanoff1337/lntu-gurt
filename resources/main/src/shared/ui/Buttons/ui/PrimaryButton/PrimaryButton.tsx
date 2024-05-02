@@ -1,7 +1,6 @@
+import clsx from "clsx";
 import { ButtonHTMLAttributes, FC, ReactNode } from "react";
 import { Button } from "../..";
-import { classNames as cn } from "../../../../lib/classNames/classNames";
-import { Icon } from "../../../Icon";
 import { Loader } from "../../../Loader";
 import cls from "./PrimaryButton.module.scss";
 
@@ -16,7 +15,7 @@ export const PrimaryButton: FC<PrimaryButtonProps> = ({
 	className, children, Icon, isLoading, ...otherProps
 }) => {
 	return (
-		<Button className={cn(cls.PrimaryButton, {}, [className])} {...otherProps}>
+		<Button className={clsx(cls.PrimaryButton, [className])} {...otherProps}>
 			{children}
 			{isLoading ? <Loader className={cls.PrimaryButton__loader} /> : Icon && <Icon className={cls.PrimaryButton__icon} />}
 		</Button>

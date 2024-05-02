@@ -1,7 +1,7 @@
+import clsx from "clsx";
 import {
 	FC, ReactNode, useLayoutEffect, useState,
 } from "react";
-import { classNames } from "../../../lib/classNames/classNames";
 import { Skeleton } from "../../Skeleton";
 import cls from "./Img.module.scss";
 
@@ -42,7 +42,7 @@ export const Img: FC<ImgProps> = ({
 
 	return (
 		<img
-			className={classNames(cls.Img, {}, [className])}
+			className={clsx(cls.Img, [className])}
 			style={{ aspectRatio: "1 / 1" }}
 			src={src}
 		/>

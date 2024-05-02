@@ -1,5 +1,5 @@
+import clsx from "clsx";
 import { FC } from "react";
-import { classNames as cn } from "@/shared/lib/classNames/classNames";
 import ArrowButton from "../../assets/arrow.svg";
 import cls from "./Button.module.scss";
 
@@ -12,8 +12,9 @@ interface ButtonProps {
 export const Button: FC<ButtonProps> = ({ className, right, onClick }) => {
 	return (
 		<button
+			aria-label="Arrow button"
 			onClick={onClick}
-			className={cn(cls.Button, {
+			className={clsx(cls.Button, {
 				[cls.Button_right]: right,
 			}, [className])}
 		>

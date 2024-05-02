@@ -1,6 +1,6 @@
+import clsx from "clsx";
 import { FC, ReactNode } from "react";
 import { NavLink } from "react-router-dom";
-import { classNames } from "../../../../lib/classNames/classNames";
 import cls from "../common/style.module.scss";
 import { ButtonModifier } from "../common/types";
 
@@ -17,7 +17,7 @@ export const NavLinkButton: FC<NavLinkButtonProps> = ({
 	modifier = "",
 	to,
 }) => (
-	<NavLink to={to} className={classNames(cls.Button, {}, [className, modifier])}>
+	<NavLink to={to} className={clsx(cls.Button, [className, modifier])}>
 		{children}
 	</NavLink>
 );

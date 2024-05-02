@@ -1,17 +1,10 @@
+import clsx from "clsx";
 import queryString from "query-string";
 import { FC, useEffect, useMemo } from "react";
 import { useSelector } from "react-redux";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
-import {
-	FacultyItem, entityFacultiesActions, entityFacultiesSelectors,
-} from "@/entities/Faculties";
 import { RoomItem, entityRoomsActions, entityRoomsSelectors } from "@/entities/Rooms";
 import { getRoomsRoutePath } from "@/shared/config/routes/path";
-import { useQueryParams } from "@/shared/hooks/useQueryParams/useQueryParams";
-import { classNames as cn } from "@/shared/lib/classNames/classNames";
 import { useAppDispatch } from "@/shared/lib/hooks/useAppDispatch/useAppDispatch";
-import { updateUrlParams } from "@/shared/lib/updateUrlParams/updateUrlParams";
-import { CardGrid } from "@/shared/ui/CardGrid";
 import { PageLoader } from "@/shared/ui/PageLoader";
 import cls from "./RoomsList.module.scss";
 
@@ -47,7 +40,7 @@ export const RoomsList: FC<RoomsListProps> = ({ className }) => {
 	}
 
 	return (
-		<div className={cn(cls.RoomsList, {}, [className])}>
+		<div className={clsx(cls.RoomsList, [className])}>
 			{roomsItems}
 		</div>
 	);

@@ -1,11 +1,8 @@
+import clsx from "clsx";
 import { FC, SyntheticEvent, useCallback } from "react";
-import { useForm, SubmitHandler } from "react-hook-form";
-import { useDispatch, useSelector } from "react-redux";
-import { redirect, useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { AuthForm } from "@/entities/Auth";
-import { getMainRoutePath } from "@/shared/config/routes/path";
-import { useDebounce } from "@/shared/hooks/useDebaunce/useDebaunce";
-import { classNames as cn } from "@/shared/lib/classNames/classNames";
 import { useAppDispatch } from "@/shared/lib/hooks/useAppDispatch/useAppDispatch";
 import { PrimaryField } from "@/shared/ui/Fields";
 import * as pageRegisterSelectors from "../../model/selectors";
@@ -57,7 +54,7 @@ export const LoginAuthForm: FC<LoginAuthFormProps> = ({ className }) => {
 
 	return (
 		<AuthForm
-			className={cn(cls.LoginAuthForm, {}, [className])}
+			className={clsx(cls.LoginAuthForm, [className])}
 			onSubmit={onSubmit}
 			submitName="Увійти"
 			isLoading={isLoading}

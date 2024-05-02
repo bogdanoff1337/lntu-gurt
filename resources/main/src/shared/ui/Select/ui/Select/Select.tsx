@@ -1,7 +1,7 @@
+import clsx from "clsx";
 import {
 	FC, useCallback, useEffect, useMemo, useRef, useState,
 } from "react";
-import { classNames as cn } from "../../../../lib/classNames/classNames";
 import { Option } from "../Option/Option";
 import ArrowDown from "./assets/arrow-down.svg?react";
 import cls from "./Select.module.scss";
@@ -101,7 +101,7 @@ export const Select: FC<SelectProps> = ({
 	return (
 		<div
 			// style={{ width: size }}
-			className={cn(cls.Select, {
+			className={clsx(cls.Select, {
 				[cls.Select_active]: isOpen,
 				[cls.Select_nonActive]: !isOpen,
 			}, [className])}

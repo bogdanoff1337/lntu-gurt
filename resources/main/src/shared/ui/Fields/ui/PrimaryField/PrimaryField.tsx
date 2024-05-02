@@ -1,7 +1,7 @@
+import clsx from "clsx";
 import {
 	ChangeEvent, FC, InputHTMLAttributes, useCallback, useEffect, useRef, useState,
 } from "react";
-import { classNames as cn } from "../../../../lib/classNames/classNames";
 import cls from "./PrimaryField.module.scss";
 
 type InputAttrubutes = Omit<InputHTMLAttributes<HTMLInputElement>, "onChange">;
@@ -46,7 +46,7 @@ export const PrimaryField: FC<PrimaryFieldProps> = ({
 	}, []);
 
 	return (
-		<div className={cn(cls.PrimaryField, {
+		<div className={clsx(cls.PrimaryField, {
 			[cls.PrimaryField_error]: errorMessage,
 			[cls.PrimaryField_success]: isSuccess,
 			[cls.PrimaryField_emty]: !isEmty,

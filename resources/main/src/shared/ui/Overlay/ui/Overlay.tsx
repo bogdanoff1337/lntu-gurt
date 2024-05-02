@@ -1,7 +1,7 @@
 import { Transition } from "@headlessui/react";
+import clsx from "clsx";
 import { FC, HTMLAttributes, ReactNode } from "react";
 import cls from "./Overlay.module.scss";
-import clsx from "clsx";
 
 interface OverlayProps extends HTMLAttributes<HTMLDivElement> {
 	className?: string;
@@ -19,8 +19,8 @@ interface OverlayProps extends HTMLAttributes<HTMLDivElement> {
 }
 
 export enum OverlayModifier {
-	AboveAllZindex = "Overlay_aboveAllZindex", 
-	LowerHeaderZindex = "Overlay_lowerHeaderZindex", 
+	AboveAllZindex = "Overlay_aboveAllZindex",
+	LowerHeaderZindex = "Overlay_lowerHeaderZindex",
 }
 
 export const Overlay: FC<OverlayProps> = ({

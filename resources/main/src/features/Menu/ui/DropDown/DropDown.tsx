@@ -1,6 +1,6 @@
 import { Transition } from "@headlessui/react";
+import clsx from "clsx";
 import { FC } from "react";
-import { classNames as cn } from "@/shared/lib/classNames/classNames";
 import { MenuItems } from "../MenuItems/MenuItems";
 import cls from "./DropDown.module.scss";
 
@@ -13,7 +13,7 @@ export const DropDown: FC<DropDownProps> = ({ className, isShow }) => {
 	return (
 		<Transition
 			show={isShow}
-			className={cn(cls.DropDown, {}, [className])}
+			className={clsx(cls.DropDown, [className])}
 			enter={cls.Transition_enter}
 			enterFrom={cls.Transition_enterFrom}
 			enterTo={cls.Transition_enterTo}
@@ -26,4 +26,3 @@ export const DropDown: FC<DropDownProps> = ({ className, isShow }) => {
 		</Transition>
 	);
 };
-

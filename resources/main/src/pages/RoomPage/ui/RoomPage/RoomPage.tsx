@@ -1,17 +1,19 @@
-import { FC, useCallback, useEffect, useState } from "react";
+import clsx from "clsx";
+import {
+	FC, useCallback, useEffect, useState,
+} from "react";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { Page } from "@/widgets/Page";
 import { entityRoomActions, entityRoomSelectors } from "@/entities/Room";
-import { classNames as cn } from "@/shared/lib/classNames/classNames";
 import { useAppDispatch } from "@/shared/lib/hooks/useAppDispatch/useAppDispatch";
 import { PrimaryButton } from "@/shared/ui/Buttons";
 import { Container } from "@/shared/ui/Container";
 import { PageLoader } from "@/shared/ui/PageLoader";
 import { Title } from "@/shared/ui/Title";
+import { SuccessBookModal } from "../SuccessBookModal/SuccessBookModal";
 import { SwiperSection } from "../SwiperSection/SwiperSection";
 import cls from "./RoomPage.module.scss";
-import { SuccessBookModal } from "../SuccessBookModal/SuccessBookModal";
 
 interface RoomPageProps {
 	className?: string;
@@ -30,15 +32,10 @@ export const RoomPage: FC<RoomPageProps> = ({ className }) => {
 		dispatch(entityRoomActions.getRoomById({ id: id! }));
 	}, [dispatch, id]);
 
-	const onToggleModal = useCallback((value: boolean) => {
-		setIsOpenModal(value);
-	}, []);
-
 	const onClickBook = useCallback(() => {
 		dispatch(entityRoomActions.bookRoom({ id: id! }));
 		setIsOpenModal(true);
-	}, []);
-
+	}, [dispatch, id]);
 
 	if (roomDataIsLoading) {
 		return <PageLoader />;
@@ -46,8 +43,8 @@ export const RoomPage: FC<RoomPageProps> = ({ className }) => {
 
 	return (
 		<>
-			<SuccessBookModal setIsOpen={setIsOpenModal} onToggle={onToggleModal} isOpen={isOpenModal} />
-			<Page className={cn(cls.RoomPage, {}, [className])}>
+			<SuccessBookModal setIsOpen={setIsOpenModal} isOpen={isOpenModal} />
+			<Page className={clsx(cls.RoomPage, [className])}>
 				<section className={cls.RoomPage__section}>
 					<Container className={cls.RoomPage__container}>
 						<Title className={cls.RoomPage__title}>Кімната {roomData?.number}</Title>
@@ -80,6 +77,6 @@ export const RoomPage: FC<RoomPageProps> = ({ className }) => {
 				</section>
 			</Page>
 		</>
-		
+
 	);
 };

@@ -1,11 +1,10 @@
+import clsx from "clsx";
 import { FC, useEffect, useMemo } from "react";
 import { useSelector } from "react-redux";
 import {
-	FacultyItem, FacultyItemSkeleton, entityFacultiesActions, entityFacultiesSelectors,
+	FacultyItem, entityFacultiesActions, entityFacultiesSelectors,
 } from "@/entities/Faculties";
-import { classNames as cn } from "@/shared/lib/classNames/classNames";
 import { useAppDispatch } from "@/shared/lib/hooks/useAppDispatch/useAppDispatch";
-import { CardGrid } from "@/shared/ui/CardGrid";
 import { PageLoader } from "@/shared/ui/PageLoader";
 import cls from "./FacultiesList.module.scss";
 
@@ -35,7 +34,7 @@ export const FacultiesList: FC<FacultiesListProps> = ({ className }) => {
 	}
 
 	return (
-		<div className={cn(cls.FacultiesList, {}, [className])}>
+		<div className={clsx(cls.FacultiesList, [className])}>
 			{facultiesItems}
 		</div>
 	);

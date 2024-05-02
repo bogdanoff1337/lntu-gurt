@@ -1,7 +1,7 @@
+import clsx from "clsx";
 import {
-	FC, useEffect, useMemo, useRef,
+	FC, useEffect, useRef,
 } from "react";
-import { classNames as cn } from "../../../../lib/classNames/classNames";
 import { OptionType } from "../Select/Select";
 import cls from "./Option.module.scss";
 
@@ -38,7 +38,7 @@ export const Option: FC<OptionProps> = ({
 
 	return (
 		<li
-			className={cn(cls.Option, {
+			className={clsx(cls.Option, {
 				[cls.Option_active]: option.id === activeSelectId,
 			}, [])}
 			onClick={() => onClick()}

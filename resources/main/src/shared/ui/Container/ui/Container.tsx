@@ -1,5 +1,5 @@
+import clsx from "clsx";
 import { FC, ReactNode } from "react";
-import { classNames as cn } from "../../../lib/classNames/classNames";
 import cls from "./Container.module.scss";
 
 interface ContainerProps {
@@ -19,9 +19,7 @@ export const Container: FC<ContainerProps> = ({
 	className, children, isDisabled, modifier = ContainerModifier.ACTIVE,
 }) => {
 	return (
-		<div className={cn(cls.Container, {
-		}, [className, !isDisabled ? cls[modifier] : undefined])}
-		>
+		<div className={clsx(cls.Container, [className, !isDisabled ? cls[modifier] : undefined])}>
 			{children}
 		</div>
 	);

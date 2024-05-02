@@ -1,8 +1,8 @@
+import clsx from "clsx";
 import { FC, SyntheticEvent, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { AuthForm } from "@/entities/Auth";
-import { classNames as cn } from "@/shared/lib/classNames/classNames";
 import { PrimaryField } from "@/shared/ui/Fields";
 import * as pageRegisterAuthSelectors from "../../model/selectors";
 import { pageRegisterAuthActions } from "../../model/slice/pageRegisterAuthSlice";
@@ -56,7 +56,7 @@ export const RegisterAuthForm: FC<RegisterAuthFormProps> = ({ className }) => {
 
 	return (
 		<AuthForm
-			className={cn(cls.RegisterAuthForm, {}, [className])}
+			className={clsx(cls.RegisterAuthForm, [className])}
 			onSubmit={onSubmit}
 			isLoading={isLoading}
 			submitName="Зареєструватися"

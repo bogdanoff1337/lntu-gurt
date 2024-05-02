@@ -1,7 +1,7 @@
+import clsx from "clsx";
 import {
 	ChangeEvent, FC, InputHTMLAttributes, memo,
 } from "react";
-import { classNames as cn } from "../../lib/classNames/classNames";
 import cls from "./Input.module.scss";
 
 type HTMLInputProps = Omit<InputHTMLAttributes<HTMLInputElement>, "value" | "onChange">;
@@ -31,7 +31,7 @@ export const Input: FC<InputProps> = memo(({
 
 	return (
 		<input
-			className={cn(cls.Input, {}, [className])}
+			className={clsx(cls.Input, [className])}
 			type={type}
 			value={value}
 			onChange={onChangeHandler}

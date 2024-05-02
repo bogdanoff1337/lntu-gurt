@@ -1,5 +1,5 @@
+import clsx from "clsx";
 import { FC } from "react";
-import { classNames } from "../../../lib/classNames/classNames";
 import cls from "./Loader.module.scss";
 
 interface LoaderProps {
@@ -7,7 +7,7 @@ interface LoaderProps {
 }
 
 export const Loader: FC<LoaderProps> = ({ className }) => (
-	<div className={classNames(cls.ldsEllipsis, {}, [className])}>
+	<div className={clsx(cls.ldsEllipsis, [className])}>
 		<div />
 		<div />
 		<div />

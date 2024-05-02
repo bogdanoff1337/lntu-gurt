@@ -1,13 +1,9 @@
+import clsx from "clsx";
 import {
 	FC, memo, useCallback, useEffect, useMemo, useRef, useState,
 } from "react";
 import { useMediaQuery } from "react-responsive";
 import { Devices } from "@/shared/const/common";
-import { classNames as cn } from "@/shared/lib/classNames/classNames";
-import DecorateIcon from "../../assets/decorate.svg";
-import LogoMobileIcon from "../../assets/logo-mobile.svg";
-import LogoPcIcon from "../../assets/logo-pc.svg";
-import { Button } from "../Button/Button";
 import cls from "./Carrousel.module.scss";
 
 interface CarrouselProps {
@@ -65,7 +61,7 @@ export const Carrousel: FC<CarrouselProps> = memo(({
 			return (
 				<li
 					key={i}
-					className={cn(cls.Carrousel__dotItem, {
+					className={clsx(cls.Carrousel__dotItem, {
 						[cls.Carrousel__dotItem_active]: i === currentIndexItem,
 					})}
 					onClick={onClickDotHandler(i)}
@@ -85,7 +81,7 @@ export const Carrousel: FC<CarrouselProps> = memo(({
 	}, [data]);
 
 	return (
-		<div className={cn(cls.Carrousel, {
+		<div className={clsx(cls.Carrousel, {
 		}, [className])}
 		>
 			<div className={cls.Carrousel__listWrapper}>

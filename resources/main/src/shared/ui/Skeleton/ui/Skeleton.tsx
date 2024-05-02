@@ -1,7 +1,7 @@
+import clsx from "clsx";
 import {
-	FC, ReactNode, useMemo,
+	FC, ReactNode,
 } from "react";
-import { classNames } from "../../../lib/classNames/classNames";
 import cls from "./Skeleton.module.scss";
 
 interface SkeletonProps {
@@ -17,7 +17,7 @@ export const Skeleton: FC<SkeletonProps> = ({
 }) => {
 	return (
 		<span
-			className={classNames(cls.Skeleton, {}, [className])}
+			className={clsx(cls.Skeleton, [className])}
 			style={{ borderRadius: circle }}
 		>
 			{children}

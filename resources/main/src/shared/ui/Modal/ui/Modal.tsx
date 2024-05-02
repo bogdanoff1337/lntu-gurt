@@ -1,8 +1,7 @@
-import { Transition } from "@headlessui/react";
+import clsx from "clsx";
 import React, {
 	FC, ReactNode,
 } from "react";
-import { classNames as cn } from "../../../lib/classNames/classNames";
 import { Overlay } from "../../Overlay";
 import { Portal } from "../../Portal";
 import cls from "./Modal.module.scss";
@@ -27,16 +26,21 @@ export const Modal: FC<ModalProps> = ({
 
 	return (
 		<Portal>
-			<Overlay className={cls.Modal} isShow={isOpen} onClick={onCloseHandler} classNames={{
-				enter: cls.Modal_enter,
-				enterFrom: cls.Modal_enterFrom,
-				enterTo: cls.Modal_enterTo,
-				leave: cls.Modal_leave,
-				leaveFrom: cls.Modal_leaveFrom,
-				leaveTo: cls.Modal_leaveTo,
-			}}>
+			<Overlay
+				className={cls.Modal}
+				isShow={isOpen}
+				onClick={onCloseHandler}
+				classNames={{
+					enter: cls.Modal_enter,
+					enterFrom: cls.Modal_enterFrom,
+					enterTo: cls.Modal_enterTo,
+					leave: cls.Modal_leave,
+					leaveFrom: cls.Modal_leaveFrom,
+					leaveTo: cls.Modal_leaveTo,
+				}}
+			>
 				<div
-					className={cn(cls.Modal__content, {}, [className])}
+					className={clsx(cls.Modal__content, [className])}
 					onClick={onClickContent}
 				>
 					{children}

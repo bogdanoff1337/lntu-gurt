@@ -1,7 +1,7 @@
 import { Transition } from "@headlessui/react";
+import clsx from "clsx";
 import { FC, useCallback } from "react";
 import { useSelector } from "react-redux";
-import { classNames as cn } from "@/shared/lib/classNames/classNames";
 import { useAppDispatch } from "@/shared/lib/hooks/useAppDispatch/useAppDispatch";
 import { Portal } from "@/shared/ui/Portal";
 import * as featureOverlaySelectors from "../../model/selectors";
@@ -23,7 +23,7 @@ export const Overlay: FC<OverlayProps> = ({ className }) => {
 	return (
 		<Portal>
 			<Transition
-				className={cn(cls.Overlay, {}, [className])}
+				className={clsx(cls.Overlay, [className])}
 				show={isShow}
 				enter={cls.Transition_enter}
 				enterFrom={cls.Transition_enterFrom}

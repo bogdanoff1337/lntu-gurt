@@ -1,13 +1,12 @@
+import clsx from "clsx";
 import {
 	FC, FormEvent, useCallback,
 	useEffect,
 } from "react";
 import { useSelector } from "react-redux";
-import { classNames as cn } from "@/shared/lib/classNames/classNames";
 import { useAppDispatch } from "@/shared/lib/hooks/useAppDispatch/useAppDispatch";
 import { Button, ButtonModifier, PrimaryButton } from "@/shared/ui/Buttons";
 import { PrimaryField } from "@/shared/ui/Fields";
-import { Input } from "@/shared/ui/Input/Input";
 import { PageLoader } from "@/shared/ui/PageLoader";
 import PenIcon from "../../assets/pen.svg?react";
 import * as pageProfileSelectors from "../../model/selectors";
@@ -69,6 +68,7 @@ export const ProfileForm: FC<ProfileFormProps> = ({ className }) => {
 	const onSubmit = useCallback((e: FormEvent) => {
 		e.preventDefault();
 
+		// @ts-ignore
 		dispatch(pageProfileActions.postBookData());
 	}, [dispatch]);
 
@@ -81,7 +81,7 @@ export const ProfileForm: FC<ProfileFormProps> = ({ className }) => {
 	}
 
 	return (
-		<form onSubmit={onSubmit} className={cn(cls.ProfileForm, {}, [className])}>
+		<form onSubmit={onSubmit} className={clsx(cls.ProfileForm, {}, [className])}>
 			<div className={cls.ProfileForm__list}>
 				<PrimaryField
 					className={cls.Input}

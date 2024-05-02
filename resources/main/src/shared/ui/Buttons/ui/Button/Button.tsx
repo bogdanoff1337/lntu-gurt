@@ -1,5 +1,5 @@
+import clsx from "clsx";
 import { ButtonHTMLAttributes, FC, ReactNode } from "react";
-import { classNames } from "../../../../lib/classNames/classNames";
 import cls from "../common/style.module.scss";
 import { ButtonModifier } from "../common/types";
 
@@ -10,7 +10,6 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 	modifier?: ButtonModifier;
 }
 
-
 export const Button: FC<ButtonProps> = ({
 	className,
 	children,
@@ -18,7 +17,7 @@ export const Button: FC<ButtonProps> = ({
 	modifier = "",
 	...otherProps
 }) => (
-	<button className={classNames(cls.Button, {}, [className, cls[modifier]])} {...otherProps}>
+	<button className={clsx(cls.Button, [className, cls[modifier]])} {...otherProps}>
 		{children}
 	</button>
 );

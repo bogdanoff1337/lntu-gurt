@@ -1,6 +1,6 @@
+import clsx from "clsx";
 import { FC } from "react";
 import { Page } from "@/widgets/Page";
-import { classNames as cn } from "@/shared/lib/classNames/classNames";
 import { Container, ContainerModifier } from "@/shared/ui/Container";
 import { Title } from "@/shared/ui/Title";
 import { ProfileForm } from "../ProfileForm/ProfileForm";
@@ -12,7 +12,7 @@ interface ProfilePageProps {
 
 export const ProfilePage: FC<ProfilePageProps> = ({ className }) => {
 	return (
-		<Page className={cn(cls.ProfilePage, {}, [className])}>
+		<Page className={clsx(cls.ProfilePage, {}, [className])}>
 			<section className={cls.ProfilePage__section}>
 				<Container className={cls.ProfilePage__container} modifier={ContainerModifier.AUTH}>
 					<Title className={cls.ProfilePage__title}>Профіль</Title>
