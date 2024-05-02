@@ -9,9 +9,50 @@
 	border-bottom: rem(2) solid $blueColor;
 	background-color: $whiteColor;
 	&__container {
-		display: flex;
+		display: grid;
 		align-items: center;
-		justify-content: space-between;
+		gap: rem(20);
+		
+
+		@media (min-width: em($tablet)) {
+			grid-template-columns: repeat(3, 1fr);
+
+			grid-template-areas:
+				"a b c";
+		}
+
+		@media (max-width: em($tablet)) {
+			grid-template-columns: repeat(3, 1fr);
+			grid-template-rows: repeat(2, auto);
+
+			grid-template-areas:
+				"a a c"
+				"b b b";
+		}
+
+		
+		// display: flex;
+		// align-items: center;
+		// justify-content: space-between;
 		// column-gap: rem(140);
+	}
+
+	&__cell {
+		&_1 {
+			justify-self: start;
+			grid-area: a;
+		}
+
+		&_2 {
+			justify-self: center;
+			grid-area: b;
+			
+		}
+
+		&_3 {
+			justify-self: end;
+			grid-area: c;
+		}
+
 	}
 }

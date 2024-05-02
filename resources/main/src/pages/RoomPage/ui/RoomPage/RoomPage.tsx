@@ -7,10 +7,12 @@ import { useParams } from "react-router-dom";
 import { Page } from "@/widgets/Page";
 import { entityRoomActions, entityRoomSelectors } from "@/entities/Room";
 import { useAppDispatch } from "@/shared/lib/hooks/useAppDispatch/useAppDispatch";
+import { Breadcrumbs } from "@/shared/ui/Breadcrumbs";
 import { PrimaryButton } from "@/shared/ui/Buttons";
 import { Container } from "@/shared/ui/Container";
 import { PageLoader } from "@/shared/ui/PageLoader";
 import { Title } from "@/shared/ui/Title";
+import { getBreadcrumbs } from "../../model/selectors";
 import { SuccessBookModal } from "../SuccessBookModal/SuccessBookModal";
 import { SwiperSection } from "../SwiperSection/SwiperSection";
 import cls from "./RoomPage.module.scss";
@@ -25,15 +27,16 @@ export const RoomPage: FC<RoomPageProps> = ({ className }) => {
 	const roomData = useSelector(entityRoomSelectors.getEntityRoomData);
 	const roomDataIsLoading = useSelector(entityRoomSelectors.getEntityRoomIsLoading);
 	const roomDataIsFetching = useSelector(entityRoomSelectors.getEntityRoomIsFetching);
+	const breadcrumbsData = useSelector(getBreadcrumbs);
 
 	const [isOpenModal, setIsOpenModal] = useState(false);
 
 	useEffect(() => {
-		dispatch(entityRoomActions.getRoomById({ id: id! }));
+		id && dispatch(entityRoomActions.getRoomById({ id }));
 	}, [dispatch, id]);
 
 	const onClickBook = useCallback(() => {
-		dispatch(entityRoomActions.bookRoom({ id: id! }));
+		id && dispatch(entityRoomActions.bookRoom({ id }));
 		setIsOpenModal(true);
 	}, [dispatch, id]);
 
@@ -44,7 +47,7 @@ export const RoomPage: FC<RoomPageProps> = ({ className }) => {
 	return (
 		<>
 			<SuccessBookModal setIsOpen={setIsOpenModal} isOpen={isOpenModal} />
-			<Page className={clsx(cls.RoomPage, [className])}>
+			<Page className={clsx(cls.RoomPage, [className])} Breadcrumbs={<Breadcrumbs data={breadcrumbsData} />}>
 				<section className={cls.RoomPage__section}>
 					<Container className={cls.RoomPage__container}>
 						<Title className={cls.RoomPage__title}>Кімната {roomData?.number}</Title>
@@ -66,7 +69,6 @@ export const RoomPage: FC<RoomPageProps> = ({ className }) => {
 								<b className={cls.RoomPage__bold}>{roomData?.section}</b>
 							</li>
 						</ul>
-
 					</Container>
 				</section>
 				<SwiperSection images={roomData!.images} />

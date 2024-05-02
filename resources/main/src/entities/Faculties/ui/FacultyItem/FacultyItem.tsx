@@ -3,6 +3,7 @@ import { NavLink } from "react-router-dom";
 import { generateQueryString } from "@/shared/lib/generateQueryString";
 import cls from "./FacultyItem.module.scss";
 import clsx from "clsx";
+import { getRoomsRoutePath } from "@/shared/config/routes/path";
 
 interface FacultyItemProps {
 	className?: string;
@@ -18,7 +19,10 @@ export const FacultyItem: FC<FacultyItemProps> = ({
 }) => {
 	return (
 		<li className={clsx(cls.FacultyItem, [className])}>
-			<NavLink className={cls.FacultyItem__link} to={{ pathname: "/rooms", search: generateQueryString({ faculty_id: id }) }}>
+			<NavLink className={cls.FacultyItem__link} to={{ 
+				pathname: getRoomsRoutePath(), 
+				search: generateQueryString({ faculty_id: id }) 
+			}}>
 				<img className={cls.FacultyItem__image} src={image} alt={alt} />
 				<h3 className={cls.FacultyItem__slug}>{slug}</h3>
 			</NavLink>

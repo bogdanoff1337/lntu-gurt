@@ -1,0 +1,49 @@
+.Breadcrumbs {
+   $p: &;
+   padding: rem(5);
+
+   border: rem(3) solid #ABABD3;
+   border-radius: rem(15);
+
+   font-size: rem(16);
+   line-height: em(28, 16);
+
+
+   &__list {
+      display: flex;
+      align-items: center;
+      column-gap: rem(10);
+   }
+
+   &__item {
+      display: flex;
+      align-items: center;
+      column-gap: rem(10);
+      &:not(:last-child) {
+         &::after {
+            display: block;
+
+            width: rem(8.4);
+            height: rem(13.2);
+
+            content: "";
+
+            background: url("../assets/arrow.svg") no-repeat;
+         }
+      }
+
+      &:last-child {
+         #{$p} {
+            &__link {
+               padding: 0 rem(8);
+
+               pointer-events: none;
+   
+               color: #fff;
+               border-radius: rem(9);
+               background: #3A3C93;
+            }
+         }
+      }
+   }
+}

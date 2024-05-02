@@ -1,6 +1,8 @@
 import { ThunkConfig } from "@/app/providers/StoreProvider";
 import { createSliceWithThunk } from "@/shared/lib/createSliceWithThunk";
-import { EntityRoomsSchema, Room, RoomsData } from "../types/EntityRoomsSchema";
+import { EntityRoomsSchema, RoomsData } from "../types/EntityRoomsSchema";
+
+type TParam = string | (string | null)[] | null;
 
 const initialState: EntityRoomsSchema = {
 };
@@ -9,7 +11,7 @@ export const entityRoomsSlice = createSliceWithThunk({
 	name: "entityRooms",
 	initialState,
 	reducers: (create) => ({
-		getRoomsByParams: create.asyncThunk<any, { faculty_id?: string | number, dormitory_id?: string | number, gender?: string }, ThunkConfig<string>>(
+		getRoomsByParams: create.asyncThunk<any, { faculty_id: TParam, dormitory_id: TParam, gender: TParam }, ThunkConfig<string>>(
 			async ({ faculty_id, dormitory_id, gender }, {
 				extra, rejectWithValue,
 			}) => {

@@ -48,11 +48,10 @@ export const entityRoomSlice = createSliceWithThunk({
 			async ({ id }, {
 				extra, rejectWithValue, getState,
 			}) => {
-				
 				// @ts-ignore
 				const { data } = getState().entityAuth;
 				try {
-					const response = await extra.api.post<RoomData>(`book`, {
+					const response = await extra.api.post<RoomData>("book", {
 						room_id: id,
 						student_id: data.id,
 						status: "new",

@@ -1,6 +1,8 @@
 import clsx from "clsx";
 import React, {
 	FC, ReactNode,
+	useCallback,
+	useEffect,
 } from "react";
 import { Overlay } from "../../Overlay";
 import { Portal } from "../../Portal";
@@ -16,13 +18,17 @@ export interface ModalProps {
 export const Modal: FC<ModalProps> = ({
 	className, setIsOpen, isOpen, children,
 }) => {
-	const onCloseHandler = () => {
+	const onCloseHandler = useCallback(() => {
 		setIsOpen(false);
-	};
+	}, [setIsOpen]);
 
-	const onClickContent = (e: React.MouseEvent) => {
+	const onClickContent = useCallback((e: React.MouseEvent) => {
 		e.stopPropagation();
-	};
+	}, []);
+
+	useEffect(() => {
+		document.body.style.overflow = isOpen ? "hidden" : "auto";
+	}, [isOpen]);
 
 	return (
 		<Portal>

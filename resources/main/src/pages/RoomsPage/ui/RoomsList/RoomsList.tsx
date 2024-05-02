@@ -1,43 +1,22 @@
 import clsx from "clsx";
-import queryString from "query-string";
-import { FC, useEffect, useMemo } from "react";
-import { useSelector } from "react-redux";
-import { RoomItem, entityRoomsActions, entityRoomsSelectors } from "@/entities/Rooms";
+import { FC, useMemo } from "react";
+import { RoomItem } from "@/entities/Rooms";
 import { getRoomsRoutePath } from "@/shared/config/routes/path";
-import { useAppDispatch } from "@/shared/lib/hooks/useAppDispatch/useAppDispatch";
-import { PageLoader } from "@/shared/ui/PageLoader";
 import cls from "./RoomsList.module.scss";
+import { Room } from "@/entities/Rooms";
 
 interface RoomsListProps {
-	className?: string
+	className?: string;
+	data?: Room[]
 }
 
-export const RoomsList: FC<RoomsListProps> = ({ className }) => {
-	const dispatch = useAppDispatch();
-	const roomsData = useSelector(entityRoomsSelectors.getEntityRoomsData);
-	const roomsDataIsLoading = useSelector(entityRoomsSelectors.getEntityRoomsIsLoading);
-
-	// const { faculty_id, dormitory_id, gender } = useQueryParams();
-	useEffect(() => {
-		const { faculty_id, dormitory_id, gender } = queryString.parse(window.location.search);
-		dispatch(entityRoomsActions.getRoomsByParams({
-			faculty_id: faculty_id as string,
-			dormitory_id: dormitory_id as string,
-			gender: gender as string,
-		}));
-	}, [dispatch]);
+export const RoomsList: FC<RoomsListProps> = ({ className, data }) => {
 
 	const roomsItems = useMemo(() => {
-		return roomsData?.map(({ id, images, number }) => (
+		return data?.map(({ id, images, number }) => (
 			<RoomItem key={id} image={`/photos/uploads/room/${images}`} number={number} to={getRoomsRoutePath(id)} />
 		));
-	}, [roomsData]);
-
-	if (roomsDataIsLoading) {
-		return (
-			<PageLoader />
-		);
-	}
+	}, [data]);
 
 	return (
 		<div className={clsx(cls.RoomsList, [className])}>

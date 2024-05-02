@@ -1,5 +1,5 @@
 import clsx from "clsx";
-import { FC } from "react";
+import { FC, useEffect } from "react";
 import { Overlay, OverlayModifier } from "@/shared/ui/Overlay";
 import { Portal } from "@/shared/ui/Portal";
 import { MenuItems } from "../MenuItems/MenuItems";
@@ -11,6 +11,10 @@ interface AsideProps {
 }
 
 export const Aside: FC<AsideProps> = ({ className, isShow }) => {
+	useEffect(() => {
+		document.body.style.overflow = isShow ? "hidden" : "auto";
+	}, [isShow]);
+
 	return (
 		<Portal>
 			<Overlay
