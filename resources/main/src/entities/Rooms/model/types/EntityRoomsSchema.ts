@@ -1,10 +1,11 @@
 export interface EntityRoomsSchema {
-	data?: Room[];
+	data?: RoomsData;
 	isLoading?: boolean
 	error?: string;
 }
 
 export interface RoomsData {
+    breadcrumbs: Breadcrumbs;
 	data: Room[];
 	links: Link[];
 	meta: Meta;
@@ -52,4 +53,8 @@ export interface Room {
 		slug_short: string;
 	};
 	number: string;
+}
+
+export interface Breadcrumbs {
+    slug_short: string;
 }

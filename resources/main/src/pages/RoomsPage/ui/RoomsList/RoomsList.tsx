@@ -27,7 +27,7 @@ export const RoomsList: FC<RoomsListProps> = ({ className }) => {
 	}, [dispatch]);
 
 	const roomsItems = useMemo(() => {
-		return roomsData?.map(({ id, images, number }) => (
+		return roomsData?.data.map(({ id, images, number }) => (
 			<RoomItem key={id} image={`/photos/uploads/room/${images}`} number={number} to={getRoomsRoutePath(id)} />
 		));
 	}, [roomsData]);
@@ -38,7 +38,7 @@ export const RoomsList: FC<RoomsListProps> = ({ className }) => {
 		);
 	}
 
-	if (roomsData?.length === 0) {
+	if (roomsData?.data.length === 0) {
 		return (
 			<div className={cls.RoomsList__pageEmpty}>
 				<p className={cls.RoomsList__empty}>Немає жодної вільної кімнати, зверніться пізніше</p>

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\RoomRequest;
 use App\Http\Resources\Api\Room\Short;
+use App\Models\Faculty;
 use Illuminate\Http\Request;
 use App\Models\Room;
 use App\Http\Resources\Api\Room\Full;
@@ -31,7 +32,10 @@ class RoomController extends Controller
             })
             ->paginate(12);
 
-        return Short::collection($rooms);
+        if ($request->has('faculty_id')) {
+            $breadcrumbs = Faculty::where('id', $request->faculty_id)->get('slug_short')->first();
+            return Short::collection($rooms)->additional(['breadcrumbs' => $breadcrumbs]);
+        }
     }
 
 

@@ -28,7 +28,7 @@ export const entityRoomsSlice = createSliceWithThunk({
 						throw new Error();
 					}
 
-					return response.data.data;
+					return response.data;
 				} catch (e) {
 					return rejectWithValue("error");
 				}
