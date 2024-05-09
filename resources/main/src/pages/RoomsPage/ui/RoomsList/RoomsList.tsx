@@ -1,26 +1,54 @@
 import clsx from "clsx";
-import { FC, useMemo } from "react";
-import { RoomItem } from "@/entities/Rooms";
+import queryString from "query-string";
+import { FC, useEffect, useMemo } from "react";
+import { useSelector } from "react-redux";
+import { RoomItem, entityRoomsActions, entityRoomsSelectors } from "@/entities/Rooms";
 import { getRoomsRoutePath } from "@/shared/config/routes/path";
+import { useAppDispatch } from "@/shared/lib/hooks/useAppDispatch/useAppDispatch";
+import { PageLoader } from "@/shared/ui/PageLoader";
 import cls from "./RoomsList.module.scss";
-import { Room } from "@/entities/Rooms";
 
 interface RoomsListProps {
 	className?: string;
-	data?: Room[]
 }
 
-export const RoomsList: FC<RoomsListProps> = ({ className, data }) => {
+export const RoomsList: FC<RoomsListProps> = ({ className }) => {
+	const dispatch = useAppDispatch();
+	const roomsData = useSelector(entityRoomsSelectors.getEntityRoomsData);
+	const roomsDataIsLoading = useSelector(entityRoomsSelectors.getEntityRoomsIsLoading);
+
+	useEffect(() => {
+		const { faculty_id, dormitory_id, gender } = queryString.parse(window.location.search);
+		dispatch(entityRoomsActions.getRoomsByParams({
+			faculty_id,
+			dormitory_id,
+			gender,
+		}));
+	}, [dispatch]);
 
 	const roomsItems = useMemo(() => {
-		return data?.map(({ id, images, number }) => (
+		return roomsData?.map(({ id, images, number }) => (
 			<RoomItem key={id} image={`/photos/uploads/room/${images}`} number={number} to={getRoomsRoutePath(id)} />
 		));
-	}, [data]);
+	}, [roomsData]);
+
+	if (roomsDataIsLoading) {
+		return (
+			<PageLoader />
+		);
+	}
+
+	if (roomsData?.length === 0) {
+		return (
+			<div className={cls.RoomsList__pageEmpty}>
+				<p className={cls.RoomsList__empty}>Немає жодної вільної кімнати, зверніться пізніше</p>
+			</div>
+		);
+	}
 
 	return (
-		<div className={clsx(cls.RoomsList, [className])}>
+		<ul className={clsx(cls.RoomsList, [className])}>
 			{roomsItems}
-		</div>
+		</ul>
 	);
 };

@@ -4,4 +4,3 @@
    // gap: rem(80);
    @include adaptiveValue("gap", 80, 40, 0, $widthTo: $tablet);
 }
-

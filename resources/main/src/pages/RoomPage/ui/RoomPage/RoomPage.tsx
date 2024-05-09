@@ -1,6 +1,7 @@
 import clsx from "clsx";
 import {
-	FC, useCallback, useEffect, useState,
+	FC,
+	useEffect,
 } from "react";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
@@ -8,12 +9,10 @@ import { Page } from "@/widgets/Page";
 import { entityRoomActions, entityRoomSelectors } from "@/entities/Room";
 import { useAppDispatch } from "@/shared/lib/hooks/useAppDispatch/useAppDispatch";
 import { Breadcrumbs } from "@/shared/ui/Breadcrumbs";
-import { PrimaryButton } from "@/shared/ui/Buttons";
 import { Container } from "@/shared/ui/Container";
-import { PageLoader } from "@/shared/ui/PageLoader";
 import { Title } from "@/shared/ui/Title";
 import { getBreadcrumbs } from "../../model/selectors";
-import { SuccessBookModal } from "../SuccessBookModal/SuccessBookModal";
+import { BookSection } from "../BookSection/BookSection";
 import { SwiperSection } from "../SwiperSection/SwiperSection";
 import cls from "./RoomPage.module.scss";
 
@@ -22,63 +21,47 @@ interface RoomPageProps {
 }
 
 export const RoomPage: FC<RoomPageProps> = ({ className }) => {
+	const breadcrumbsData = useSelector(getBreadcrumbs);
 	const { id } = useParams();
 	const dispatch = useAppDispatch();
 	const roomData = useSelector(entityRoomSelectors.getEntityRoomData);
 	const roomDataIsLoading = useSelector(entityRoomSelectors.getEntityRoomIsLoading);
-	const roomDataIsFetching = useSelector(entityRoomSelectors.getEntityRoomIsFetching);
-	const breadcrumbsData = useSelector(getBreadcrumbs);
-
-	const [isOpenModal, setIsOpenModal] = useState(false);
 
 	useEffect(() => {
 		id && dispatch(entityRoomActions.getRoomById({ id }));
 	}, [dispatch, id]);
 
-	const onClickBook = useCallback(() => {
-		id && dispatch(entityRoomActions.bookRoom({ id }));
-		setIsOpenModal(true);
-	}, [dispatch, id]);
-
-	if (roomDataIsLoading) {
-		return <PageLoader />;
-	}
-
 	return (
-		<>
-			<SuccessBookModal setIsOpen={setIsOpenModal} isOpen={isOpenModal} />
-			<Page className={clsx(cls.RoomPage, [className])} Breadcrumbs={<Breadcrumbs data={breadcrumbsData} />}>
-				<section className={cls.RoomPage__section}>
-					<Container className={cls.RoomPage__container}>
-						<Title className={cls.RoomPage__title}>Кімната {roomData?.number}</Title>
-						<ul className={cls.RoomPage__list}>
-							<li className={cls.RoomPage__item}>
-								<span className={cls.RoomPage__name}>Вільних місць:</span>
-								<b className={cls.RoomPage__bold}>{roomData?.places}</b>
-							</li>
-							<li className={cls.RoomPage__item}>
-								<span className={cls.RoomPage__name}>Стояк:</span>
-								<b className={cls.RoomPage__bold}>{roomData?.block}</b>
-							</li>
-							<li className={cls.RoomPage__item}>
-								<span className={cls.RoomPage__name}>Поверх:</span>
-								<b className={cls.RoomPage__bold}>{roomData?.floor}</b>
-							</li>
-							<li className={cls.RoomPage__item}>
-								<span className={cls.RoomPage__name}>Секція:</span>
-								<b className={cls.RoomPage__bold}>{roomData?.section}</b>
-							</li>
-						</ul>
-					</Container>
-				</section>
-				<SwiperSection images={roomData!.images} />
-				<section className={cls.RoomPage__section}>
-					<Container className={cls.RoomPage__container}>
-						<PrimaryButton isLoading={roomDataIsFetching} onClick={onClickBook}>Забронювати кімнату</PrimaryButton>
-					</Container>
-				</section>
-			</Page>
-		</>
-
+		<Page
+			className={clsx(cls.RoomPage, [className])}
+			Breadcrumbs={<Breadcrumbs data={breadcrumbsData} />}
+			isLoading={roomDataIsLoading}
+		>
+			<section className={cls.RoomPage__section}>
+				<Container className={cls.RoomPage__container}>
+					<Title className={cls.RoomPage__title}>Кімната {roomData?.number}</Title>
+					<ul className={cls.RoomPage__list}>
+						<li className={cls.RoomPage__item}>
+							<span className={cls.RoomPage__name}>Вільних місць:</span>
+							<b className={cls.RoomPage__bold}>{roomData?.places}</b>
+						</li>
+						<li className={cls.RoomPage__item}>
+							<span className={cls.RoomPage__name}>Стояк:</span>
+							<b className={cls.RoomPage__bold}>{roomData?.block}</b>
+						</li>
+						<li className={cls.RoomPage__item}>
+							<span className={cls.RoomPage__name}>Поверх:</span>
+							<b className={cls.RoomPage__bold}>{roomData?.floor}</b>
+						</li>
+						<li className={cls.RoomPage__item}>
+							<span className={cls.RoomPage__name}>Секція:</span>
+							<b className={cls.RoomPage__bold}>{roomData?.section}</b>
+						</li>
+					</ul>
+				</Container>
+			</section>
+			<SwiperSection images={roomData?.images} />
+			<BookSection />
+		</Page>
 	);
 };

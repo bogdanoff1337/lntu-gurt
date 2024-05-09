@@ -6,7 +6,16 @@
 
     }
 
+    &__section, &__container {
+        height: 100%;
+    }
 
+    &__container {
+        display: flex;
+        flex-direction: column;
+    }
+
+    
     &__selectsGroup {
         display: flex;
         justify-content: center;

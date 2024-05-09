@@ -3,38 +3,47 @@
 	z-index: $headerZIndex;
 	top: 0;
 
+	width: 100%;
 	padding: rem(16) 0;
+
+	transition: top 0.3s linear;
 
 	border-top: rem(2) solid $blueColor;
 	border-bottom: rem(2) solid $blueColor;
 	background-color: $whiteColor;
+
+	&_hide {
+		top: rem(-90);
+	}
+
 	&__container {
 		display: grid;
 		align-items: center;
 		gap: rem(20);
-		
 
-		@media (min-width: em($tablet)) {
-			grid-template-columns: repeat(3, 1fr);
+		grid-template-columns: repeat(2, 1fr);
+		grid-template-areas:
+					"a a c";
 
-			grid-template-areas:
-				"a b c";
+		&_breadcrumbs {
+			@media (min-width: em($tablet)) {
+				grid-template-columns: repeat(3, 1fr);
+	
+				grid-template-areas:
+					"a b c";
+			}
+	
+			@media (max-width: em($tablet)) {
+				grid-template-columns: repeat(3, 1fr);
+				grid-template-rows: repeat(2, auto);
+	
+				grid-template-areas:
+					"a a c"
+					"b b b";
+			}
 		}
 
-		@media (max-width: em($tablet)) {
-			grid-template-columns: repeat(3, 1fr);
-			grid-template-rows: repeat(2, auto);
 
-			grid-template-areas:
-				"a a c"
-				"b b b";
-		}
-
-		
-		// display: flex;
-		// align-items: center;
-		// justify-content: space-between;
-		// column-gap: rem(140);
 	}
 
 	&__cell {

@@ -6,7 +6,6 @@
 
    height: 100%;
    padding: 0 rem(10);
-   padding-top: rem(111 + 30);
 
    background-color: white;
    box-shadow: 11px 11px 20.4px 2px rgba(63, 64, 155, 0.42);
@@ -16,6 +15,15 @@
       flex-direction: column;
       row-gap: rem(10);
    }
+   
+
+   // @media (max-width: em($tablet)) {
+   //    padding-top: rem(165 + 30);
+   // }
+
+   // @media (min-width: em($tablet)) {
+   //    padding-top: rem(111 + 30);
+   // }
 
 
 }

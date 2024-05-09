@@ -12,4 +12,5 @@ export interface Faculty {
 	id: number;
 	slug: string;
 	image: string
+	slug_short: string;
 }

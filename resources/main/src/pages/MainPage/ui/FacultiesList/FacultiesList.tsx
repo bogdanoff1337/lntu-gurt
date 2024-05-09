@@ -1,41 +1,26 @@
 import clsx from "clsx";
-import { FC, useEffect, useMemo } from "react";
-import { useSelector } from "react-redux";
+import { FC, useMemo } from "react";
 import {
-	FacultyItem, entityFacultiesActions, entityFacultiesSelectors,
+	Faculty,
+	FacultyItem,
 } from "@/entities/Faculties";
-import { useAppDispatch } from "@/shared/lib/hooks/useAppDispatch/useAppDispatch";
-import { PageLoader } from "@/shared/ui/PageLoader";
 import cls from "./FacultiesList.module.scss";
 
 interface FacultiesListProps {
-	className?: string
+	className?: string;
+	data: Faculty[];
 }
 
-export const FacultiesList: FC<FacultiesListProps> = ({ className }) => {
-	const dispatch = useAppDispatch();
-	const facultiesData = useSelector(entityFacultiesSelectors.getEntityFacultiesData);
-	const facultiesDataIsLoading = useSelector(entityFacultiesSelectors.getEntityFacultiesIsLoading);
-
-	useEffect(() => {
-		dispatch(entityFacultiesActions.getAllFaculties());
-	}, [dispatch]);
-
+export const FacultiesList: FC<FacultiesListProps> = ({ className, data }) => {
 	const facultiesItems = useMemo(() => {
-		return facultiesData?.map(({ id, image, slug }) => (
+		return data?.map(({ id, image, slug }) => (
 			<FacultyItem key={id} image={`/photos/uploads/facult/${image}`} slug={slug} id={id} />
 		));
-	}, [facultiesData]);
-
-	if (facultiesDataIsLoading) {
-		return (
-			<PageLoader />
-		);
-	}
+	}, [data]);
 
 	return (
-		<div className={clsx(cls.FacultiesList, [className])}>
+		<ul className={clsx(cls.FacultiesList, [className])}>
 			{facultiesItems}
-		</div>
+		</ul>
 	);
 };

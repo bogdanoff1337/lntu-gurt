@@ -29,7 +29,7 @@ export const Breadcrumbs: FC<BreadcrumbsProps> = ({ className, data }) => {
 				</li>
 			);
 		});
-	}, []);
+	}, [data]);
 
 	return (
 		<nav className={clsx(cls.Breadcrumbs, [className])}>

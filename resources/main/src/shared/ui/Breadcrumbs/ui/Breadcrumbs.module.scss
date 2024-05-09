@@ -10,7 +10,7 @@
 
 
    &__list {
-      display: flex;
+      display: inline-flex;
       align-items: center;
       column-gap: rem(10);
    }
@@ -18,7 +18,10 @@
    &__item {
       display: flex;
       align-items: center;
+
+      text-wrap: nowrap;
       column-gap: rem(10);
+      
       &:not(:last-child) {
          &::after {
             display: block;
