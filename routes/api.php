@@ -31,7 +31,7 @@ Route::group([
     Route::post('register', [StudentAuthController::class, 'register'])->name('refresh');
 });
 
-Route::group(['middleware' => 'auth:api'], function () {
+Route::group(['middleware' => 'jwt.auth'], function () {
 
     Route::resource('dormitories', DormitoryController::class)->except([
         'create', 'store', 'update', 'destroy'
