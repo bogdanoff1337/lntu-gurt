@@ -3,8 +3,6 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\DormitoryRequest;
-use Illuminate\Http\Request;
 use App\Http\Resources\Api\Dormitory as DormitoryResource;
 use App\Models\Dormitory;
 

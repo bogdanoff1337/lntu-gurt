@@ -6,6 +6,7 @@ use App\Http\Resources\Api\Dormitory;
 use App\Http\Resources\Api\Faculty;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Facades\Auth;
 
 class Full extends JsonResource
 {
@@ -16,7 +17,7 @@ class Full extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        return [
+        $prepared =  [
             'id' => $this->id,
             'images' => $this->images,
             'dormitory' => Dormitory::make($this->dormitory),
@@ -27,6 +28,23 @@ class Full extends JsonResource
             'block' => $this->block,
             'gender' => $this->gender,
             'section' => $this->section,
+            'booked' => $this->isBooked(),
         ];
+
+        return $prepared;
     }
+
+    private function isBooked(): bool
+    {
+        $user = Auth::user();
+
+        $booked = $this->order()->where('student_id', $user->id)->first();
+
+        if ($booked === null) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
 }

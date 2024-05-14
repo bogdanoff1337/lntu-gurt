@@ -23,7 +23,6 @@ Route::group([
     'prefix' => 'auth'
 
 ], function ($router) {
-
     Route::post('login', [StudentAuthController::class, 'login'])->name('login');
     Route::post('logout', [StudentAuthController::class, 'logout'])->name('logout');
     Route::post('refresh', [StudentAuthController::class, 'refresh'])->name('refresh');
@@ -42,7 +41,7 @@ Route::group(['middleware' => 'jwt.auth'], function () {
     ]);
 
     Route::resource('book', OrdersController::class)->except([
-        'create', 'update', 'destroy'
+        'create', 'update'
     ]);
 
     Route::resource('faculties', FacultyController::class)->except([

@@ -60,7 +60,9 @@ class RoomController extends Controller
      */
     public function show(string $id)
     {
-        return new Full(Room::find($id));
+        $room = Room::findOrFail($id);
+
+        return new Full($room);
     }
 
 

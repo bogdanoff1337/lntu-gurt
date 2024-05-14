@@ -35,4 +35,9 @@ class Room extends Model
     {
         return $this->belongsTo(Faculty::class, 'faculty_id');
     }
+
+    public function order()
+    {
+        return $this->hasMany(Order::class);
+    }
 }
