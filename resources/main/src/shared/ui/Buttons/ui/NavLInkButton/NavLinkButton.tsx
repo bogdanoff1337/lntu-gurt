@@ -17,7 +17,7 @@ export const NavLinkButton: FC<NavLinkButtonProps> = ({
 	modifier = "",
 	to,
 }) => (
-	<NavLink to={to} className={clsx(cls.Button, [className, modifier])}>
+	<NavLink to={to} className={clsx(cls.Button, [className, cls[modifier]])}>
 		{children}
 	</NavLink>
 );

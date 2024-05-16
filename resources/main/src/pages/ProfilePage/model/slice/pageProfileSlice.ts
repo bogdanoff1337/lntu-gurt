@@ -45,7 +45,7 @@ export const pageProfileSlice = createSliceWithThunk({
 				const { data } = getState().pageProfile;
 
 				try {
-					const response = await extra.api.put<any>("profile", data);
+					const response = await extra.api.put<any>("profile/me", data);
 
 					if (!response.data) {
 						throw new Error();
@@ -104,25 +104,25 @@ export const pageProfileSlice = createSliceWithThunk({
 		}),
 
 		changeFirstName: create.reducer((state, action: PayloadAction<string>) => {
-			state.data.first_name = action.payload;
+			state.tempData.first_name = action.payload;
 		}),
 		changeLastName: create.reducer((state, action: PayloadAction<string>) => {
-			state.data.last_name = action.payload;
+			state.tempData.last_name = action.payload;
 		}),
 		changeFatherName: create.reducer((state, action: PayloadAction<string>) => {
-			state.data.father_name = action.payload;
+			state.tempData.father_name = action.payload;
 		}),
 		changeAddress: create.reducer((state, action: PayloadAction<string>) => {
-			state.data.address = action.payload;
+			state.tempData.address = action.payload;
 		}),
 		changeGender: create.reducer((state, action: PayloadAction<string>) => {
-			state.data.gender = action.payload;
+			state.tempData.gender = action.payload;
 		}),
 		changePhone: create.reducer((state, action: PayloadAction<string>) => {
-			state.data.phone = action.payload;
+			state.tempData.phone = action.payload;
 		}),
 		changeBenefits: create.reducer((state, action: PayloadAction<string>) => {
-			state.data.benefits = action.payload;
+			state.tempData.benefits = action.payload;
 		}),
 	}),
 });

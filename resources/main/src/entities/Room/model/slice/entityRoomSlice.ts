@@ -1,3 +1,4 @@
+import { PayloadAction } from "@reduxjs/toolkit";
 import { ThunkConfig } from "@/app/providers/StoreProvider";
 import { createSliceWithThunk } from "@/shared/lib/createSliceWithThunk";
 import { EntityRoomSchema, RoomData } from "../types/EntityRoomSchema";
@@ -73,6 +74,10 @@ export const entityRoomSlice = createSliceWithThunk({
 				},
 				fulfilled: (state, action) => {
 					state.isFetching = false;
+
+					if (state.data) {
+						state.data.booked = true;
+					}
 				},
 				rejected: (state, action) => {
 					state.isFetching = false;
@@ -80,6 +85,47 @@ export const entityRoomSlice = createSliceWithThunk({
 				},
 			},
 		),
+
+		removeBookRoom: create.asyncThunk<any, { id: string }, ThunkConfig<string>>(
+			async ({ id }, {
+				extra, rejectWithValue,
+			}) => {
+				try {
+					const response = await extra.api.delete<RoomData>(`book/${id}`, {						
+					});
+
+					if (!response.data) {
+						throw new Error();
+					}
+
+					return response.data;
+				} catch (e) {
+					console.log(e);
+					return rejectWithValue("error");
+				}
+			},
+			{
+				pending: (state) => {
+					state.isFetching = true;
+				},
+				fulfilled: (state, action) => {
+					state.isFetching = false;
+
+					if (state.data) {
+						state.data.booked = false;
+					}
+				},
+				rejected: (state, action) => {
+					state.isFetching = false;
+					state.error = action.payload;
+				},
+			},
+		),
+		setBooked: create.reducer((state, action: PayloadAction<boolean>) => {
+			if (state.data?.booked) {
+				state.data.booked = action.payload;
+			}
+		}),
 	}),
 });
 

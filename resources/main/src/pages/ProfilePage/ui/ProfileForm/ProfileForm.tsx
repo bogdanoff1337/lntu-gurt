@@ -69,11 +69,11 @@ export const ProfileForm: FC<ProfileFormProps> = ({ className }) => {
 		e.preventDefault();
 
 		// @ts-ignore
-		dispatch(pageProfileActions.postBookData());
+		dispatch(pageProfileActions.patchFormData());
 	}, [dispatch]);
 
 	useEffect(() => {
-		dispatch(pageProfileActions.getFormData());
+		// dispatch(pageProfileActions.getFormData());
 	}, [dispatch]);
 
 	if (isLoading) {

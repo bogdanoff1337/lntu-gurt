@@ -3,7 +3,7 @@ import { ButtonHTMLAttributes, FC, ReactNode } from "react";
 import cls from "../common/style.module.scss";
 import { ButtonModifier } from "../common/types";
 
-interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 	className?: string;
 	children: ReactNode;
 	Icon?: FC<React.SVGProps<SVGSVGElement>>;

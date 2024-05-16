@@ -1,4 +1,5 @@
 export const getMainRoutePath = () => "/";
+export const getNonActiveRoutePath = () => "/non-active";
 export const getRegisterRoutePath = () => "/register";
 export const getLoginRoutePath = () => "/login";
 export const getRoomsRoutePath = (id?: number | string) => `/rooms${id ? `/${id}` : ""}`;

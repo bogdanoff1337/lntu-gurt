@@ -4,14 +4,13 @@
    &__icon {
       width: 100%;
       height: 100%;
-      max-height: rem(27);
+      max-height: em(27, 22);
       fill: $whiteColor;
    }
 
    &__loader {
-      // flex: 0 0 
       color: $whiteColor;
 
-      font-size: rem(6);
+      font-size: em(6, 22);
    }
 }

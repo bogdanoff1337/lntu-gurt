@@ -11,10 +11,7 @@ export interface RoomData {
 
 export interface Room {
 	id: number;
-	// photos: {
-	// 	id: number;
-	// 	url: string;
-	// }[];
+
 	images: string[];
 	dormitory: {
 		id: number;
@@ -33,4 +30,5 @@ export interface Room {
 	block: string;
 	gender: string;
 	section: string;
+	booked: boolean;
 }

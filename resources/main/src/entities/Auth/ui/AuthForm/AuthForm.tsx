@@ -1,23 +1,52 @@
-import { FC, ReactNode, SyntheticEvent } from "react";
+import { Transition } from "@headlessui/react";
+import clsx from "clsx";
+import { FC, ReactNode, SyntheticEvent, useMemo } from "react";
 import LntuLogoIcon from "@/shared/assets/common/lntu-logo.svg?react";
 import { PrimaryButton } from "@/shared/ui/Buttons/ui/PrimaryButton/PrimaryButton";
 import { Container, ContainerModifier } from "@/shared/ui/Container";
 import cls from "./AuthForm.module.scss";
-import { Transition } from "@headlessui/react";
-import clsx from "clsx";
+import { ButtonModifier, NavLinkButton } from "@/shared/ui/Buttons";
+import { getLoginRoutePath, getRegisterRoutePath } from "@/shared/config/routes/path";
 
 interface AuthFormProps {
 	className?: string;
 	children?: ReactNode;
-	submitName: string;
 	statusErrorMessage?: ReactNode;
 	onSubmit: (e: SyntheticEvent) => void;
 	isLoading: boolean;
+	modifier: AuthFormModifier;
+}
+
+export enum AuthFormModifier {
+	register = "register",
+	login = "login",
 }
 
 export const AuthForm: FC<AuthFormProps> = ({
-	className, children, submitName, onSubmit, statusErrorMessage, isLoading,
+	className, children, onSubmit, statusErrorMessage, isLoading, modifier
 }) => {
+
+	const authType = useMemo(() => {
+		if (modifier === AuthFormModifier.register) {
+			return {
+				link: {
+					to: getLoginRoutePath(),
+					name: "Увійти",
+				},
+				submitName: "Зареєструватися",
+			}
+		} else {
+			return {
+				link: {
+					to: getRegisterRoutePath(),
+					name: "Реєстрація",
+				},
+				submitName: "Увійти",
+			}
+		}
+			
+	}, [modifier]) 
+
 	return (
 		<form className={clsx(cls.AuthForm, [className])} onSubmit={onSubmit}>
 			<Container className={cls.AuthForm__container} modifier={ContainerModifier.FORM}>
@@ -31,14 +60,16 @@ export const AuthForm: FC<AuthFormProps> = ({
 					leave={cls.AuthForm__statusError_leave}
 					leaveFrom={cls.AuthForm__statusError_leaveFrom}
 					leaveTo={cls.AuthForm__statusError_leaveTo}
-
 				>
 					{statusErrorMessage}
 				</Transition>
 				<div className={cls.AuthForm__fields}>
 					{children}
 				</div>
-				<PrimaryButton isLoading={isLoading} type="submit" Icon={LntuLogoIcon} className={cls.AuthForm__submit}>{submitName}</PrimaryButton>
+				<div className={cls.AuthForm__buttons}>
+					<NavLinkButton modifier={ButtonModifier.INVERTION} to={authType.link.to}>{authType.link.name}</NavLinkButton>
+					<PrimaryButton isLoading={isLoading} type="submit" Icon={LntuLogoIcon} className={cls.AuthForm__submit}>{authType.submitName}</PrimaryButton>
+				</div>
 			</Container>
 		</form>
 	);

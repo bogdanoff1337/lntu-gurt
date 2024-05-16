@@ -24,14 +24,12 @@ $api.interceptors.response.use(
 		return config;
 	},
 	(error) => {
-		console.log(error);
 		if (error.response.data.message === "Token has expired") {
 			return $api.post("auth/refresh", {}, {
 				headers: {
-					Authorization: `bearer ${localStorage.getItem(TOKEN_LOCALSTORAGE_KEY)}`,
+					Authorization: `bearer ${error.response.data.access_token}`,
 				},
 			}).then((response) => {
-				console.log(response);
 				localStorage.setItem(TOKEN_LOCALSTORAGE_KEY, response.data.access_token);
 
 				error.config.headers.Authorization = `bearer ${localStorage.getItem(TOKEN_LOCALSTORAGE_KEY)}`;
@@ -39,8 +37,5 @@ $api.interceptors.response.use(
 				return $api.request(error.config);
 			});
 		}
-
-		// console.error("Error in request interceptor:", error);
-		// return Promise.reject(error);
 	},
 );

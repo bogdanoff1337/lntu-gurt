@@ -1,0 +1,20 @@
+.NonActivePage {
+   &__shell {
+      padding: rem(90) rem(15);
+
+      border-radius: rem(15);
+      box-shadow: 0 0 rem(40.5) rem(-2) rgba(63, 64, 155, 0.40);
+   }
+
+   &__container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      height: 100%;
+   }
+
+   &, &__container {
+      height: 100%;
+   }
+}

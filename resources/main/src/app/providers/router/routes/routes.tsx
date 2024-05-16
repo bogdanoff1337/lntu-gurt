@@ -1,6 +1,8 @@
 import { RouteProps } from "react-router-dom";
+import { BookedPage } from "@/pages/BookedPage";
 import { LoginPage } from "@/pages/LoginPage";
 import { MainPage } from "@/pages/MainPage";
+import { NonActivePage } from "@/pages/NonActivePage";
 import { ProfilePage } from "@/pages/ProfilePage";
 import { RegisterPage } from "@/pages/RegisterPage";
 import { RoomPage } from "@/pages/RoomPage";
@@ -9,11 +11,11 @@ import {
 	getBookedRoutePath,
 	getLoginRoutePath,
 	getMainRoutePath,
+	getNonActiveRoutePath,
 	getProfileRoutePath,
 	getRegisterRoutePath,
 	getRoomsRoutePath,
 } from "@/shared/config/routes/path";
-import { BookedPage } from "@/pages/BookedPage";
 
 export type AppRouteProps = RouteProps & {
 	middleware: Middleware
@@ -33,6 +35,11 @@ export const routes: AppRouteProps[] = [
 		path: getRegisterRoutePath(),
 		element: <RegisterPage />,
 		middleware: Middleware.NO_AUTH,
+	},
+	{
+		path: getNonActiveRoutePath(),
+		element: <NonActivePage />,
+		middleware: Middleware.AUTH,
 	},
 	{
 		path: getLoginRoutePath(),

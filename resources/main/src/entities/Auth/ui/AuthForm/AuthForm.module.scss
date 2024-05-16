@@ -4,7 +4,7 @@
    padding: rem(90) rem(15);
 
    border-radius: rem(15);
-   box-shadow: 0 0 rem(40.4) rem(-2) rgba(63, 64, 155, 0.39);
+   box-shadow: 0 0 rem(40.5) rem(-2) rgba(63, 64, 155, 0.40);
 
    &__container {
       display: flex;
@@ -17,6 +17,13 @@
       gap: rem(10);
 
       margin-bottom: rem(40);
+   }
+
+   &__buttons {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: rem(10);
    }
 
    &__submit {

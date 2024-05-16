@@ -34,5 +34,13 @@
       }
    }
 
+   &_gray {
+      background-color: rgb(191, 191, 191);
+      
+      &:hover {
+         background-color: rgb(202, 202, 202);
+      }
+   }
+
    @include adaptiveValue("font-size", 22, 18, 0, $widthTo: $tablet);
 }

@@ -2,7 +2,7 @@ import clsx from "clsx";
 import { FC, SyntheticEvent, useCallback } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { AuthForm } from "@/entities/Auth";
+import { AuthForm, AuthFormModifier } from "@/entities/Auth";
 import { useAppDispatch } from "@/shared/lib/hooks/useAppDispatch/useAppDispatch";
 import { PrimaryField } from "@/shared/ui/Fields";
 import * as pageRegisterSelectors from "../../model/selectors";
@@ -12,11 +12,6 @@ import cls from "./LoginAuthForm.module.scss";
 interface LoginAuthFormProps {
 	className?: string
 }
-
-type Inputs = {
-	email: string
-	password: string
-};
 
 export const LoginAuthForm: FC<LoginAuthFormProps> = ({ className }) => {
 	const data = useSelector(pageRegisterSelectors.getData);
@@ -56,7 +51,7 @@ export const LoginAuthForm: FC<LoginAuthFormProps> = ({ className }) => {
 		<AuthForm
 			className={clsx(cls.LoginAuthForm, [className])}
 			onSubmit={onSubmit}
-			submitName="Увійти"
+			modifier={AuthFormModifier.login}
 			isLoading={isLoading}
 			statusErrorMessage={(
 				<div className={cls.StatusError}>

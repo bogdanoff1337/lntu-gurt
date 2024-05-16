@@ -2,7 +2,7 @@ import clsx from "clsx";
 import { FC, SyntheticEvent, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { AuthForm } from "@/entities/Auth";
+import { AuthForm, AuthFormModifier } from "@/entities/Auth";
 import { PrimaryField } from "@/shared/ui/Fields";
 import * as pageRegisterAuthSelectors from "../../model/selectors";
 import { pageRegisterAuthActions } from "../../model/slice/pageRegisterAuthSlice";
@@ -59,7 +59,8 @@ export const RegisterAuthForm: FC<RegisterAuthFormProps> = ({ className }) => {
 			className={clsx(cls.RegisterAuthForm, [className])}
 			onSubmit={onSubmit}
 			isLoading={isLoading}
-			submitName="Зареєструватися"
+			modifier={AuthFormModifier.register}
+			
 			statusErrorMessage={(
 				<div className={cls.StatusError}>
 					<h2 className={cls.StatusError__title}>Немає доступу для реєстрації</h2>
