@@ -16,9 +16,8 @@ class Order extends JsonResource
     {
         return [
             'id' => $this->id,
-            'room_id' => $this->room_id,
             'room' => RoomShort::make($this->room),
-            'student_id' => $this->student_id,
+            'status' => $this->status,
         ];
     }
 }

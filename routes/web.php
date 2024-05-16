@@ -21,7 +21,7 @@ Route::get('{any?}', fn () => view("main"))->where('any', '.*');
 
 Route::get('/email/verify', function () {
     return view('auth.verify-email');
-})->middleware('auth');
+})->middleware('auth')->name('verification.notice');
 
 Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $r) {
     $r->fulfill();

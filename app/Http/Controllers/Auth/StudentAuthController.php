@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Hash;
 use Tymon\JWTAuth\Facades\JWTAuth;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\Student\StudentReguest;
+use Illuminate\Auth\Events\Registered;
 class StudentAuthController extends Controller
 {
     /**
@@ -42,6 +43,8 @@ class StudentAuthController extends Controller
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
+
+        event(new Registered($student));
 
         $student->markEmailAsVerified();
 
