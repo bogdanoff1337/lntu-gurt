@@ -28,7 +28,7 @@ export const RoomsList: FC<RoomsListProps> = ({ className }) => {
 
 	const roomsItems = useMemo(() => {
 		return roomsData?.data.map(({ id, images, number }) => (
-			<RoomItem key={id} image={`/photos/uploads/room/${images}`} number={number} to={getRoomsRoutePath(id)} />
+			<RoomItem key={id} image={images} number={number} to={getRoomsRoutePath(id)} />
 		));
 	}, [roomsData]);
 

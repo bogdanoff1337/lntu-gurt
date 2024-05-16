@@ -1,6 +1,6 @@
 import { ThunkConfig } from "@/app/providers/StoreProvider";
 import { createSliceWithThunk } from "@/shared/lib/createSliceWithThunk";
-import { EntityBookedRoomsSchema, RoomsData } from "../types/EntityBookedRoomsSchema";
+import { EntityBookedRoomsSchema, BookedRoomsData } from "../types/EntityBookedRoomsSchema";
 
 const initialState: EntityBookedRoomsSchema = {
 };
@@ -14,7 +14,7 @@ export const entityBookedRoomsSlice = createSliceWithThunk({
 				extra, rejectWithValue,
 			}) => {
 				try {
-					const response = await extra.api.get<RoomsData>("book");
+					const response = await extra.api.get<any>("book");
 					
 					if (!response.data) {
 						throw new Error();

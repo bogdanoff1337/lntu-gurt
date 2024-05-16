@@ -1,12 +1,15 @@
 export interface EntityBookedRoomsSchema {
-	data?: RoomsData;
+	data?: BookedRoomsData[];
 	isLoading?: boolean
 	error?: string;
 }
 
-export interface RoomsData {
-	data: Room[];
+export interface BookedRoomsData {
+	id: number;
+	room: Room;
+	status: "rejected" | "new" | "approved";
 }
+
 
 export interface Room {
 	id: number;

@@ -12,7 +12,7 @@ const initialState: EntityMenuSchema = {
 		},
 		{
 			Icon: RoomIcon,
-			name: "Заброньована кімната",
+			name: "Заброньовані кімната",
 			is: false,
 		},
 		{

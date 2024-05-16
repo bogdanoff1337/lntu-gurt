@@ -3,7 +3,9 @@
     &__link {
         display: flex;
         flex-direction: column;
+        justify-content: end;
 
+        height: 100%;
         padding: rem(23) rem(25) rem(36) rem(25);
 
         transition: transform $primaryTransition;
@@ -20,17 +22,16 @@
     &__image {
         margin: 0 rem(-25);
         margin-top: rem(-25);
-        // width: 100%;
-
 
         border-radius: rem(15) rem(15) 0 0;
-        // aspect-ratio: 268 / 176;
         aspect-ratio: 268 / 180;
         object-fit: cover;
         
         &:not(:last-child) {
             margin-bottom: rem(28);
         }
+
+        
     }
 
     &__number {
@@ -41,11 +42,3 @@
     }
 }
 
-
-.Skeleton {
-}
-
-
-.FacultySkeleton {
-    
-}

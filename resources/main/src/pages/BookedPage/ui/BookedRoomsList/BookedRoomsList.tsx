@@ -17,15 +17,15 @@ export const BookedRoomsList: FC<BookedRoomsListProps> = ({ className }) => {
 	const dispatch = useAppDispatch();
 	const bookedRoomsData = useSelector(entityBookedRoomsSelectors.data);
 	const bookedRoomsDataIsLoading = useSelector(entityBookedRoomsSelectors.isLoading);
-	
+
 	useEffect(() => {
 		dispatch(entityBookedRoomsActions.getBookedRooms());
 	}, [dispatch]);
 
 	const bookedRoomsItems = useMemo(() => {
-		return bookedRoomsData?.data.map(({ id, images, number }) => (
-			<RoomItem key={id} image={`/photos/uploads/room/${images}`} number={number} to={getRoomsRoutePath(id)} />
-		));
+		return bookedRoomsData?.map(({ room: { id, images, number } }) => {
+			return <RoomItem key={id} image={images} number={number} to={getRoomsRoutePath(id)} />
+		});
 	}, [bookedRoomsData]);
 
 	if (bookedRoomsDataIsLoading) {
@@ -34,10 +34,10 @@ export const BookedRoomsList: FC<BookedRoomsListProps> = ({ className }) => {
 		);
 	}
 
-	if (bookedRoomsData?.data.length === 0) {
+	if (bookedRoomsData?.length === 0) {
 		return (
 			<div className={cls.BookedRoomsList__pageEmpty}>
-				<p className={cls.BookedRoomsList__empty}>Немає жодної вільної кімнати, зверніться пізніше</p>
+				<p className={cls.BookedRoomsList__empty}>У вас жодної заброньованої кімнати</p>
 			</div>
 		);
 	}

@@ -17,7 +17,7 @@ export const RoomItem: FC<RoomItemProps> = ({
 	return (
 		<li className={clsx(cls.RoomItem, [className])}>
 			<NavLink className={cls.RoomItem__link} to={to}>
-				<img className={cls.RoomItem__image} src={image} alt={alt} />
+				{image && <img className={cls.RoomItem__image} src={`/photos/uploads/room/${image}`} alt={alt} />}
 				<h3 className={cls.RoomItem__number}>{number}</h3>
 			</NavLink>
 		</li>

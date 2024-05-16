@@ -31,7 +31,7 @@ export const MenuItems: FC<MenuItemsProps> = ({ className }) => {
 			/>
 			<MenuItem
 				className={className}
-				name="Заброньована кімната"
+				name="Заброньовані кімната"
 				to={getBookedRoutePath()}
 				Icon={BedIcon}
 			/>
