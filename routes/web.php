@@ -13,7 +13,6 @@ use Illuminate\Http\Request;
 | routes are loaded by the RouteServiceProvider and all of them will
 | be assigned to the "web" middleware group. Make something great!
 |
-Route::get('/admin/{any?}', fn () => view("control"))->where('any', '.*');
 */
 
 Route::get('{any?}', fn () => view("main"))->where('any', '.*');
@@ -23,11 +22,8 @@ Route::get('/email/verify', function () {
     return view('auth.verify-email');
 })->middleware('auth')->name('verification.notice');
 
-Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $r) {
-    $r->fulfill();
+Route::get('/email/verify/{id}/{hash}', fn () => 'verify')->middleware(['auth', 'signed'])->name('verification.verify');
 
-    return redirect('/');
-})->middleware(['auth', 'signed']);
 Route::post('/email/verification-notification', function (Request $r) {
 
     $r->user()->sendEmailVerificationNotification();
