@@ -12,19 +12,21 @@ import { entityRoomSlice } from "@/entities/Room";
 import { entityRoomsSlice } from "@/entities/Rooms";
 import { $api } from "@/shared/api/api";
 import { ExtraArgumentType } from "./StateSchema";
+import { entityBookedRoomsSlice } from "@/entities/BookedRooms";
 
 export const createReduxStore = () => {
 	const rootReducer = combineSlices(
 		pageProfileSlice,
 		pageRegisterAuthSlice,
 		pageLoginAuthSlice,
+		pageProfileSlice,
 		entityFacultiesSlice,
 		entityRoomsSlice,
 		entityRoomSlice,
 		entityAuthSlice,
+		entityBookedRoomsSlice,
 		featureOverlaySlice,
 		featureMenuSlice,
-		pageProfileSlice,
 	);
 
 	const extraArgument: ExtraArgumentType = {

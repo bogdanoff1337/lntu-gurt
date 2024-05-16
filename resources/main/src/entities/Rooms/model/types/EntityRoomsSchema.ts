@@ -5,7 +5,7 @@ export interface EntityRoomsSchema {
 }
 
 export interface RoomsData {
-    breadcrumbs: Breadcrumbs;
+   breadcrumbs: Breadcrumbs;
 	data: Room[];
 	links: Link[];
 	meta: Meta;
@@ -56,5 +56,5 @@ export interface Room {
 }
 
 export interface Breadcrumbs {
-    slug_short: string;
+   slug_short: string;
 }
