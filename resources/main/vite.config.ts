@@ -6,9 +6,8 @@ import laravel from "laravel-vite-plugin";
 import { defineConfig } from "vite";
 import svgr from "vite-plugin-svgr";
 
-dotenv.config();
+dotenv.config({ path: "../../.env" });
 
-// https://vitejs.dev/config/
 export default defineConfig({
 	plugins: [
 		svgr(),
@@ -24,10 +23,6 @@ export default defineConfig({
 		alias: [{ find: "@", replacement: "/src" }],
 	},
 	envDir: "../../",
-	server: {
-		// host: "http://www.lntu.local",
-	},
-
 	css: {
 		preprocessorOptions: {
 			scss: {
@@ -43,3 +38,4 @@ export default defineConfig({
 		__API__: JSON.stringify(process.env.APP_URL),
 	},
 });
+
