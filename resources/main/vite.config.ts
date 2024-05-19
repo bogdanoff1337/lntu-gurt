@@ -23,6 +23,10 @@ export default defineConfig({
 	resolve: {
 		alias: [{ find: "@", replacement: "/src" }],
 	},
+	envDir: "../../",
+	server: {
+		// host: "http://www.lntu.local",
+	},
 
 	css: {
 		preprocessorOptions: {

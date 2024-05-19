@@ -1,13 +1,12 @@
 import clsx from "clsx";
 import { FC, useEffect, useMemo } from "react";
 import { useSelector } from "react-redux";
+import { entityBookedRoomsSelectors, entityBookedRoomsActions } from "@/entities/BookedRooms";
 import { RoomItem } from "@/entities/Rooms";
 import { getRoomsRoutePath } from "@/shared/config/routes/path";
 import { useAppDispatch } from "@/shared/lib/hooks/useAppDispatch/useAppDispatch";
 import { PageLoader } from "@/shared/ui/PageLoader";
 import cls from "./BookedRoomsList.module.scss";
-import { entityBookedRoomsActions } from "@/entities/BookedRooms/model/slice/entityBookedRoomsSlice";
-import { entityBookedRoomsSelectors } from "@/entities/BookedRooms";
 
 interface BookedRoomsListProps {
 	className?: string;
@@ -24,7 +23,7 @@ export const BookedRoomsList: FC<BookedRoomsListProps> = ({ className }) => {
 
 	const bookedRoomsItems = useMemo(() => {
 		return bookedRoomsData?.map(({ room: { id, images, number } }) => {
-			return <RoomItem key={id} image={images} number={number} to={getRoomsRoutePath(id)} />
+			return <RoomItem key={id} image={images} number={number} to={getRoomsRoutePath(id)} />;
 		});
 	}, [bookedRoomsData]);
 

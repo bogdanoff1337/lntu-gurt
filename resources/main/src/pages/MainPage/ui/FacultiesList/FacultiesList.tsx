@@ -14,7 +14,7 @@ interface FacultiesListProps {
 export const FacultiesList: FC<FacultiesListProps> = ({ className, data }) => {
 	const facultiesItems = useMemo(() => {
 		return data?.map(({ id, image, slug }) => (
-			<FacultyItem key={id} image={`/photos/uploads/facult/${image}`} slug={slug} id={id} />
+			<FacultyItem key={id} image={image} slug={slug} id={id} />
 		));
 	}, [data]);
 

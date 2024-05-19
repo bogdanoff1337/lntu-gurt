@@ -1,6 +1,10 @@
 .Modal {
 	$p: &;
+
+	overflow: auto;
+	
 	&__content {
+		margin: rem(10);
 		padding: rem(30) rem(20);
 
 		transition: all 0.5s ease;
