@@ -39,14 +39,14 @@ class StudentAuthController extends Controller
             return response()->json(['error' => 'already exists' ], 409);
         }
 
-        $student = Student::create([
+        $user = Student::create([
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
 
-        event(new Registered($student));
+        event(new Registered($user));
 
-        $student->markEmailAsVerified();
+//        $student->markEmailAsVerified();
 
         if (!$token = JWTAuth::attempt($request->only('email', 'password'))) {
             return response()->json(['error' => 'forbidden'], 403);
