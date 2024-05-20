@@ -7,12 +7,13 @@ import { pageRegisterAuthSlice } from "@/pages/RegisterPage";
 import { featureMenuSlice } from "@/features/Menu";
 import { featureOverlaySlice } from "@/features/Overlay";
 import { entityAuthSlice } from "@/entities/Auth";
+import { entityBookedRoomsSlice } from "@/entities/BookedRooms";
 import { entityFacultiesSlice } from "@/entities/Faculties";
 import { entityRoomSlice } from "@/entities/Room";
 import { entityRoomsSlice } from "@/entities/Rooms";
 import { $api } from "@/shared/api/api";
+import { rtkApi } from "@/shared/api/rtkApi";
 import { ExtraArgumentType } from "./StateSchema";
-import { entityBookedRoomsSlice } from "@/entities/BookedRooms";
 
 export const createReduxStore = () => {
 	const rootReducer = combineSlices(
@@ -27,6 +28,9 @@ export const createReduxStore = () => {
 		entityBookedRoomsSlice,
 		featureOverlaySlice,
 		featureMenuSlice,
+		{
+			[rtkApi.reducerPath]: rtkApi.reducer,
+		},
 	);
 
 	const extraArgument: ExtraArgumentType = {
@@ -38,7 +42,7 @@ export const createReduxStore = () => {
 		devTools: __IS_DEV__,
 		middleware: (getDefaultMiddleware) => getDefaultMiddleware({
 			thunk: { extraArgument },
-		}),
+		}).concat(rtkApi.middleware),
 	});
 
 	return store;

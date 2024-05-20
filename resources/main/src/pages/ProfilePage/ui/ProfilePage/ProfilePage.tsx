@@ -3,6 +3,7 @@ import { FC } from "react";
 import { Page } from "@/widgets/Page";
 import { Container, ContainerModifier } from "@/shared/ui/Container";
 import { Title } from "@/shared/ui/Title";
+import { useGetProfileQuery } from "../../model/api/profileApi";
 import { breadcrumbsData } from "../../static/breadcrumbsData";
 import { ProfileForm } from "../ProfileForm/ProfileForm";
 import cls from "./ProfilePage.module.scss";
@@ -12,6 +13,10 @@ interface ProfilePageProps {
 }
 
 export const ProfilePage: FC<ProfilePageProps> = ({ className }) => {
+	const { data: profileData, isFetching, isLoading } = useGetProfileQuery();
+
+	console.log(profileData);
+
 	return (
 		<Page className={clsx(cls.ProfilePage, {}, [className])} breadcrumbsData={breadcrumbsData}>
 			<section className={cls.ProfilePage__section}>
