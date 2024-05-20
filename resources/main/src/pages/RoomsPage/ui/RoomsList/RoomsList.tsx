@@ -40,9 +40,7 @@ export const RoomsList: FC<RoomsListProps> = ({ className }) => {
 
 	if (roomsData?.data.length === 0) {
 		return (
-			<div className={cls.RoomsList__pageEmpty}>
-				<p className={cls.RoomsList__empty}>Немає жодної вільної кімнати, зверніться пізніше</p>
-			</div>
+			<p className={cls.RoomsList__empty}>Немає жодної вільної кімнати, зверніться пізніше</p>
 		);
 	}
 

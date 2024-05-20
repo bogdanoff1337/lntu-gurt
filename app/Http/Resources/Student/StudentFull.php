@@ -19,7 +19,7 @@ class StudentFull extends JsonResource
             'last_name' => $this->last_name ?? "",
             'father_name' => $this->middle_name ?? "",
             'phone' => $this->phone ?? "",
-            'address' => $this->city ?? "",
+            'city' => $this->city ?? "",
             'gender' => $this->gender ?? "",
             'benefits' => $this->benefits ?? "",
         ];

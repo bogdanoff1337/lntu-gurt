@@ -10,7 +10,7 @@ export interface ProfileData {
 	first_name?: string;
 	last_name?: string;
 	father_name?: string;
-	address?: string;
+	city?: string;
 	gender?: string;
 	phone?: string;
 	benefits?: string;

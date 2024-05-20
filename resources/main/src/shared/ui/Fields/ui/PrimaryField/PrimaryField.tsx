@@ -1,3 +1,4 @@
+import { Transition } from "@headlessui/react";
 import clsx from "clsx";
 import {
 	ChangeEvent, FC, InputHTMLAttributes, useCallback, useEffect, useRef, useState,
@@ -17,10 +18,11 @@ interface PrimaryFieldProps extends InputAttrubutes {
 	type?: string;
 	readOnly?: boolean;
 	Icon?: FC<React.SVGProps<SVGSVGElement>>;
+	renderIcon?: boolean;
 }
 
 export const PrimaryField: FC<PrimaryFieldProps> = ({
-	className, placeholder, value, onChange, onBlur, errorMessage, type = "text", isSuccess, Icon, readOnly, ...anotherProps
+	className, placeholder, value, onChange, onBlur, errorMessage, type = "text", isSuccess, Icon, renderIcon = true, readOnly, ...anotherProps
 }) => {
 	const [isEmty, setIsEmty] = useState(true);
 	const inputRef = useRef<HTMLInputElement>(null);
@@ -65,7 +67,18 @@ export const PrimaryField: FC<PrimaryFieldProps> = ({
 					onBlur={onBlurHandler}
 					{...anotherProps}
 				/>
-				{Icon && <Icon className={cls.PrimaryField__icon} />}
+				<Transition
+					show={renderIcon}
+					className={cls.PrimaryField__iconWrapper}
+					enter={cls.PrimaryField__iconWrapper_enter}
+					enterFrom={cls.PrimaryField__iconWrapper_enterFrom}
+					enterTo={cls.PrimaryField__iconWrapper_enterTo}
+					leave={cls.PrimaryField__iconWrapper_leave}
+					leaveFrom={cls.PrimaryField__iconWrapper_leaveFrom}
+					leaveTo={cls.PrimaryField__iconWrapper_leaveTo}
+				>
+					{Icon && <Icon className={cls.PrimaryField__icon} />}
+				</Transition>
 			</div>
 			<span className={cls.PrimaryField__error}>{errorMessage}</span>
 		</div>

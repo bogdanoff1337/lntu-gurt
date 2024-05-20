@@ -35,9 +35,7 @@ export const BookedRoomsList: FC<BookedRoomsListProps> = ({ className }) => {
 
 	if (bookedRoomsData?.length === 0) {
 		return (
-			<div className={cls.BookedRoomsList__pageEmpty}>
-				<p className={cls.BookedRoomsList__empty}>У вас жодної заброньованої кімнати</p>
-			</div>
+			<p className={cls.BookedRoomsList__empty}>У вас жодної заброньованої кімнати</p>
 		);
 	}
 

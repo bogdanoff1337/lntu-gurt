@@ -68,13 +68,14 @@ export const ProfileForm: FC<ProfileFormProps> = ({ className }) => {
 
 	const onSubmit = useCallback((e: FormEvent) => {
 		e.preventDefault();
-
-		
 	}, [dispatch]);
 
 	useEffect(() => {
-		dispatch(pageProfileActions.getFormData());
-	}, [dispatch]);
+		if (!tempData) {
+			dispatch(pageProfileActions.getFormData());
+		}
+		
+	}, [dispatch, tempData]);
 
 	if (isLoading) {
 		return <PageLoader />;
@@ -89,7 +90,8 @@ export const ProfileForm: FC<ProfileFormProps> = ({ className }) => {
 					value={tempData?.first_name}
 					placeholder="Вкажіть ім’я"
 					readOnly={readOnly}
-					Icon={!readOnly ? PenIcon : undefined}
+					renderIcon={!readOnly}
+					Icon={PenIcon}
 				/>
 				<PrimaryField
 					className={cls.Input}
@@ -97,7 +99,8 @@ export const ProfileForm: FC<ProfileFormProps> = ({ className }) => {
 					value={tempData?.last_name}
 					placeholder="Вкажіть прізвище"
 					readOnly={readOnly}
-					Icon={!readOnly ? PenIcon : undefined}
+					renderIcon={!readOnly}
+					Icon={PenIcon}
 				/>
 				<PrimaryField
 					className={cls.Input}
@@ -105,7 +108,8 @@ export const ProfileForm: FC<ProfileFormProps> = ({ className }) => {
 					value={tempData?.father_name}
 					placeholder="Вкажіть по батькові"
 					readOnly={readOnly}
-					Icon={!readOnly ? PenIcon : undefined}
+					renderIcon={!readOnly}
+					Icon={PenIcon}
 				/>
 				<PrimaryField
 					className={cls.Input}
@@ -113,7 +117,8 @@ export const ProfileForm: FC<ProfileFormProps> = ({ className }) => {
 					value={tempData?.gender}
 					placeholder="Стать"
 					readOnly={readOnly}
-					Icon={!readOnly ? PenIcon : undefined}
+					renderIcon={!readOnly}
+					Icon={PenIcon}
 				/>
 				<PrimaryField
 					className={cls.Input}
@@ -121,7 +126,8 @@ export const ProfileForm: FC<ProfileFormProps> = ({ className }) => {
 					value={tempData?.address}
 					placeholder="Місце проживання"
 					readOnly={readOnly}
-					Icon={!readOnly ? PenIcon : undefined}
+					renderIcon={!readOnly}
+					Icon={PenIcon}
 				/>
 				<PrimaryField
 					className={cls.Input}
@@ -129,7 +135,8 @@ export const ProfileForm: FC<ProfileFormProps> = ({ className }) => {
 					value={tempData?.phone}
 					placeholder="Номер телефону"
 					readOnly={readOnly}
-					Icon={!readOnly ? PenIcon : undefined}
+					renderIcon={!readOnly}
+					Icon={PenIcon}
 				/>
 				<PrimaryField
 					className={cls.Input}
@@ -137,7 +144,8 @@ export const ProfileForm: FC<ProfileFormProps> = ({ className }) => {
 					value={tempData?.benefits}
 					placeholder="Вкажіть пільгу"
 					readOnly={readOnly}
-					Icon={!readOnly ? PenIcon : undefined}
+					renderIcon={!readOnly}
+					Icon={PenIcon}
 				/>
 			</div>
 			<div className={cls.ProfileForm__buttons}>

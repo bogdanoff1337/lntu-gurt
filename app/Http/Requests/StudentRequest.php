@@ -28,6 +28,7 @@ class StudentRequest extends FormRequest
             'phone' => 'required|string|unique:students,phone',
             'city' => 'required|string',
             'benefits' => 'required|string',
+            'gender' => 'required|string',
         ];
     }
 }

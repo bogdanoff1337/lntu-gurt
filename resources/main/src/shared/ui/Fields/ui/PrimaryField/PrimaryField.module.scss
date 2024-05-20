@@ -88,13 +88,49 @@
 
 
    &__icon {
+      width: rem(20);
+      height: rem(20);
+      fill: currentColor;
+   }
+
+
+   &__iconWrapper {
       position: absolute;
       top: 0;
       right: 0;
 
-      width: rem(20);
-      height: rem(20);
-      fill: currentColor;
+
+      &_enter {
+         transition: opacity $primaryTransition, transform $primaryTransition;
+      }
+
+      &_enterFrom {
+         transform: scale(0.5);
+
+         opacity: 0;
+      }
+
+      &_enterTo {
+         transform: scale(1);
+
+         opacity: 1;
+      }
+
+      &_leave {
+         transition: opacity $primaryTransition, transform $primaryTransition;
+      }
+
+      &_leaveFrom {
+         transform: scale(1);
+
+         opacity: 1;
+      }
+
+      &_leaveTo {
+         transform: scale(0.5);
+
+         opacity: 0;
+      }
    }
 
    &__placeholder {
