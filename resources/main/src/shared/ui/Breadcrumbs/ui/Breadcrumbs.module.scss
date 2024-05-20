@@ -1,9 +1,9 @@
 .Breadcrumbs {
    $p: &;
-   padding: rem(5);
+   padding: em(5);
 
-   border: rem(3) solid #ABABD3;
-   border-radius: rem(15);
+   border: em(3) solid #ABABD3;
+   border-radius: em(15);
 
    font-size: rem(16);
    line-height: em(28, 16);
@@ -12,7 +12,7 @@
    &__list {
       display: inline-flex;
       align-items: center;
-      column-gap: rem(10);
+      column-gap: em(10);
    }
 
    &__item {
@@ -20,14 +20,14 @@
       align-items: center;
 
       text-wrap: nowrap;
-      column-gap: rem(10);
+      column-gap: em(10);
       
       &:not(:last-child) {
          &::after {
             display: block;
 
-            width: rem(8.4);
-            height: rem(13.2);
+            width: em(8.4);
+            height: em(13.2);
 
             content: "";
 
@@ -38,12 +38,12 @@
       &:last-child {
          #{$p} {
             &__link {
-               padding: 0 rem(8);
+               padding: 0 em(8);
 
                pointer-events: none;
    
                color: #fff;
-               border-radius: rem(9);
+               border-radius: em(9);
                background: #3A3C93;
             }
          }

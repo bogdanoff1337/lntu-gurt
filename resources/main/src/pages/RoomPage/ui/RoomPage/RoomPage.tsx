@@ -8,7 +8,6 @@ import { useParams } from "react-router-dom";
 import { Page } from "@/widgets/Page";
 import { entityRoomActions, entityRoomSelectors } from "@/entities/Room";
 import { useAppDispatch } from "@/shared/lib/hooks/useAppDispatch/useAppDispatch";
-import { Breadcrumbs } from "@/shared/ui/Breadcrumbs";
 import { Container } from "@/shared/ui/Container";
 import { Title } from "@/shared/ui/Title";
 import { getBreadcrumbs } from "../../model/selectors";
@@ -34,7 +33,7 @@ export const RoomPage: FC<RoomPageProps> = ({ className }) => {
 	return (
 		<Page
 			className={clsx(cls.RoomPage, [className])}
-			Breadcrumbs={<Breadcrumbs data={breadcrumbsData} />}
+			breadcrumbsData={breadcrumbsData}
 			isLoading={roomDataIsLoading}
 		>
 			<section className={cls.RoomPage__section}>

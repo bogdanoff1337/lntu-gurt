@@ -5,11 +5,13 @@ import cls from "./Breadcrumbs.module.scss";
 
 interface BreadcrumbsProps {
 	className?: string;
-	data: {
-		id: number;
-		title: string | ReactNode;
-		to?: To;
-	}[]
+	data: BreadcrumbsData[];
+}
+
+export interface BreadcrumbsData {
+	id: number;
+	title: string | ReactNode;
+	to?: To;
 }
 
 export const Breadcrumbs: FC<BreadcrumbsProps> = ({ className, data }) => {

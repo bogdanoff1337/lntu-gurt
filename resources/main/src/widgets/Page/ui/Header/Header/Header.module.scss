@@ -62,6 +62,13 @@
 			justify-self: end;
 			grid-area: c;
 		}
+	}
 
+	&__breadcrumbs {
+		transition: font-size $primaryTransition;
+		
+		@media (max-width: em($smallMobile)) {
+			font-size: rem(12.5);
+		}
 	}
 }

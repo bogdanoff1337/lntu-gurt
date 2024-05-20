@@ -38,4 +38,3 @@ export default defineConfig({
 		__API__: JSON.stringify(process.env.APP_URL),
 	},
 });
-

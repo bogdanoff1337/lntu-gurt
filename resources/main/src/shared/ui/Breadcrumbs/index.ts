@@ -1,1 +1,1 @@
-export { Breadcrumbs } from "./ui/Breadcrumbs";
+export { Breadcrumbs, type BreadcrumbsData } from "./ui/Breadcrumbs";

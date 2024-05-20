@@ -18,6 +18,7 @@
     
     &__selectsGroup {
         display: flex;
+        flex-direction: row-reverse;
         justify-content: center;
 
         gap: rem(10) rem(40);
@@ -31,7 +32,7 @@
         }
 
         @media (max-width: em($tablet)) {
-            flex-direction: column;
+            flex-direction: column-reverse;
         }
     }
 }
