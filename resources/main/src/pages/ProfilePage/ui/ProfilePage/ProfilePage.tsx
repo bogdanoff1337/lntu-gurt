@@ -13,10 +13,6 @@ interface ProfilePageProps {
 }
 
 export const ProfilePage: FC<ProfilePageProps> = ({ className }) => {
-	const { data: profileData, isFetching, isLoading } = useGetProfileQuery();
-
-	console.log(profileData);
-
 	return (
 		<Page className={clsx(cls.ProfilePage, {}, [className])} breadcrumbsData={breadcrumbsData}>
 			<section className={cls.ProfilePage__section}>

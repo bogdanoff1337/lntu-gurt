@@ -1,8 +1,9 @@
 import { rtkApi } from "@/shared/api/rtkApi";
+import { ProfileData, ResponseData } from "../types/PageProfileSchema";
 
 const profileApi = rtkApi.injectEndpoints({
 	endpoints: (build) => ({
-		getProfile: build.query<any, void>({
+		getProfile: build.query<ResponseData, void>({
 			providesTags: ["ProfilePage"],
 			query: () => ({
 				method: "GET",
@@ -10,11 +11,15 @@ const profileApi = rtkApi.injectEndpoints({
 			}),
 		}),
 
-		updateProfile: build.mutation<unknown, any>({
+		updateProfile: build.mutation<any, ProfileData>({
 			invalidatesTags: ["ProfilePage"],
-			query: () => ({
+			query: (formData) => ({
 				url: "profile",
 				method: "PATCH",
+				body: {
+					...formData
+				},
+
 			}),
 		}),
 	}),

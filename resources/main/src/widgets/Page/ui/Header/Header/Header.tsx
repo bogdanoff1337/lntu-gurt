@@ -27,7 +27,7 @@ export const Header: FC<HeaderProps> = memo(({ className, breadcrumbsData }) => 
 
 	useSmartHeader({
 		className: cls.Header_hide,
-		condition: isTablet && Breadcrumbs,
+		condition: isTablet && breadcrumbsData,
 		ref: headerRef,
 	});
 

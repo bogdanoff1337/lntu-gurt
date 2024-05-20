@@ -5,11 +5,11 @@ import { Loader } from "../../../Loader";
 import cls from "./PrimaryButton.module.scss";
 import { ButtonProps } from "../Button/Button";
 interface PrimaryButtonProps extends ButtonProps {
-	isLoading: boolean;
+	isLoading?: boolean;
 }
 
 export const PrimaryButton: FC<PrimaryButtonProps> = ({
-	className, children, Icon, modifier, isLoading, ...otherProps
+	className, children, Icon, modifier, isLoading = false, ...otherProps
 }) => {
 	return (
 		<Button modifier={modifier} className={clsx(cls.PrimaryButton, [className])} {...otherProps}>

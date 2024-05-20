@@ -59,6 +59,7 @@ export const ProfileForm: FC<ProfileFormProps> = ({ className }) => {
 
 	const onClickSave = useCallback(() => {
 		dispatch(pageProfileActions.setReadOnly(true));
+		dispatch(pageProfileActions.patchFormData());
 	}, [dispatch]);
 
 	const onClickCancel = useCallback(() => {
@@ -68,12 +69,11 @@ export const ProfileForm: FC<ProfileFormProps> = ({ className }) => {
 	const onSubmit = useCallback((e: FormEvent) => {
 		e.preventDefault();
 
-		// @ts-ignore
-		dispatch(pageProfileActions.patchFormData());
+		
 	}, [dispatch]);
 
 	useEffect(() => {
-		// dispatch(pageProfileActions.getFormData());
+		dispatch(pageProfileActions.getFormData());
 	}, [dispatch]);
 
 	if (isLoading) {
@@ -81,12 +81,12 @@ export const ProfileForm: FC<ProfileFormProps> = ({ className }) => {
 	}
 
 	return (
-		<form onSubmit={onSubmit} className={clsx(cls.ProfileForm, {}, [className])}>
+		<form className={clsx(cls.ProfileForm, {}, [className])} onSubmit={onSubmit}>
 			<div className={cls.ProfileForm__list}>
 				<PrimaryField
 					className={cls.Input}
 					onChange={onChangeFirstName}
-					value={tempData.first_name}
+					value={tempData?.first_name}
 					placeholder="Вкажіть ім’я"
 					readOnly={readOnly}
 					Icon={!readOnly ? PenIcon : undefined}
@@ -94,7 +94,7 @@ export const ProfileForm: FC<ProfileFormProps> = ({ className }) => {
 				<PrimaryField
 					className={cls.Input}
 					onChange={onChangeLastName}
-					value={tempData.last_name}
+					value={tempData?.last_name}
 					placeholder="Вкажіть прізвище"
 					readOnly={readOnly}
 					Icon={!readOnly ? PenIcon : undefined}
@@ -102,7 +102,7 @@ export const ProfileForm: FC<ProfileFormProps> = ({ className }) => {
 				<PrimaryField
 					className={cls.Input}
 					onChange={onChangeFatherName}
-					value={tempData.father_name}
+					value={tempData?.father_name}
 					placeholder="Вкажіть по батькові"
 					readOnly={readOnly}
 					Icon={!readOnly ? PenIcon : undefined}
@@ -110,7 +110,7 @@ export const ProfileForm: FC<ProfileFormProps> = ({ className }) => {
 				<PrimaryField
 					className={cls.Input}
 					onChange={onChangeGender}
-					value={tempData.gender}
+					value={tempData?.gender}
 					placeholder="Стать"
 					readOnly={readOnly}
 					Icon={!readOnly ? PenIcon : undefined}
@@ -118,7 +118,7 @@ export const ProfileForm: FC<ProfileFormProps> = ({ className }) => {
 				<PrimaryField
 					className={cls.Input}
 					onChange={onChangeAddress}
-					value={tempData.address}
+					value={tempData?.address}
 					placeholder="Місце проживання"
 					readOnly={readOnly}
 					Icon={!readOnly ? PenIcon : undefined}
@@ -126,7 +126,7 @@ export const ProfileForm: FC<ProfileFormProps> = ({ className }) => {
 				<PrimaryField
 					className={cls.Input}
 					onChange={onChangePhone}
-					value={tempData.phone}
+					value={tempData?.phone}
 					placeholder="Номер телефону"
 					readOnly={readOnly}
 					Icon={!readOnly ? PenIcon : undefined}
@@ -134,32 +134,32 @@ export const ProfileForm: FC<ProfileFormProps> = ({ className }) => {
 				<PrimaryField
 					className={cls.Input}
 					onChange={onChangeBenefits}
-					value={tempData.benefits}
+					value={tempData?.benefits}
 					placeholder="Вкажіть пільгу"
 					readOnly={readOnly}
 					Icon={!readOnly ? PenIcon : undefined}
 				/>
 			</div>
 			<div className={cls.ProfileForm__buttons}>
-				{readOnly ? (
+				{readOnly && !isFetching ? (
 					<PrimaryButton
 						type="button"
 						onClick={onClickEdit}
 						className={cls.ProfileForm__submit}
 						Icon={PenIcon}
-						isLoading={isFetching}
 					>
 						Редагувати
 					</PrimaryButton>
 				) : (
 					<>
-						<Button
-							type="submit"
+						<PrimaryButton
+							type="button"
 							className={cls.ProfileForm__submit}
+							isLoading={isFetching}
 							onClick={onClickSave}
 						>
 							Зберегти
-						</Button>
+						</PrimaryButton>
 						<Button
 							type="button"
 							modifier={ButtonModifier.RED}
@@ -171,7 +171,6 @@ export const ProfileForm: FC<ProfileFormProps> = ({ className }) => {
 					</>
 
 				)}
-
 			</div>
 		</form>
 	);

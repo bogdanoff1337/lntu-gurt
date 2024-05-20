@@ -1,29 +1,30 @@
 import { PayloadAction } from "@reduxjs/toolkit";
-import { RootState, StateSchema, ThunkConfig } from "@/app/providers/StoreProvider";
+import { ThunkConfig } from "@/app/providers/StoreProvider";
 import { createSliceWithThunk } from "@/shared/lib/createSliceWithThunk";
-import * as pageProfileSelectors from "../selectors";
-import { Data, PageProfileSchema } from "../types/PageProfileSchema";
+import { ProfileData, PageProfileSchema, ResponseData } from "../types/PageProfileSchema";
 
 const initialState: PageProfileSchema = {
-	data: {
-		first_name: "",
-		last_name: "",
-		father_name: "",
-		address: "",
-		gender: "",
-		phone: "",
-		benefits: "",
-	},
-	tempData: {
-		first_name: "",
-		last_name: "",
-		father_name: "",
-		address: "",
-		gender: "",
-		phone: "",
-		benefits: "",
-	},
-	isLoading: false,
+	// data: {
+	// 	first_name: "",
+	// 	last_name: "",
+	// 	father_name: "",
+	// 	address: "",
+	// 	gender: "",
+	// 	phone: "",
+	// 	benefits: "",
+	// },
+	// tempData: {
+	// 	first_name: "",
+	// 	last_name: "",
+	// 	father_name: "",
+	// 	address: "",
+	// 	gender: "",
+	// 	phone: "",
+	// 	benefits: "",
+	// },
+	tempData: undefined,
+	data: undefined,
+	isLoading: true,
 	isFetching: false,
 	readOnly: true,
 };
@@ -39,41 +40,41 @@ export const pageProfileSlice = createSliceWithThunk({
 
 		patchFormData: create.asyncThunk<any, void, ThunkConfig<string>>(
 			async (_, {
-				extra, rejectWithValue, getState,
+				extra, rejectWithValue, getState
 			}) => {
-				// @ts-ignore
-				const { data } = getState().pageProfile;
 
 				try {
-					const response = await extra.api.put<any>("profile/me", data);
+					// @ts-ignore
+					const data = getState().pageProfile.tempData;
+					const response = await extra.api.patch<any>("profile/me", data);
 
 					if (!response.data) {
 						throw new Error();
 					}
-
+					console.log(response.data);
 					return response.data;
 				} catch (e) {
+					console.log(e);
 					return rejectWithValue("error");
 				}
 			},
 			{
 				pending: (state) => {
-					state.isLoading = true;
+					state.isFetching = true;
 				},
 				fulfilled: (state, action) => {
-					state.isLoading = false;
+					state.isFetching = false;
 				},
 				rejected: (state, action) => {
 				},
 			},
 		),
 
-		getFormData: create.asyncThunk<Data, void, ThunkConfig<string>>(
+		getFormData: create.asyncThunk<ProfileData, void, ThunkConfig<string>>(
 			async (_, {
 				extra, rejectWithValue,
 			}) => {
 				try {
-					// @ts-ignore
 					const response = await extra.api.get<ResponseData>("profile");
 
 					if (!response.data) {
@@ -87,10 +88,16 @@ export const pageProfileSlice = createSliceWithThunk({
 			},
 			{
 				pending: (state) => {
-					state.isLoading = true;
+					if (!state.data) {
+						state.isLoading = true;
+					} else {
+						state.isFetching = true;
+					}
 				},
 				fulfilled: (state, action) => {
 					state.isLoading = false;
+					state.isFetching = false;
+
 					state.data = action.payload;
 					state.tempData = action.payload;
 				},
@@ -104,25 +111,25 @@ export const pageProfileSlice = createSliceWithThunk({
 		}),
 
 		changeFirstName: create.reducer((state, action: PayloadAction<string>) => {
-			state.tempData.first_name = action.payload;
+			state.tempData!.first_name = action.payload;
 		}),
 		changeLastName: create.reducer((state, action: PayloadAction<string>) => {
-			state.tempData.last_name = action.payload;
+			state.tempData!.last_name = action.payload;
 		}),
 		changeFatherName: create.reducer((state, action: PayloadAction<string>) => {
-			state.tempData.father_name = action.payload;
+			state.tempData!.father_name = action.payload;
 		}),
 		changeAddress: create.reducer((state, action: PayloadAction<string>) => {
-			state.tempData.address = action.payload;
+			state.tempData!.address = action.payload;
 		}),
 		changeGender: create.reducer((state, action: PayloadAction<string>) => {
-			state.tempData.gender = action.payload;
+			state.tempData!.gender = action.payload;
 		}),
 		changePhone: create.reducer((state, action: PayloadAction<string>) => {
-			state.tempData.phone = action.payload;
+			state.tempData!.phone = action.payload;
 		}),
 		changeBenefits: create.reducer((state, action: PayloadAction<string>) => {
-			state.tempData.benefits = action.payload;
+			state.tempData!.benefits = action.payload;
 		}),
 	}),
 });
