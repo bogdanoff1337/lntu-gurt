@@ -1,6 +1,6 @@
 import { ThunkConfig } from "@/app/providers/StoreProvider";
 import { createSliceWithThunk } from "@/shared/lib/createSliceWithThunk";
-import { EntityFacultiesSchema, Faculty, FacultyData } from "../types/EntityFacultiesSchema";
+import { EntityFacultiesSchema, FacultyData } from "../types/EntityFacultiesSchema";
 
 const initialState: EntityFacultiesSchema = {
 };

@@ -1,5 +1,5 @@
 import { PayloadAction } from "@reduxjs/toolkit";
-import { StateSchema, ThunkConfig } from "@/app/providers/StoreProvider";
+import { ThunkConfig } from "@/app/providers/StoreProvider";
 import { entityAuthActions } from "@/entities/Auth";
 import { TOKEN_LOCALSTORAGE_KEY } from "@/shared/const/localstorage";
 import { createSliceWithThunk } from "@/shared/lib/createSliceWithThunk";
@@ -90,7 +90,7 @@ export const pageRegisterAuthSlice = createSliceWithThunk({
 			async (_, {
 				extra, rejectWithValue, getState, dispatch,
 			}) => {
-				const state = getState() as StateSchema;
+				const state = getState() as any; //! hardcore
 
 				try {
 					const response = await extra.api.post<any>("auth/register", {

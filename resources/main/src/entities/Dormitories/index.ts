@@ -3,4 +3,4 @@ export { dormitoriesSlice } from "./model/slice/dormitoriesSlice";
 
 export { fetchDormitories } from "./model/services/fetchDormitories/fetchDormitories";
 
-export type { DormitorySchema } from "./model/types/DormitorySchema";
+export type { DormitorySchema } from "./model/types/EntityDormitoriesSchema";

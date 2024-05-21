@@ -1,21 +1,20 @@
 import { ThunkConfig } from "@/app/providers/StoreProvider";
 import { createSliceWithThunk } from "@/shared/lib/createSliceWithThunk";
-import { EntityUserSchema } from "../types/EntityUserSchema";
+import { EntityFacultiesSchema, FacultyData } from "../types/EntityFacultiesSchema";
 
-const initialState: EntityUserSchema = {
+const initialState: EntityFacultiesSchema = {
 };
 
-export const entityRoomsSlice = createSliceWithThunk({
-	name: "user",
+export const entityFacultiesSlice = createSliceWithThunk({
+	name: "entityFaculties",
 	initialState,
 	reducers: (create) => ({
-		getRoomsByParams: create.asyncThunk<any, { }, ThunkConfig<string>>(
-			async ({ }, {
+		getAllFaculties: create.asyncThunk<any, void, ThunkConfig<string>>(
+			async (_, {
 				extra, rejectWithValue,
 			}) => {
 				try {
-					const response = await extra.api.get<any>("rooms", {
-					});
+					const response = await extra.api.get<FacultyData>("faculties");
 
 					if (!response.data) {
 						throw new Error();
@@ -43,4 +42,4 @@ export const entityRoomsSlice = createSliceWithThunk({
 	}),
 });
 
-export const { actions: entityRoomsActions, reducer: entityRoomsReducer } = entityRoomsSlice;
+export const { actions: entityFacultiesActions, reducer: entityFacultiesReducer } = entityFacultiesSlice;

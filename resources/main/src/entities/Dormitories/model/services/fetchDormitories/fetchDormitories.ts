@@ -1,6 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { ThunkConfig } from "@/app/providers/StoreProvider";
-import { Dormitory, DormitoryData } from "../../types/DormitorySchema";
+import { Dormitory, DormitoryData } from "../../types/EntityDormitoriesSchema";
 
 export const fetchDormitories = createAsyncThunk<DormitoryData, void, ThunkConfig<string>>(
 	"mainPage/fetchDormitories",

@@ -1,15 +1,16 @@
 import { EntityState } from "@reduxjs/toolkit";
 
-export interface DormitorySchema extends EntityState<Dormitory, any> {
+export interface EntityDormitoriesSchema {
+	data?: boolean;
 	isLoading?: boolean;
 	error?: string;
 }
 
-export type DormitoryData = {
+export interface DormitoriesData {
 	data: Dormitory[];
 };
 
-export type Dormitory = {
+interface Dormitory {
 	id: string;
 	slug: string;
 	address: string;

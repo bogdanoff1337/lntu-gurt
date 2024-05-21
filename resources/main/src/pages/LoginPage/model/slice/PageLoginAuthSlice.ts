@@ -1,5 +1,5 @@
 import { PayloadAction } from "@reduxjs/toolkit";
-import { StateSchema, ThunkConfig, store } from "@/app/providers/StoreProvider";
+import { StateSchema, ThunkConfig } from "@/app/providers/StoreProvider";
 import { entityAuthActions } from "@/entities/Auth";
 import { TOKEN_LOCALSTORAGE_KEY } from "@/shared/const/localstorage";
 import { createSliceWithThunk } from "@/shared/lib/createSliceWithThunk";
@@ -67,14 +67,9 @@ export const pageLoginAuthSlice = createSliceWithThunk({
 			async (_, {
 				extra, rejectWithValue, getState, dispatch,
 			}) => {
-				const state = getState() as StateSchema;
+				const state = getState() as any; //! hardcore
 
 				try {
-					console.log({
-						email: state.pageLoginAuth.data.email.value,
-						password: state.pageLoginAuth.data.password.value,
-					});
-
 					const response = await extra.api.post<TokenData>("auth/login", {
 						email: state.pageLoginAuth.data.email.value,
 						password: state.pageLoginAuth.data.password.value,
