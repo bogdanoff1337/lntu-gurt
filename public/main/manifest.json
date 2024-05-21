@@ -1,10 +1,17 @@
 {
   "src/main.tsx": {
-    "file": "assets/main-CZ2n8xnB.js",
+    "file": "assets/main-L7FEpT7T.js",
     "src": "src/main.tsx",
     "isEntry": true,
     "css": [
-      "assets/main-BhZQ9tr6.css"
+      "assets/main-C1IlT_0I.css"
+    ],
+    "assets": [
+      "assets/arrow-BRU2N8l5.svg"
     ]
+  },
+  "src/shared/ui/Breadcrumbs/assets/arrow.svg": {
+    "file": "assets/arrow-BRU2N8l5.svg",
+    "src": "src/shared/ui/Breadcrumbs/assets/arrow.svg"
   }
 }
