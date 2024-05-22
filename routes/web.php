@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Api\Verivy;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,16 +19,12 @@ use Illuminate\Http\Request;
 Route::get('{any?}', fn () => view("main"))->where('any', '.*');
 
 
-Route::get('/email/verify', function () {
-    return view('auth.verify-email');
-})->middleware('auth')->name('verification.notice');
+Route::get('/email/verify', [EmailVerificationRequest::class, '__invoke'])
+    ->name('verification.notice');
 
-Route::get('/email/verify/{id}/{hash}', fn () => 'verify')->middleware(['auth', 'signed'])->name('verification.verify');
+Route::get('/email/verify/{id}/{hash}', [Verivy::class, '__invoke'])
+    ->middleware('signed')
+    ->name('verification.verify');
 
-Route::post('/email/verification-notification', function (Request $r) {
-
-    $r->user()->sendEmailVerificationNotification();
-
-    return back()->with('resent', 'Verification link sent ');
-})->middleware(['auth', 'throttle:6,1'])->name('verification.send');
-
+Route::post('/email/verification-notification', [EmailVerificationRequest::class, '__invoke'])
+    ->name('verification.send');
