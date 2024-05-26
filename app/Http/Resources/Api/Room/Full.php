@@ -29,6 +29,8 @@ class Full extends JsonResource
             'gender' => $this->gender,
             'section' => $this->section,
             'booked' => $this->isBooked(),
+            'status' => $this->status ?? null, // new rejected approved
+            'deadline' => $this->deadline ?? null,  // 2021-09-01 00:00:00
         ];
 
         return $prepared;
@@ -38,7 +40,10 @@ class Full extends JsonResource
     {
         $user = Auth::user();
 
-        $booked = $this->order()->where('student_id', $user->id)->first();
+        $booked = $this->order()
+            ->where('student_id', $user->id)
+            ->orWhere('status', 'rejected')
+            ->first();
 
         if ($booked === null) {
             return false;

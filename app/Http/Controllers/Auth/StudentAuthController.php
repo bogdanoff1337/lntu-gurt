@@ -9,8 +9,10 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Tymon\JWTAuth\Facades\JWTAuth;
 use Illuminate\Support\Facades\Auth;
-use App\Http\Requests\Student\StudentReguest;
+use App\Http\Requests\StudentAuth\StudentRequest;
 use Illuminate\Auth\Events\Registered;
+use Illuminate\Support\Facades\Validator;
+
 class StudentAuthController extends Controller
 {
     /**
@@ -23,46 +25,77 @@ class StudentAuthController extends Controller
         $this->middleware('auth:api', ['except' => ['me','register','login','logout','refresh','update']]);
     }
 
-    public function register(StudentReguest $request)
+    public function register(Request $request)
     {
-        $data = $request->validated();
+        // Validate the incoming request
+        $validator = Validator::make($request->all(), [
+            'email' => 'required|email',
+            'password' => 'required|min:8',
+        ]);
 
-        $access = AccessToRegister::where('email', $request->email)
+        // Check if validation fails
+        if ($validator->fails()) {
+            return response()->json($validator->errors(), 422);
+        }
+
+        // Retrieve the validated data
+        $validated = $validator->validated();
+        // Check if the email has access to register
+        $access = AccessToRegister::where('email', $validated['email'])
             ->where('access', true)
             ->first();
 
         if (!$access) {
-            return response()->json(['error' => 'forbidden' ], 403);
+            return response()->json(
+                [
+                    'title' => 'Немає доступу до реєстрації',
+                    'text' => 'Вашої пошти немає в списку кандидатів на заселення в гуртожитки'
+                ], 403);
+        }
+        // Check if the student already exists
+        if (Student::where('email', $validated['email'])->exists()) {
+            return response()->json(['error' => 'already exists'], 409);
         }
 
-        if (Student::where('email', $data['email'])->exists()) {
-            return response()->json(['error' => 'already exists' ], 409);
-        }
-
+        // Create the new student
         $user = Student::create([
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
+            'email' => $validated['email'],
+            'password' => Hash::make($validated['password']),
         ]);
 
+        // Fire the Registered event
         event(new Registered($user));
 
-//        $student->markEmailAsVerified();
-
+        // Attempt to create a token for the newly registered user
         if (!$token = JWTAuth::attempt($request->only('email', 'password'))) {
             return response()->json(['error' => 'forbidden'], 403);
         }
 
+        // Return the token in the response
         return $this->respondWithToken($token);
     }
+
     /**
      * Handle an incoming authentication request.
      *
      * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function login(StudentReguest $request)
+    public function login(Request $request)
     {
-        $credentials = $request->validated();
+        $credentials = $request->only('email', 'password');
+
+        $validator = Validator::make($request->all(), [
+            'email' => 'required|email',
+            'password' => 'required|min:8',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'title' => 'Неправильний логін чи пароль',
+                'text' => 'Перевірте правильність введених даних'
+            ], 404);
+        }
 
         if ($token = $this->guard()->attempt($credentials)) {
             return $this->respondWithToken($token);
