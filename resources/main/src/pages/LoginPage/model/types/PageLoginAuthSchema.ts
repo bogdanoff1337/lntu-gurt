@@ -5,6 +5,10 @@ export interface PageLoginAuthSchema {
 		confirmPassword: Field;
 	},
 	isLoading: boolean;
+	error?: {
+		title: string;
+		text: string;
+	}
 }
 
 interface Field {

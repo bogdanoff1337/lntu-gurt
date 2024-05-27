@@ -94,14 +94,14 @@ class StudentAuthController extends Controller
             return response()->json([
                 'title' => 'Неправильний логін чи пароль',
                 'text' => 'Перевірте правильність введених даних'
-            ], 404);
+            ], 200);
         }
 
         if ($token = $this->guard()->attempt($credentials)) {
             return $this->respondWithToken($token);
         }
 
-        return response()->json(['error' => 'Not found'], 404);
+        return response()->json(['error' => 'Not found'], 200);
     }
 
     /**

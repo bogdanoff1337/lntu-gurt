@@ -75,17 +75,20 @@ export const pageLoginAuthSlice = createSliceWithThunk({
 						password: state.pageLoginAuth.data.password.value,
 					});
 
-					localStorage.setItem(TOKEN_LOCALSTORAGE_KEY, response.data.access_token);
+					console.log(response);
+					
 
-					dispatch(entityAuthActions.getUser());
+					// localStorage.setItem(TOKEN_LOCALSTORAGE_KEY, response.data.access_token);
 
-					if (!response.data) {
-						throw new Error();
-					}
+					// dispatch(entityAuthActions.getUser());
 
-					return response.data;
+					// if (!response.data) {
+					// 	throw new Error();
+					// }
+
+					// return response.data;
 				} catch (e) {
-					return rejectWithValue("error");
+					// console.log(e.response);
 				}
 			},
 			{

@@ -40,9 +40,8 @@ export const pageProfileSlice = createSliceWithThunk({
 
 		patchFormData: create.asyncThunk<any, void, ThunkConfig<string>>(
 			async (_, {
-				extra, rejectWithValue, getState
+				extra, rejectWithValue, getState,
 			}) => {
-
 				try {
 					// @ts-ignore
 					const data = getState().pageProfile.tempData;

@@ -15,6 +15,8 @@ interface RegisterAuthFormProps {
 export const RegisterAuthForm: FC<RegisterAuthFormProps> = ({ className }) => {
 	const data = useSelector(pageRegisterAuthSelectors.getData);
 	const isLoading = useSelector(pageRegisterAuthSelectors.getIsLoading);
+	const error = useSelector(pageRegisterAuthSelectors.getError);
+
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
 
@@ -60,13 +62,7 @@ export const RegisterAuthForm: FC<RegisterAuthFormProps> = ({ className }) => {
 			onSubmit={onSubmit}
 			isLoading={isLoading}
 			modifier={AuthFormModifier.register}
-			
-			statusErrorMessage={(
-				<div className={cls.StatusError}>
-					<h2 className={cls.StatusError__title}>Немає доступу для реєстрації</h2>
-					<p className={cls.StatusError__text}>Вашої пошти немає в списку кандитадів на заселення в гуртожитки</p>
-				</div>
-			)}
+			error={error}
 		>
 			<PrimaryField
 				placeholder="Email"

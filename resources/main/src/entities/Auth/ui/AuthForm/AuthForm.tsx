@@ -1,3 +1,4 @@
+import { title } from "process";
 import { Transition } from "@headlessui/react";
 import clsx from "clsx";
 import {
@@ -13,10 +14,13 @@ import cls from "./AuthForm.module.scss";
 interface AuthFormProps {
 	className?: string;
 	children?: ReactNode;
-	statusErrorMessage?: ReactNode;
 	onSubmit: (e: SyntheticEvent) => void;
 	isLoading: boolean;
 	modifier: AuthFormModifier;
+	error?: {
+		title: string;
+		text: string;
+	};
 }
 
 export enum AuthFormModifier {
@@ -25,7 +29,7 @@ export enum AuthFormModifier {
 }
 
 export const AuthForm: FC<AuthFormProps> = ({
-	className, children, onSubmit, statusErrorMessage, isLoading, modifier,
+	className, children, onSubmit, isLoading, modifier, error,
 }) => {
 	const authType = useMemo(() => {
 		if (modifier === AuthFormModifier.register) {
@@ -52,7 +56,7 @@ export const AuthForm: FC<AuthFormProps> = ({
 				<Transition
 					as="div"
 					className={cls.AuthForm__statusError}
-					show={!!statusErrorMessage}
+					show={!!error}
 					enter={cls.AuthForm__statusError_enter}
 					enterFrom={cls.AuthForm__statusError_enterFrom}
 					enterTo={cls.AuthForm__statusError_enterTo}
@@ -60,7 +64,10 @@ export const AuthForm: FC<AuthFormProps> = ({
 					leaveFrom={cls.AuthForm__statusError_leaveFrom}
 					leaveTo={cls.AuthForm__statusError_leaveTo}
 				>
-					{statusErrorMessage}
+					<div className={cls.StatusError}>
+						<h2 className={cls.StatusError__title}>{error?.title}</h2>
+						<p className={cls.StatusError__text}>{error?.text}</p>
+					</div>
 				</Transition>
 				<div className={cls.AuthForm__fields}>
 					{children}

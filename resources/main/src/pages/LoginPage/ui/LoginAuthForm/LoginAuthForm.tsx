@@ -53,12 +53,6 @@ export const LoginAuthForm: FC<LoginAuthFormProps> = ({ className }) => {
 			onSubmit={onSubmit}
 			modifier={AuthFormModifier.login}
 			isLoading={isLoading}
-			statusErrorMessage={(
-				<div className={cls.StatusError}>
-					<h2 className={cls.StatusError__title}>Немає доступу для реєстрації</h2>
-					<p className={cls.StatusError__text}>Вашої пошти немає в списку кандитадів на заселення в гуртожитки</p>
-				</div>
-			)}
 		>
 			<PrimaryField
 				placeholder="Email"

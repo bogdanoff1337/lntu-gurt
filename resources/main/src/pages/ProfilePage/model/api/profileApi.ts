@@ -17,7 +17,7 @@ const profileApi = rtkApi.injectEndpoints({
 				url: "profile",
 				method: "PATCH",
 				body: {
-					...formData
+					...formData,
 				},
 
 			}),

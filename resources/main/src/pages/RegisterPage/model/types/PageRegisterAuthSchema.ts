@@ -5,7 +5,10 @@ export interface PageRegisterAuthSchema {
 		confirmPassword: Field;
 	}
 	isLoading: boolean;
-	errorMessage?: string;
+	error?: {
+		title: string;
+		text: string;
+	};
 }
 
 interface Field {
