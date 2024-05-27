@@ -16,6 +16,8 @@ interface LoginAuthFormProps {
 export const LoginAuthForm: FC<LoginAuthFormProps> = ({ className }) => {
 	const data = useSelector(pageRegisterSelectors.getData);
 	const isLoading = useSelector(pageRegisterSelectors.getIsLoading);
+	const error = useSelector(pageRegisterSelectors.getError);
+
 	const navigate = useNavigate();
 
 	const dispatch = useAppDispatch();
@@ -53,6 +55,7 @@ export const LoginAuthForm: FC<LoginAuthFormProps> = ({ className }) => {
 			onSubmit={onSubmit}
 			modifier={AuthFormModifier.login}
 			isLoading={isLoading}
+			error={error}
 		>
 			<PrimaryField
 				placeholder="Email"

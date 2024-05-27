@@ -1,4 +1,5 @@
-import { AxiosInstance } from "axios";
+// import { AxiosInstance } from "axios";
+import axios from "axios";
 import { PageLoginAuthSchema } from "@/pages/LoginPage";
 import { PageRegisterAuthSchema } from "@/pages/RegisterPage";
 import { EntityFacultiesSchema } from "@/entities/Faculties";
@@ -16,7 +17,7 @@ export interface StateSchema {
 // export type StateSchemaKey = keyof StateSchema;
 
 export interface ExtraArgumentType {
-	api: AxiosInstance;
+	api: typeof axios;
 }
 
 export interface ThunkConfig<T> {

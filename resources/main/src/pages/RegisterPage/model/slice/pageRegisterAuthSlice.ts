@@ -98,17 +98,15 @@ export const pageRegisterAuthSlice = createSliceWithThunk({
 						password: state.pageRegisterAuth.data.password.value,
 						confirmPassword: state.pageRegisterAuth.data.password.value,
 					});
-
-					if (!response.data) {
-						throw new Error();
-					}
-
+			  
 					localStorage.setItem(TOKEN_LOCALSTORAGE_KEY, response.data.access_token);
-
+			  
 					dispatch(entityAuthActions.getUser());
-				} catch (e) {
-					return rejectWithValue("error");
-				}
+			  
+					return response.data;
+			  } catch (error: any) {
+					return rejectWithValue(error.response.data);
+			  }
 			},
 			{
 				pending: (state) => {
@@ -116,8 +114,9 @@ export const pageRegisterAuthSlice = createSliceWithThunk({
 				},
 				fulfilled: (state, action) => {
 					state.isLoading = false;
+					state.error = undefined;
 				},
-				rejected: (state, action) => {
+				rejected: (state, action: any) => {
 					state.isLoading = false;
 					state.error = action.payload;
 				},

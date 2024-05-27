@@ -18,7 +18,7 @@ $api.interceptors.request.use(
 $api.interceptors.response.use(
 	(config) => {
 		if (localStorage.getItem(TOKEN_LOCALSTORAGE_KEY)) {
-			config.headers.Authorization = `bearer ${localStorage.getItem(TOKEN_LOCALSTORAGE_KEY)}`;
+			config.headers.Authorization = `Bearer ${localStorage.getItem(TOKEN_LOCALSTORAGE_KEY)}`;
 		}
 
 		return config;
@@ -27,15 +27,19 @@ $api.interceptors.response.use(
 		if (error.response.data.message === "Token has expired") {
 			return $api.post("auth/refresh", {}, {
 				headers: {
-					Authorization: `bearer ${error.response.data.access_token}`,
+					Authorization: `Bearer ${localStorage.getItem(TOKEN_LOCALSTORAGE_KEY)}`,
 				},
 			}).then((response) => {
 				localStorage.setItem(TOKEN_LOCALSTORAGE_KEY, response.data.access_token);
 
-				error.config.headers.Authorization = `bearer ${localStorage.getItem(TOKEN_LOCALSTORAGE_KEY)}`;
+				error.config.headers.Authorization = `Bearer ${response.data.access_token}`;
 
 				return $api.request(error.config);
+			}).catch(refreshError => {
+				return Promise.reject(refreshError);
 			});
 		}
+
+		return Promise.reject(error);
 	},
 );

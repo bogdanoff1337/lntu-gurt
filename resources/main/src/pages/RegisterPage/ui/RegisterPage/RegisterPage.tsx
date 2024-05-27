@@ -13,7 +13,7 @@ export const RegisterPage: FC<RegisterPageProps> = ({ className }) => {
 	return (
 		<div className={clsx(cls.RegisterPage, [className])}>
 			<Container className={cls.RegisterPage__container} modifier={ContainerModifier.AUTH}>
-				<Title className={cls.RegisterPage__title}>Бронювання кімнати студентом</Title>
+				<Title className={cls.RegisterPage__title}>Реєстрація</Title>
 				<RegisterAuthForm />
 			</Container>
 		</div>

@@ -13,7 +13,7 @@ export const LoginPage: FC<LoginPageProps> = ({ className }) => {
 	return (
 		<div className={clsx(cls.LoginPage, [className])}>
 			<Container className={cls.LoginPage__container} modifier={ContainerModifier.AUTH}>
-				<Title className={cls.LoginPage__title}>Бронювання кімнати студентом</Title>
+				<Title className={cls.LoginPage__title}>Вхід</Title>
 				<LoginAuthForm />
 			</Container>
 		</div>
