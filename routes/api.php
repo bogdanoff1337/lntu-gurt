@@ -32,9 +32,7 @@ Route::group([
 
 Route::group(['middleware' => 'jwt.auth'], function () {
 
-    Route::resource('dormitories', DormitoryController::class)->except([
-        'create', 'store', 'update', 'destroy'
-    ]);
+    Route::get('dormitories', DormitoryController::class);
 
     Route::resource('rooms', RoomController::class)->except([
         'create', 'store', 'update', 'destroy'
@@ -44,9 +42,7 @@ Route::group(['middleware' => 'jwt.auth'], function () {
         'create', 'update'
     ]);
 
-    Route::resource('faculties', FacultyController::class)->except([
-        'create', 'store', 'update', 'destroy'
-    ]);
+    Route::get('faculties', FacultyController::class);
 
     Route::resource('profile', StudentProfileController::class)->except([
         'create', 'store', 'destroy', 'edit',

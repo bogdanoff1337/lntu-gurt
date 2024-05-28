@@ -16,12 +16,12 @@ class Short extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'id' => $this->id,
-            'images' => $this->images[0] ?? null,
+            'id'        => $this->id,
+            'images'    => $this->images[0] ?? null,
             'dormitory' => Dormitory::make($this->dormitory),
-            'faculty' => $this->faculty->only('id', 'slug','slug_short'),
-            'gender' => $this->gender,
-            'number' => $this->number,
+            'faculty'   => $this->faculty->only('id', 'slug','slug_short'),
+            'gender'    => $this->gender,
+            'number'    => $this->number,
         ];
     }
 }

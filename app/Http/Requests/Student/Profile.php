@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Student;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class DormitoryRequest extends FormRequest
+class Profile extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,8 +22,13 @@ class DormitoryRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'slug' => 'required|string',
-            'address' => 'required|string',
+            'first_name' => 'required|string',
+            'last_name' => 'required|string',
+            'middle_name' => 'required|string',
+            'phone' => 'required|string|unique:students,phone',
+            'city' => 'required|string',
+            'benefits' => 'required|string',
+            'gender' => 'required|string',
         ];
     }
 }

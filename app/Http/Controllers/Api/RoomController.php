@@ -3,19 +3,18 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\RoomRequest;
 use App\Http\Resources\Api\Room\Short;
 use App\Models\Faculty;
 use Illuminate\Http\Request;
 use App\Models\Room;
 use App\Http\Resources\Api\Room\Full;
-
+use Illuminate\Http\Resources\Json\JsonResource;
 class RoomController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request)
+    public function index(Request $request): JsonResource
     {
         $rooms = Room::query()
             ->when($request->id, function ($query, $id) {
@@ -29,72 +28,46 @@ class RoomController extends Controller
             })
             ->when($request->gender, function ($query, $gender) {
                 return $query->where('gender', $gender);
-            })
-            ->paginate(12);
+            });
+
+        $resource = $this->getPaginatePage($rooms);
 
         if ($request->has('faculty_id')) {
             $breadcrumbs = Faculty::where('id', $request->faculty_id)->get('slug_short')->first();
-            return Short::collection($rooms)->additional(['breadcrumbs' => $breadcrumbs]);
+            return $resource->additional(['breadcrumbs' => $breadcrumbs]);
         }
-    }
 
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(RoomRequest $request)
-    {
-
+        return $resource;
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(string $id): JsonResource
     {
         $room = Room::findOrFail($id);
 
         return new Full($room);
     }
 
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
+    private function getPaginatePage($rooms) : JsonResource
     {
-        //
-    }
+        $total = $rooms->count();  // Загальна кількість записів
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        $room = Room::findOrFail($id);
+        $rooms = $rooms->limit(12)->get();  // Отримання даних з лімітом
 
-        $room->update($request->validate());
+        $currentPage = 1;  // Ви можете встановити це значення динамічно, якщо у вас є інформація про поточну сторінку
+        $perPage = 12;
+        $lastPage = (int) ceil($total / $perPage);
 
-        return new RoomResource($room);
-    }
+        $resource = Short::collection($rooms)
+            ->additional(['meta' => [
+                'current_page' => $currentPage,
+                'per_page' => $perPage,
+                'total' => $total,
+                'last_page' => $lastPage,
+        ]]);
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        $room = Room::findOrFail($id);
-
-        $room->delete();
-
-        return response()->json();
+        return $resource;
     }
 }

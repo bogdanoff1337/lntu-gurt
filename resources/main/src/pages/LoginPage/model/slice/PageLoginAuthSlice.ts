@@ -1,5 +1,5 @@
 import { PayloadAction } from "@reduxjs/toolkit";
-import { ThunkConfig } from "@/app/providers/StoreProvider";
+import { StateSchema, ThunkConfig } from "@/app/providers/StoreProvider";
 import { entityAuthActions } from "@/entities/Auth";
 import { TOKEN_LOCALSTORAGE_KEY } from "@/shared/const/localstorage";
 import { createSliceWithThunk } from "@/shared/lib/createSliceWithThunk";
@@ -74,27 +74,33 @@ export const pageLoginAuthSlice = createSliceWithThunk({
 						email: state.pageLoginAuth.data.email.value,
 						password: state.pageLoginAuth.data.password.value,
 					});
-			  
-					localStorage.setItem(TOKEN_LOCALSTORAGE_KEY, response.data.access_token);
-			  
-					dispatch(entityAuthActions.getUser());
-			  
-					return response.data;
-			  } catch (error: any) {
-					return rejectWithValue(error.response.data);
-			  }
+
+					console.log(response.data);
+
+
+					// localStorage.setItem(TOKEN_LOCALSTORAGE_KEY, response.data.access_token);
+
+					// dispatch(entityAuthActions.getUser());
+
+					// if (!response.data) {
+					// 	throw new Error();
+					// }
+
+					// return response.data;
+				} catch (e) {
+					// console.log(e.response);
+				}
 			},
 			{
 				pending: (state) => {
 					state.isLoading = true;
 				},
-				fulfilled: (state) => {
+				fulfilled: (state, action) => {
 					state.isLoading = false;
-					state.error = undefined;
 				},
-				rejected: (state, action: any) => {
+				rejected: (state, action) => {
 					state.isLoading = false;
-					state.error = action.payload;
+					// state.error = action.payload;
 				},
 			},
 		),

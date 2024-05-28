@@ -9,7 +9,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Tymon\JWTAuth\Facades\JWTAuth;
 use Illuminate\Support\Facades\Auth;
-use App\Http\Requests\StudentAuth\StudentRequest;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Validator;
 
@@ -27,20 +26,17 @@ class StudentAuthController extends Controller
 
     public function register(Request $request)
     {
-        // Validate the incoming request
         $validator = Validator::make($request->all(), [
             'email' => 'required|email',
             'password' => 'required|min:8',
         ]);
 
-        // Check if validation fails
         if ($validator->fails()) {
             return response()->json($validator->errors(), 422);
         }
 
-        // Retrieve the validated data
         $validated = $validator->validated();
-        // Check if the email has access to register
+
         $access = AccessToRegister::where('email', $validated['email'])
             ->where('access', true)
             ->first();
@@ -52,26 +48,22 @@ class StudentAuthController extends Controller
                     'text' => 'Вашої пошти немає в списку кандидатів на заселення в гуртожитки'
                 ], 403);
         }
-        // Check if the student already exists
+
         if (Student::where('email', $validated['email'])->exists()) {
             return response()->json(['error' => 'already exists'], 409);
         }
 
-        // Create the new student
         $user = Student::create([
             'email' => $validated['email'],
             'password' => Hash::make($validated['password']),
         ]);
 
-        // Fire the Registered event
         event(new Registered($user));
 
-        // Attempt to create a token for the newly registered user
         if (!$token = JWTAuth::attempt($request->only('email', 'password'))) {
             return response()->json(['error' => 'forbidden'], 403);
         }
 
-        // Return the token in the response
         return $this->respondWithToken($token);
     }
 
@@ -120,19 +112,6 @@ class StudentAuthController extends Controller
         return response()->json($this->guard()->user());
     }
 
-
-    public function update(StudentRequest $request)
-    {
-        $user = $this->guard()->user();
-
-        if (!$user) {
-            return response()->json(['messages' => 'Unauthorized'], 401);
-        }
-
-        $user->update($request->validated());
-
-        return $this->respondWithToken($this->guard()->refresh());
-    }
     /**
      * Log the user out (Invalidate the token).
      *
