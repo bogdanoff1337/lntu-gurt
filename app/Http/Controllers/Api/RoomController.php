@@ -29,15 +29,10 @@ class RoomController extends Controller
             ->when($request->gender, function ($query, $gender) {
                 return $query->where('gender', $gender);
             });
+        
+        $breadcrumbs = Faculty::where('id', $request->faculty_id)->get('slug_short')->first();
 
-        $resource = $this->getPaginatePage($rooms);
-
-        if ($request->has('faculty_id')) {
-            $breadcrumbs = Faculty::where('id', $request->faculty_id)->get('slug_short')->first();
-            return $resource->additional(['breadcrumbs' => $breadcrumbs]);
-        }
-
-        return $resource;
+        return $this->getPaginatePage($rooms,$breadcrumbs);
     }
 
     /**
@@ -50,24 +45,26 @@ class RoomController extends Controller
         return new Full($room);
     }
 
-    private function getPaginatePage($rooms) : JsonResource
+    private function getPaginatePage($rooms,$breadcrumbs) : JsonResource
     {
-        $total = $rooms->count();  // Загальна кількість записів
+        $total = $rooms->count();
 
-        $rooms = $rooms->limit(12)->get();  // Отримання даних з лімітом
+        $rooms = $rooms->limit(12)->get();
 
-        $currentPage = 1;  // Ви можете встановити це значення динамічно, якщо у вас є інформація про поточну сторінку
+        $currentPage = 1;
         $perPage = 12;
         $lastPage = (int) ceil($total / $perPage);
 
-        $resource = Short::collection($rooms)
-            ->additional(['meta' => [
+        return Short::collection($rooms)
+            ->additional(
+            [
+            'breadcrumbs' => $breadcrumbs,
+            'meta' => [
                 'current_page' => $currentPage,
                 'per_page' => $perPage,
                 'total' => $total,
                 'last_page' => $lastPage,
-        ]]);
-
-        return $resource;
+            ]]
+        );
     }
 }
