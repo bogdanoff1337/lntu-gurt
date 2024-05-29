@@ -8,7 +8,7 @@ use App\Observers\OrderObserver;
 use Illuminate\Auth\Notifications\VerifyEmail;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Support\Facades\URL;
-
+use Illuminate\Routing\UrlGenerator;
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -22,10 +22,10 @@ class AppServiceProvider extends ServiceProvider
     /**
      * Bootstrap any application services.
      */
-    public function boot(): void
+    public function boot(UrlGenerator $url): void
     {
-        if($this->app->environment('production')) {
-            URL::forceScheme('https');
+        if (env('APP_ENV') == 'production') {
+            $url->forceScheme('https');
         }
         VerifyEmail::toMailUsing(function (object $notifiable, string $url) {
             return (new MailMessage)
