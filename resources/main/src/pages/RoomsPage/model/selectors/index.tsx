@@ -3,7 +3,6 @@ import { entityRoomsSelectors } from "@/entities/Rooms";
 import { getMainRoutePath } from "@/shared/config/routes/path";
 
 export const getBreadcrumbs = createSelector([entityRoomsSelectors.getEntityRoomsData], (entityRoomsData) => {
-
 	return [
 		{
 			id: 1,
