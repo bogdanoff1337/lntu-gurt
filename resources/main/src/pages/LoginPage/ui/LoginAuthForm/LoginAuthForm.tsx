@@ -3,6 +3,7 @@ import { FC, SyntheticEvent, useCallback } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { AuthForm, AuthFormModifier } from "@/entities/Auth";
+import { getMainRoutePath } from "@/shared/config/routes/path";
 import { useAppDispatch } from "@/shared/lib/hooks/useAppDispatch/useAppDispatch";
 import { PrimaryField } from "@/shared/ui/Fields";
 import * as pageRegisterSelectors from "../../model/selectors";
@@ -27,7 +28,7 @@ export const LoginAuthForm: FC<LoginAuthFormProps> = ({ className }) => {
 
 		dispatch(pageLoginAuthActions.submitForm()).then((data) => {
 			if (data.meta.requestStatus === "fulfilled") {
-				navigate("/");
+				navigate(getMainRoutePath());
 				dispatch(pageLoginAuthActions.clearFields());
 			}
 		});
@@ -75,6 +76,5 @@ export const LoginAuthForm: FC<LoginAuthFormProps> = ({ className }) => {
 				type="password"
 			/>
 		</AuthForm>
-
 	);
 };

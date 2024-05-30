@@ -35,7 +35,7 @@ $api.interceptors.response.use(
 				error.config.headers.Authorization = `Bearer ${response.data.access_token}`;
 
 				return $api.request(error.config);
-			}).catch(refreshError => {
+			}).catch((refreshError) => {
 				return Promise.reject(refreshError);
 			});
 		}

@@ -1,5 +1,5 @@
 import clsx from "clsx";
-import { FC, useCallback, useMemo, useState } from "react";
+import { FC, useCallback, useState } from "react";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { entityRoomActions, entityRoomSelectors } from "@/entities/Room";
@@ -17,12 +17,16 @@ export const BookSection: FC<BookSectionProps> = ({ className }) => {
 	const { id } = useParams();
 	const dispatch = useAppDispatch();
 	const [isOpenModal, setIsOpenModal] = useState(false);
-	const roomDataIsFetching = useSelector(entityRoomSelectors.getEntityRoomIsFetching);
-	const roomData = useSelector(entityRoomSelectors.getEntityRoomData);
+	const roomDataIsFetching = useSelector(entityRoomSelectors.getIsFetching);
+	const roomData = useSelector(entityRoomSelectors.getData);
 
 	const onClickBook = useCallback(() => {
-		id && dispatch(entityRoomActions.bookRoom({ id }));
-		setIsOpenModal(true);
+		id && dispatch(entityRoomActions.bookRoom({ id })).then((data) => {
+			if (data.meta.requestStatus === "fulfilled") {
+				setIsOpenModal(true);
+			}
+		});
+		
 	}, [dispatch, id]);
 
 

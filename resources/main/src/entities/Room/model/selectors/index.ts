@@ -1,6 +1,6 @@
-import { StateSchema } from "@/app/providers/StoreProvider";
+import { RootState } from "@/app/providers/StoreProvider";
 
-export const getEntityRoomData = (state: StateSchema) => state.entityRoom.data;
-export const getEntityRoomIsLoading = (state: StateSchema) => state.entityRoom.isLoading;
-export const getEntityRoomIsFetching = (state: StateSchema) => state.entityRoom.isFetching;
-export const getEntityRoomError = (state: StateSchema) => state.entityRoom.error;
+export const getData = (state: RootState) => state.entityRoom.data;
+export const getIsLoading = (state: RootState) => state.entityRoom.isLoading;
+export const getIsFetching = (state: RootState) => state.entityRoom.isFetching;
+export const getError = (state: RootState) => state.entityRoom.error;

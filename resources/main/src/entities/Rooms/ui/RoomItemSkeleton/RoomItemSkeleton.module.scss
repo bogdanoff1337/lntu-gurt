@@ -1,0 +1,40 @@
+.RoomItemSkeleton {
+    &__link {
+        display: flex;
+        flex-direction: column;
+        justify-content: end;
+
+        height: 100%;
+        padding: rem(23) rem(25) rem(36) rem(25);
+
+        transition: transform $primaryTransition;
+
+        border-radius: rem(15);
+        background: $whiteColor;
+        box-shadow: rem(5) rem(5) rem(14.5) 0 rgba(0, 0, 0, 0.25);
+
+    }
+
+    &__image {
+        margin: 0 rem(-25);
+        margin-top: rem(-25);
+
+        border-radius: rem(15) rem(15) 0 0;
+        aspect-ratio: 268 / 180;
+        
+        &:not(:last-child) {
+            margin-bottom: rem(28);
+        }
+
+    }
+
+    &__number {
+        pointer-events: none;
+
+        border-radius: rem(20);
+
+        font-size: rem(28);
+        font-weight: 500;
+    }
+}
+

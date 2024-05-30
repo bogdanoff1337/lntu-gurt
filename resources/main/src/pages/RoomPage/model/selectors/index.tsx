@@ -3,7 +3,7 @@ import { entityRoomSelectors } from "@/entities/Room";
 import { getMainRoutePath, getRoomsRoutePath } from "@/shared/config/routes/path";
 import { generateQueryString } from "@/shared/lib/generateQueryString";
 
-export const getBreadcrumbs = createSelector([entityRoomSelectors.getEntityRoomData], (entityRoomData) => {
+export const getBreadcrumbs = createSelector([entityRoomSelectors.getData], (entityRoomData) => {
 	return [
 		{
 			id: 1,

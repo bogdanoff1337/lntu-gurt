@@ -15,8 +15,8 @@ interface MainPageProps {
 
 export const MainPage: FC<MainPageProps> = ({ className }) => {
 	const dispatch = useAppDispatch();
-	const facultiesData = useSelector(entityFacultiesSelectors.getEntityFacultiesData);
-	const facultiesDataIsLoading = useSelector(entityFacultiesSelectors.getEntityFacultiesIsLoading);
+	const facultiesData = useSelector(entityFacultiesSelectors.getData);
+	const facultiesDataIsLoading = useSelector(entityFacultiesSelectors.getIsLoading);
 
 	useEffect(() => {
 		dispatch(entityFacultiesActions.getAllFaculties());

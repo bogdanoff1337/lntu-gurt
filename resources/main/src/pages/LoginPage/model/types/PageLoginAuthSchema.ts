@@ -8,7 +8,7 @@ export interface PageLoginAuthSchema {
 	error?: {
 		title: string;
 		text: string;
-	}
+	};
 }
 
 interface Field {

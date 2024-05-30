@@ -1,5 +1,5 @@
 import { PayloadAction } from "@reduxjs/toolkit";
-import { StateSchema, ThunkConfig } from "@/app/providers/StoreProvider";
+import { ThunkConfig } from "@/app/providers/StoreProvider";
 import { entityAuthActions } from "@/entities/Auth";
 import { TOKEN_LOCALSTORAGE_KEY } from "@/shared/const/localstorage";
 import { createSliceWithThunk } from "@/shared/lib/createSliceWithThunk";
@@ -63,44 +63,36 @@ export const pageLoginAuthSlice = createSliceWithThunk({
 			state.data.password.ok = undefined;
 		}),
 
-		submitForm: create.asyncThunk<any, void, ThunkConfig<string>>(
+		submitForm: create.asyncThunk<TokenData, void, ThunkConfig<PageLoginAuthSchema["error"]>>(
 			async (_, {
 				extra, rejectWithValue, getState, dispatch,
 			}) => {
 				const state = getState() as any; //! hardcore
-
 				try {
 					const response = await extra.api.post<TokenData>("auth/login", {
 						email: state.pageLoginAuth.data.email.value,
 						password: state.pageLoginAuth.data.password.value,
 					});
 
-					console.log(response.data);
+					localStorage.setItem(TOKEN_LOCALSTORAGE_KEY, response.data.access_token);
 
+					dispatch(entityAuthActions.getUser());
 
-					// localStorage.setItem(TOKEN_LOCALSTORAGE_KEY, response.data.access_token);
-
-					// dispatch(entityAuthActions.getUser());
-
-					// if (!response.data) {
-					// 	throw new Error();
-					// }
-
-					// return response.data;
-				} catch (e) {
-					// console.log(e.response);
+					return response.data;
+				} catch (error: any) {
+					return rejectWithValue(error.response.data);
 				}
 			},
 			{
 				pending: (state) => {
 					state.isLoading = true;
 				},
-				fulfilled: (state, action) => {
+				fulfilled: (state) => {
 					state.isLoading = false;
 				},
-				rejected: (state, action) => {
+				rejected: (state, action: any) => {
 					state.isLoading = false;
-					// state.error = action.payload;
+					state.error = action.payload;
 				},
 			},
 		),

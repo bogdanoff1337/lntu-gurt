@@ -1,4 +1,4 @@
-import { getMainRoutePath, getProfileRoutePath } from "@/shared/config/routes/path";
+import { getMainRoutePath } from "@/shared/config/routes/path";
 
 export const breadcrumbsData = [
    {

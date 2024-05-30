@@ -98,15 +98,15 @@ export const pageRegisterAuthSlice = createSliceWithThunk({
 						password: state.pageRegisterAuth.data.password.value,
 						confirmPassword: state.pageRegisterAuth.data.password.value,
 					});
-			  
+
 					localStorage.setItem(TOKEN_LOCALSTORAGE_KEY, response.data.access_token);
-			  
+
 					dispatch(entityAuthActions.getUser());
-			  
+
 					return response.data;
-			  } catch (error: any) {
+				} catch (error: any) {
 					return rejectWithValue(error.response.data);
-			  }
+				}
 			},
 			{
 				pending: (state) => {
