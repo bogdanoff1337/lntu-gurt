@@ -11,8 +11,3 @@ php artisan route:cache
 echo "Running migrations..."
 php artisan migrate --force
 php artisan db:seed --force
-
-echo "Build frontend..."
-cd resources/main
-npm install
-npm run build:vite:without:check
