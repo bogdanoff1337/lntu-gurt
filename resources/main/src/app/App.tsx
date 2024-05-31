@@ -2,10 +2,10 @@ import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useClickWindowCloseMenu } from "@/features/Menu";
 import { entityAuthActions, entityAuthSelectors } from "@/entities/Auth";
+import { entityFacultiesActions, entityFacultiesSelectors } from "@/entities/Faculties";
 import { useAppDispatch } from "@/shared/lib/hooks/useAppDispatch/useAppDispatch";
 import { PageLoader } from "@/shared/ui/PageLoader";
 import { AppRouter } from "./providers/router";
-import { entityFacultiesActions, entityFacultiesSelectors } from "@/entities/Faculties";
 
 const App = () => {
 	const entityAuthIsLoading = useSelector(entityAuthSelectors.getIsLoading);
@@ -20,7 +20,7 @@ const App = () => {
 
 	useClickWindowCloseMenu();
 
-	if (entityAuthIsLoading && entityFacultiesIsLoading) {
+	if (entityAuthIsLoading || entityFacultiesIsLoading) {
 		return <PageLoader />;
 	}
 

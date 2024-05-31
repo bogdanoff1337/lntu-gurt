@@ -3,7 +3,9 @@ import queryString from "query-string";
 import { FC, useEffect, useMemo } from "react";
 import { useSelector } from "react-redux";
 import { useTriggerFetch } from "@/features/TriggerFetch";
-import { RoomItem, RoomItemSkeleton, entityRoomsActions, entityRoomsSelectors } from "@/entities/Rooms";
+import {
+	RoomItem, RoomItemSkeleton, entityRoomsActions, entityRoomsSelectors,
+} from "@/entities/Rooms";
 import { getRoomsRoutePath } from "@/shared/config/routes/path";
 import { useAppDispatch } from "@/shared/lib/hooks/useAppDispatch/useAppDispatch";
 import { PageLoader } from "@/shared/ui/PageLoader";
@@ -64,7 +66,7 @@ export const RoomsList: FC<RoomsListProps> = ({ className }) => {
 		<div className={className}>
 			<ul className={clsx(cls.RoomsList, [])}>
 				{roomsItems}
-				{roomsDataIsFetching && new Array(9).fill(undefined).map((_, i) => <RoomItemSkeleton />)}
+				{roomsDataIsFetching && new Array(9).fill(undefined).map((_, i) => <RoomItemSkeleton key={i} />)}
 			</ul>
 			<TriggerFetch />
 		</div>

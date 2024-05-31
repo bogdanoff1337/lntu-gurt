@@ -26,9 +26,7 @@ export const BookSection: FC<BookSectionProps> = ({ className }) => {
 				setIsOpenModal(true);
 			}
 		});
-		
 	}, [dispatch, id]);
-
 
 	const onClickRemoveBook = useCallback(() => {
 		id && dispatch(entityRoomActions.removeBookRoom({ id }));
@@ -37,10 +35,9 @@ export const BookSection: FC<BookSectionProps> = ({ className }) => {
 	const ConditionRenderButton = useCallback(() => {
 		if (roomData?.booked) {
 			return <PrimaryButton modifier={ButtonModifier.RED} isLoading={roomDataIsFetching} onClick={onClickRemoveBook}>Відмінити бронювання</PrimaryButton>;
-		} else {
-			return <PrimaryButton isLoading={roomDataIsFetching} onClick={onClickBook}>Забронювати кімнату</PrimaryButton>;
 		}
-	}, [roomData, roomDataIsFetching]);
+		return <PrimaryButton isLoading={roomDataIsFetching} onClick={onClickBook}>Забронювати кімнату</PrimaryButton>;
+	}, [onClickBook, onClickRemoveBook, roomData?.booked, roomDataIsFetching]);
 
 	return (
 		<>

@@ -28,11 +28,13 @@ class RoomController extends Controller
             })
             ->when($request->gender, function ($query, $gender) {
                 return $query->where('gender', $gender);
-            });
+            })
+            ->paginate(12);
         
-        $breadcrumbs = Faculty::where('id', $request->faculty_id)->get('slug_short')->first();
-
-        return $this->getPaginatePage($rooms,$breadcrumbs);
+            if ($request->has('faculty_id')) {
+                $breadcrumbs = Faculty::where('id', $request->faculty_id)->get('slug_short')->first();
+                return Short::collection($rooms)->additional(['breadcrumbs' => $breadcrumbs]);
+            }
     }
 
     /**
@@ -43,28 +45,5 @@ class RoomController extends Controller
         $room = Room::findOrFail($id);
 
         return new Full($room);
-    }
-
-    private function getPaginatePage($rooms,$breadcrumbs) : JsonResource
-    {
-        $total = $rooms->count();
-
-        $rooms = $rooms->limit(12)->get();
-
-        $currentPage = 1;
-        $perPage = 12;
-        $lastPage = (int) ceil($total / $perPage);
-
-        return Short::collection($rooms)
-            ->additional(
-            [
-            'breadcrumbs' => $breadcrumbs,
-            'meta' => [
-                'current_page' => $currentPage,
-                'per_page' => $perPage,
-                'total' => $total,
-                'last_page' => $lastPage,
-            ]]
-        );
     }
 }
