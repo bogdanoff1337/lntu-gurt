@@ -19,7 +19,7 @@ return [
 
     'allowed_methods' => ['*'],
 
-    'allowed_origins' => ['https://lntu-gurt.onrender.com'],
+    'allowed_origins' => [env('APP_URL')],
 
     'allowed_origins_patterns' => [''],
 
