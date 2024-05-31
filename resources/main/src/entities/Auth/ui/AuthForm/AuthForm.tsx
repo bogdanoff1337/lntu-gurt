@@ -1,5 +1,3 @@
-import { title } from "process";
-import { Transition } from "@headlessui/react";
 import clsx from "clsx";
 import {
 	FC, ReactNode, SyntheticEvent, useMemo,
@@ -53,22 +51,10 @@ export const AuthForm: FC<AuthFormProps> = ({
 	return (
 		<form className={clsx(cls.AuthForm, [className])} onSubmit={onSubmit}>
 			<Container className={cls.AuthForm__container} modifier={ContainerModifier.FORM}>
-				<Transition
-					as="div"
-					className={cls.AuthForm__statusError}
-					show={!!error}
-					enter={cls.AuthForm__statusError_enter}
-					enterFrom={cls.AuthForm__statusError_enterFrom}
-					enterTo={cls.AuthForm__statusError_enterTo}
-					leave={cls.AuthForm__statusError_leave}
-					leaveFrom={cls.AuthForm__statusError_leaveFrom}
-					leaveTo={cls.AuthForm__statusError_leaveTo}
-				>
-					<div className={cls.StatusError}>
-						<h2 className={cls.StatusError__title}>{error?.title}</h2>
-						<p className={cls.StatusError__text}>{error?.text}</p>
-					</div>
-				</Transition>
+				<div className={clsx(cls.StatusError, [cls.AuthForm__statusError])}>
+					<h2 className={cls.StatusError__title}>{error?.title}</h2>
+					<p className={cls.StatusError__text}>{error?.text}</p>
+				</div>
 				<div className={cls.AuthForm__fields}>
 					{children}
 				</div>

@@ -23,8 +23,8 @@ export const RoomPage: FC<RoomPageProps> = ({ className }) => {
 	const breadcrumbsData = useSelector(getBreadcrumbs);
 	const { id } = useParams();
 	const dispatch = useAppDispatch();
-	const roomData = useSelector(entityRoomSelectors.getEntityRoomData);
-	const roomDataIsLoading = useSelector(entityRoomSelectors.getEntityRoomIsLoading);
+	const roomData = useSelector(entityRoomSelectors.getData);
+	const roomDataIsLoading = useSelector(entityRoomSelectors.getIsLoading);
 
 	useEffect(() => {
 		id && dispatch(entityRoomActions.getRoomById({ id }));

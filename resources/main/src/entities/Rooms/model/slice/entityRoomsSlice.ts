@@ -11,8 +11,10 @@ export const entityRoomsSlice = createSliceWithThunk({
 	name: "entityRooms",
 	initialState,
 	reducers: (create) => ({
-		getRoomsByParams: create.asyncThunk<any, { faculty_id: TParam, dormitory_id: TParam, gender: TParam }, ThunkConfig<string>>(
-			async ({ faculty_id, dormitory_id, gender }, {
+		getRoomsByParams: create.asyncThunk<any, { faculty_id: TParam, dormitory_id: TParam, gender: TParam, page?: TParam }, ThunkConfig<string>>(
+			async ({
+				faculty_id, dormitory_id, gender, page,
+			}, {
 				extra, rejectWithValue,
 			}) => {
 				try {
@@ -21,6 +23,7 @@ export const entityRoomsSlice = createSliceWithThunk({
 							faculty_id,
 							dormitory_id,
 							gender,
+							page,
 						},
 					});
 
@@ -34,12 +37,22 @@ export const entityRoomsSlice = createSliceWithThunk({
 				}
 			},
 			{
-				pending: (state) => {
-					state.isLoading = true;
+				pending: (state, action) => {
+					if (Number(action.meta.arg.page) > 1) {
+						state.isFetching = true;
+					} else {
+						state.isLoading = true;
+					}
 				},
 				fulfilled: (state, action) => {
-					state.isLoading = false;
-					state.data = action.payload;
+					if (Number(action.meta.arg.page) > 1) {
+						state.data!.data.push(...action.payload.data);
+						state.data!.meta = action.payload.meta;
+						state.isFetching = false;
+					} else {
+						state.isLoading = false;
+						state.data = action.payload;
+					}
 				},
 				rejected: (state, action) => {
 					state.isLoading = false;

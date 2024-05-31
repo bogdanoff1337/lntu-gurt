@@ -74,10 +74,7 @@ export const entityRoomSlice = createSliceWithThunk({
 				},
 				fulfilled: (state, action) => {
 					state.isFetching = false;
-
-					if (state.data) {
-						state.data.booked = true;
-					}
+					state.data!.booked = true;
 				},
 				rejected: (state, action) => {
 					state.isFetching = false;
@@ -110,10 +107,7 @@ export const entityRoomSlice = createSliceWithThunk({
 				},
 				fulfilled: (state, action) => {
 					state.isFetching = false;
-
-					if (state.data) {
-						state.data.booked = false;
-					}
+					state.data!.booked = false;
 				},
 				rejected: (state, action) => {
 					state.isFetching = false;

@@ -4,7 +4,7 @@ import { PageLoader } from "@/shared/ui/PageLoader";
 import { AppRouteProps, routes } from "../../routes/routes";
 import { RequireAuth } from "../RequireAuth";
 
-const AppRouter = ({ className }: { className?: string }) => {
+const AppRouter = () => {
 	const RouteItems = useMemo(() => {
 		return routes.map((route: AppRouteProps) => {
 			const element = <Suspense fallback={<PageLoader />}>{route.element}</Suspense>;

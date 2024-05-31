@@ -2,7 +2,10 @@ import clsx from "clsx";
 import queryString from "query-string";
 import { FC, useEffect, useMemo } from "react";
 import { useSelector } from "react-redux";
-import { RoomItem, entityRoomsActions, entityRoomsSelectors } from "@/entities/Rooms";
+import { useTriggerFetch } from "@/features/TriggerFetch";
+import {
+	RoomItem, RoomItemSkeleton, entityRoomsActions, entityRoomsSelectors,
+} from "@/entities/Rooms";
 import { getRoomsRoutePath } from "@/shared/config/routes/path";
 import { useAppDispatch } from "@/shared/lib/hooks/useAppDispatch/useAppDispatch";
 import { PageLoader } from "@/shared/ui/PageLoader";
@@ -14,8 +17,23 @@ interface RoomsListProps {
 
 export const RoomsList: FC<RoomsListProps> = ({ className }) => {
 	const dispatch = useAppDispatch();
-	const roomsData = useSelector(entityRoomsSelectors.getEntityRoomsData);
-	const roomsDataIsLoading = useSelector(entityRoomsSelectors.getEntityRoomsIsLoading);
+	const roomsData = useSelector(entityRoomsSelectors.getData);
+	const roomsDataIsLoading = useSelector(entityRoomsSelectors.getIsLoading);
+	const roomsDataIsFetching = useSelector(entityRoomsSelectors.getIsFetching);
+
+	const TriggerFetch = useTriggerFetch({
+		action: () => {
+			const { faculty_id, dormitory_id, gender } = queryString.parse(window.location.search);
+
+			dispatch(entityRoomsActions.getRoomsByParams({
+				faculty_id,
+				dormitory_id,
+				gender,
+				page: `${roomsData!.meta.current_page + 1}`,
+			}));
+		},
+		condition: roomsData?.meta.current_page !== roomsData?.meta.last_page,
+	}, [roomsData]);
 
 	useEffect(() => {
 		const { faculty_id, dormitory_id, gender } = queryString.parse(window.location.search);
@@ -45,8 +63,12 @@ export const RoomsList: FC<RoomsListProps> = ({ className }) => {
 	}
 
 	return (
-		<ul className={clsx(cls.RoomsList, [className])}>
-			{roomsItems}
-		</ul>
+		<div className={className}>
+			<ul className={clsx(cls.RoomsList, [])}>
+				{roomsItems}
+				{roomsDataIsFetching && new Array(9).fill(undefined).map((_, i) => <RoomItemSkeleton key={i} />)}
+			</ul>
+			<TriggerFetch />
+		</div>
 	);
 };

@@ -1,19 +1,19 @@
 import clsx from "clsx";
 import {
-	FC, ReactNode, useLayoutEffect, useState,
+	FC, ImgHTMLAttributes, ReactNode, useLayoutEffect, useState,
 } from "react";
 import { Skeleton } from "../../Skeleton";
 import cls from "./Img.module.scss";
 
-interface ImgProps {
+interface ImgProps extends ImgHTMLAttributes<HTMLImageElement> {
 	className?: string;
-	src?: string;
 	fallback?: ReactNode;
 	errorFallback?: ReactNode;
+	src: string;
 }
 
 export const Img: FC<ImgProps> = ({
-	className, src = "", fallback, errorFallback,
+	className, fallback, errorFallback, src, ...otherProps
 }) => {
 	const [isLoading, setIsLoading] = useState(true);
 	const [isError, setIsError] = useState(false);
@@ -37,14 +37,14 @@ export const Img: FC<ImgProps> = ({
 	}
 
 	if (isLoading) {
-		return fallback || <Skeleton />;
+		return fallback || <Skeleton className={clsx(cls.Img, [className])} />;
 	}
 
 	return (
 		<img
 			className={clsx(cls.Img, [className])}
-			style={{ aspectRatio: "1 / 1" }}
 			src={src}
+			{...otherProps}
 		/>
 	);
 };

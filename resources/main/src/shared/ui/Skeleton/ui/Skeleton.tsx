@@ -16,11 +16,11 @@ export const Skeleton: FC<SkeletonProps> = ({
 	children,
 }) => {
 	return (
-		<span
+		<div
 			className={clsx(cls.Skeleton, [className])}
 			style={{ borderRadius: circle }}
 		>
 			{children}
-		</span>
+		</div>
 	);
 };

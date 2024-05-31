@@ -3,6 +3,7 @@ import { FC, SyntheticEvent, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { AuthForm, AuthFormModifier } from "@/entities/Auth";
+import { getMainRoutePath } from "@/shared/config/routes/path";
 import { PrimaryField } from "@/shared/ui/Fields";
 import * as pageRegisterAuthSelectors from "../../model/selectors";
 import { pageRegisterAuthActions } from "../../model/slice/pageRegisterAuthSlice";
@@ -26,7 +27,7 @@ export const RegisterAuthForm: FC<RegisterAuthFormProps> = ({ className }) => {
 		// @ts-ignore
 		dispatch(pageRegisterAuthActions.submitForm()).then((data) => {
 			if (data.meta.requestStatus === "fulfilled") {
-				navigate("/");
+				navigate(getMainRoutePath());
 				dispatch(pageRegisterAuthActions.clearFields());
 			}
 		});

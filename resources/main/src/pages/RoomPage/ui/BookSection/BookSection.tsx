@@ -1,5 +1,5 @@
 import clsx from "clsx";
-import { FC, useCallback, useMemo, useState } from "react";
+import { FC, useCallback, useState } from "react";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { entityRoomActions, entityRoomSelectors } from "@/entities/Room";
@@ -17,14 +17,16 @@ export const BookSection: FC<BookSectionProps> = ({ className }) => {
 	const { id } = useParams();
 	const dispatch = useAppDispatch();
 	const [isOpenModal, setIsOpenModal] = useState(false);
-	const roomDataIsFetching = useSelector(entityRoomSelectors.getEntityRoomIsFetching);
-	const roomData = useSelector(entityRoomSelectors.getEntityRoomData);
+	const roomDataIsFetching = useSelector(entityRoomSelectors.getIsFetching);
+	const roomData = useSelector(entityRoomSelectors.getData);
 
 	const onClickBook = useCallback(() => {
-		id && dispatch(entityRoomActions.bookRoom({ id }));
-		setIsOpenModal(true);
+		id && dispatch(entityRoomActions.bookRoom({ id })).then((data) => {
+			if (data.meta.requestStatus === "fulfilled") {
+				setIsOpenModal(true);
+			}
+		});
 	}, [dispatch, id]);
-
 
 	const onClickRemoveBook = useCallback(() => {
 		id && dispatch(entityRoomActions.removeBookRoom({ id }));
@@ -33,10 +35,9 @@ export const BookSection: FC<BookSectionProps> = ({ className }) => {
 	const ConditionRenderButton = useCallback(() => {
 		if (roomData?.booked) {
 			return <PrimaryButton modifier={ButtonModifier.RED} isLoading={roomDataIsFetching} onClick={onClickRemoveBook}>Відмінити бронювання</PrimaryButton>;
-		} else {
-			return <PrimaryButton isLoading={roomDataIsFetching} onClick={onClickBook}>Забронювати кімнату</PrimaryButton>;
 		}
-	}, [roomData, roomDataIsFetching]);
+		return <PrimaryButton isLoading={roomDataIsFetching} onClick={onClickBook}>Забронювати кімнату</PrimaryButton>;
+	}, [onClickBook, onClickRemoveBook, roomData?.booked, roomDataIsFetching]);
 
 	return (
 		<>
