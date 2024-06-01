@@ -43,6 +43,12 @@ class RoomsResource extends Resource
                         'Перший' => 'Перший',
                         'Другий' => 'Другий'
                         ]),
+                Select::make('gender')
+                    ->label('Стать')
+                    ->options([
+                        'Чоловіча' => 'Чоловіча',
+                        'Жіноча' => 'Жіноча'
+                    ]),
                 Select::make('places')
                     ->label('Кількість місць')
                     ->options([
