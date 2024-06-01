@@ -38,11 +38,11 @@ export default defineConfig(({ mode }) => {
 
 	let API;
 
-	if (isStage) {
+	if (isStage || isProduction) {
 		API = process.env.DEPLOY_APP_URL;
 	}
 
-	if (isDocker || isProduction) {
+	if (isDocker) {
 		API = process.env.APP_URL;
 	}
 
