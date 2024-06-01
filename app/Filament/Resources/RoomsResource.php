@@ -13,6 +13,7 @@ use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Select;
 use Illuminate\Database\Eloquent\Builder;
 use App\Models\Faculty;
+use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
 
 class RoomsResource extends Resource
 {
@@ -56,13 +57,12 @@ class RoomsResource extends Resource
                 Select::make('dormitory_id')
                     ->label('Гуртожиток')
                     ->options(\App\Models\Dormitory::pluck('slug', 'id')->toArray()),
-                FileUpload::make('images')
+                SpatieMediaLibraryFileUpload::make('avatar')
                     ->label('Зображення')
+                    ->collection('room')
                     ->image()
                     ->imageEditor()
                     ->multiple()
-                    ->disk('room')
-
             ]);
     }
 

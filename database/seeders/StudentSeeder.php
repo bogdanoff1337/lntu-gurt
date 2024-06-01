@@ -13,7 +13,7 @@ class StudentSeeder extends Seeder
      */
     public function run(): void
     {
-        Student::create([
+        Student::updateOrCreate([
             'email' => 'email@gmail.com',
             'password' => bcrypt('password'),
         ]);

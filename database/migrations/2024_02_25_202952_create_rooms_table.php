@@ -21,7 +21,6 @@ return new class extends Migration
             $table->enum('section', ['Ліворуч', 'Праворуч']);
             $table->enum('block',  ['Перший', 'Другий']);
             $table->enum('gender', ['Чоловіча', 'Жіноча']);
-            $table->string('images');
             $table->timestamps();
         });
     }

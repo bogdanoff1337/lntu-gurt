@@ -36,16 +36,24 @@ return [
             'throw' => false,
         ],
 
+        'public' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public'),
+            'url' => env('APP_URL').'/storage',
+            'visibility' => 'public',
+            'throw' => false,
+        ],
+
         'facult' => [
             'driver' => 'local',
-            'root' => base_path('public/photos/uploads/facult'),
+            'root' => base_path('/public/photos/uploads/facult'),
             'url' => env('APP_URL').'/photos/uploads/facult',
             'visibility' => 'public',
         ],
 
         'room' => [
             'driver' => 'local',
-            'root' => base_path('public/photos/uploads/room'),
+            'root' => base_path('/public/photos/uploads/room'),
             'url' => env('APP_URL').'/photos/uploads/room',
             'visibility' => 'public',
         ],
@@ -63,7 +71,7 @@ return [
         ],
         'uploads' => [
             'driver' => 'local',
-            'root' => base_path('public/photos/uploads'),
+            'root' => base_path('/public/photos/uploads'),
             'url' => env('APP_URL').'/uploads',
             'visibility' => 'public',
         ],
