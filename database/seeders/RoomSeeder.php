@@ -13,7 +13,7 @@ class RoomSeeder extends Seeder
         $blocks = ['Перший', 'Другий'];
         $genders = ['Чоловіча', 'Жіноча'];
 
-        for ($i = 1; $i <= 100; $i++) {
+        for ($i = 1; $i <= 50; $i++) {
             for ($s = 'a'; $s<= 'b'; $s++){}
             $room = DB::table('rooms')->insertGetId([
                 'dormitory_id' => rand(1, 3),
