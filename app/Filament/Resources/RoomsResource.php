@@ -108,24 +108,24 @@ class RoomsResource extends Resource
                     ->sortable(),
             ])
             ->filters([
-                Tables\Filters\Filter::make('where_faculty')
-                    ->label('Факультет')
-                    ->form(function () {
-                        $faculties = Faculty::pluck('slug_short', 'slug_short')->toArray();
-                        return [
-                            Select::make('faculty.slug_short')
-                                ->label('Факультет')
-                                ->options($faculties)
-                        ];
-
-                    })
-                    ->query(function (Builder $query, array $data): Builder {
-                       return $query->when($data['faculty'], function (Builder $query, $faculty) {
-                            $query->whereHas('faculty', function (Builder $query) use ($faculty) {
-                                $query->where('slug_short', $faculty);
-                            });
-                           });
-                    }),
+//                Tables\Filters\Filter::make('where_faculty')
+//                    ->label('Факультет')
+//                    ->form(function () {
+//                        $faculties = Faculty::pluck('slug_short', 'slug_short')->toArray();
+//                        return [
+//                            Select::make('faculty.slug_short')
+//                                ->label('Факультет')
+//                                ->options($faculties)
+//                        ];
+//
+//                    })
+//                    ->query(function (Builder $query, array $data): Builder {
+//                       return $query->when($data['faculty'], function (Builder $query, $faculty) {
+//                            $query->whereHas('faculty', function (Builder $query) use ($faculty) {
+//                                $query->where('slug_short', $faculty);
+//                            });
+//                           });
+//                    }),
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
