@@ -16,9 +16,13 @@ export const Aside: FC<AsideProps> = ({ className, isShow }) => {
 	const [headerHeight, setHeaderHeight] = useState(0);
 	const isMobile = useMediaQuery({ maxWidth: Devices.MOBILE });
 
-	// useEffect(() => {
-	// 	document.body.style.overflow = isShow ? "hidden" : "auto";
-	// }, [isShow]);
+	useEffect(() => {
+		if (isShow) {
+			document.body.classList.add(cls.overflowHidden);
+		} else {
+			document.body.classList.remove(cls.overflowHidden);
+		}
+	}, [isShow]);
 
 	useEffect(() => {
 		const header = document.querySelector("header");
