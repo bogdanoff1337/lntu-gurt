@@ -10,6 +10,10 @@
 		flex: 1 1 auto;
 
 		padding: rem(50) 0;
+
+		@media (max-width: em($tablet)) {
+			padding: rem(20) 0;
+		}
 	}
 
 	&__header {

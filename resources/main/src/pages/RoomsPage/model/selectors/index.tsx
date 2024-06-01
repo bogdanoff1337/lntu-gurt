@@ -4,15 +4,18 @@ import { entityFacultiesSelectors } from "@/entities/Faculties";
 import { getMainRoutePath } from "@/shared/config/routes/path";
 
 export const getBreadcrumbs = createSelector(
-	[entityFacultiesSelectors.getData],
-	(entityFacultiesData) => {
-		const { faculty_id } = queryString.parse(window.location.search);
+	[entityFacultiesSelectors.getData, (state) => window.location.search],
+	(entityFacultiesData, search) => {
+		const { faculty_id } = queryString.parse(search);
+
+		const faculty = entityFacultiesData?.find(({ id }) => id === Number(faculty_id));
+
 		return [
 			{
 				id: 1,
 				title: (
 					<>
-						Факультети: <b>{entityFacultiesData?.find(({ id }) => id === Number(faculty_id))?.slug_short}</b>
+						Факультети: <b>{faculty?.slug_short}</b>
 					</>
 				),
 				to: getMainRoutePath(),

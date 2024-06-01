@@ -29,6 +29,7 @@ export const Header: FC<HeaderProps> = memo(({ className, breadcrumbsData }) => 
 		className: cls.Header_hide,
 		condition: isTablet && breadcrumbsData,
 		ref: headerRef,
+		defaultOffset: 80,
 	});
 
 	return (

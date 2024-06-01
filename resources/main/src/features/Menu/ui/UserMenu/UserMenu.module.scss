@@ -10,6 +10,16 @@
    }
 
    &__icon {
+      width: em(50);
+      height: em(50);
+
+      transition: font-size $primaryTransition;
+
+      font-size: rem(16);
+
+      @media (max-width: em($mobile)) {
+         font-size : rem(11);
+      }
    }
 
    &__dropDown {

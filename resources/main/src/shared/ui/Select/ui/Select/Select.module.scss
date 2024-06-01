@@ -18,11 +18,17 @@
 
         cursor: pointer;
 
+        transition: font-size $primaryTransition;
+
         border: em(1) solid $blueColor;
         border-radius: em(8);
         gap: em(20);
 
-        @include adaptiveValue("font-size", 16, 10, 0, $mobile);
+        // @include adaptiveValue("font-size", 16, 10, 0, $mobile);
+
+        @media (max-width: em($mobile)) {
+            font-size: rem(13.5);
+        }
     }
     &_active {
         #{$p} {

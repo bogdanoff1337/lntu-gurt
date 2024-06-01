@@ -1,8 +1,37 @@
 .Logo {
+	position: relative;
 	&__icon {
-		width: em(203);
-		height: em(61);
+		position: relative;
+      z-index: 2;
 
-		font-size: rem(16);
+		width: em(29.8);
+		height: em(32.7);
+
+		transition: font-size $primaryTransition;
+
+		font-size: rem(25);
+
+		fill: #3A3C93;
+
+		@media (max-width: em($mobile)) {
+			font-size: rem(16);
+		}
 	}
+
+	&::before {
+		position: absolute;
+		z-index: 1;
+		top: 50%;
+		left: 50%;
+
+		display: block;
+
+		width: 0;
+		height: 0;
+
+		content: "";
+		transform: rotate(50%, 50%);
+
+		box-shadow: 0 0 rem(60) rem(30) rgba(109, 148, 227, 0.45);
+  }
 }

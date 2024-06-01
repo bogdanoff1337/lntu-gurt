@@ -11,6 +11,8 @@
 
     transition: background-color $primaryTransition;
 
+    transition: font-size $primaryTransition;
+
     text-wrap: nowrap;
 
     color: $blueColor;
@@ -25,5 +27,9 @@
       font-weight: 400;
     }
 
-    @include adaptiveValue("font-size", 16, 10, 0, $mobile);
+    @media (max-width: em($mobile)) {
+      font-size: rem(13.5);
+    }
+
+    // @include adaptiveValue("font-size", 16, 10, 0, $mobile);
 }

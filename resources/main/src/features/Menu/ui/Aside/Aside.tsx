@@ -1,9 +1,9 @@
 import clsx from "clsx";
 import { FC, useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useMediaQuery } from "react-responsive";
+import { Devices } from "@/shared/const/devices";
 import { Overlay, OverlayModifier } from "@/shared/ui/Overlay";
 import { Portal } from "@/shared/ui/Portal";
-import { getIsShow } from "../../model/selectors";
 import { MenuItems } from "../MenuItems/MenuItems";
 import cls from "./Aside.module.scss";
 
@@ -14,16 +14,17 @@ interface AsideProps {
 
 export const Aside: FC<AsideProps> = ({ className, isShow }) => {
 	const [headerHeight, setHeaderHeight] = useState(0);
+	const isMobile = useMediaQuery({ maxWidth: Devices.MOBILE });
 
-	useEffect(() => {
-		document.body.style.overflow = isShow ? "hidden" : "auto";
-	}, [isShow]);
+	// useEffect(() => {
+	// 	document.body.style.overflow = isShow ? "hidden" : "auto";
+	// }, [isShow]);
 
 	useEffect(() => {
 		const header = document.querySelector("header");
 
 		setHeaderHeight(header?.clientHeight || 0);
-	}, [isShow]);
+	}, [isShow, isMobile]);
 
 	return (
 		<Portal>

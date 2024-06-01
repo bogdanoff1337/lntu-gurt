@@ -74,7 +74,6 @@ export const ProfileForm: FC<ProfileFormProps> = ({ className }) => {
 		if (!tempData) {
 			dispatch(pageProfileActions.getFormData());
 		}
-		
 	}, [dispatch, tempData]);
 
 	if (isLoading) {

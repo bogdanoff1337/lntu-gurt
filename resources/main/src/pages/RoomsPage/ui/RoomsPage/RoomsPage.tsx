@@ -15,6 +15,8 @@ interface RoomsPageProps {
 export const RoomsPage: FC<RoomsPageProps> = ({ className }) => {
 	const breadcrumbsData = useSelector(getBreadcrumbs);
 
+	// console.log(breadcrumbsData);
+
 	return (
 		<Page
 			className={clsx(cls.RoomsPage, [className])}

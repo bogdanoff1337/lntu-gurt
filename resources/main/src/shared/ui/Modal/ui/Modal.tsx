@@ -26,9 +26,9 @@ export const Modal: FC<ModalProps> = ({
 		e.stopPropagation();
 	}, []);
 
-	useEffect(() => {
-		document.body.style.overflow = isOpen ? "hidden" : "auto";
-	}, [isOpen]);
+	// useEffect(() => {
+	// 	document.body.style.overflow = isOpen ? "hidden" : "auto";
+	// }, [isOpen]);
 
 	return (
 		<Portal>

@@ -1,6 +1,9 @@
 .FacultiesList {
    display: grid;
    grid-template-columns: repeat(auto-fit, minmax(em(200), 1fr));
-   // gap: rem(80);
+   
+   @media (max-width: em($smallMobile)) {
+      grid-template-columns: repeat(auto-fit, minmax(em(140), 1fr));
+   }
    @include adaptiveValue("gap", 80, 40, 0, $widthTo: $tablet);
 }

@@ -19,7 +19,6 @@ interface TitleProps {
 }
 
 export enum TitleModifier {
-	SUB = "Title__sub",
 }
 
 export const Title: FC<TitleProps> = ({

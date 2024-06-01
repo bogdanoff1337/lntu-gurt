@@ -6,14 +6,20 @@
 	width: 100%;
 	padding: rem(16) 0;
 
-	transition: top 0.3s linear;
+	transition: top 0.3s linear, padding $primaryTransition;
 
 	border-top: rem(2) solid $blueColor;
 	border-bottom: rem(2) solid $blueColor;
 	background-color: $whiteColor;
 
 	&_hide {
-		top: rem(-90);
+		@media (max-width: em($tablet)) {
+			top: rem(-75);
+		}
+
+		@media (max-width: em($mobile)) {
+			top: rem(-60);
+		}
 	}
 
 	&__container {
@@ -70,5 +76,9 @@
 		@media (max-width: em($smallMobile)) {
 			font-size: rem(12.5);
 		}
+	}
+
+	@media (max-width: em($mobile)) {
+		padding: rem(8) 0;
 	}
 }

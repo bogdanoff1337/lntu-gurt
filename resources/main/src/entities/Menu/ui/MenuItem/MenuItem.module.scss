@@ -1,5 +1,10 @@
 .MenuItem {
    $p: &;
+
+   transition: font-size $primaryTransition;
+
+   font-size: rem(16);
+
    &__link {
       display: flex;
       align-items: center;
@@ -7,13 +12,13 @@
 
       width: 100%;
 
-      padding: rem(5) rem(15);
+      padding: em(5) em(15);
 
       transition: color $primaryTransition, background-color $primaryTransition;
       text-align: start;
 
-      border-radius: rem(10);
-      column-gap: rem(15);
+      border-radius: em(10);
+      column-gap: em(15);
 
       &:hover {
          color: $whiteColor;
@@ -30,21 +35,28 @@
    
    &__icon {
       flex: 0 0 auto;
+
+      width: em(50);
+      height: em(50);
    }
 
    &__name {
       flex: 1 1 auto;
 
-      font-size: rem(20);
+      font-size: em(20);
       font-weight: 300;
    }
 
    &__arrowIcon {
       flex: 0 0 auto;
 
-      width: rem(9);
-      height: rem(14);
+      width: em(9);
+      height: em(14);
 
       fill: currentColor;
+   }
+
+   @media (max-width: em($mobile)) {
+      font-size: rem(12);
    }
 }
