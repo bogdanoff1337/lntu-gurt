@@ -1,13 +1,13 @@
 .LoginPage {
-   display: grid;
-   place-items: center;
+   display: flex;
+   align-items: center;
 
    height: 100vh;
 
    &__container {
       position: relative;
 
-      width: 100%;
+      flex: 1 1 auto;
    }
    &__title {
       position: absolute;
