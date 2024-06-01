@@ -27,7 +27,7 @@
         // @include adaptiveValue("font-size", 16, 10, 0, $mobile);
 
         @media (max-width: em($mobile)) {
-            font-size: rem(13.5);
+            font-size: rem(13);
         }
     }
     &_active {
