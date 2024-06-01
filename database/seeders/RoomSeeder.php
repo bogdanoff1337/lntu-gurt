@@ -27,16 +27,6 @@ class RoomSeeder extends Seeder
                 'created_at' => now(),
                 'updated_at' => now(),
             ]);
-
-            // Вставка від 1 до 10 фотографій для кожної кімнати
-            for ($j = 1; $j <= rand(1, 10); $j++) {
-                DB::table('images')->insert([
-                    'room_id' => $room,
-                    'url' => "/photos/uploads/room/1.png",
-                    'created_at' => now(),
-                    'updated_at' => now(),
-                ]);
-            }
         }
     }
 }
