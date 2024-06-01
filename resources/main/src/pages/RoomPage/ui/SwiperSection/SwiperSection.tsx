@@ -22,7 +22,7 @@ export const SwiperSection: FC<SwiperSectionProps> = ({ className, images }) => 
 		return images?.map((image, i) => {
 			return (
 				<SwiperSlide key={i}>
-					<img className={cls.Img} src={`/photos/uploads/room/${image}`} alt="" />
+					<img className={cls.Img} src={image} alt="" />
 				</SwiperSlide>
 			);
 		});
