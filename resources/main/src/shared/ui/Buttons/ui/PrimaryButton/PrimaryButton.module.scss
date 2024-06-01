@@ -2,6 +2,8 @@
    column-gap: rem(4);
 
    &__icon {
+      flex: 0 0 auto;
+
       width: em(24.7750556793, 22);
       max-height: em(27, 22);
       fill: $whiteColor;
