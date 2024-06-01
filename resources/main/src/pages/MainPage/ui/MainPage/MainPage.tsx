@@ -1,8 +1,9 @@
 import clsx from "clsx";
-import { FC } from "react";
+import { FC, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { Page } from "@/widgets/Page";
-import { entityFacultiesSelectors } from "@/entities/Faculties";
+import { entityFacultiesActions, entityFacultiesSelectors } from "@/entities/Faculties";
+import { useAppDispatch } from "@/shared/lib/hooks/useAppDispatch/useAppDispatch";
 import { Container } from "@/shared/ui/Container";
 import { Title } from "@/shared/ui/Title";
 import { FacultiesList } from "../FacultiesList/FacultiesList";
@@ -13,7 +14,14 @@ interface MainPageProps {
 }
 
 export const MainPage: FC<MainPageProps> = ({ className }) => {
+	const dispatch = useAppDispatch();
 	const facultiesData = useSelector(entityFacultiesSelectors.getData);
+
+	useEffect(() => {
+		if (!facultiesData) {
+			dispatch(entityFacultiesActions.getAllFaculties());
+		}
+	}, [dispatch]);
 
 	return (
 		<Page className={clsx(cls.MainPage, {}, [className])}>

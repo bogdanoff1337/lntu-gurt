@@ -6,7 +6,7 @@
     "type": "module",
     "scripts": {
         "start:vite:docker": "vite --mode docker",
-        "start:vite:production": "vite --mode production",
+        "start:vite:stage": "vite --mode stage",
         "build:vite": "vite build --mode production",
         "lint:ts": "eslint \"**/*.{ts,tsx}\"",
         "lint:ts:fix": "eslint --fix \"**/*.{ts,tsx}\"",

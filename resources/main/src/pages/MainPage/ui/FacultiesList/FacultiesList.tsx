@@ -3,6 +3,7 @@ import { FC, useMemo } from "react";
 import {
 	Faculty,
 	FacultyItem,
+	entityFacultiesActions,
 } from "@/entities/Faculties";
 import cls from "./FacultiesList.module.scss";
 

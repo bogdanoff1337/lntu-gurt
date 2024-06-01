@@ -26,7 +26,7 @@ export const FacultyItem: FC<FacultyItemProps> = ({
 					search: generateQueryString({ faculty_id: id }),
 				}}
 			>
-				<img className={cls.FacultyItem__image} src={`/photos/uploads/facult/${image}`} alt={alt} />
+				<img className={cls.FacultyItem__image} src={`${__API__}/photos/uploads/facult/${image}`} alt={alt} />
 				<h3 className={cls.FacultyItem__slug}>{slug}</h3>
 			</NavLink>
 		</li>

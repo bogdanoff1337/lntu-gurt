@@ -15,6 +15,7 @@ enum Mode {
 dotenv.config({ path: "../../.env" });
 
 export default defineConfig(({ mode }) => {
+	const isStage = mode === Mode.STAGE;
 	const isDocker = mode === Mode.DOCKER;
 	const isProduction = mode === Mode.PRODUCTION;
 
@@ -23,7 +24,8 @@ export default defineConfig(({ mode }) => {
 		svgr(),
 	];
 
-	if (isDocker) {
+
+	if (isProduction || isDocker) {
 		plugins.push(
 			laravel({
 				input: ["./src/main.tsx"],
@@ -32,6 +34,16 @@ export default defineConfig(({ mode }) => {
 				refresh: true,
 			}),
 		);
+	}
+
+	let API;
+
+	if (isStage) {
+		API = process.env.DEPLOY_APP_URL;
+	}
+
+	if (isDocker || isProduction) {
+		API = process.env.APP_URL;
 	}
 
 	return {
@@ -52,7 +64,7 @@ export default defineConfig(({ mode }) => {
 		},
 		define: {
 			__IS_DEV__: JSON.stringify(true),
-			__API__: JSON.stringify(isProduction ? process.env.DEPLOY_APP_URL : process.env.APP_URL),
+			__API__: JSON.stringify(API),
 		},
 	};
 });
