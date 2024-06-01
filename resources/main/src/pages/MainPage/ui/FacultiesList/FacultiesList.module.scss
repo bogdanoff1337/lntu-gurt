@@ -3,7 +3,7 @@
    grid-template-columns: repeat(auto-fit, minmax(em(200), 1fr));
    
    @media (max-width: em($smallMobile)) {
-      grid-template-columns: repeat(auto-fit, minmax(em(140), 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(em(160), 1fr));
    }
-   @include adaptiveValue("gap", 80, 40, 0, $widthTo: $tablet);
+   @include adaptiveValue("gap", 80, 15, 0, $widthTo: $tablet);
 }

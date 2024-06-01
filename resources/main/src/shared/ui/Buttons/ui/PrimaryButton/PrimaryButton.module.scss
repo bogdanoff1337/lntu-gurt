@@ -2,8 +2,7 @@
    column-gap: rem(4);
 
    &__icon {
-      width: 100%;
-      height: 100%;
+      width: em(24.7750556793, 22);
       max-height: em(27, 22);
       fill: $whiteColor;
    }
@@ -14,3 +13,6 @@
       font-size: em(6, 22);
    }
 }
+
+
+

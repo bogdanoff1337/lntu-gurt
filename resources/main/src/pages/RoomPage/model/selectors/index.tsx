@@ -9,7 +9,7 @@ export const getBreadcrumbs = createSelector([entityRoomSelectors.getData], (ent
 			id: 1,
 			title: (
 				<>
-					Факультети: <b>{entityRoomData?.faculty.slug_short}</b>
+					Факультети{entityRoomData ? <>: <b>{entityRoomData?.faculty.slug_short}</b></> : null}
 				</>
 			),
 			to: getMainRoutePath(),
@@ -20,15 +20,15 @@ export const getBreadcrumbs = createSelector([entityRoomSelectors.getData], (ent
 			to: {
 				pathname: getRoomsRoutePath(),
 				search: generateQueryString({
-					faculty_id: entityRoomData?.faculty.id,
-					dormitory_id: entityRoomData?.dormitory.id,
+					faculty_id: entityRoomData?.faculty?.id,
+					dormitory_id: entityRoomData?.dormitory?.id,
 					gender: entityRoomData?.gender,
 				}),
 			},
 		},
 		{
 			id: 3,
-			title: `Кімната: ${entityRoomData?.number}`,
+			title: `Кімната${entityRoomData?.number ? `: ${entityRoomData?.number}` : ""}`,
 		},
 	];
 });

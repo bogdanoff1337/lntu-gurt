@@ -1,9 +1,7 @@
 import clsx from "clsx";
 import {
-	FC, ReactNode, useEffect, useState,
+	FC, ReactNode,
 } from "react";
-import { useMediaQuery } from "react-responsive";
-import { Devices } from "@/shared/const/common";
 import { BreadcrumbsData } from "@/shared/ui/Breadcrumbs";
 import { PageLoader } from "@/shared/ui/PageLoader";
 import { Footer } from "../Footer/Footer";

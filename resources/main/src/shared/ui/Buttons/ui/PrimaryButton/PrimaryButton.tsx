@@ -1,9 +1,10 @@
 import clsx from "clsx";
-import { ButtonHTMLAttributes, FC, ReactNode } from "react";
+import { FC } from "react";
 import { Button } from "../..";
 import { Loader } from "../../../Loader";
-import cls from "./PrimaryButton.module.scss";
 import { ButtonProps } from "../Button/Button";
+import cls from "./PrimaryButton.module.scss";
+
 interface PrimaryButtonProps extends ButtonProps {
 	isLoading?: boolean;
 }

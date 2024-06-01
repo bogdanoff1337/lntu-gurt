@@ -72,15 +72,14 @@ module.exports = {
 		project: ["./resources/main/tsconfig.json", "./resources/main/tsconfig.node.json"],
 	},
 	plugins: ["prettier"],
-	// overrides: [
-	// 	{
-	// 		// ? If you want to disable eslint rules for some files
-	// 		files: ["config/**"],
-	// 		rules: {
-	// 			"@conarti/feature-sliced/layers-slices": [0],
-	// 		},
-	// 	},
-	// ],
+	overrides: [
+		{
+			files: ["./src/shared/**"],
+			rules: {
+				"@conarti/feature-sliced/absolute-relative": [0],
+			},
+		},
+	],
 	rules: {
 		...overwritedAirbnbRules,
 		...overwritedFsdRules,
