@@ -38,14 +38,14 @@ return [
 
         'facult' => [
             'driver' => 'local',
-            'root' => base_path('/public/photos/uploads/facult'),
+            'root' => base_path('public/photos/uploads/facult'),
             'url' => env('APP_URL').'/photos/uploads/facult',
             'visibility' => 'public',
         ],
 
         'room' => [
             'driver' => 'local',
-            'root' => base_path('/public/photos/uploads/room'),
+            'root' => base_path('public/photos/uploads/room'),
             'url' => env('APP_URL').'/photos/uploads/room',
             'visibility' => 'public',
         ],
@@ -63,7 +63,7 @@ return [
         ],
         'uploads' => [
             'driver' => 'local',
-            'root' => base_path('/public/photos/uploads'),
+            'root' => base_path('public/photos/uploads'),
             'url' => env('APP_URL').'/uploads',
             'visibility' => 'public',
         ],
