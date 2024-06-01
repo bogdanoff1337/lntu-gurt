@@ -35,6 +35,8 @@ class RoomController extends Controller
                 $breadcrumbs = Faculty::where('id', $request->faculty_id)->get('slug_short')->first();
                 return Short::collection($rooms)->additional(['breadcrumbs' => $breadcrumbs]);
             }
+
+        return Short::collection($rooms);
     }
 
     /**
