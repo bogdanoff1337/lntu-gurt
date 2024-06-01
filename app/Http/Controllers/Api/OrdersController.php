@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\OrderRequest;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Models\Order;
@@ -24,9 +23,9 @@ class OrdersController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(OrderRequest $request)
+    public function store(Request $request)
     {
-        $order = Order::create($request->validated());
+        $order = Order::create($request->all());
 
         if (!$order) {
             return response()->json(['message' => 'Order not created'], 400);

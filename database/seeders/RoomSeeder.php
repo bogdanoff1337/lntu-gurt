@@ -19,7 +19,6 @@ class RoomSeeder extends Seeder
                 'dormitory_id' => rand(1, 3),
                 'faculty_id' => rand(1, 8),
                 'number' => $i . $s,
-                'images' => '["room.jpg"]',
                 'floor' => rand(1, 9),
                 'places' => rand(1, 4),
                 'section' => $sections[array_rand($sections)],
