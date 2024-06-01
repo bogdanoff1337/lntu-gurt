@@ -30,7 +30,7 @@ class RoomController extends Controller
                 return $query->where('gender', $gender);
             })
             ->paginate(12);
-        
+
             if ($request->has('faculty_id')) {
                 $breadcrumbs = Faculty::where('id', $request->faculty_id)->get('slug_short')->first();
                 return Short::collection($rooms)->additional(['breadcrumbs' => $breadcrumbs]);

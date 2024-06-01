@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\Image\Enums\Fit;
@@ -23,7 +24,11 @@ class Room extends Model implements HasMedia
         'gender',
         'section',
     ];
-    protected $casts = ['images' => 'array'];
+
+    public function media(): MorphMany
+    {
+        return $this->morphMany(Media::class, 'model');
+    }
 
     public function dormitory()
     {
@@ -44,7 +49,7 @@ class Room extends Model implements HasMedia
     {
         $this
             ->addMediaConversion('preview')
-            ->fit(Fit::Contain, 1280, 1260)
+            ->fit(Fit::Contain, 1920, 1080)
             ->nonQueued();
     }
 }

@@ -19,7 +19,9 @@ class Full extends JsonResource
     {
         $prepared =  [
             'id' => $this->id,
-            'images' => $this->images,
+            'images' => $this->getMedia('room')->map(function ($media) {
+                return $media->getUrl('preview');
+            }) ?? null,
             'dormitory' => Dormitory::make($this->dormitory),
             'faculty' => Faculty::make($this->faculty),
             'places' => $this->places,
