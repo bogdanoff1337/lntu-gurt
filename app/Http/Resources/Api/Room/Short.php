@@ -17,7 +17,7 @@ class Short extends JsonResource
     {
         return [
             'id'        => $this->id,
-            'images'    => $this->getMedia('room')->first()->getUrl('preview') ?? null,
+            'images'    => $this->getMedia('room')->first()?->getUrl('preview'),
             'dormitory' => Dormitory::make($this->dormitory),
             'faculty'   => $this->faculty->only('id', 'slug','slug_short'),
             'gender'    => $this->gender,

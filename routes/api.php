@@ -27,7 +27,7 @@ Route::group([
     Route::post('logout', [StudentAuthController::class, 'logout'])->name('logout');
     Route::post('refresh', [StudentAuthController::class, 'refresh'])->name('refresh');
     Route::post('me', [StudentAuthController::class, 'me'])->name('me');
-    Route::post('register', [StudentAuthController::class, 'register'])->name('refresh');
+    Route::post('register', [StudentAuthController::class, 'register'])->name('register');
 });
 
 Route::group(['middleware' => 'jwt.auth'], function () {
