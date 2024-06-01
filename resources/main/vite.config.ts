@@ -19,11 +19,13 @@ export default defineConfig(({ mode }) => {
 	const isDocker = mode === Mode.DOCKER;
 	const isProduction = mode === Mode.PRODUCTION;
 
+	let server;
+	let API;
+
 	const plugins = [
 		react(),
 		svgr(),
 	];
-
 
 	if (isProduction || isDocker) {
 		plugins.push(
@@ -36,7 +38,11 @@ export default defineConfig(({ mode }) => {
 		);
 	}
 
-	let API;
+	if (isStage) {
+		server = {
+			host: "0.0.0.0",
+		};
+	}
 
 	if (isStage || isProduction) {
 		API = process.env.DEPLOY_APP_URL;
@@ -47,6 +53,7 @@ export default defineConfig(({ mode }) => {
 	}
 
 	return {
+		server,
 		plugins,
 		resolve: {
 			alias: [{ find: "@", replacement: "/src" }],
