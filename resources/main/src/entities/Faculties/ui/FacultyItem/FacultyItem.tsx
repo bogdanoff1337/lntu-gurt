@@ -3,6 +3,7 @@ import { FC } from "react";
 import { NavLink } from "react-router-dom";
 import { getRoomsRoutePath } from "@/shared/config/routes/path";
 import { generateQueryString } from "@/shared/lib/generateQueryString";
+import { Img } from "@/shared/ui/Img";
 import cls from "./FacultyItem.module.scss";
 
 interface FacultyItemProps {
@@ -26,7 +27,7 @@ export const FacultyItem: FC<FacultyItemProps> = ({
 					search: generateQueryString({ faculty_id: id }),
 				}}
 			>
-				<img className={cls.FacultyItem__image} src={`${__API__}/photos/uploads/facult/${image}`} alt={alt} />
+				<Img className={{ image: cls.FacultyItem__image, skeleton: cls.FacultyItem__skeleton }} src={`${__API__}/photos/uploads/facult/${image}`} alt={alt} />
 				<h3 className={cls.FacultyItem__slug}>{slug}</h3>
 			</NavLink>
 		</li>

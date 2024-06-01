@@ -19,7 +19,7 @@
         }
     }
 
-    &__image {
+    &__image, &__skeleton {
         margin: 0 rem(-25);
         margin-top: rem(-25);
 
@@ -30,8 +30,6 @@
         &:not(:last-child) {
             margin-bottom: rem(28);
         }
-
-        
     }
 
     &__number {

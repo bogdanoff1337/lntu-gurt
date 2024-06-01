@@ -3,6 +3,8 @@
 
     &__link {
         display: flex;
+        place-items: center;
+        
         flex-direction: column;
 
         line-height: 1.7;
@@ -18,6 +20,13 @@
 
     &__image {
         transition: transform $primaryTransition;
+    }
+
+    &__skeleton {
+        width: 70%;
+        aspect-ratio: 1 / 1;
+
+        border-radius: rem(8);
     }
 
     &__slug {
