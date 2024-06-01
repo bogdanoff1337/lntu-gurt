@@ -42,5 +42,5 @@
       }
    }
 
-   @include adaptiveValue("font-size", 22, 18, 0, $widthTo: $tablet);
+   @include adaptiveValue("font-size", 22, 15, 0, $widthTo: $tablet);
 }
