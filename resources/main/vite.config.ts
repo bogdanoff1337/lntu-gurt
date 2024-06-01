@@ -6,35 +6,53 @@ import laravel from "laravel-vite-plugin";
 import { defineConfig } from "vite";
 import svgr from "vite-plugin-svgr";
 
+enum Mode {
+	DOCKER = "docker",
+	STAGE = "stage",
+	PRODUCTION = "production",
+}
+
 dotenv.config({ path: "../../.env" });
 
-export default defineConfig({
-	plugins: [
-		svgr(),
-		laravel({
-			input: ["./src/main.tsx"],
-			buildDirectory: "main",
-			publicDirectory: "../../public",
-			refresh: true,
-		}),
+export default defineConfig(({ mode }) => {
+	const isDocker = mode === Mode.DOCKER;
+	const isProduction = mode === Mode.PRODUCTION;
+
+	const plugins = [
 		react(),
-	],
-	resolve: {
-		alias: [{ find: "@", replacement: "/src" }],
-	},
-	envDir: "../../",
-	css: {
-		preprocessorOptions: {
-			scss: {
-				additionalData: readFileSync(path.resolve("src/scss/tools/index.scss"), {
-					encoding: "utf8",
-					flag: "r",
-				}),
+		svgr(),
+	];
+
+	if (isDocker) {
+		plugins.push(
+			laravel({
+				input: ["./src/main.tsx"],
+				buildDirectory: "main",
+				publicDirectory: "../../public",
+				refresh: true,
+			}),
+		);
+	}
+
+	return {
+		plugins,
+		resolve: {
+			alias: [{ find: "@", replacement: "/src" }],
+		},
+		envDir: "../../",
+		css: {
+			preprocessorOptions: {
+				scss: {
+					additionalData: readFileSync(path.resolve("src/scss/tools/index.scss"), {
+						encoding: "utf8",
+						flag: "r",
+					}),
+				},
 			},
 		},
-	},
-	define: {
-		__IS_DEV__: JSON.stringify(true),
-		__API__: JSON.stringify(process.env.APP_URL),
-	},
+		define: {
+			__IS_DEV__: JSON.stringify(true),
+			__API__: JSON.stringify(isProduction ? process.env.DEPLOY_APP_URL : process.env.APP_URL),
+		},
+	};
 });
