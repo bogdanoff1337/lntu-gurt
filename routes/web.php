@@ -18,6 +18,7 @@ use App\Http\Controllers\Api\Verivy;
 
 Route::get('{any?}', fn () => view("main"))->where('any', '.*');
 
+Route::get('{any?}', fn () => view("main"))->where('any', '.*');
 
 Route::get('/email/verify', [EmailVerificationRequest::class, '__invoke'])
     ->name('verification.notice');
