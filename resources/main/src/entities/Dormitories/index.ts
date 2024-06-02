@@ -1,6 +1,3 @@
-// export { dormitoriesSlice } from "./model/slice/dormitoriesSlice";
-export { dormitoriesSlice } from "./model/slice/dormitoriesSlice";
+export * as entityDormitoriesSelectors from "./model/selectors";
 
-export { fetchDormitories } from "./model/services/fetchDormitories/fetchDormitories";
-
-export type { DormitorySchema } from "./model/types/EntityDormitoriesSchema";
+export { entityDormitoriesSlice, entityDormitoriesActions } from "./model/slice/entityDormitoriesSlice";

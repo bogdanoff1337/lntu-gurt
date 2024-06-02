@@ -7,7 +7,7 @@
 
     border-radius: rem(12);
 
-    font-size: rem(20);
+    font-size: rem(16);
 
     &__summary {
         display: flex;
@@ -25,10 +25,6 @@
         gap: em(20);
 
         // @include adaptiveValue("font-size", 16, 10, 0, $mobile);
-
-        @media (max-width: em($mobile)) {
-            font-size: rem(13);
-        }
     }
     &_active {
         #{$p} {
@@ -99,5 +95,9 @@
         height: em(20);
 
         transition: transform 0.45s linear;
+    }
+
+    @media (max-width: em($mobile)) {
+        font-size: rem(12);
     }
 }

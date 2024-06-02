@@ -1,4 +1,6 @@
-import { FC, useCallback } from "react";
+import { FC, useCallback, useEffect } from "react";
+import { useSelector } from "react-redux";
+import { entityDormitoriesActions, entityDormitoriesSelectors } from "@/entities/Dormitories";
 import { entityRoomsActions } from "@/entities/Rooms";
 import { useQueryParams } from "@/shared/hooks/useQueryParams/useQueryParams";
 import { useAppDispatch } from "@/shared/lib/hooks/useAppDispatch/useAppDispatch";
@@ -10,27 +12,14 @@ interface DormSelectProps {
 	className?: string;
 }
 
-const optionModal = [
-	{
-		id: 1,
-		slug: "Гуртожиток №1",
-		address: "м. Луцьк, вул. Даньшина, 8",
-	},
-	{
-		id: 2,
-		slug: "Гуртожиток №2",
-		address: "м. Луцьк, пр-т. Відродження, 22",
-	},
-	{
-		id: 3,
-		slug: "Гуртожиток №3",
-		address: "м. Луцьк, вул. С Ковалевської,29",
-	},
-];
-
 export const DormSelect: FC<DormSelectProps> = ({ className }) => {
-	const { dormitory_id, faculty_id, gender } = useQueryParams();
 	const dispatch = useAppDispatch();
+	const { dormitory_id, faculty_id, gender } = useQueryParams();
+	const dormitoriesData = useSelector(entityDormitoriesSelectors.getData);
+
+	useEffect(() => {
+		dispatch(entityDormitoriesActions.getAllDormitories());
+	}, [dispatch]);
 
 	const onUpdateQP = useCallback((id: number) => {
 		dispatch(entityRoomsActions.getRoomsByParams({
@@ -46,7 +35,7 @@ export const DormSelect: FC<DormSelectProps> = ({ className }) => {
 		<Select
 			className={className}
 			id={+dormitory_id!}
-			options={optionModal}
+			options={dormitoriesData}
 			onUpdateQP={onUpdateQP}
 			placeholder="Оберіть гуртожиток"
 			SlotField={DormField}

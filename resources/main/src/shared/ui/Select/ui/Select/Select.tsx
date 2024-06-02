@@ -8,7 +8,7 @@ import cls from "./Select.module.scss";
 
 interface SelectProps {
 	id: number;
-	options: OptionType[];
+	options?: OptionType[];
 	placeholder?: string;
 	onUpdateQP: (id: number) => void;
 	className?: string;
@@ -16,7 +16,7 @@ interface SelectProps {
 }
 
 export interface OptionType {
-	id: number;
+	id: string;
 	slug: string;
 	address?: string;
 }
@@ -26,27 +26,10 @@ export const Select: FC<SelectProps> = ({
 }) => {
 	const [isOpen, setIsOpen] = useState(false);
 	const [activeSelectId, setActiveSelectId] = useState<number | null>(id || null);
-	// const [size, setSize] = useState<string>("");
-
 	const rootRef = useRef<HTMLDivElement>(null);
 	const summaryRef = useRef<HTMLDivElement>(null);
 	const optionsRef = useRef<HTMLUListElement>(null);
 
-	// useEffect(() => {
-	// 	if (summaryRef.current && optionsRef.current) {
-	// 		const addWidth = 40;
-	// 		const widthMenu = summaryRef.current.scrollWidth + addWidth;
-	// 		const widthSelect = optionsRef.current.scrollWidth;
-
-	// 		if (widthSelect && widthMenu) {
-	// 			if (widthSelect > widthMenu) {
-	// 				setSize(`${widthSelect}px`);
-	// 			} else {
-	// 				setSize(`${widthMenu}px`);
-	// 			}
-	// 		}
-	// 	}
-	// }, []);
 	useEffect(() => {
 		const onOverlayClick = (e: MouseEvent) => {
 			if (
@@ -95,12 +78,11 @@ export const Select: FC<SelectProps> = ({
 	}, []);
 
 	const selectedOption = useMemo(() => {
-		return options.find((option) => option.id === activeSelectId);
+		return options?.find((option) => Number(option.id) === activeSelectId);
 	}, [activeSelectId, options]);
 
 	return (
 		<div
-			// style={{ width: size }}
 			className={clsx(cls.Select, {
 				[cls.Select_active]: isOpen,
 				[cls.Select_nonActive]: !isOpen,
@@ -125,11 +107,11 @@ export const Select: FC<SelectProps> = ({
 				className={cls.Select__options}
 				ref={optionsRef}
 			>
-				{options.map((option) => (
+				{options?.map((option) => (
 					<Option
 						key={option.id}
 						option={option}
-						onClick={onOptionClick(option.id)}
+						onClick={onOptionClick(Number(option.id))}
 						SlotField={SlotField}
 						activeSelectId={activeSelectId}
 					/>

@@ -27,9 +27,9 @@
       font-weight: 400;
     }
 
-    @media (max-width: em($mobile)) {
-      font-size: rem(13.5);
-    }
+    // @media (max-width: em($mobile)) {
+    //   font-size: rem(13.5);
+    // }
 
     // @include adaptiveValue("font-size", 16, 10, 0, $mobile);
 }
