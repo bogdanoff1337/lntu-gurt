@@ -8,6 +8,6 @@ export const breadcrumbsData = [
 	},
 	{
 		id: 2,
-		title: "Заброньовані кімнати",
+		title: "Заброньовані",
 	},
 ];

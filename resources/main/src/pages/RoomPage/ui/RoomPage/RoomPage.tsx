@@ -4,7 +4,7 @@ import {
 	useEffect,
 } from "react";
 import { useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import { Page } from "@/widgets/Page";
 import { entityRoomActions, entityRoomSelectors } from "@/entities/Room";
 import { useAppDispatch } from "@/shared/lib/hooks/useAppDispatch/useAppDispatch";
@@ -20,7 +20,9 @@ interface RoomPageProps {
 }
 
 export const RoomPage: FC<RoomPageProps> = ({ className }) => {
-	const breadcrumbsData = useSelector(getBreadcrumbs);
+	const location = useLocation();
+	const breadcrumbsData = useSelector((state) => getBreadcrumbs(state, location.state.previousLocationPathname));
+
 	const { id } = useParams();
 	const dispatch = useAppDispatch();
 	const roomData = useSelector(entityRoomSelectors.getData);
