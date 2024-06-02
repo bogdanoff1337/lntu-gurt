@@ -14,10 +14,10 @@ use App\Http\Controllers\Api\Verivy;
 | routes are loaded by the RouteServiceProvider and all of them will
 | be assigned to the "web" middleware group. Make something great!
 |
-Route::get('{any?}', fn () => view("main"))->where('any', '.*');
 */
 
 
+Route::get('{any?}', fn () => view("main"))->where('any', '.*');
 
 Route::get('/email/verify', [EmailVerificationRequest::class, '__invoke'])
     ->name('verification.notice');
