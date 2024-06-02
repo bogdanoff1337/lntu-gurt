@@ -46,7 +46,7 @@ class OrdersController extends Controller
 
         if ($isBooked) {
             return response()->json([
-                'message' => 'Ви зможете відмінити бронювання лише через ' . $timeLeft . ' хвилин'
+                'message' => $timeLeft
             ], 403);
         }
 
