@@ -29,6 +29,7 @@ class RoomController extends Controller
             ->when($request->gender, function ($query, $gender) {
                 return $query->where('gender', $gender);
             })
+            ->with('media')
             ->paginate(12);
 
             if ($request->has('faculty_id')) {
@@ -44,7 +45,7 @@ class RoomController extends Controller
      */
     public function show(string $id): JsonResource
     {
-        $room = Room::findOrFail($id);
+        $room = Room::with('media')->findOrFail($id);
 
         return new Full($room);
     }
