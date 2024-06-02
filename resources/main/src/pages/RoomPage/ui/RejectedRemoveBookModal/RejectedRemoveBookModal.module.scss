@@ -1,4 +1,4 @@
-.RejectedDeleteBookModal {
+.RejectedRemoveBookModal {
    text-align: center;
 
    &__title {
@@ -12,18 +12,11 @@
       flex-direction: column;
       row-gap: rem(8);
 
-      font-size: rem(22);
+      font-size: rem(23);
 
       &_1 {
-         margin-bottom: rem(130);
+         margin-bottom: rem(40);
       }
-
-      &_2 {
-      }
-   }
-
-   &__bold {
-      font-weight: 700;
    }
 }
 

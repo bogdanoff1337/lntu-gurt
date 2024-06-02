@@ -8,8 +8,8 @@
 
 		margin: rem(10);
 		padding: rem(30) rem(35);
-		padding-top: rem(100);
-		padding-bottom: rem(100);
+		padding-top: rem(90);
+		padding-bottom: rem(90);
 
 		transition: all 0.5s ease;
 
@@ -21,8 +21,8 @@
 
 	&__closeButton {
       position: absolute;
-      top: rem(30);
-      right: rem(35);
+		top: rem(20);
+		right: rem(20);
    }
 
 	&_enter {
@@ -82,13 +82,15 @@
    align-items: center;
    justify-content: center;
 
-   width: rem(50);
-   height: rem(50);
+   width: em(50);
+   height: em(50);
 
    transition: background-color $primaryTransition, color $primaryTransition;
 
-   border: rem(2) solid $blueColor;
+   border: em(2) solid $blueColor;
    border-radius: 50%;
+
+	font-size: rem(13);
 
    &:hover {
       background-color: $blueColor;
@@ -103,7 +105,7 @@
    &__icon {
       fill: $blueColor;
 
-      width: rem(20);
-      height: rem(20);
+      width: em(20);
+      height: em(20);
    }
 }

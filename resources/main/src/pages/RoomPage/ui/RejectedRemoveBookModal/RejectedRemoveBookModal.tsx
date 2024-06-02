@@ -22,7 +22,11 @@ export const RejectedRemoveBookModal: FC<RejectedRemoveBookModalProps> = ({
 			className={clsx(cls.RejectedRemoveBookModal, [className])}
 			{...anotherProps}
 		>
-			<h2 className={cls.RejectedRemoveBookModal__title}>{message}</h2>
+
+			<h2 className={cls.RejectedRemoveBookModal__title}>Будь ласка, почекайте!</h2>
+			<p className={clsx(cls.RejectedRemoveBookModal__paragraph, [cls.RejectedRemoveBookModal__paragraph_1])}>
+				Ви зможете відмінити бронювання лише через <b className={cls.RejectedRemoveBookModal__bold}>{message} хвилину</b>
+			</p>
 		</Modal>
 	);
 };

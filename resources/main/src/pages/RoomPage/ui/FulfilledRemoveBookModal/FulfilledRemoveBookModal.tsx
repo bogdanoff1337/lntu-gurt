@@ -22,10 +22,12 @@ export const FulfilledRemoveBookModal: FC<FulfilledRemoveBookModalProps> = ({
 			{...anotherProps}
 		>
 			<h2 className={cls.FulfilledRemoveBookModal__title}>Наші вітання!</h2>
-			<p className={clsx(cls.FulfilledRemoveBookModal__paragraph, [cls.FulfilledRemoveBookModal__paragraph_1])}>Ви успішно відмінили бронювання кімнати</p>
+			<p className={clsx(cls.FulfilledRemoveBookModal__paragraph, [cls.FulfilledRemoveBookModal__paragraph_1])}>
+				Ви успішно <mark className={cls.FulfilledRemoveBookModal__mark}>відмінили</mark> бронювання кімнати
+			</p>
 			<p className={clsx(cls.FulfilledRemoveBookModal__paragraph, [cls.FulfilledRemoveBookModal__paragraph_2])}>
-				Щоб дізнатись більше інформації, перевірте свою
-				<b className={cls.FulfilledRemoveBookModal__bold}>електронну пошту</b>
+				Ви зможете подати заявку на бронювання ще на
+				<b className={cls.FulfilledRemoveBookModal__bold}>2 кімнати</b>
 			</p>
 		</Modal>
 	);
