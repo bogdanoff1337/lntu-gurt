@@ -51,10 +51,9 @@ return [
             'visibility' => 'public',
         ],
 
-        'room' => [
+        'render_disk' => [
             'driver' => 'local',
-            'root' => base_path('/public/photos/uploads/room'),
-            'url' => env('APP_URL').'/photos/uploads/room',
+            'root' => '/var/lib/data',
             'visibility' => 'public',
         ],
 

@@ -4,15 +4,12 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\RoomsResource\Pages;
 use App\Models\Room;
-use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Select;
-use Illuminate\Database\Eloquent\Builder;
-use App\Models\Faculty;
 use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
 
 class RoomsResource extends Resource
