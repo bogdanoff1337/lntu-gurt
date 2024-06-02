@@ -31,7 +31,7 @@ class Full extends JsonResource
             'gender' => $this->gender,
             'section' => $this->section,
             'booked' => $this->isBooked(),
-            'status' => $this->status ?? null, // new rejected approved
+            'status' => $this->status() ?? null, // new rejected approved
             'deadline' => $this->deadline ?? null,  // 2021-09-01 00:00:00
         ];
 
@@ -53,5 +53,18 @@ class Full extends JsonResource
             return true;
         }
     }
+
+    private function status(): ?string
+    {
+        $user = Auth::user();
+
+        $status = $this->order()
+            ->where('student_id', $user->id)
+            ->orWhere('status', 'rejected')
+            ->first();
+
+        return $status ? $status->status : null;
+    }
+
 
 }
