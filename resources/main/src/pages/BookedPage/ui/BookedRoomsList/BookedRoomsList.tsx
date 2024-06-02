@@ -22,8 +22,8 @@ export const BookedRoomsList: FC<BookedRoomsListProps> = ({ className }) => {
 	}, [dispatch]);
 
 	const bookedRoomsItems = useMemo(() => {
-		return bookedRoomsData?.map(({ room: { id, images, number } }) => {
-			return <RoomItem key={id} image={images} number={number} to={getRoomsRoutePath(id)} />;
+		return bookedRoomsData?.map(({ room: { id, images, number }, status }) => {
+			return <RoomItem key={id} image={images} number={number} to={getRoomsRoutePath(id)} status={status} />;
 		});
 	}, [bookedRoomsData]);
 

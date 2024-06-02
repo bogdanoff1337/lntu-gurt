@@ -38,5 +38,24 @@
         font-size: rem(28);
         font-weight: 500;
     }
+
+    &__status {
+        text-align: center;
+
+        font-size: rem(20);
+
+
+        &_new {
+            color: $yellowColor;
+        }
+
+        &_approved {
+            color: $greenColor;
+        }
+
+        &_rejected {
+            color: $redColor;
+        }
+    }
 }
 

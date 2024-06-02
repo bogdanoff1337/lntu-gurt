@@ -15,7 +15,7 @@ export const entityBookedRoomsSlice = createSliceWithThunk({
 			}) => {
 				try {
 					const response = await extra.api.get<any>("book");
-					
+
 					if (!response.data) {
 						throw new Error();
 					}

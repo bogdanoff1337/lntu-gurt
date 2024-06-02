@@ -7,9 +7,14 @@ export interface EntityBookedRoomsSchema {
 export interface BookedRoomsData {
 	id: number;
 	room: Room;
-	status: "rejected" | "new" | "approved";
+	status: Status;
 }
 
+enum Status {
+	NEW = "new",
+	APPROVED = "approved",
+	REJECTED = "rejected",
+}
 
 export interface Room {
 	id: number;
