@@ -1,7 +1,11 @@
 .RoomsList {
-   display: grid;
-   gap: rem(40);
-   grid-template-columns: repeat(auto-fill, minmax(em(270), 1fr));
+
+   &__self {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(em(270), 1fr));
+
+      @include adaptiveValue("gap", 40, 10, 0, $widthTo: $smallMobile);
+   }
 
    &__pageEmpty {
 

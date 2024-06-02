@@ -66,8 +66,8 @@ class OrdersController extends Controller
             $orderCreationTime = $order->created_at;
             $minutesSinceLastOrder = $now->diffInMinutes($orderCreationTime);
 
-            if ($minutesSinceLastOrder < 120) { // 2 години = 120 хвилин
-                $timeLeft = 120 - $minutesSinceLastOrder;
+            if ($minutesSinceLastOrder < 1) { // 2 години = 120 хвилин
+                $timeLeft = 1 - $minutesSinceLastOrder;
                 return [true, $timeLeft];
             }
         }

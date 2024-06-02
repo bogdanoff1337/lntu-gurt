@@ -83,12 +83,12 @@ export const entityRoomSlice = createSliceWithThunk({
 			},
 		),
 
-		removeBookRoom: create.asyncThunk<any, { id: string }, ThunkConfig<string>>(
+		removeBookRoom: create.asyncThunk<RoomData, { id: string }, ThunkConfig<string>>(
 			async ({ id }, {
 				extra, rejectWithValue,
 			}) => {
 				try {
-					const response = await extra.api.delete<RoomData>(`book/${id}`, {						
+					const response = await extra.api.delete<RoomData>(`book/${id}`, {
 					});
 
 					if (!response.data) {
@@ -96,16 +96,15 @@ export const entityRoomSlice = createSliceWithThunk({
 					}
 
 					return response.data;
-				} catch (e) {
-					console.log(e);
-					return rejectWithValue("error");
+				} catch (e: any) {
+					return rejectWithValue(e.response.data.message);
 				}
 			},
 			{
 				pending: (state) => {
 					state.isFetching = true;
 				},
-				fulfilled: (state, action) => {
+				fulfilled: (state) => {
 					state.isFetching = false;
 					state.data!.booked = false;
 				},

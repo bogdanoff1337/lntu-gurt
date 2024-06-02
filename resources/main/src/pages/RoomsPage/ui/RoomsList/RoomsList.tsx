@@ -63,8 +63,8 @@ export const RoomsList: FC<RoomsListProps> = ({ className }) => {
 	}
 
 	return (
-		<div className={className}>
-			<ul className={clsx(cls.RoomsList, [])}>
+		<div className={clsx(cls.RoomsList, [className])}>
+			<ul className={cls.RoomsList__self}>
 				{roomsItems}
 				{roomsDataIsFetching && new Array(9).fill(undefined).map((_, i) => <RoomItemSkeleton key={i} />)}
 			</ul>

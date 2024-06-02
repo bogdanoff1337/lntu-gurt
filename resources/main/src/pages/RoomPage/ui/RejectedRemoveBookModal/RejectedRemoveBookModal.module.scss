@@ -1,0 +1,29 @@
+.RejectedDeleteBookModal {
+   text-align: center;
+
+   &__title {
+      margin-bottom: rem(60);
+
+      font-size: rem(32);
+   }
+
+   &__paragraph {
+      display: flex;
+      flex-direction: column;
+      row-gap: rem(8);
+
+      font-size: rem(22);
+
+      &_1 {
+         margin-bottom: rem(130);
+      }
+
+      &_2 {
+      }
+   }
+
+   &__bold {
+      font-weight: 700;
+   }
+}
+

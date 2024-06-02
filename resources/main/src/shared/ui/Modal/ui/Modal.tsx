@@ -2,10 +2,10 @@ import clsx from "clsx";
 import React, {
 	FC, ReactNode,
 	useCallback,
-	useEffect,
 } from "react";
 import { Overlay } from "../../Overlay";
 import { Portal } from "../../Portal";
+import CrossIcon from "../assets/cross.svg?react";
 import cls from "./Modal.module.scss";
 
 export interface ModalProps {
@@ -49,6 +49,13 @@ export const Modal: FC<ModalProps> = ({
 					className={clsx(cls.Modal__content, [className])}
 					onClick={onClickContent}
 				>
+					<button
+						aria-label="Close modal"
+						className={`${cls.CloseButton} ${cls.Modal__closeButton}`}
+						onClick={() => setIsOpen(false)}
+					>
+						<CrossIcon className={cls.CloseButton__icon} />
+					</button>
 					{children}
 				</div>
 			</Overlay>
