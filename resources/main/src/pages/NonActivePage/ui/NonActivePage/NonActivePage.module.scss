@@ -1,4 +1,6 @@
 .NonActivePage {
+   height: 100vh;
+
    &__shell {
       padding: rem(90) rem(15);
 
@@ -11,10 +13,6 @@
       align-items: center;
       justify-content: center;
 
-      height: 100%;
-   }
-
-   &, &__container {
       height: 100%;
    }
 }

@@ -1,4 +1,4 @@
-import { FC, useCallback, useEffect } from "react";
+import { FC, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { entityAuthActions } from "@/entities/Auth";
 import { MenuItem } from "@/entities/Menu";

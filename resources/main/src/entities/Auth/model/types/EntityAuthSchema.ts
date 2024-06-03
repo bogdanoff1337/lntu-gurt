@@ -13,6 +13,7 @@ export interface UserData {
 	phone: string | null;
 	city: string | null;
 	benefits: string | null;
+	verified: boolean;
 }
 
 export interface TokenData {

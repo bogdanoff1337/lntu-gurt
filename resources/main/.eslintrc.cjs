@@ -30,6 +30,7 @@ const overwritedAirbnbRules = {
 	"react/no-array-index-key": [1],
 	"react/destructuring-assignment": [0],
 	"consistent-return": [0],
+	"no-else-return": [0],
 };
 
 const temporarilyDisabled = {

@@ -18,12 +18,13 @@ import {
 } from "@/shared/config/routes/path";
 
 export type AppRouteProps = RouteProps & {
-	middleware: Middleware
+	middleware: Middleware[]
 };
 
 export enum Middleware {
 	AUTH = "auth",
 	NO_AUTH = "noAuth",
+	NO_VERIFY = "noVerify",
 }
 
 export const routes: AppRouteProps[] = [
@@ -34,43 +35,43 @@ export const routes: AppRouteProps[] = [
 	{
 		path: getRegisterRoutePath(),
 		element: <RegisterPage />,
-		middleware: Middleware.NO_AUTH,
+		middleware: [Middleware.NO_AUTH],
 	},
 	{
 		path: getNonActiveRoutePath(),
 		element: <NonActivePage />,
-		middleware: Middleware.AUTH,
+		middleware: [Middleware.AUTH, Middleware.NO_VERIFY],
 	},
 	{
 		path: getLoginRoutePath(),
 		element: <LoginPage />,
-		middleware: Middleware.NO_AUTH,
+		middleware: [Middleware.NO_AUTH],
 
 	},
 	{
 		path: getMainRoutePath(),
 		element: <MainPage />,
-		middleware: Middleware.AUTH,
+		middleware: [Middleware.AUTH],
 
 	},
 	{
 		path: getRoomsRoutePath(),
 		element: <RoomsPage />,
-		middleware: Middleware.AUTH,
+		middleware: [Middleware.AUTH],
 	},
 	{
 		path: getRoomsRoutePath(":id"),
 		element: <RoomPage />,
-		middleware: Middleware.AUTH,
+		middleware: [Middleware.AUTH],
 	},
 	{
 		path: getProfileRoutePath(),
 		element: <ProfilePage />,
-		middleware: Middleware.AUTH,
+		middleware: [Middleware.AUTH],
 	},
 	{
 		path: getBookedRoutePath(),
 		element: <BookedPage />,
-		middleware: Middleware.AUTH,
+		middleware: [Middleware.AUTH],
 	},
 ];
