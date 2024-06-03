@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\Student\StudentFull;
 use App\Models\AccessToRegister;
 use App\Models\Student;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Tymon\JWTAuth\Facades\JWTAuth;
@@ -88,17 +90,30 @@ class StudentAuthController extends Controller
             ], 422);
     }
 
-    /**
-     * Get the authenticated User
-     *
-     * @return \Illuminate\Http\JsonResponse
-     */
     public function me()
     {
         if (!$this->guard()->user()) {
             return response()->json(['messages' => 'Unauthorized'], 401);
         }
-        return response()->json($this->guard()->user());
+
+        $only = $this->guard()->user()->only([
+            'id',
+            'email',
+            'first_name',
+            'last_name',
+            'middle_name',
+            'phone',
+            'city',
+            'benefits',
+            'email_verified_at'
+        ]);
+
+        if ($only['email_verified_at'] !== null) {
+            $only['email_verified_at'] = true;
+        } else {
+            $only['email_verified_at'] = null;
+        }
+        return response()->json($only);
     }
 
     /**
