@@ -111,7 +111,7 @@ class StudentAuthController extends Controller
         if ($only['email_verified_at'] !== null) {
             $only['verified'] = true;
         } else {
-            $only['verified'] = null;
+            $only['verified'] = false;
         }
         return response()->json($only);
     }
