@@ -1,6 +1,8 @@
 import clsx from "clsx";
 import {
 	FC, ReactNode,
+	useEffect,
+	useState,
 } from "react";
 import { BreadcrumbsData } from "@/shared/ui/Breadcrumbs";
 import { PageLoader } from "@/shared/ui/PageLoader";

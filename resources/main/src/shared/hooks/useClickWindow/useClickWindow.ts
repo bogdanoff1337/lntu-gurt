@@ -1,7 +1,7 @@
 import { DependencyList, useEffect } from "react";
 
 interface UseClickWindow {
-	onClick: () => void;
+	onClick: (e: MouseEvent) => void;
 }
 
 export const useClickWindow = ({ onClick }: UseClickWindow, [...args]: DependencyList) => {

@@ -18,8 +18,6 @@ const App = () => {
 		dispatch(entityFacultiesActions.getAllFaculties());
 	}, [dispatch]);
 
-	useClickWindowCloseMenu();
-
 	if (entityAuthIsLoading || entityFacultiesIsLoading) {
 		return <PageLoader />;
 	}

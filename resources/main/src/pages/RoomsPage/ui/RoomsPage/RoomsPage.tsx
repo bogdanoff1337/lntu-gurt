@@ -1,7 +1,6 @@
 import clsx from "clsx";
 import { FC } from "react";
 import { useSelector } from "react-redux";
-import { useLocation } from "react-router-dom";
 import { Page } from "@/widgets/Page";
 import { DormSelect, GenderSelect } from "@/features/Rooms";
 import { Container } from "@/shared/ui/Container";

@@ -1,9 +1,15 @@
 import clsx from "clsx";
-import { FC, useEffect, useState } from "react";
+import {
+	FC, useCallback, useEffect, useRef, useState,
+} from "react";
 import { useMediaQuery } from "react-responsive";
 import { Devices } from "@/shared/const/devices";
+import { useClickWindow } from "@/shared/hooks/useClickWindow/useClickWindow";
+import { useAppDispatch } from "@/shared/lib/hooks/useAppDispatch/useAppDispatch";
 import { Overlay, OverlayModifier } from "@/shared/ui/Overlay";
 import { Portal } from "@/shared/ui/Portal";
+import { useClickWindowCloseMenu } from "../../hooks/useClickWindowCloseMenu";
+import { featureMenuActions } from "../../model/slice/featureOverlaySlice";
 import { MenuItems } from "../MenuItems/MenuItems";
 import cls from "./Aside.module.scss";
 
@@ -13,8 +19,15 @@ interface AsideProps {
 }
 
 export const Aside: FC<AsideProps> = ({ className, isShow }) => {
-	const [headerHeight, setHeaderHeight] = useState(0);
+	const dispatch = useAppDispatch();
 	const isMobile = useMediaQuery({ maxWidth: Devices.MOBILE });
+	const asideRef = useRef<any>();
+
+	const [headerHeight, setHeaderHeight] = useState(0);
+
+	const [isDrag, setIsDrag] = useState(false);
+	const [clientStartX, setClientStartX] = useState(0);
+	const [clientX, setClientX] = useState(0);
 
 	useEffect(() => {
 		if (isShow) {
@@ -29,6 +42,40 @@ export const Aside: FC<AsideProps> = ({ className, isShow }) => {
 
 		setHeaderHeight(header?.clientHeight || 0);
 	}, [isShow, isMobile]);
+
+	const onCloseClickHandler = useCallback((e: any) => {
+		if (e.target !== asideRef.current) {
+			dispatch(featureMenuActions.setIsShow(false));
+		}
+	}, [dispatch]);
+
+	useClickWindow({ onClick: onCloseClickHandler }, []);
+
+	const onTouchMove = useCallback((event: any) => {
+		setIsDrag(true);
+
+		const diffX = event.touches[0].clientX - clientStartX;
+
+		if (diffX <= 0 && diffX < clientStartX) {
+			setClientX(diffX);
+		}
+	}, [clientStartX]);
+
+	const onTouchStart = useCallback((event: any) => {
+		setClientStartX(event.touches[0].clientX);
+	}, []);
+
+	const onTouchEnd = useCallback(() => {
+		setIsDrag(false);
+
+		if ((-asideRef.current.clientWidth / 4) > clientX) {
+			dispatch(featureMenuActions.setIsShow(false));
+		} else {
+			setClientX(0);
+		}
+
+		setClientStartX(0);
+	}, [clientX, dispatch]);
 
 	return (
 		<Portal>
@@ -46,9 +93,17 @@ export const Aside: FC<AsideProps> = ({ className, isShow }) => {
 				}}
 			>
 				<aside
+					onTouchMove={onTouchMove}
+					onTouchStart={onTouchStart}
+					onTouchEnd={onTouchEnd}
+					ref={asideRef}
 					className={clsx(cls.Aside, {
 					}, [className, cls.Overlay__aside])}
-					style={{ paddingTop: `${headerHeight + 30}px` }}
+					style={{
+						paddingTop: `${headerHeight + 30}px`,
+						left: isDrag ? `${clientX}px` : undefined,
+						transition: isDrag ? "none" : undefined,
+					}}
 				>
 					<ul className={cls.Aside__list}>
 						<MenuItems />
