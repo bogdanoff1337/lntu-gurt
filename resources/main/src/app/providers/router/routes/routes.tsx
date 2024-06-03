@@ -2,16 +2,16 @@ import { RouteProps } from "react-router-dom";
 import { BookedPage } from "@/pages/BookedPage";
 import { LoginPage } from "@/pages/LoginPage";
 import { MainPage } from "@/pages/MainPage";
-import { NonActivePage } from "@/pages/NonActivePage";
 import { ProfilePage } from "@/pages/ProfilePage";
 import { RegisterPage } from "@/pages/RegisterPage";
 import { RoomPage } from "@/pages/RoomPage";
 import { RoomsPage } from "@/pages/RoomsPage";
+import { VerifyPage } from "@/pages/VerifyPage";
 import {
 	getBookedRoutePath,
 	getLoginRoutePath,
 	getMainRoutePath,
-	getNonActiveRoutePath,
+	getVerifyRoutePath,
 	getProfileRoutePath,
 	getRegisterRoutePath,
 	getRoomsRoutePath,
@@ -38,8 +38,8 @@ export const routes: AppRouteProps[] = [
 		middleware: [Middleware.NO_AUTH],
 	},
 	{
-		path: getNonActiveRoutePath(),
-		element: <NonActivePage />,
+		path: getVerifyRoutePath(),
+		element: <VerifyPage />,
 		middleware: [Middleware.AUTH, Middleware.NO_VERIFY],
 	},
 	{

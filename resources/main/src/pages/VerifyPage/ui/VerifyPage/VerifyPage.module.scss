@@ -1,4 +1,4 @@
-.NonActivePage {
+.VerifyPage {
    height: 100vh;
 
    &__shell {
@@ -6,6 +6,10 @@
 
       border-radius: rem(15);
       box-shadow: 0 0 rem(40.5) rem(-2) rgba(63, 64, 155, 0.40);
+   }
+
+   &__text {
+      text-align: center;
    }
 
    &__container {

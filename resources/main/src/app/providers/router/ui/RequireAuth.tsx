@@ -2,7 +2,7 @@ import { ReactNode } from "react";
 import { useSelector } from "react-redux";
 import { Navigate, useLocation } from "react-router-dom";
 import { entityAuthSelectors } from "@/entities/Auth";
-import { getLoginRoutePath, getMainRoutePath, getNonActiveRoutePath } from "@/shared/config/routes/path";
+import { getLoginRoutePath, getMainRoutePath, getVerifyRoutePath } from "@/shared/config/routes/path";
 import { Middleware } from "../routes/routes";
 
 const useAuthNavigation = (middleware: Middleware, authData: any, location: any) => {
@@ -11,7 +11,7 @@ const useAuthNavigation = (middleware: Middleware, authData: any, location: any)
 			return <Navigate replace state={{ from: location }} to={getLoginRoutePath()} />;
 		}
 		if (!middleware.includes(Middleware.NO_VERIFY) && authData && !authData.verified) {
-			return <Navigate replace state={{ from: location }} to={getNonActiveRoutePath()} />;
+			return <Navigate replace state={{ from: location }} to={getVerifyRoutePath()} />;
 		}
 	}
 
