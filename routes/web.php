@@ -17,15 +17,3 @@ use App\Http\Controllers\Api\Verivy;
 */
 
 Route::get('{any?}', fn () => view("main"))->where('any', '.*');
-
-Route::get('{any?}', fn () => view("main"))->where('any', '.*');
-
-Route::get('/email/verify', [EmailVerificationRequest::class, '__invoke'])
-    ->name('verification.notice');
-
-Route::get('/email/verify/{id}/{hash}', [Verivy::class, '__invoke'])
-    ->middleware('signed')
-    ->name('verification.verify');
-
-Route::post('/email/verification-notification', [EmailVerificationRequest::class, '__invoke'])
-    ->name('verification.send');

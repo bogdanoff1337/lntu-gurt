@@ -14,16 +14,6 @@ use Illuminate\Support\Facades\Validator;
 
 class StudentAuthController extends Controller
 {
-    /**
-     * Create a new AuthController instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->middleware('auth:api', ['except' => ['me','register','login','logout','refresh','update']]);
-    }
-
     public function register(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -53,12 +43,11 @@ class StudentAuthController extends Controller
             return response()->json(['error' => 'already exists'], 409);
         }
 
-        $user = Student::create([
+        Student::create([
             'email' => $validated['email'],
             'password' => Hash::make($validated['password']),
-        ]);
+        ])->SendEmailVerificationNotification();
 
-        event(new Registered($user));
 
         if (!$token = JWTAuth::attempt($request->only('email', 'password'))) {
             return response()->json(['error' => 'forbidden'], 403);

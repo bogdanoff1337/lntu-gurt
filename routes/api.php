@@ -7,6 +7,7 @@ use App\Http\Controllers\Api\RoomController;
 use App\Http\Controllers\Api\FacultyController;
 use App\Http\Controllers\Auth\StudentAuthController;
 use App\Http\Controllers\Api\StudentProfileController;
+use App\Http\Controllers\Api\Verivy;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -51,3 +52,6 @@ Route::group(['middleware' => 'jwt.auth'], function () {
     Route::patch('profile/me', [StudentProfileController::class, 'update']);
 });
 
+Route::get('email/verify/{id}', [Verivy::Class, 'verify'])->name('verification.verify'); // Make sure to keep this as your route name
+
+Route::get('email/resend',  [Verivy::Class, 'resend'])->name('verification.resend');
