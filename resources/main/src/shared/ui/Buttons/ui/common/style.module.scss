@@ -5,7 +5,7 @@
 
    padding: em(10, 22) em(15, 22);
 
-   transition: background-color $primaryTransition;
+   transition: background-color $primaryTransition, opacity $primaryTransition;
 
    color: $whiteColor;
    
@@ -40,6 +40,13 @@
       &:hover {
          background-color: rgb(202, 202, 202);
       }
+   }
+
+   &_disabled {
+      cursor: crosshair;
+      pointer-events: none;
+      
+      opacity: 0.5;
    }
 
    @include adaptiveValue("font-size", 22, 15, 0, $widthTo: $tablet);

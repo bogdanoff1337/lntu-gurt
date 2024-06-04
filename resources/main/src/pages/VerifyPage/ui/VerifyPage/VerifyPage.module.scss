@@ -1,7 +1,20 @@
 .VerifyPage {
    height: 100vh;
 
+
+   &__title {
+      margin-bottom: rem(20);
+
+      text-align: center;
+
+      font-size: rem(32);
+   }
+
    &__shell {
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+
       padding: rem(90) rem(15);
 
       border-radius: rem(15);
@@ -9,7 +22,11 @@
    }
 
    &__text {
+      margin-bottom: rem(30);
+
       text-align: center;
+
+      font-size: rem(20);
    }
 
    &__container {

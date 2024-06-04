@@ -4,6 +4,7 @@ import {
 import { pageLoginAuthSlice } from "@/pages/LoginPage";
 import { pageProfileSlice } from "@/pages/ProfilePage";
 import { pageRegisterAuthSlice } from "@/pages/RegisterPage";
+import { pageVerifySlice } from "@/pages/VerifyPage";
 import { featureMenuSlice } from "@/features/Menu";
 import { entityAuthSlice } from "@/entities/Auth";
 import { entityBookedRoomsSlice } from "@/entities/BookedRooms";
@@ -21,6 +22,7 @@ export const createReduxStore = () => {
 		pageRegisterAuthSlice,
 		pageLoginAuthSlice,
 		pageProfileSlice,
+		pageVerifySlice,
 		entityFacultiesSlice,
 		entityRoomsSlice,
 		entityRoomSlice,

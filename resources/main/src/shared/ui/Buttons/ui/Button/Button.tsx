@@ -17,7 +17,12 @@ export const Button: FC<ButtonProps> = ({
 	modifier = "",
 	...otherProps
 }) => (
-	<button className={clsx(cls.Button, [className, cls[modifier]])} {...otherProps}>
+	<button
+		className={clsx(cls.Button, {
+			[cls.Button_disabled]: otherProps.disabled,
+		}, [className, cls[modifier]])}
+		{...otherProps}
+	>
 		{children}
 	</button>
 );
