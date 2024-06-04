@@ -31,6 +31,7 @@ class AccessResource extends Resource
                         1 => 'Так',
                         0 => 'Ні',
                     ])
+                    ->default(1)
                     ->label('Дозвіл')
             ]);
     }
