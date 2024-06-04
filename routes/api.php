@@ -39,7 +39,7 @@ Route::group(['middleware' => 'jwt.auth'], function () {
         'create', 'store', 'update', 'destroy'
     ]);
 
-    Route::resource('book', OrdersController::class)->middleware('signed')->except([
+    Route::resource('book', OrdersController::class)->except([
         'create', 'update'
     ]);
 

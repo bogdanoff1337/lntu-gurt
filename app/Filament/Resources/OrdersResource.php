@@ -64,6 +64,7 @@ class OrdersResource extends Resource
                 Tables\Columns\SelectColumn::make("status")
                     ->options(function ($record) {
                         $options = [
+                            'new' => 'Очікує на розгляд',
                             'approved' => 'Затверджено',
                             'rejected' => 'Відхилено',
                         ];
@@ -74,14 +75,13 @@ class OrdersResource extends Resource
 
                         return $options;
                     })
+                    ->default('new')
                     ->label("Статус")
                     ->beforeStateUpdated(function ($record, $state) {
                         if ($state === 'approved') {
                             $room = Room::find($record->room_id);
 
-                            // Перевіряємо, чи кімната існує та чи кількість місць більше 0
                             if ($room && $room->places <= 0) {
-                                // Повідомлення про неможливість затвердження замовлення
                                 throw new \Exception('Неможливо затвердити замовлення. Немає доступних місць у кімнаті.');
                             }
                         }
