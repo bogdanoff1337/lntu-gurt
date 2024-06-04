@@ -24,7 +24,7 @@ class Verivy extends Controller
         return redirect()->to('/');
     }
 
-    public function resend(): JsonResponse
+    public function send(): JsonResponse
     {
         if (auth()->user()->hasVerifiedEmail()) {
             return response()->json(["msg" => "Email already verified."], 400);
@@ -32,6 +32,6 @@ class Verivy extends Controller
 
         auth()->user()->sendEmailVerificationNotification();
 
-        return response()->json(["msg" => "Email verification link sent on your email id"]);
+        return response()->json();
     }
 }

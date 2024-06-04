@@ -6,7 +6,7 @@ import { PageVerifySchema } from "../types/PageVerifySchema";
 const initialState: PageVerifySchema = {
 	isLoading: false,
 	data: {
-		timer: 30,
+		timer: 0,
 	},
 };
 
@@ -19,7 +19,7 @@ export const pageVerifySlice = createSliceWithThunk({
 				extra, rejectWithValue,
 			}) => {
 				try {
-					const response = await extra.api.post<any>("email/send", {
+					const response = await extra.api.get<any>("email/send", {
 					});
 
 					if (!response.data) {

@@ -56,7 +56,8 @@ class Student extends Authenticatable implements JWTSubject
         return [];
     }
 
-    public function sendEmailVerificationNotification() {
+    public function sendEmailVerificationNotification()
+    {
         $this->notify(new VerifyEmailNotification);
     }
 }

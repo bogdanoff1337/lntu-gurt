@@ -39,15 +39,12 @@ export const VerifyPage: FC<VerifyPageProps> = ({ className }) => {
 	}, [verifyData]);
 
 	useEffect(() => {
-		pageVerifyActions.submitForm();
+        dispatch(pageVerifyActions.submitForm());
 	}, []);
 
 	const onSubmit = useCallback((e: any) => {
 		e.preventDefault();
-
-		if (verifyData!.timer === 0) {
-			pageVerifyActions.submitForm();
-		}
+        dispatch(pageVerifyActions.submitForm());
 	}, [verifyData]);
 
 	return (
@@ -58,7 +55,7 @@ export const VerifyPage: FC<VerifyPageProps> = ({ className }) => {
 					<p className={cls.VerifyPage__text}>
 						Надіслано підтвердження на пошту <b className={cls.VerifyPage__bold}>{authData?.email}</b>
 					</p>
-					<PrimaryButton isLoading={isLoading} type="submit" disabled={verifyData?.timer !== 0}>Надіслати ще раз {verifyData?.timer !== 0 && verifyData?.timer}</PrimaryButton>
+					<PrimaryButton isLoading={isLoading} type="submit" >Надіслати ще раз {verifyData?.timer !== 0 && verifyData?.timer}</PrimaryButton>
 				</form>
 			</Container>
 		</div>

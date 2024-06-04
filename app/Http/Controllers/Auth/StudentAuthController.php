@@ -48,7 +48,7 @@ class StudentAuthController extends Controller
         Student::create([
             'email' => $validated['email'],
             'password' => Hash::make($validated['password']),
-        ])->SendEmailVerificationNotification();
+        ]);
 
 
         if (!$token = JWTAuth::attempt($request->only('email', 'password'))) {
@@ -113,6 +113,7 @@ class StudentAuthController extends Controller
         } else {
             $only['verified'] = false;
         }
+
         return response()->json($only);
     }
 

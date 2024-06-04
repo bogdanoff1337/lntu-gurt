@@ -39,7 +39,7 @@ Route::group(['middleware' => 'jwt.auth'], function () {
         'create', 'store', 'update', 'destroy'
     ]);
 
-    Route::resource('book', OrdersController::class)->except([
+    Route::resource('book', OrdersController::class)->middleware('signed')->except([
         'create', 'update'
     ]);
 
@@ -54,4 +54,4 @@ Route::group(['middleware' => 'jwt.auth'], function () {
 
 Route::get('email/verify/{id}', [Verivy::Class, 'verify'])->name('verification.verify'); // Make sure to keep this as your route name
 
-Route::get('email/resend',  [Verivy::Class, 'resend'])->name('verification.resend');
+Route::get('email/send',  [Verivy::Class, 'send'])->name('verification.resend');
