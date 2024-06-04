@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\Student\StudentFull;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-
+use App\Http\Requests\Student\Profile as StudentUpdateRequest;
 class StudentProfileController extends Controller
 {
     /**
@@ -22,10 +22,10 @@ class StudentProfileController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request)
+    public function update(StudentUpdateRequest $request)
     {
-        $validatedData = $request->all();
-
+        $validatedData = $request->validated();
+        dd($validatedData);
         $user = Auth::user();
 
         if(!$user) {

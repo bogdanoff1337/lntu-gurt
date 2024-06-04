@@ -104,7 +104,7 @@ export const ProfileForm: FC<ProfileFormProps> = ({ className }) => {
 				<PrimaryField
 					className={cls.Input}
 					onChange={onChangeFatherName}
-					value={tempData?.father_name}
+					value={tempData?.middle_name}
 					placeholder="Вкажіть по батькові"
 					readOnly={readOnly}
 					renderIcon={!readOnly}
@@ -122,7 +122,7 @@ export const ProfileForm: FC<ProfileFormProps> = ({ className }) => {
 				<PrimaryField
 					className={cls.Input}
 					onChange={onChangeAddress}
-					value={tempData?.address}
+					value={tempData?.city}
 					placeholder="Місце проживання"
 					readOnly={readOnly}
 					renderIcon={!readOnly}

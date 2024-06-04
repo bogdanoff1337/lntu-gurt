@@ -5,12 +5,12 @@ import {
 } from "react";
 import cls from "./PrimaryField.module.scss";
 
-type InputAttrubutes = Omit<InputHTMLAttributes<HTMLInputElement>, "onChange">;
+type InputAttrubutes = Omit<InputHTMLAttributes<HTMLInputElement>, "value" | "onChange">;
 
 interface PrimaryFieldProps extends InputAttrubutes {
 	className?: string;
 	placeholder: string;
-	value?: string;
+	value?: string | null;
 	onChange?: (value: string) => void;
 	onBlur?: (e: ChangeEvent<HTMLInputElement>) => void;
 	errorMessage?: string;
@@ -62,7 +62,7 @@ export const PrimaryField: FC<PrimaryFieldProps> = ({
 					className={cls.PrimaryField__input}
 					type={type}
 					placeholder={placeholder}
-					value={value}
+					value={value || ""}
 					onChange={onChangeHandler}
 					onBlur={onBlurHandler}
 					{...anotherProps}

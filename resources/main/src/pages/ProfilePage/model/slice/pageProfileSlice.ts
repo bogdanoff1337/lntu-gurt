@@ -116,10 +116,10 @@ export const pageProfileSlice = createSliceWithThunk({
 			state.tempData!.last_name = action.payload;
 		}),
 		changeFatherName: create.reducer((state, action: PayloadAction<string>) => {
-			state.tempData!.father_name = action.payload;
+			state.tempData!.middle_name = action.payload;
 		}),
 		changeAddress: create.reducer((state, action: PayloadAction<string>) => {
-			state.tempData!.address = action.payload;
+			state.tempData!.city = action.payload;
 		}),
 		changeGender: create.reducer((state, action: PayloadAction<string>) => {
 			state.tempData!.gender = action.payload;

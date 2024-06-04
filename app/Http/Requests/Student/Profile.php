@@ -3,7 +3,7 @@
 namespace App\Http\Requests\Student;
 
 use Illuminate\Foundation\Http\FormRequest;
-
+use Illuminate\Validation\Rule;
 class Profile extends FormRequest
 {
     /**
@@ -21,11 +21,13 @@ class Profile extends FormRequest
      */
     public function rules(): array
     {
+        $userId = $this->user()->id;
+
         return [
             'first_name' => 'required|string',
             'last_name' => 'required|string',
             'middle_name' => 'required|string',
-            'phone' => 'required|string|unique:students,phone',
+            'phone' => ['required','string', Rule::unique('students')->ignore($userId)],
             'city' => 'required|string',
             'benefits' => 'required|string',
             'gender' => 'required|string',

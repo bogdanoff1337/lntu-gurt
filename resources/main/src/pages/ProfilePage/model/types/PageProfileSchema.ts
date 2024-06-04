@@ -7,13 +7,13 @@ export interface PageProfileSchema {
 }
 
 export interface ProfileData {
-	first_name?: string;
-	last_name?: string;
-	father_name?: string;
-	address?: string;
-	gender?: string;
-	phone?: string;
-	benefits?: string;
+    first_name: string | null;
+    last_name: string | null;
+    middle_name: string | null;
+    phone: string | null;
+    city: string | null;
+    benefits: string | null;
+    gender: string | null;
 }
 
 export interface ResponseData {

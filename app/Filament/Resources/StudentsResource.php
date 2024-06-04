@@ -25,35 +25,31 @@ class StudentsResource extends Resource
             ->schema([
                 Forms\Components\TextInput::make("last_name")
                     ->label("Ім'я")
-                    ->required()
-                    ->placeholder("Name"),
+                    ->placeholder("Ім'я"),
                 Forms\Components\TextInput::make("first_name")
                     ->label("Прізвище")
-                    ->required()
-                    ->placeholder("Surname"),
-
+                    ->placeholder("Прізвище"),
                 Forms\Components\TextInput::make("middle_name")
                     ->label("По-батькові")
-                    ->required()
-                    ->placeholder("Middle name"),
+                    ->placeholder("По-батькові"),
                 Forms\Components\TextInput::make("phone")
                     ->label("Номер телефону")
-                    ->required()
-                    ->placeholder("Phone"),
+                    ->placeholder("Номер телефону"),
+                Forms\Components\TextInput::make("gender")
+                    ->label("Стать")
+                    ->placeholder("Стать"),
                 Forms\Components\TextInput::make("city")
                     ->label("Місце проживання")
-                    ->required()
-                    ->placeholder("City"),
+                    ->placeholder("Місце проживання"),
                 Forms\Components\TextInput::make("benefits")
                     ->label("Перелік пільг")
-                    ->required()
-                    ->placeholder("Benefits"),
+                    ->placeholder("Перелік пільг"),
                 Forms\Components\TextInput::make('email')
                     ->label('Email')
-                    ->required()
+                    ->disabled()
                     ->placeholder('Email'),
-                Forms\Components\TextInput::make('password')
-                    ->password()
+//                Forms\Components\TextInput::make('password')
+//                    ->password()
 //                    ->revealable()
             ]);
     }
@@ -79,7 +75,6 @@ class StudentsResource extends Resource
                 Tables\Columns\TextColumn::make("city")
                     ->label("Місце проживання")
                     ->searchable(),
-
                 Tables\Columns\TextColumn::make("phone")
                     ->label("Номер телефону")
                     ->searchable(),
