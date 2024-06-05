@@ -1,9 +1,10 @@
 import clsx from "clsx";
 import {
 	FC, useCallback, useEffect, useRef,
+	useState,
 } from "react";
 import { useSelector } from "react-redux";
-import { entityAuthSelectors } from "@/entities/Auth";
+import { entityAuthActions, entityAuthSelectors } from "@/entities/Auth";
 import { useAppDispatch } from "@/shared/lib/hooks/useAppDispatch/useAppDispatch";
 import { PrimaryButton } from "@/shared/ui/Buttons";
 import { Container, ContainerModifier } from "@/shared/ui/Container";
@@ -21,31 +22,40 @@ export const VerifyPage: FC<VerifyPageProps> = ({ className }) => {
 	const authData = useSelector(entityAuthSelectors.getData);
 
 	const timerRef = useRef<any>(null);
+	const [timer, setTimer] = useState(60);
 
 	const isLoading = useSelector(pageVerifySelectors.getIsLoading);
-	const verifyData = useSelector(pageVerifySelectors.getData);
 
 	useEffect(() => {
-		timerRef.current = setInterval(() => {
-			dispatch(pageVerifyActions.setTimer(verifyData!.timer - 1));
-		}, 1000);
-		return () => clearInterval(timerRef.current);
-	}, [dispatch, verifyData]);
-
-	useEffect(() => {
-		if (verifyData?.timer === 0) {
+		if (timer === 0) {
 			clearInterval(timerRef.current);
+		} else {
+			timerRef.current = setInterval(() => {
+				setTimer((timer) => timer - 1);
+			}, 1000);
 		}
-	}, [verifyData]);
+
+		return () => clearInterval(timerRef.current);
+	}, [timer]);
 
 	useEffect(() => {
-        dispatch(pageVerifyActions.submitForm());
-	}, []);
+		dispatch(pageVerifyActions.submitForm());
+	}, [dispatch]);
 
 	const onSubmit = useCallback((e: any) => {
 		e.preventDefault();
-        dispatch(pageVerifyActions.submitForm());
-	}, [verifyData]);
+		if (!timer) {
+			dispatch(pageVerifyActions.submitForm()).then((data) => {
+				if (data.meta.requestStatus === "fulfilled") {
+					setTimer(60);
+				}
+
+				if (data.payload === "Email already verified") {
+					dispatch(entityAuthActions.getUser());
+				}
+			});
+		}
+	}, [dispatch, timer]);
 
 	return (
 		<div className={clsx(cls.VerifyPage, [className])}>
@@ -55,7 +65,9 @@ export const VerifyPage: FC<VerifyPageProps> = ({ className }) => {
 					<p className={cls.VerifyPage__text}>
 						Надіслано підтвердження на пошту <b className={cls.VerifyPage__bold}>{authData?.email}</b>
 					</p>
-					<PrimaryButton isLoading={isLoading} type="submit" >Надіслати ще раз {verifyData?.timer !== 0 && verifyData?.timer}</PrimaryButton>
+					<PrimaryButton isLoading={isLoading} disabled={!!timer} type="submit">
+						Надіслати ще раз {timer || undefined}
+					</PrimaryButton>
 				</form>
 			</Container>
 		</div>

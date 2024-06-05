@@ -1,13 +1,9 @@
-import { PayloadAction } from "@reduxjs/toolkit";
 import { ThunkConfig } from "@/app/providers/StoreProvider";
 import { createSliceWithThunk } from "@/shared/lib/createSliceWithThunk";
 import { PageVerifySchema } from "../types/PageVerifySchema";
 
 const initialState: PageVerifySchema = {
 	isLoading: false,
-	data: {
-		timer: 0,
-	},
 };
 
 export const pageVerifySlice = createSliceWithThunk({
@@ -25,17 +21,18 @@ export const pageVerifySlice = createSliceWithThunk({
 					if (!response.data) {
 						throw new Error();
 					}
-				} catch (e) {
-					return rejectWithValue("error");
+				} catch (e: any) {
+					if (e.response.status === 400) {
+						return rejectWithValue(e.response.data.messages);
+					}
 				}
 			},
 			{
 				pending: (state) => {
 					state.isLoading = true;
 				},
-				fulfilled: (state, action) => {
+				fulfilled: (state) => {
 					state.isLoading = false;
-					state.data = action.payload;
 				},
 				rejected: (state, action) => {
 					state.isLoading = false;
@@ -43,10 +40,6 @@ export const pageVerifySlice = createSliceWithThunk({
 				},
 			},
 		),
-
-		setTimer: create.reducer((state, action: PayloadAction<number>) => {
-			state.data!.timer = action.payload;
-		}),
 	}),
 });
 

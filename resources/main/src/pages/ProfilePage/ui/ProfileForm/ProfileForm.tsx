@@ -68,7 +68,7 @@ export const ProfileForm: FC<ProfileFormProps> = ({ className }) => {
 
 	const onSubmit = useCallback((e: FormEvent) => {
 		e.preventDefault();
-	}, [dispatch]);
+	}, []);
 
 	useEffect(() => {
 		if (!tempData) {
