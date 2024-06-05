@@ -25,7 +25,7 @@ class StudentProfileController extends Controller
     public function update(StudentUpdateRequest $request)
     {
         $validatedData = $request->validated();
-        dd($validatedData);
+
         $user = Auth::user();
 
         if(!$user) {
