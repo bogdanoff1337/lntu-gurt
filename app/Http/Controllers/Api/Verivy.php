@@ -12,7 +12,7 @@ class Verivy extends Controller
     public function verify($user_id, Request $request): RedirectResponse|JsonResponse
     {
         if (!$request->hasValidSignature()) {
-            return response()->json(["msg" => "Invalid/Expired url provided."], 401);
+            return response()->json(["messages" => "Invalid/Expired url provided"], 401);
         }
 
         $user = Student::findOrFail($user_id);
@@ -27,7 +27,7 @@ class Verivy extends Controller
     public function send(): JsonResponse
     {
         if (auth()->user()->hasVerifiedEmail()) {
-            return response()->json(["msg" => "Email already verified."], 400);
+            return response()->json(["messages" => "Email already verified"], 400);
         }
 
         auth()->user()->sendEmailVerificationNotification();
