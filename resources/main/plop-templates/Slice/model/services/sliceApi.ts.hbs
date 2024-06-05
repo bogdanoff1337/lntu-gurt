@@ -1,0 +1,27 @@
+import { rtkApi } from "@/shared/api/rtkApi";
+import { ResponseData } from "../types/{{pascalCase layer}}{{pascalCase slice}}Schema";
+
+export const {{camelCase slice}}Api = rtkApi.injectEndpoints({
+	endpoints: (build) => ({
+		// example: build.query<ResponseData, void>({
+		// 	providesTags: ["{{camelCase slice}}"],
+		// 	query: () => ({
+		// 		method: "GET",
+		// 		url: "example",
+		// 	}),
+		// }),
+
+		// example: build.mutation<any, any>({
+		// 	invalidatesTags: ["ProfilePage"],
+		// 	query: (data) => ({
+		// 		url: "example",
+		// 		method: "PATCH",
+		// 		body: {
+		// 			...data,
+		// 		},
+
+		// 	}),
+		// }),
+	}),
+	overrideExisting: false,
+});

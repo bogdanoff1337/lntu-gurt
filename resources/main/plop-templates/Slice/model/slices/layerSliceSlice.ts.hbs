@@ -1,0 +1,49 @@
+import { PayloadAction } from "@reduxjs/toolkit";
+import { ThunkConfig } from "@/app/providers/StoreProvider";
+import { createSliceWithThunk } from "@/shared/lib/createSliceWithThunk";
+import { {{pascalCase layer}}{{pascalCase slice}}Schema } from "../types/{{pascalCase layer}}{{pascalCase slice}}Schema";
+
+const initialState: {{pascalCase layer}}{{pascalCase slice}}Schema = {
+	data: {},
+	isLoading: false,
+	// error: undefined,
+};
+
+export const {{camelCase layer}}{{pascalCase slice}}Slice = createSliceWithThunk({
+	name: "{{camelCase layer}}{{pascalCase slice}}",
+	initialState,
+	reducers: (create) => ({
+		// example: create.reducer((state, action: PayloadAction<boolean>) => {
+		// }),
+
+		// example: create.asyncThunk<any, void, ThunkConfig<string>>(
+		// 	async (_, {
+		// 		extra, rejectWithValue,
+		// 	}) => {
+		// 		try {
+		// 			const response = await extra.api.get<any>("example", {
+		// 			});
+
+		// 			return response.data;
+		// 		} catch (error: any) {
+		// 			return rejectWithValue(error.response.data);
+		// 		}
+		// 	},
+		// 	{
+		// 		pending: (state) => {
+		// 			state.isLoading = true;
+		// 		},
+		// 		fulfilled: (state, action) => {
+		// 			state.isLoading = false;
+		// 			state.error = undefined;
+		// 		},
+		// 		rejected: (state, action: any) => {
+		// 			state.isLoading = false;
+		// 			state.error = action.payload;
+		// 		},
+		// 	},
+		// ),
+	}),
+});
+
+export const { actions: {{camelCase layer}}{{pascalCase slice}}Actions } = {{camelCase layer}}{{pascalCase slice}}Slice;

@@ -1,0 +1,15 @@
+import clsx from "clsx";
+import { FC, memo } from "react";
+import cls from "./{{pascalCase slice}}.module.scss";
+
+interface {{pascalCase slice}}Props {
+	className?: string;
+}
+
+export const {{pascalCase slice}}: FC<{{pascalCase slice}}Props> = memo(({ className }) => {
+	return (
+		<div className={clsx(cls.{{pascalCase slice}}, [className])}>
+			{{pascalCase slice}}
+		</div>
+	);
+});

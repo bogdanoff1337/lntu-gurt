@@ -11,7 +11,8 @@
         "lint:ts": "eslint \"**/*.{ts,tsx}\"",
         "lint:ts:fix": "eslint --fix \"**/*.{ts,tsx}\"",
         "lint:scss": "stylelint \"**/*.scss\"",
-        "lint:scss:fix": "stylelint --fix \"**/*.scss\""
+        "lint:scss:fix": "stylelint --fix \"**/*.scss\"",
+        "plop": "plop"
     },
     "keywords": [],
     "author": "",
@@ -30,6 +31,7 @@
         "@typescript-eslint/eslint-plugin": "^6.8.0",
         "@typescript-eslint/parser": "^6.8.0",
         "@vitejs/plugin-react-swc": "^3.6.0",
+        "change-case": "^5.4.4",
         "concurrently": "^8.2.0",
         "dotenv": "^16.4.5",
         "eslint": "^8.51.0",
@@ -41,6 +43,7 @@
         "eslint-plugin-react": "^7.33.2",
         "eslint-plugin-react-hooks": "^4.6.0",
         "laravel-vite-plugin": "^1.0.0",
+        "plop": "^4.0.1",
         "prettier": "^3.0.3",
         "sass": "^1.63.2",
         "stylelint": "^15.7.0",
