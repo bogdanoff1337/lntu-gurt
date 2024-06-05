@@ -30,6 +30,13 @@ return [
 
     'disks' => [
 
+        'bunnycdn' => [
+            'driver' => 'bunnycdn',
+            'storage_zone' => env('BUNNYCDN_STORAGE_ZONE', 'your-storage-zone'),
+            'access_key' => env('BUNNYCDN_ACCESS_KEY', 'your-access-key'),
+            'endpoint' => env('BUNNYCDN_ENDPOINT', 'storage.bunnycdn.com'),
+        ],
+
         'local' => [
             'driver' => 'local',
             'root' => storage_path('app'),

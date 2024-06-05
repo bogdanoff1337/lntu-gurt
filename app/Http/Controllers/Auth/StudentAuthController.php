@@ -42,7 +42,11 @@ class StudentAuthController extends Controller
         }
 
         if (Student::where('email', $validated['email'])->exists()) {
-            return response()->json(['error' => 'already exists'], 409);
+            return response()->json(
+                [
+                    'title' => 'Користувач з такою поштою вже зареєстрований',
+                    'text' => 'Перевірте правильність введених даних'
+                ], 409);
         }
 
         Student::create([
