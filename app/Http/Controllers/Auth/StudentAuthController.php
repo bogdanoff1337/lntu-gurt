@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Http\Resources\Student\StudentFull;
 use App\Models\AccessToRegister;
 use App\Models\Student;
 use Illuminate\Http\JsonResponse;
@@ -11,12 +10,11 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Tymon\JWTAuth\Facades\JWTAuth;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Validator;
-
+use Illuminate\Contracts\Auth\Guard;
 class StudentAuthController extends Controller
 {
-    public function register(Request $request)
+    public function register(Request $request): JsonResponse
     {
         $validator = Validator::make($request->all(), [
             'email' => 'required|email',
@@ -24,7 +22,10 @@ class StudentAuthController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return response()->json($validator->errors(), 422);
+            return response()->json([
+                'title' => 'Поля заповнені неправильно',
+                'text' => 'Перевірте правильність введених даних'
+            ], 422);
         }
 
         $validated = $validator->validated();
@@ -62,13 +63,7 @@ class StudentAuthController extends Controller
         return $this->respondWithToken($token);
     }
 
-    /**
-     * Handle an incoming authentication request.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function login(Request $request)
+    public function login(Request $request): JsonResponse
     {
         $credentials = $request->only('email', 'password');
 
@@ -152,12 +147,7 @@ class StudentAuthController extends Controller
         ]);
     }
 
-    /**
-     * Get the guard to be used during authentication.
-     *
-     * @return \Illuminate\Contracts\Auth\Guard
-     */
-    public function guard()
+    public function guard(): Guard
     {
         return Auth::guard();
     }
