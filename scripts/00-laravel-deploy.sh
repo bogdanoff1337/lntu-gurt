@@ -13,6 +13,6 @@ php artisan storage:link
 
 #echo "Running migrations..."
 php artisan migrate --force
-#php artisan db:seed --force
+php artisan db:seed --force
 
 #php artisan queue:work

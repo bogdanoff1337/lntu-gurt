@@ -8,6 +8,7 @@ use App\Http\Controllers\Api\FacultyController;
 use App\Http\Controllers\Auth\StudentAuthController;
 use App\Http\Controllers\Api\StudentProfileController;
 use App\Http\Controllers\Api\Verivy;
+use App\Http\Controllers\Api\CitiesController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -49,8 +50,10 @@ Route::group(['middleware' => 'jwt.auth'], function () {
         'create', 'store', 'destroy', 'edit',
     ]);
 
+
     Route::patch('profile/me', [StudentProfileController::class, 'update']);
 });
+Route::get('cities', [CitiesController::class, 'index']);
 
 Route::get('email/verify/{id}', [Verivy::Class, 'verify'])->name('verification.verify'); // Make sure to keep this as your route name
 
