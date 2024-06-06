@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'default' => env('FILESYSTEM_DISK', 'local'),
+    'default' => env('FILESYSTEM_DISK', 'gcs'),
 
     /*
     |--------------------------------------------------------------------------
@@ -30,11 +30,11 @@ return [
 
     'disks' => [
 
-        'bunnycdn' => [
-            'driver' => 'bunnycdn',
-            'storage_zone' => env('BUNNYCDN_STORAGE_ZONE', 'your-storage-zone'),
-            'access_key' => env('BUNNYCDN_ACCESS_KEY', 'your-access-key'),
-            'endpoint' => env('BUNNYCDN_ENDPOINT', 'storage.bunnycdn.com'),
+        'gcs' => [
+            'driver' => 'gcs',
+            'project_id' => env('GOOGLE_CLOUD_PROJECT_ID', 'weighty-diagram-425514-t9'),
+            'key_file' => storage_path('app/client_secret_457273325325-l0moassk0b3rsraueljm25oqe0snqvne.apps.googleusercontent.com.json'), // optional: Array of data that substitutes the .json file (see below)
+            'bucket' => env('GOOGLE_CLOUD_STORAGE_BUCKET', 'lntu-gurt'),
         ],
 
         'local' => [

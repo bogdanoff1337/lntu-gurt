@@ -95,7 +95,7 @@ class StudentAuthController extends Controller
             return response()->json(['messages' => 'Unauthorized'], 401);
         }
 
-        $only = $this->guard()->user()->only([
+        $profileData = $this->guard()->user()->only([
             'id',
             'email',
             'first_name',
@@ -104,16 +104,15 @@ class StudentAuthController extends Controller
             'phone',
             'city',
             'benefits',
-            'email_verified_at'
         ]);
 
-        if ($only['email_verified_at'] !== null) {
-            $only['verified'] = true;
-        } else {
-            $only['verified'] = false;
-        }
+        $profileData['verified'] = $this->guard()->user()->email_verified_at !== null;
 
-        return response()->json($only);
+        $profile = [
+            'profile' => $profileData
+        ];
+
+        return $profile;
     }
 
     /**
