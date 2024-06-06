@@ -24,10 +24,13 @@ class CitiesResource extends Resource
         return $form
             ->schema([
                 Forms\Components\TextInput::make('name')
-                    ->label('Name')
+                    ->label('Назва')
                     ->required(),
                 Forms\Components\TextInput::make('region')
-                    ->label('Region')
+                    ->label('Область')
+                    ->required(),
+                Forms\Components\TextInput::make('community')
+                    ->label('Район')
                     ->required(),
             ]);
     }
@@ -40,6 +43,9 @@ class CitiesResource extends Resource
                     ->searchable()
                     ->sortable(),
                 TextColumn::make('region')
+                    ->searchable()
+                    ->sortable(),
+                TextColumn::make('community')
                     ->searchable()
                     ->sortable(),
             ])

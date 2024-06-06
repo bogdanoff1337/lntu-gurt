@@ -11,6 +11,8 @@ class CitiesSeeder extends Seeder
      */
     public function run(): void
     {
+        DB::table('cities')->truncate();
+
         $filePath = base_path('m.json');
         $file = fopen($filePath, 'r');
 
@@ -23,6 +25,7 @@ class CitiesSeeder extends Seeder
             DB::table('cities')->insert([
                 'name' => $location['object_name'],
                 'region' => $location['region'],
+                'community' => $location['region'],
             ]);
         }
     }

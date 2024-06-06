@@ -16,8 +16,11 @@ class Cities extends JsonResource
     {
         // for first letter of each word to be uppercase, and the rest lowercase
         return [
-            'name' => mb_convert_case($this->name, MB_CASE_TITLE, "UTF-8"),
-            'region' => mb_convert_case($this->region, MB_CASE_TITLE, "UTF-8"),
+            'id' => $this->id,
+            'city' => mb_convert_case($this->region, MB_CASE_TITLE, "UTF-8") . ' обл., ' .
+                mb_convert_case($this->region, MB_CASE_TITLE, "UTF-8") . ' р-н., с. ' .
+                mb_convert_case($this->community, MB_CASE_TITLE, "UTF-8"),
         ];
+
     }
 }
