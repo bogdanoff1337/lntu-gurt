@@ -95,21 +95,20 @@ class StudentAuthController extends Controller
             return response()->json(['messages' => 'Unauthorized'], 401);
         }
 
-        $profileData = $this->guard()->user()->only([
-            'id',
-            'email',
-            'first_name',
-            'last_name',
-            'middle_name',
-            'phone',
-            'city',
-            'benefits',
-        ]);
-
-        $profileData['verified'] = $this->guard()->user()->email_verified_at !== null;
-
         $profile = [
-            'profile' => $profileData
+            'profile' => $this->guard()->user()->only([
+                'email',
+                'first_name',
+                'last_name',
+                'middle_name',
+                'phone',
+                'city',
+                'benefits',
+                'gender',
+                'phone'
+            ]),
+            'id' => $this->guard()->user()->id,
+            'verified' => $this->guard()->user()->email_verified_at !== null,
         ];
 
         return $profile;
