@@ -25,7 +25,7 @@ class CitiesSeeder extends Seeder
             DB::table('cities')->insert([
                 'name' => $location['object_name'],
                 'region' => $location['region'],
-                'community' => $location['region'],
+                'community' => $location['community'],
             ]);
         }
     }
