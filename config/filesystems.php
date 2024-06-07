@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'default' => env('FILESYSTEM_DISK', 'gcs'),
+    'default' => env('FILESYSTEM_DISK', 'render_disk'),
 
     /*
     |--------------------------------------------------------------------------
@@ -30,11 +30,9 @@ return [
 
     'disks' => [
 
-        'gcs' => [
-            'driver' => 'gcs',
-            'project_id' => env('GOOGLE_CLOUD_PROJECT_ID', 'weighty-diagram-425514-t9'),
-            'key_file' => storage_path('app/client_secret_457273325325-l0moassk0b3rsraueljm25oqe0snqvne.apps.googleusercontent.com.json'), // optional: Array of data that substitutes the .json file (see below)
-            'bucket' => env('GOOGLE_CLOUD_STORAGE_BUCKET', 'lntu-gurt'),
+        'render_disk' => [
+            'driver' => 'local',
+            'root' => env('RENDER_DISK_PATH', '/mnt/data'),
         ],
 
         'local' => [
@@ -55,12 +53,6 @@ return [
             'driver' => 'local',
             'root' => base_path('/public/photos/uploads/facult'),
             'url' => env('APP_URL').'/photos/uploads/facult',
-            'visibility' => 'public',
-        ],
-
-        'render_disk' => [
-            'driver' => 'local',
-            'root' => '/var/lib/data',
             'visibility' => 'public',
         ],
 
