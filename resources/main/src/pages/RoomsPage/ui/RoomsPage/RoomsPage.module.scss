@@ -28,11 +28,17 @@
 
         @media (min-width: em($tablet)) {
             align-items: center;
-
         }
 
         @media (max-width: em($tablet)) {
             flex-direction: column-reverse;
         }
+    }
+}
+
+
+.Select {
+    @media (max-width: em($mobile)) {
+        font-size: rem(12);
     }
 }

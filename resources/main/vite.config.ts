@@ -3,6 +3,7 @@ import path from "path";
 import react from "@vitejs/plugin-react-swc";
 import dotenv from "dotenv";
 import laravel from "laravel-vite-plugin";
+import { visualizer } from "rollup-plugin-visualizer";
 import { defineConfig } from "vite";
 import svgr from "vite-plugin-svgr";
 
@@ -23,6 +24,7 @@ export default defineConfig(({ mode }) => {
 	let API;
 
 	const plugins = [
+		visualizer(),
 		react(),
 		svgr(),
 	];

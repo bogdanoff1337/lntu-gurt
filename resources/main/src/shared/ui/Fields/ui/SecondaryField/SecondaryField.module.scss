@@ -1,4 +1,4 @@
-.PrimaryField {
+.SecondaryField {
    $p: &;
    position: relative;
 
@@ -15,7 +15,7 @@
       }
    }
 
-   &_emty {
+   &_empty {
       #{$p} {
          &__placeholder {
             top: 0;
@@ -87,6 +87,7 @@
    }
 
 
+
    &__icon {
       width: em(20, 24);
       height: em(20, 24);
@@ -94,10 +95,28 @@
    }
 
 
+   &__removeIcon {
+      width: em(14, 24);
+      height: em(14, 24);
+      fill: currentColor;
+
+      color: $redColor;
+   }
+
+
    &__iconWrapper {
       position: absolute;
-      top: 0;
-      right: 0;
+      
+
+      &_cross {
+         top: 0;
+         right: rem(30);
+      }
+
+      &_pen {
+         top: 0;
+         right: 0;
+      }
 
 
       &_enter {
@@ -151,6 +170,8 @@
       align-items: center;
       justify-content: center;
 
+      
+
 
       &:before {
          position: absolute;
@@ -182,6 +203,7 @@
 
    &__input {
       width: 100%;
+      padding-right: rem(60);
       padding-left: em(3, 24);
 
       border-bottom: $purpleColor solid em(2, 24);
@@ -200,8 +222,6 @@
       position: absolute;
       bottom: 0;
       left: 0;
-
-      // transition: opacity $primaryTransition;
 
       color: $redColor;
 
@@ -235,7 +255,11 @@
 }
 
 .List {
+   overflow-x: auto;
+
    width: 100%;
+
+   max-height: rem(35.53 * 5);
 
    border: $blueColor solid em(2);
    border-bottom-right-radius: em(10);
@@ -278,7 +302,7 @@
          background-color: rgba(0, 0, 0, 0.1);
       }
 
-      &_loader {
+      &_center {
          display: flex;
          align-items: center;
          justify-content: center;

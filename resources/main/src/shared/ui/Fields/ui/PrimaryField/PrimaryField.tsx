@@ -19,10 +19,12 @@ interface PrimaryFieldProps extends InputAttrubutes {
 	readOnly?: boolean;
 	Icon?: FC<React.SVGProps<SVGSVGElement>>;
 	renderIcon?: boolean;
+	isFeature?: boolean;
 }
 
 export const PrimaryField: FC<PrimaryFieldProps> = ({
-	className, placeholder, value, onChange, onBlur, errorMessage, type = "text", isSuccess, Icon, renderIcon = true, readOnly, ...anotherProps
+	className, placeholder, value, onChange, onBlur, errorMessage, type = "text", isSuccess,
+	Icon, renderIcon = true, readOnly, isFeature, ...anotherProps
 }) => {
 	const [isEmty, setIsEmty] = useState(true);
 	const inputRef = useRef<HTMLInputElement>(null);
@@ -69,6 +71,7 @@ export const PrimaryField: FC<PrimaryFieldProps> = ({
 				/>
 				<Transition
 					show={renderIcon}
+					as="div"
 					className={cls.PrimaryField__iconWrapper}
 					enter={cls.PrimaryField__iconWrapper_enter}
 					enterFrom={cls.PrimaryField__iconWrapper_enterFrom}

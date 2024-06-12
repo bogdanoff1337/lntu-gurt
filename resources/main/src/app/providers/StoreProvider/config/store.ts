@@ -8,6 +8,7 @@ import { pageVerifySlice } from "@/pages/VerifyPage";
 import { featureMenuSlice } from "@/features/Menu";
 import { entityAuthSlice } from "@/entities/Auth";
 import { entityBookedRoomsSlice } from "@/entities/BookedRooms";
+import { entityCitiesSlice } from "@/entities/Cities";
 import { entityDormitoriesSlice } from "@/entities/Dormitories";
 import { entityFacultiesSlice } from "@/entities/Faculties";
 import { entityRoomSlice } from "@/entities/Room";
@@ -29,6 +30,7 @@ export const createReduxStore = () => {
 		entityAuthSlice,
 		entityBookedRoomsSlice,
 		entityDormitoriesSlice,
+		entityCitiesSlice,
 		featureMenuSlice,
 		{
 			[rtkApi.reducerPath]: rtkApi.reducer,

@@ -96,8 +96,4 @@
 
         transition: transform 0.45s linear;
     }
-
-    @media (max-width: em($mobile)) {
-        font-size: rem(12);
-    }
 }

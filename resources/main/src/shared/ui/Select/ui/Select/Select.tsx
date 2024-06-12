@@ -10,13 +10,13 @@ interface SelectProps {
 	id: number;
 	options?: OptionType[];
 	placeholder?: string;
-	onUpdateQP: (id: number) => void;
+	onUpdateQP?: (id: number) => void;
 	className?: string;
 	SlotField?: FC<any>;
 }
 
 export interface OptionType {
-	id: string;
+	id: number;
 	slug: string;
 	address?: string;
 }
@@ -67,7 +67,7 @@ export const Select: FC<SelectProps> = ({
 	const onOptionClick = (id: number) => () => {
 		if (id !== activeSelectId) {
 			setActiveSelectId(id);
-			onUpdateQP(id);
+			onUpdateQP && onUpdateQP(id);
 		}
 
 		setIsOpen((prev) => !prev);

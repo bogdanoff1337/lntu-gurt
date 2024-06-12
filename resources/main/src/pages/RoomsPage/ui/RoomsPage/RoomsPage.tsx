@@ -23,8 +23,8 @@ export const RoomsPage: FC<RoomsPageProps> = ({ className }) => {
 			<section className={cls.RoomsPage__section}>
 				<Container className={cls.RoomsPage__container}>
 					<div className={cls.RoomsPage__selectsGroup}>
-						<GenderSelect />
-						<DormSelect />
+						<GenderSelect className={cls.Select} />
+						<DormSelect className={cls.Select} />
 					</div>
 					<RoomsList className={cls.RoomsPage__roomsList} />
 				</Container>

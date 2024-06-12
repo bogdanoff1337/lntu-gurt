@@ -6,7 +6,7 @@ import {
 import { useSelector } from "react-redux";
 import { useAppDispatch } from "@/shared/lib/hooks/useAppDispatch/useAppDispatch";
 import { Button, ButtonModifier, PrimaryButton } from "@/shared/ui/Buttons";
-import { PrimaryField } from "@/shared/ui/Fields";
+import { PrimaryField, SecondaryField } from "@/shared/ui/Fields";
 import { PageLoader } from "@/shared/ui/PageLoader";
 import PenIcon from "../../assets/pen.svg?react";
 import * as pageProfileSelectors from "../../model/selectors";
@@ -25,6 +25,9 @@ export const ProfileForm: FC<ProfileFormProps> = ({ className }) => {
 	const isFetching = useSelector(pageProfileSelectors.getIsFetching);
 	const readOnly = useSelector(pageProfileSelectors.getReadOnly);
 
+	const cities = useSelector(pageProfileSelectors.getCities);
+	const citiesIsLoading = useSelector(pageProfileSelectors.getCitiesIsLoading);
+
 	const onChangeLastName = useCallback((value: string) => {
 		dispatch(pageProfileActions.changeLastName(value));
 	}, [dispatch]);
@@ -41,8 +44,8 @@ export const ProfileForm: FC<ProfileFormProps> = ({ className }) => {
 		dispatch(pageProfileActions.changeGender(value));
 	}, [dispatch]);
 
-	const onChangeAddress = useCallback((value: string) => {
-		dispatch(pageProfileActions.changeAddress(value));
+	const onChangeAddress = useCallback((option: { id: number; slug: string; }) => {
+		dispatch(pageProfileActions.changeAddress(option));
 	}, [dispatch]);
 
 	const onChangeBenefits = useCallback((value: string) => {
@@ -87,7 +90,7 @@ export const ProfileForm: FC<ProfileFormProps> = ({ className }) => {
 					className={cls.Input}
 					onChange={onChangeFirstName}
 					value={tempData?.first_name}
-					placeholder="Вкажіть ім’я"
+					placeholder="Ім’я"
 					readOnly={readOnly}
 					renderIcon={!readOnly}
 					Icon={PenIcon}
@@ -96,7 +99,7 @@ export const ProfileForm: FC<ProfileFormProps> = ({ className }) => {
 					className={cls.Input}
 					onChange={onChangeLastName}
 					value={tempData?.last_name}
-					placeholder="Вкажіть прізвище"
+					placeholder="Прізвище"
 					readOnly={readOnly}
 					renderIcon={!readOnly}
 					Icon={PenIcon}
@@ -105,7 +108,7 @@ export const ProfileForm: FC<ProfileFormProps> = ({ className }) => {
 					className={cls.Input}
 					onChange={onChangeFatherName}
 					value={tempData?.middle_name}
-					placeholder="Вкажіть по батькові"
+					placeholder="По батькові"
 					readOnly={readOnly}
 					renderIcon={!readOnly}
 					Icon={PenIcon}
@@ -119,14 +122,17 @@ export const ProfileForm: FC<ProfileFormProps> = ({ className }) => {
 					renderIcon={!readOnly}
 					Icon={PenIcon}
 				/>
-				<PrimaryField
+				<SecondaryField
 					className={cls.Input}
 					onChange={onChangeAddress}
-					value={tempData?.city}
+					action={pageProfileActions.getCities}
+					isLoading={citiesIsLoading}
+					data={cities}
 					placeholder="Місце проживання"
 					readOnly={readOnly}
 					renderIcon={!readOnly}
 					Icon={PenIcon}
+					isFeature
 				/>
 				<PrimaryField
 					className={cls.Input}
@@ -137,11 +143,25 @@ export const ProfileForm: FC<ProfileFormProps> = ({ className }) => {
 					renderIcon={!readOnly}
 					Icon={PenIcon}
 				/>
+
+				{/* <Select
+					className={cls.Select}
+					options={[
+						{
+							id: 1,
+							slug: "Вінницька обл., Камінно-каширський р-н., с. Моквин",
+						},
+						{
+							id: 2,
+							slug: "Рівненька обл., Рівненьский р-н., с. Моквин",
+						},
+					]}
+				/> */}
 				<PrimaryField
 					className={cls.Input}
 					onChange={onChangeBenefits}
 					value={tempData?.benefits}
-					placeholder="Вкажіть пільгу"
+					placeholder="Пільга"
 					readOnly={readOnly}
 					renderIcon={!readOnly}
 					Icon={PenIcon}

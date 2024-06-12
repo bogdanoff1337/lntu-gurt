@@ -26,6 +26,10 @@ const initialState: PageProfileSchema = {
 	data: undefined,
 	isLoading: true,
 	isFetching: false,
+
+	cities: undefined,
+	citiesIsLoading: false,
+
 	readOnly: true,
 };
 
@@ -64,6 +68,7 @@ export const pageProfileSlice = createSliceWithThunk({
 					state.isFetching = false;
 				},
 				rejected: (state, action) => {
+					state.isFetching = false;
 				},
 			},
 		),
@@ -104,6 +109,36 @@ export const pageProfileSlice = createSliceWithThunk({
 			},
 		),
 
+		getCities: create.asyncThunk<any, { search: string }, ThunkConfig<string>>(
+			async ({ search }, {
+				extra, rejectWithValue,
+			}) => {
+				try {
+					const response = await extra.api.get<any>("cities", {
+						params: {
+							search,
+						},
+					});
+
+					return response.data.data;
+				} catch (error: any) {
+					return rejectWithValue(error.response.data);
+				}
+			},
+			{
+				pending: (state) => {
+					state.citiesIsLoading = true;
+				},
+				fulfilled: (state, action) => {
+					state.citiesIsLoading = false;
+					state.cities = action.payload;
+				},
+				rejected: (state, action: any) => {
+					state.isLoading = false;
+				},
+			},
+		),
+
 		cancelForm: create.reducer((state) => {
 			state.tempData = state.data;
 		}),
@@ -117,7 +152,7 @@ export const pageProfileSlice = createSliceWithThunk({
 		changeFatherName: create.reducer((state, action: PayloadAction<string>) => {
 			state.tempData!.middle_name = action.payload;
 		}),
-		changeAddress: create.reducer((state, action: PayloadAction<string>) => {
+		changeAddress: create.reducer((state, action: PayloadAction<{ id: number; slug: string }>) => {
 			state.tempData!.city = action.payload;
 		}),
 		changeGender: create.reducer((state, action: PayloadAction<string>) => {
