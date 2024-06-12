@@ -4,24 +4,6 @@ import { createSliceWithThunk } from "@/shared/lib/createSliceWithThunk";
 import { ProfileData, PageProfileSchema, ResponseData } from "../types/PageProfileSchema";
 
 const initialState: PageProfileSchema = {
-	// data: {
-	// 	first_name: "",
-	// 	last_name: "",
-	// 	father_name: "",
-	// 	address: "",
-	// 	gender: "",
-	// 	phone: "",
-	// 	benefits: "",
-	// },
-	// tempData: {
-	// 	first_name: "",
-	// 	last_name: "",
-	// 	father_name: "",
-	// 	address: "",
-	// 	gender: "",
-	// 	phone: "",
-	// 	benefits: "",
-	// },
 	tempData: undefined,
 	data: undefined,
 	isLoading: true,
@@ -49,7 +31,10 @@ export const pageProfileSlice = createSliceWithThunk({
 				try {
 					// @ts-ignore
 					const data = getState().pageProfile.tempData;
-					const response = await extra.api.patch<any>("profile/me", data);
+					const response = await extra.api.patch<any>("profile/me", {
+						...data,
+						city: data.city.id,
+					});
 
 					if (!response.data) {
 						throw new Error();

@@ -31,16 +31,17 @@ interface SecondaryFieldProps extends InputAttributes {
 	action: any;
 	isLoading?: boolean;
 	data?: Option[];
+	active?: Option;
 }
 
 export const SecondaryField: FC<SecondaryFieldProps> = ({
 	className, placeholder, onChange, onBlur, errorMessage, type = "text", isSuccess,
-	Icon, renderIcon = true, readOnly, isFeature, isLoading, action, data, ...anotherProps
+	Icon, renderIcon = true, readOnly, isFeature, isLoading, action, data, active, ...anotherProps
 }) => {
 	const [isEmpty, setIsEmpty] = useState(true);
 	const inputRef = useRef<HTMLInputElement>(null);
 	const [isFocused, setIsFocused] = useState(false);
-	const [value, setValue] = useState("");
+	const [value, setValue] = useState(active?.slug || "");
 	const [isSelected, setIsSelected] = useState(false);
 
 	const dispatch = useAppDispatch();
