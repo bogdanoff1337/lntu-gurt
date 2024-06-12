@@ -127,7 +127,7 @@ export const ProfileForm: FC<ProfileFormProps> = ({ className }) => {
 					onChange={onChangeAddress}
 					action={pageProfileActions.getCities}
 					isLoading={citiesIsLoading}
-					active={tempData?.city}
+					active={tempData?.city_id}
 					data={cities}
 					placeholder="Місце проживання"
 					readOnly={readOnly}

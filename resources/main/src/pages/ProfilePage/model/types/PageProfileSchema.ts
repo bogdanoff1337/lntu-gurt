@@ -18,10 +18,10 @@ export interface ProfileData {
 	middle_name: string | null;
 	phone: string | null;
 	// city: string | null;
-	city: {
+	city_id: {
 		id: number;
 		slug: string;
-	}
+	} | null;
 	benefits: string | null;
 	gender: string | null;
 }

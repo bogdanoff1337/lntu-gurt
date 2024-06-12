@@ -33,7 +33,7 @@ export const pageProfileSlice = createSliceWithThunk({
 					const data = getState().pageProfile.tempData;
 					const response = await extra.api.patch<any>("profile/me", {
 						...data,
-						city: data.city.id,
+                        city_id: data.city_id.id,
 					});
 
 					if (!response.data) {
@@ -138,7 +138,7 @@ export const pageProfileSlice = createSliceWithThunk({
 			state.tempData!.middle_name = action.payload;
 		}),
 		changeAddress: create.reducer((state, action: PayloadAction<{ id: number; slug: string }>) => {
-			state.tempData!.city = action.payload;
+			state.tempData!.city_id = action.payload;
 		}),
 		changeGender: create.reducer((state, action: PayloadAction<string>) => {
 			state.tempData!.gender = action.payload;

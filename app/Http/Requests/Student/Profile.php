@@ -28,7 +28,8 @@ class Profile extends FormRequest
             'last_name' => 'required|string',
             'middle_name' => 'required|string',
             'phone' => ['required','string', Rule::unique('students')->ignore($userId)],
-            'city' => 'required|string',
+            'city_id' => 'required|exists:cities,id',
+            'faculty_id' => 'required|exists:faculties,id',
             'benefits' => 'required|string',
             'gender' => 'required|string',
         ];

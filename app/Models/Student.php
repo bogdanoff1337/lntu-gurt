@@ -22,7 +22,7 @@ class Student extends Authenticatable implements JWTSubject
         'middle_name',
         'gender',
         'phone',
-        'city',
+        'city_id',
         'benefits',
         'email_verified_at'
     ];
@@ -60,5 +60,15 @@ class Student extends Authenticatable implements JWTSubject
     public function sendEmailVerificationNotification()
     {
         $this->notify(new VerifyEmailNotification);
+    }
+
+    public function city()
+    {
+        return $this->belongsTo(City::class);
+    }
+
+    public function faculty()
+    {
+        return $this->belongsTo(Faculty::class);
     }
 }
