@@ -26,11 +26,12 @@ class Profile extends FormRequest
         return [
             'first_name' => 'required|string',
             'last_name' => 'required|string',
-            'middle_name' => 'required|string',
+            'middle_name' => 'string',
             'phone' => ['required','string', Rule::unique('students')->ignore($userId)],
             'city_id' => 'required|exists:cities,id',
             'faculty_id' => 'required|exists:faculties,id',
-            'benefits' => 'required|string',
+            'curse' => 'required|integer',
+            'benefits' => 'string',
             'gender' => 'required|string',
         ];
     }

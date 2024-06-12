@@ -4,17 +4,12 @@ namespace App\Http\Resources\Api\Room;
 
 use App\Http\Resources\Api\Dormitory;
 use App\Http\Resources\Api\Faculty;
+use App\Models\Settings;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
-use Illuminate\Support\Facades\Auth;
-
+use App\Helpers\OrderRoom;
 class Full extends JsonResource
 {
-    /**
-     * Transform the resource into an array.
-     *
-     * @return array<string, mixed>
-     */
     public function toArray(Request $request): array
     {
         $prepared =  [
@@ -30,41 +25,14 @@ class Full extends JsonResource
             'block' => $this->block,
             'gender' => $this->gender,
             'section' => $this->section,
-            'booked' => $this->isBooked(),
-            'status' => $this->status() ?? null, // new rejected approved
-            'deadline' => $this->deadline ?? null,  // 2021-09-01 00:00:00
+            'booked' => OrderRoom::isBooked(),
+            'status' => OrderRoom::status() ?? null,
+            'date' => [
+                'this' => Settings::get('end_date'),
+                'deadline' => OrderRoom::deadline(),
+            ],
         ];
 
         return $prepared;
     }
-
-    private function isBooked(): bool
-    {
-        $user = Auth::user();
-
-        $booked = $this->order()
-            ->where('student_id', $user->id)
-            ->orWhere('status', 'rejected')
-            ->first();
-
-        if ($booked === null) {
-            return false;
-        } else {
-            return true;
-        }
-    }
-
-    private function status(): ?string
-    {
-        $user = Auth::user();
-
-        $status = $this->order()
-            ->where('student_id', $user->id)
-            ->orWhere('status', 'rejected')
-            ->first();
-
-        return $status ? $status->status : null;
-    }
-
-
 }

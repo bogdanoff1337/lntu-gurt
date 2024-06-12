@@ -20,7 +20,9 @@ class StudentProfileController extends Controller
     public function update(StudentUpdateRequest $request)
     {
         $validatedData = $request->validated();
+
         $user = Auth::user();
+
         if (!$user) {
             return response()->json(['error' => 'Unauthorized'], 401);
         }
@@ -29,5 +31,4 @@ class StudentProfileController extends Controller
 
         return new StudentFull($user);
     }
-
 }

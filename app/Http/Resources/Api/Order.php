@@ -7,11 +7,6 @@ use Illuminate\Http\Resources\Json\JsonResource;
 use App\Http\Resources\Api\Room\Short as RoomShort;
 class Order extends JsonResource
 {
-    /**
-     * Transform the resource into an array.
-     *
-     * @return array<string, mixed>
-     */
     public function toArray(Request $request): array
     {
         return [

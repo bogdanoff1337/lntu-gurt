@@ -13,4 +13,9 @@ class Settings extends Model
         'key',
         'value',
     ];
+
+    public static function get($key)
+    {
+        return self::where('key', $key)->first()->value;
+    }
 }

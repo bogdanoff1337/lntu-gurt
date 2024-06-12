@@ -89,54 +89,49 @@ class StudentAuthController extends Controller
             ], 422);
     }
 
-    public function me()
+    public function me(): array|JsonResponse
     {
-        if (!$this->guard()->user()) {
+        $user = $this->guard()->user();
+        if (!$user) {
             return response()->json(['messages' => 'Unauthorized'], 401);
         }
 
-        $profile = [
-            'profile' => $this->guard()->user()->only([
-                'email',
-                'first_name',
-                'last_name',
-                'middle_name',
-                'phone',
-                'city',
-                'benefits',
-                'gender',
-                'phone'
-            ]),
-            'id' => $this->guard()->user()->id,
-            'verified' => $this->guard()->user()->email_verified_at !== null,
+        $profile = $user->only([
+            'email',
+            'first_name',
+            'last_name',
+            'middle_name',
+            'phone',
+            'city',
+            'benefits',
+            'gender',
+            'phone',
+        ]);
+
+        $profile['profileFilled'] = $this->profileFilled($user);
+
+        $response = [
+            'profile' => $profile,
+            'id' => $user->id,
+            'verified' => $user->email_verified_at !== null,
         ];
 
-        return $profile;
+        return $response;
     }
 
-    /**
-     * Log the user out (Invalidate the token).
-     *
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function logout()
+    public function logout(): JsonResponse
     {
         $this->guard()->logout();
 
         return response()->json(['message' => 'logout']);
     }
 
-    /**
-     * Refresh a token.
-     *
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function refresh()
+    public function refresh(): JsonResponse
     {
         return $this->respondWithToken($this->guard()->refresh());
     }
 
-    protected function respondWithToken($token)
+    protected function respondWithToken($token): JsonResponse
     {
         return response()->json([
             'access_token' => $token,
@@ -148,5 +143,12 @@ class StudentAuthController extends Controller
     public function guard(): Guard
     {
         return Auth::guard();
+    }
+
+    private function profileFilled(Student $student): bool
+    {
+        return $student->curs !== null
+            && $student->gender !== null
+            && $student->faculty_id !== null;
     }
 }
