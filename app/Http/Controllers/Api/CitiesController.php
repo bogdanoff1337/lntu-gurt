@@ -12,6 +12,7 @@ class CitiesController extends Controller
 {
     protected function index(Request $request): AnonymousResourceCollection
     {
+        // city search
         $search = $request->input('search');
 
         $city = City::where('name', 'ILIKE', "%$search%")
