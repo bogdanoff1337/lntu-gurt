@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'default' => env('FILESYSTEM_DISK', 'render_disk'),
+    'default' => env('FILESYSTEM_DISK', 'local'),
 
     /*
     |--------------------------------------------------------------------------
@@ -29,11 +29,6 @@ return [
     */
 
     'disks' => [
-
-        'render_disk' => [
-            'driver' => 'local',
-            'root' => env('RENDER_DISK_PATH', '/mnt/data'),
-        ],
 
         'local' => [
             'driver' => 'local',
