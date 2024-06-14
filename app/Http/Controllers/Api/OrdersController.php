@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Carbon\Carbon;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Models\Order;
 use App\Http\Resources\Api\Order as OrderResource;
@@ -20,10 +21,8 @@ class OrdersController extends Controller
 
         return OrderResource::collection($orders);
     }
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
+
+    public function store(Request $request): OrderResource|JsonResponse
     {
         $order = Order::create($request->all());
 
@@ -34,7 +33,7 @@ class OrdersController extends Controller
         return new OrderResource($order);
     }
 
-    public function destroy($id)
+    public function destroy($id): JsonResponse
     {
         $user = Auth::user();
 

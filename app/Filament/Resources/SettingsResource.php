@@ -24,9 +24,8 @@ class SettingsResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('key')
-                    ->label('Назва')
-                    ->required(),
+                Forms\Components\TextInput::make('title')
+                    ->label('Назва'),
                 Forms\Components\TextInput::make('value')
                     ->label('Значення')
                     ->required(),
@@ -37,7 +36,7 @@ class SettingsResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('key')
+                Tables\Columns\TextColumn::make('title')
                     ->label('Назва'),
                 Tables\Columns\TextColumn::make('value')
                     ->label('Значення'),
@@ -47,11 +46,9 @@ class SettingsResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
                 ]),
             ]);
     }

@@ -16,10 +16,10 @@ class Cities extends JsonResource
     {
         return [
             'id' => $this->id,
-            'slug' => mb_convert_case($this->region, MB_CASE_TITLE, "UTF-8") . ' обл., ' .
-                mb_convert_case($this->community, MB_CASE_TITLE, "UTF-8") . ' р-н., ' .
-                mb_convert_case($this->name, MB_CASE_TITLE, "UTF-8"),
+            'slug' =>
+                mb_convert_case($this->name, MB_CASE_TITLE, "UTF-8") . ', ' .
+                str_replace('Область', 'обл.', mb_convert_case($this->region, MB_CASE_TITLE, "UTF-8")) . ', ' .
+                str_replace('Район', 'р-н.', mb_convert_case($this->community, MB_CASE_TITLE, "UTF-8")),
         ];
-
     }
 }
