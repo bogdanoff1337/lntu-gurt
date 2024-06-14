@@ -1,6 +1,6 @@
 import clsx from "clsx";
 import {
-	FC, useEffect, useRef,
+	FC, memo, useEffect, useRef,
 } from "react";
 import { OptionType } from "../Select/Select";
 import cls from "./Option.module.scss";
@@ -13,7 +13,7 @@ interface OptionProps {
 
 }
 
-export const Option: FC<OptionProps> = ({
+export const Option: FC<OptionProps> = memo(({
 	option, onClick, SlotField, activeSelectId,
 }) => {
 	const optionRef = useRef<HTMLLIElement>(null);
@@ -48,4 +48,4 @@ export const Option: FC<OptionProps> = ({
 			{SlotField && <SlotField option={option} /> || option.slug}
 		</li>
 	);
-};
+});

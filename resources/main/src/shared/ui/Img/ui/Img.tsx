@@ -1,6 +1,6 @@
 import clsx from "clsx";
 import {
-	FC, InputHTMLAttributes, ReactNode, useLayoutEffect, useState,
+	FC, InputHTMLAttributes, ReactNode, memo, useLayoutEffect, useState,
 } from "react";
 import { Skeleton } from "../../Skeleton";
 import cls from "./Img.module.scss";
@@ -17,7 +17,7 @@ interface ImgProps extends HTMLImageProps {
 	src: string;
 }
 
-export const Img: FC<ImgProps> = ({
+export const Img: FC<ImgProps> = memo(({
 	className, fallback, errorFallback, src, ...otherProps
 }) => {
 	const [isLoading, setIsLoading] = useState(true);
@@ -53,4 +53,4 @@ export const Img: FC<ImgProps> = ({
 			{...otherProps}
 		/>
 	);
-};
+});

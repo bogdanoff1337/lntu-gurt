@@ -1,5 +1,7 @@
 import clsx from "clsx";
-import { FC, SyntheticEvent, useCallback } from "react";
+import {
+	FC, SyntheticEvent, memo, useCallback,
+} from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { AuthForm, AuthFormModifier } from "@/entities/Auth";
@@ -14,13 +16,12 @@ interface LoginAuthFormProps {
 	className?: string
 }
 
-export const LoginAuthForm: FC<LoginAuthFormProps> = ({ className }) => {
+export const LoginAuthForm: FC<LoginAuthFormProps> = memo(({ className }) => {
 	const data = useSelector(pageRegisterSelectors.getData);
 	const isLoading = useSelector(pageRegisterSelectors.getIsLoading);
 	const error = useSelector(pageRegisterSelectors.getError);
 
 	const navigate = useNavigate();
-
 	const dispatch = useAppDispatch();
 
 	const onSubmit = useCallback((e: SyntheticEvent) => {
@@ -39,7 +40,7 @@ export const LoginAuthForm: FC<LoginAuthFormProps> = ({ className }) => {
 	}, [dispatch]);
 
 	const onBlurValidateEmail = useCallback(() => {
-		dispatch(pageLoginAuthActions.validataEmail());
+		dispatch(pageLoginAuthActions.validatePassword());
 	}, [dispatch]);
 
 	const onChangePassword = useCallback((value: string) => {
@@ -47,7 +48,7 @@ export const LoginAuthForm: FC<LoginAuthFormProps> = ({ className }) => {
 	}, [dispatch]);
 
 	const onBlurValidatePassword = useCallback(() => {
-		dispatch(pageLoginAuthActions.validataPassword());
+		dispatch(pageLoginAuthActions.validatePassword());
 	}, [dispatch]);
 
 	return (
@@ -77,4 +78,4 @@ export const LoginAuthForm: FC<LoginAuthFormProps> = ({ className }) => {
 			/>
 		</AuthForm>
 	);
-};
+});

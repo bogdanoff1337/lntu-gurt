@@ -1,5 +1,5 @@
 import clsx from "clsx";
-import { FC } from "react";
+import { FC, memo } from "react";
 import { useSelector } from "react-redux";
 import { Page } from "@/widgets/Page";
 import { DormSelect, GenderSelect } from "@/features/Rooms";
@@ -12,7 +12,7 @@ interface RoomsPageProps {
 	className?: string;
 }
 
-export const RoomsPage: FC<RoomsPageProps> = ({ className }) => {
+export const RoomsPage: FC<RoomsPageProps> = memo(({ className }) => {
 	const breadcrumbsData = useSelector(getBreadcrumbs);
 
 	return (
@@ -31,4 +31,4 @@ export const RoomsPage: FC<RoomsPageProps> = ({ className }) => {
 			</section>
 		</Page>
 	);
-};
+});

@@ -1,8 +1,0 @@
-.CardGrid {
-   display: grid;
-
-   &_v1 {
-      gap: rem(109);
-      grid-template-columns: repeat(auto-fit, minmax(em(200), 1fr));
-   }
-}

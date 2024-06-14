@@ -4,6 +4,7 @@ import {
 	useEffect,
 } from "react";
 import { useSelector } from "react-redux";
+import { CourseSelect, FacultySelect, GenderSelect } from "@/features/Profile";
 import { useAppDispatch } from "@/shared/lib/hooks/useAppDispatch/useAppDispatch";
 import { Button, ButtonModifier, PrimaryButton } from "@/shared/ui/Buttons";
 import { PrimaryField, SecondaryField } from "@/shared/ui/Fields";
@@ -42,6 +43,14 @@ export const ProfileForm: FC<ProfileFormProps> = ({ className }) => {
 
 	const onChangeGender = useCallback((value: string) => {
 		dispatch(pageProfileActions.changeGender(value));
+	}, [dispatch]);
+
+	const onChangeFaculty = useCallback((id: number) => {
+		dispatch(pageProfileActions.changeFaculty(id));
+	}, [dispatch]);
+
+	const onChangeCourse = useCallback((id: number) => {
+		dispatch(pageProfileActions.changeCourse(id));
 	}, [dispatch]);
 
 	const onChangeAddress = useCallback((option: { id: number; slug: string; }) => {
@@ -113,14 +122,29 @@ export const ProfileForm: FC<ProfileFormProps> = ({ className }) => {
 					renderIcon={!readOnly}
 					Icon={PenIcon}
 				/>
-				<PrimaryField
-					className={cls.Input}
+				<GenderSelect
+					className={cls.Select}
+					Icon={PenIcon}
+					renderIcon={!readOnly}
+					readOnly={readOnly}
+					value={tempData!.gender}
 					onChange={onChangeGender}
-					value={tempData?.gender}
-					placeholder="Стать"
+				/>
+				<FacultySelect
+					className={cls.Select}
+					id={tempData?.faculty_id}
+					onChange={onChangeFaculty}
+					Icon={PenIcon}
 					readOnly={readOnly}
 					renderIcon={!readOnly}
+				/>
+				<CourseSelect
+					className={cls.Select}
+					id={tempData?.course}
+					onChange={onChangeCourse}
 					Icon={PenIcon}
+					readOnly={readOnly}
+					renderIcon={!readOnly}
 				/>
 				<SecondaryField
 					className={cls.Input}
@@ -144,20 +168,6 @@ export const ProfileForm: FC<ProfileFormProps> = ({ className }) => {
 					renderIcon={!readOnly}
 					Icon={PenIcon}
 				/>
-
-				{/* <Select
-					className={cls.Select}
-					options={[
-						{
-							id: 1,
-							slug: "Вінницька обл., Камінно-каширський р-н., с. Моквин",
-						},
-						{
-							id: 2,
-							slug: "Рівненька обл., Рівненьский р-н., с. Моквин",
-						},
-					]}
-				/> */}
 				<PrimaryField
 					className={cls.Input}
 					onChange={onChangeBenefits}
@@ -197,7 +207,6 @@ export const ProfileForm: FC<ProfileFormProps> = ({ className }) => {
 							Скасувати
 						</Button>
 					</>
-
 				)}
 			</div>
 		</form>

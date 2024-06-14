@@ -1,6 +1,7 @@
 import clsx from "clsx";
 import React, {
 	FC, ReactNode,
+	memo,
 	useCallback,
 } from "react";
 import { Overlay } from "../../Overlay";
@@ -15,7 +16,7 @@ export interface ModalProps {
 	isOpen: boolean;
 }
 
-export const Modal: FC<ModalProps> = ({
+export const Modal: FC<ModalProps> = memo(({
 	className, setIsOpen, isOpen, children,
 }) => {
 	const onCloseHandler = useCallback(() => {
@@ -51,7 +52,7 @@ export const Modal: FC<ModalProps> = ({
 				>
 					<button
 						aria-label="Close modal"
-						className={`${cls.CloseButton} ${cls.Modal__closeButton}`}
+						className={clsx(cls.CloseButton, [cls.Modal__closeButton])}
 						onClick={() => setIsOpen(false)}
 					>
 						<CrossIcon className={cls.CloseButton__icon} />
@@ -61,4 +62,4 @@ export const Modal: FC<ModalProps> = ({
 			</Overlay>
 		</Portal>
 	);
-};
+});

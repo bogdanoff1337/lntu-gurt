@@ -1,5 +1,5 @@
 import clsx from "clsx";
-import { FC } from "react";
+import { FC, memo } from "react";
 import { Page } from "@/widgets/Page";
 import { Container } from "@/shared/ui/Container";
 import { Title } from "@/shared/ui/Title";
@@ -11,7 +11,7 @@ interface BookedPageProps {
 	className?: string;
 }
 
-export const BookedPage: FC<BookedPageProps> = ({ className }) => {
+export const BookedPage: FC<BookedPageProps> = memo(({ className }) => {
 	return (
 		<Page className={clsx(cls.BookedPage, [className])} breadcrumbsData={breadcrumbsData}>
 			<section className={cls.BookedPage__section}>
@@ -22,4 +22,4 @@ export const BookedPage: FC<BookedPageProps> = ({ className }) => {
 			</section>
 		</Page>
 	);
-};
+});

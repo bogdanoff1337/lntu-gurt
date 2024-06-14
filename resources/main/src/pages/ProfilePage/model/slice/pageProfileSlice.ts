@@ -143,6 +143,12 @@ export const pageProfileSlice = createSliceWithThunk({
 		changeGender: create.reducer((state, action: PayloadAction<string>) => {
 			state.tempData!.gender = action.payload;
 		}),
+		changeFaculty: create.reducer((state, action: PayloadAction<number>) => {
+			state.tempData!.faculty_id = action.payload;
+		}),
+		changeCourse: create.reducer((state, action: PayloadAction<number>) => {
+			state.tempData!.course = action.payload;
+		}),
 		changePhone: create.reducer((state, action: PayloadAction<string>) => {
 			state.tempData!.phone = action.payload;
 		}),

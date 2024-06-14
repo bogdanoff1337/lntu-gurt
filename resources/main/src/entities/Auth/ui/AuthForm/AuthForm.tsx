@@ -1,6 +1,6 @@
 import clsx from "clsx";
 import {
-	FC, ReactNode, SyntheticEvent, useMemo,
+	FC, ReactNode, SyntheticEvent, memo, useMemo,
 } from "react";
 import LntuLogoIcon from "@/shared/assets/common/lntu-logo.svg?react";
 import { getLoginRoutePath, getRegisterRoutePath } from "@/shared/config/routes/path";
@@ -26,7 +26,7 @@ export enum AuthFormModifier {
 	login = "login",
 }
 
-export const AuthForm: FC<AuthFormProps> = ({
+export const AuthForm: FC<AuthFormProps> = memo(({
 	className, children, onSubmit, isLoading, modifier, error,
 }) => {
 	const authType = useMemo(() => {
@@ -59,10 +59,22 @@ export const AuthForm: FC<AuthFormProps> = ({
 					{children}
 				</div>
 				<div className={cls.AuthForm__buttons}>
-					<PrimaryButton isLoading={isLoading} type="submit" Icon={LntuLogoIcon} className={cls.AuthForm__submit}>{authType.submitName}</PrimaryButton>
-					<NavLinkButton modifier={ButtonModifier.INVERTION} to={authType.link.to}>{authType.link.name}</NavLinkButton>
+					<PrimaryButton
+						isLoading={isLoading}
+						type="submit"
+						Icon={LntuLogoIcon}
+						className={cls.AuthForm__submit}
+					>
+						{authType.submitName}
+					</PrimaryButton>
+					<NavLinkButton
+						modifier={ButtonModifier.INVERTION}
+						to={authType.link.to}
+					>
+						{authType.link.name}
+					</NavLinkButton>
 				</div>
 			</Container>
 		</form>
 	);
-};
+});

@@ -19,7 +19,6 @@ const initialState: PageLoginAuthSchema = {
 			value: "",
 		},
 	},
-
 	isLoading: false,
 };
 
@@ -30,44 +29,30 @@ export const pageLoginAuthSlice = createSliceWithThunk({
 		changeEmail: create.reducer((state, action: PayloadAction<string>) => {
 			state.data.email.value = action.payload;
 		}),
-		validataEmail: create.reducer((state) => {
+		validateEmail: create.reducer((state) => {
 			const { ok, message } = validateEmail(state.data.email.value);
 			state.data.email.ok = ok;
-
-			if (ok) {
-				state.data.email.errorMessage = undefined;
-			} else if (!ok) {
-				state.data.email.errorMessage = message;
-			}
+			state.data.email.errorMessage = ok ? undefined : message;
 		}),
-
 		changePassword: create.reducer((state, action: PayloadAction<string>) => {
 			state.data.password.value = action.payload;
 		}),
-		validataPassword: create.reducer((state) => {
+		validatePassword: create.reducer((state) => {
 			const { ok, message } = validatePassword(state.data.password.value);
 			state.data.password.ok = ok;
-
-			if (ok) {
-				state.data.password.errorMessage = undefined;
-			} else if (!ok) {
-				state.data.password.errorMessage = message;
-			}
+			state.data.password.errorMessage = ok ? undefined : message;
 		}),
-
 		clearFields: create.reducer((state) => {
 			state.data.email.value = "";
 			state.data.email.ok = undefined;
-
 			state.data.password.value = "";
 			state.data.password.ok = undefined;
 		}),
-
 		submitForm: create.asyncThunk<TokenData, void, ThunkConfig<PageLoginAuthSchema["error"]>>(
 			async (_, {
 				extra, rejectWithValue, getState, dispatch,
 			}) => {
-				const state = getState() as any; //! hardcore
+				const state = getState() as { pageLoginAuth: PageLoginAuthSchema };
 				try {
 					const response = await extra.api.post<TokenData>("auth/login", {
 						email: state.pageLoginAuth.data.email.value,
@@ -75,7 +60,6 @@ export const pageLoginAuthSlice = createSliceWithThunk({
 					});
 
 					localStorage.setItem(TOKEN_LOCALSTORAGE_KEY, response.data.access_token);
-
 					dispatch(entityAuthActions.getUser());
 
 					return response.data;
@@ -90,7 +74,7 @@ export const pageLoginAuthSlice = createSliceWithThunk({
 				fulfilled: (state) => {
 					state.isLoading = false;
 				},
-				rejected: (state, action: any) => {
+				rejected: (state, action: PayloadAction<any>) => {
 					state.isLoading = false;
 					state.error = action.payload;
 				},

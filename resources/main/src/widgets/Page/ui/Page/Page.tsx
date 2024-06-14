@@ -1,8 +1,7 @@
 import clsx from "clsx";
 import {
 	FC, ReactNode,
-	useEffect,
-	useState,
+	memo,
 } from "react";
 import { BreadcrumbsData } from "@/shared/ui/Breadcrumbs";
 import { PageLoader } from "@/shared/ui/PageLoader";
@@ -17,7 +16,7 @@ interface PageProps {
 	isLoading?: boolean;
 }
 
-export const Page: FC<PageProps> = ({
+export const Page: FC<PageProps> = memo(({
 	className, children, breadcrumbsData, isLoading = false,
 }) => {
 	return (
@@ -29,4 +28,4 @@ export const Page: FC<PageProps> = ({
 			<Footer className={cls.Page__footer} />
 		</div>
 	);
-};
+});

@@ -1,12 +1,14 @@
 import clsx from "clsx";
-import { FC, useCallback, useEffect } from "react";
+import {
+	FC, memo, useCallback, useEffect,
+} from "react";
 import { useSelector } from "react-redux";
 import { useMediaQuery } from "react-responsive";
 import { Devices } from "@/shared/const/common";
 import { useAppDispatch } from "@/shared/lib/hooks/useAppDispatch/useAppDispatch";
 import ProfileIcon from "../../assets/profile.svg?react";
 import * as featureMenuSelectors from "../../model/selectors";
-import { featureMenuActions } from "../../model/slice/featureOverlaySlice";
+import { featureMenuActions } from "../../model/slice/featureMenuSlice";
 import { Aside } from "../Aside/Aside";
 import { DropDown } from "../DropDown/DropDown";
 import cls from "./UserMenu.module.scss";
@@ -15,13 +17,15 @@ interface UserMenuProps {
 	className?: string
 }
 
-export const UserMenu: FC<UserMenuProps> = ({ className }) => {
+export const UserMenu: FC<UserMenuProps> = memo(({ className }) => {
 	const isShow = useSelector(featureMenuSelectors.getIsShow);
-	const dispatch = useAppDispatch();
+
 	const isTablet = useMediaQuery({ maxWidth: Devices.TABLET });
+	const dispatch = useAppDispatch();
 
 	const onClickHandler = useCallback((e: any) => {
 		e.stopPropagation();
+
 		dispatch(featureMenuActions.setIsShow(!isShow));
 	}, [dispatch, isShow]);
 
@@ -48,4 +52,4 @@ export const UserMenu: FC<UserMenuProps> = ({ className }) => {
 			<Aside isShow={isShow && isTablet} />
 		</div>
 	);
-};
+});

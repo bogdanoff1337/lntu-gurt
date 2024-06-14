@@ -9,7 +9,7 @@ export interface DormitoriesData {
 }
 
 interface Dormitory {
-	id: string;
+	id: number;
 	slug: string;
 	address: string;
 }

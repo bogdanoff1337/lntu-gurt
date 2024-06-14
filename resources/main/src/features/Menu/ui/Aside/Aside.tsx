@@ -1,15 +1,16 @@
 import clsx from "clsx";
 import {
-	FC, useCallback, useEffect, useRef, useState,
+	FC, memo, useCallback, useEffect, useRef, useState,
 } from "react";
+import { useSelector } from "react-redux";
 import { useMediaQuery } from "react-responsive";
 import { Devices } from "@/shared/const/devices";
 import { useClickWindow } from "@/shared/hooks/useClickWindow/useClickWindow";
 import { useAppDispatch } from "@/shared/lib/hooks/useAppDispatch/useAppDispatch";
 import { Overlay, OverlayModifier } from "@/shared/ui/Overlay";
 import { Portal } from "@/shared/ui/Portal";
-import { useClickWindowCloseMenu } from "../../hooks/useClickWindowCloseMenu";
-import { featureMenuActions } from "../../model/slice/featureOverlaySlice";
+import * as featureMenuSelectors from "../../model/selectors";
+import { featureMenuActions } from "../../model/slice/featureMenuSlice";
 import { MenuItems } from "../MenuItems/MenuItems";
 import cls from "./Aside.module.scss";
 
@@ -18,10 +19,12 @@ interface AsideProps {
 	isShow: boolean;
 }
 
-export const Aside: FC<AsideProps> = ({ className, isShow }) => {
+export const Aside: FC<AsideProps> = memo(({ className, isShow }) => {
 	const dispatch = useAppDispatch();
 	const isMobile = useMediaQuery({ maxWidth: Devices.MOBILE });
 	const asideRef = useRef<any>();
+
+	const featureMenuIsShow = useSelector(featureMenuSelectors.getIsShow);
 
 	const [headerHeight, setHeaderHeight] = useState(0);
 
@@ -44,10 +47,10 @@ export const Aside: FC<AsideProps> = ({ className, isShow }) => {
 	}, [isShow, isMobile]);
 
 	const onCloseClickHandler = useCallback((e: any) => {
-		if (e.target !== asideRef.current) {
+		if (e.target !== asideRef.current && featureMenuIsShow) {
 			dispatch(featureMenuActions.setIsShow(false));
 		}
-	}, [dispatch]);
+	}, [dispatch, featureMenuIsShow]);
 
 	useClickWindow({ onClick: onCloseClickHandler }, []);
 
@@ -110,8 +113,7 @@ export const Aside: FC<AsideProps> = ({ className, isShow }) => {
 					</ul>
 				</aside>
 			</Overlay>
-
 		</Portal>
 
 	);
-};
+});

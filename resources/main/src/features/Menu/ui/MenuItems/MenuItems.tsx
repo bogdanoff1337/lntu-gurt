@@ -1,18 +1,17 @@
-import { FC, useCallback } from "react";
+import {
+	FC, memo, useCallback, useMemo,
+} from "react";
 import { useNavigate } from "react-router-dom";
 import { entityAuthActions } from "@/entities/Auth";
-import { MenuItem } from "@/entities/Menu";
-import { getBookedRoutePath, getLoginRoutePath, getProfileRoutePath } from "@/shared/config/routes/path";
+import { MenuItem, entityMenuModel } from "@/entities/Menu";
+import { getLoginRoutePath } from "@/shared/config/routes/path";
 import { useAppDispatch } from "@/shared/lib/hooks/useAppDispatch/useAppDispatch";
-import BedIcon from "../../assets/bed.svg?react";
-import LogoutIcon from "../../assets/logout.svg?react";
-import UserIcon from "../../assets/profile.svg?react";
 
 interface MenuItemsProps {
 	className?: string;
 }
 
-export const MenuItems: FC<MenuItemsProps> = ({ className }) => {
+export const MenuItems: FC<MenuItemsProps> = memo(({ className }) => {
 	const dispatch = useAppDispatch();
 	const navigate = useNavigate();
 
@@ -21,27 +20,20 @@ export const MenuItems: FC<MenuItemsProps> = ({ className }) => {
 		navigate(getLoginRoutePath());
 	}, [dispatch, navigate]);
 
-	return (
-		<>
-			<MenuItem
-				className={className}
-				name="Профіль"
-				to={getProfileRoutePath()}
-				Icon={UserIcon}
-			/>
-			<MenuItem
-				className={className}
-				name="Заброньовані кімнати"
-				to={getBookedRoutePath()}
-				Icon={BedIcon}
-			/>
-			<MenuItem
-				className={className}
-				onClick={onClickLogoutHandler}
-				name="Вихід"
-				to={getLoginRoutePath()}
-				Icon={LogoutIcon}
-			/>
-		</>
-	);
-};
+	const menuItems = useMemo(() => {
+		return entityMenuModel.map((item) => {
+			return (
+				<MenuItem
+					key={item.id}
+					className={className}
+					name={item.name}
+					to={item.to}
+					Icon={item.Icon}
+					onClick={item.to === getLoginRoutePath() ? onClickLogoutHandler : undefined}
+				/>
+			);
+		});
+	}, [className, onClickLogoutHandler]);
+
+	return menuItems;
+});

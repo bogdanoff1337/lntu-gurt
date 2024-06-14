@@ -1,5 +1,7 @@
 import clsx from "clsx";
-import { FC, useCallback, useState } from "react";
+import {
+	FC, memo, useCallback, useState,
+} from "react";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { entityRoomActions, entityRoomSelectors } from "@/entities/Room";
@@ -15,17 +17,16 @@ interface BookSectionProps {
 	className?: string
 }
 
-export const BookSection: FC<BookSectionProps> = ({ className }) => {
-	const { id } = useParams();
-	const dispatch = useAppDispatch();
-
+export const BookSection: FC<BookSectionProps> = memo(({ className }) => {
+	const roomDataIsFetching = useSelector(entityRoomSelectors.getIsFetching);
+	const roomData = useSelector(entityRoomSelectors.getData);
+	const roomDataError = useSelector(entityRoomSelectors.getError);
 	const [isOpenFulfilledBookModal, setIsOpenFulfilledBookModal] = useState(false);
 	const [isOpenFulfilledRemoveBookModal, setIsOpenFulfilledRemoveBookModal] = useState(false);
 	const [isOpenRejectedRemoveBookModal, setIsOpenRejectedRemoveBookModal] = useState(false);
 
-	const roomDataIsFetching = useSelector(entityRoomSelectors.getIsFetching);
-	const roomData = useSelector(entityRoomSelectors.getData);
-	const roomDataError = useSelector(entityRoomSelectors.getError);
+	const { id } = useParams();
+	const dispatch = useAppDispatch();
 
 	const onClickBook = useCallback(() => {
 		id && dispatch(entityRoomActions.bookRoom({ id })).then((data) => {
@@ -92,4 +93,4 @@ export const BookSection: FC<BookSectionProps> = ({ className }) => {
 			</section>
 		</>
 	);
-};
+});

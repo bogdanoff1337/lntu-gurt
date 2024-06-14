@@ -1,6 +1,6 @@
 import clsx from "clsx";
 import {
-	FC, useCallback, useEffect, useRef,
+	FC, SyntheticEvent, memo, useCallback, useEffect, useRef,
 	useState,
 } from "react";
 import { useSelector } from "react-redux";
@@ -16,15 +16,15 @@ interface VerifyPageProps {
 	className?: string;
 }
 
-export const VerifyPage: FC<VerifyPageProps> = ({ className }) => {
-	const dispatch = useAppDispatch();
-
+export const VerifyPage: FC<VerifyPageProps> = memo(({ className }) => {
 	const authData = useSelector(entityAuthSelectors.getData);
+	const isLoading = useSelector(pageVerifySelectors.getIsLoading);
 
 	const timerRef = useRef<any>(null);
+
 	const [timer, setTimer] = useState(60);
 
-	const isLoading = useSelector(pageVerifySelectors.getIsLoading);
+	const dispatch = useAppDispatch();
 
 	useEffect(() => {
 		if (timer === 0) {
@@ -42,7 +42,7 @@ export const VerifyPage: FC<VerifyPageProps> = ({ className }) => {
 		dispatch(pageVerifyActions.submitForm());
 	}, [dispatch]);
 
-	const onSubmit = useCallback((e: any) => {
+	const onSubmit = useCallback((e: SyntheticEvent) => {
 		e.preventDefault();
 		if (!timer) {
 			dispatch(pageVerifyActions.submitForm()).then((data) => {
@@ -72,4 +72,4 @@ export const VerifyPage: FC<VerifyPageProps> = ({ className }) => {
 			</Container>
 		</div>
 	);
-};
+});

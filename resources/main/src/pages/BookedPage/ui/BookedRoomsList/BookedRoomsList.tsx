@@ -1,5 +1,7 @@
 import clsx from "clsx";
-import { FC, useEffect, useMemo } from "react";
+import {
+	FC, memo, useEffect, useMemo,
+} from "react";
 import { useSelector } from "react-redux";
 import { entityBookedRoomsSelectors, entityBookedRoomsActions } from "@/entities/BookedRooms";
 import { RoomItem } from "@/entities/Rooms";
@@ -12,8 +14,9 @@ interface BookedRoomsListProps {
 	className?: string;
 }
 
-export const BookedRoomsList: FC<BookedRoomsListProps> = ({ className }) => {
+export const BookedRoomsList: FC<BookedRoomsListProps> = memo(({ className }) => {
 	const dispatch = useAppDispatch();
+
 	const bookedRoomsData = useSelector(entityBookedRoomsSelectors.data);
 	const bookedRoomsDataIsLoading = useSelector(entityBookedRoomsSelectors.isLoading);
 
@@ -44,4 +47,4 @@ export const BookedRoomsList: FC<BookedRoomsListProps> = ({ className }) => {
 			{bookedRoomsItems}
 		</ul>
 	);
-};
+});

@@ -1,5 +1,5 @@
 import clsx from "clsx";
-import { FC } from "react";
+import { FC, memo } from "react";
 import { Modal, ModalProps } from "@/shared/ui/Modal";
 import cls from "./FulfilledBookModal.module.scss";
 
@@ -11,7 +11,7 @@ interface FulfilledBookModalProps extends TModalProps {
 	isOpen: boolean;
 }
 
-export const FulfilledBookModal: FC<FulfilledBookModalProps> = ({
+export const FulfilledBookModal: FC<FulfilledBookModalProps> = memo(({
 	className, setIsOpen, isOpen, ...anotherProps
 }) => {
 	return (
@@ -29,4 +29,4 @@ export const FulfilledBookModal: FC<FulfilledBookModalProps> = ({
 			</p>
 		</Modal>
 	);
-};
+});

@@ -1,6 +1,7 @@
 import clsx from "clsx";
 import {
 	FC,
+	memo,
 	useEffect,
 } from "react";
 import { useSelector } from "react-redux";
@@ -19,7 +20,7 @@ interface RoomPageProps {
 	className?: string;
 }
 
-export const RoomPage: FC<RoomPageProps> = ({ className }) => {
+export const RoomPage: FC<RoomPageProps> = memo(({ className }) => {
 	const location = useLocation();
 	const breadcrumbsData = useSelector((state) => getBreadcrumbs(state, location.state.previousLocationPathname));
 
@@ -29,7 +30,9 @@ export const RoomPage: FC<RoomPageProps> = ({ className }) => {
 	const roomDataIsLoading = useSelector(entityRoomSelectors.getIsLoading);
 
 	useEffect(() => {
-		id && dispatch(entityRoomActions.getRoomById({ id }));
+		if (id) {
+			dispatch(entityRoomActions.getRoomById({ id }));
+		}
 	}, [dispatch, id]);
 
 	return (
@@ -65,4 +68,4 @@ export const RoomPage: FC<RoomPageProps> = ({ className }) => {
 			<BookSection />
 		</Page>
 	);
-};
+});

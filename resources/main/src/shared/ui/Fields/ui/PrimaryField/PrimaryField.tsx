@@ -9,7 +9,7 @@ type InputAttrubutes = Omit<InputHTMLAttributes<HTMLInputElement>, "value" | "on
 
 interface PrimaryFieldProps extends InputAttrubutes {
 	className?: string;
-	placeholder: string;
+	placeholder?: string;
 	value?: string | null;
 	onChange?: (value: string) => void;
 	onBlur?: (e: ChangeEvent<HTMLInputElement>) => void;
@@ -48,6 +48,12 @@ export const PrimaryField: FC<PrimaryFieldProps> = ({
 			setIsEmty(false);
 		}
 	}, []);
+
+	useEffect(() => {
+		if (value) {
+			setIsEmty(false);
+		}
+	}, [value]);
 
 	return (
 		<div className={clsx(cls.PrimaryField, {

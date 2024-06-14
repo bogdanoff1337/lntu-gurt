@@ -1,4 +1,4 @@
-import { FC, ReactNode } from "react";
+import { FC, ReactNode, memo } from "react";
 import { createPortal } from "react-dom";
 
 interface PortalProps {
@@ -6,4 +6,4 @@ interface PortalProps {
 	children: ReactNode;
 }
 
-export const Portal: FC<PortalProps> = ({ children, container = document.body }) => createPortal(children, container);
+export const Portal: FC<PortalProps> = memo(({ children, container = document.body }) => createPortal(children, container));

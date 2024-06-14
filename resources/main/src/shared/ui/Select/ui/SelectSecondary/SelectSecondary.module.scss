@@ -1,0 +1,145 @@
+.SelectSecondary {
+    $p: &;
+
+    position: relative;
+
+    border-radius: rem(12);
+
+    font-size: rem(16);
+
+    &__field {
+        input {
+            cursor: pointer !important;
+            caret-color: transparent;
+        }
+    }
+
+
+    &_active {
+        z-index: 1;
+        #{$p} {
+            &__arrow {
+                transform: rotate3d(1, 0, 0, 180deg);
+            }
+
+            &__options {
+                opacity: 1;
+            }
+        }
+    }
+
+    &_nonActive {
+        #{$p} {
+            &__options {
+                cursor: none;
+                pointer-events: none;
+
+                opacity: 0;
+            }
+        }
+    }
+
+    &__options {
+        position: absolute;
+        top: calc(100% + rem(1));
+        left: 0;
+
+        display: grid;
+        overflow: auto;
+
+        min-width: 100%;
+        max-height: rem(49 * 4);
+
+        transition: opacity $primaryTransition;
+
+        border: rem(1) solid #3f409b;                                                                      
+        border-radius: rem(8);
+        background-color: rgba(255, 255, 255, 1);
+
+        > *:not(:last-child) {
+            &::after {
+                position: absolute;
+                bottom: 0;
+                left: 50%;
+
+                width: percent(467, 498);
+                height: rem(1);
+
+                content: "";
+                transform: translateX(-50%);
+
+                background-color: $blueColor;
+            }
+        }
+
+
+        &::-webkit-scrollbar {
+            width: rem(5); 
+            height: rem(5);
+        }
+          
+        &::-webkit-scrollbar-thumb {
+            border-radius: rem(50);
+            border-top-right-radius: rem(300);
+            border-bottom-right-radius: rem(300);
+
+            background-color: $blueColor;
+        }
+          
+        &::-webkit-scrollbar-track {
+            border-radius: rem(50);
+            border-top-right-radius: rem(300);
+            border-bottom-right-radius: rem(300);
+            box-shadow: inset 0 0 rem(4) rgba(0,0,0,0.2);
+        }
+
+    }
+
+
+    &__arrow {        
+        width: rem(20);
+        height: rem(20);
+
+        transition: transform 0.45s linear;
+    }
+
+    &__iconWrapper {
+        position: absolute;
+        z-index: -1;
+        top: rem(25);
+        right: rem(30);
+  
+  
+        &_enter {
+           transition: opacity $primaryTransition, transform $primaryTransition;
+        }
+  
+        &_enterFrom {
+           transform: scale(0.5);
+  
+           opacity: 0;
+        }
+  
+        &_enterTo {
+           transform: scale(1);
+  
+           opacity: 1;
+        }
+  
+        &_leave {
+           transition: opacity $primaryTransition, transform $primaryTransition;
+        }
+  
+        &_leaveFrom {
+           transform: scale(1);
+  
+           opacity: 1;
+        }
+  
+        &_leaveTo {
+           transform: scale(0.5);
+  
+           opacity: 0;
+        }
+    }
+}

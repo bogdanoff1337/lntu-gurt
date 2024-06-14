@@ -1,5 +1,5 @@
 import clsx from "clsx";
-import { FC } from "react";
+import { FC, memo } from "react";
 import { Modal, ModalProps } from "@/shared/ui/Modal";
 import cls from "./RejectedRemoveBookModal.module.scss";
 
@@ -12,7 +12,7 @@ interface RejectedRemoveBookModalProps extends TModalProps {
 	message: string;
 }
 
-export const RejectedRemoveBookModal: FC<RejectedRemoveBookModalProps> = ({
+export const RejectedRemoveBookModal: FC<RejectedRemoveBookModalProps> = memo(({
 	className, setIsOpen, isOpen, message, ...anotherProps
 }) => {
 	return (
@@ -29,4 +29,4 @@ export const RejectedRemoveBookModal: FC<RejectedRemoveBookModalProps> = ({
 			</p>
 		</Modal>
 	);
-};
+});

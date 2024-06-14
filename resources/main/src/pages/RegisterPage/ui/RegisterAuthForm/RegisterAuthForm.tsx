@@ -1,9 +1,12 @@
 import clsx from "clsx";
-import { FC, SyntheticEvent, useCallback } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import {
+	FC, SyntheticEvent, memo, useCallback,
+} from "react";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { AuthForm, AuthFormModifier } from "@/entities/Auth";
 import { getMainRoutePath } from "@/shared/config/routes/path";
+import { useAppDispatch } from "@/shared/lib/hooks/useAppDispatch/useAppDispatch";
 import { PrimaryField } from "@/shared/ui/Fields";
 import * as pageRegisterAuthSelectors from "../../model/selectors";
 import { pageRegisterAuthActions } from "../../model/slice/pageRegisterAuthSlice";
@@ -13,18 +16,17 @@ interface RegisterAuthFormProps {
 	className?: string;
 }
 
-export const RegisterAuthForm: FC<RegisterAuthFormProps> = ({ className }) => {
+export const RegisterAuthForm: FC<RegisterAuthFormProps> = memo(({ className }) => {
 	const data = useSelector(pageRegisterAuthSelectors.getData);
 	const isLoading = useSelector(pageRegisterAuthSelectors.getIsLoading);
 	const error = useSelector(pageRegisterAuthSelectors.getError);
 
 	const navigate = useNavigate();
-	const dispatch = useDispatch();
+	const dispatch = useAppDispatch();
 
 	const onSubmit = useCallback((e: SyntheticEvent) => {
 		e.preventDefault();
 
-		// @ts-ignore
 		dispatch(pageRegisterAuthActions.submitForm()).then((data) => {
 			if (data.meta.requestStatus === "fulfilled") {
 				navigate(getMainRoutePath());
@@ -38,7 +40,7 @@ export const RegisterAuthForm: FC<RegisterAuthFormProps> = ({ className }) => {
 	}, [dispatch]);
 
 	const onBlurValidateEmail = useCallback(() => {
-		dispatch(pageRegisterAuthActions.validataEmail());
+		dispatch(pageRegisterAuthActions.validateEmail());
 	}, [dispatch]);
 
 	const onChangePassword = useCallback((value: string) => {
@@ -46,7 +48,7 @@ export const RegisterAuthForm: FC<RegisterAuthFormProps> = ({ className }) => {
 	}, [dispatch]);
 
 	const onBlurValidatePassword = useCallback(() => {
-		dispatch(pageRegisterAuthActions.validataPassword());
+		dispatch(pageRegisterAuthActions.validatePassword());
 	}, [dispatch]);
 
 	const onChangeConfirmPassword = useCallback((value: string) => {
@@ -54,7 +56,7 @@ export const RegisterAuthForm: FC<RegisterAuthFormProps> = ({ className }) => {
 	}, [dispatch]);
 
 	const onBlurValidateConfirmPassword = useCallback(() => {
-		dispatch(pageRegisterAuthActions.validataConfirmPassword());
+		dispatch(pageRegisterAuthActions.validateConfirmPassword());
 	}, [dispatch]);
 
 	return (
@@ -93,4 +95,4 @@ export const RegisterAuthForm: FC<RegisterAuthFormProps> = ({ className }) => {
 			/>
 		</AuthForm>
 	);
-};
+});

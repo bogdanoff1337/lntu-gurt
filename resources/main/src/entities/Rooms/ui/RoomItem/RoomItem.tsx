@@ -1,6 +1,6 @@
 import clsx from "clsx";
-import { FC, useMemo } from "react";
-import { NavLink, useNavigate } from "react-router-dom";
+import { FC, memo, useMemo } from "react";
+import { NavLink } from "react-router-dom";
 import { Img } from "@/shared/ui/Img";
 import cls from "./RoomItem.module.scss";
 
@@ -19,7 +19,7 @@ enum Status {
 	REJECTED = "rejected",
 }
 
-export const RoomItem: FC<RoomItemProps> = ({
+export const RoomItem: FC<RoomItemProps> = memo(({
 	className, image, alt = "faculty", number, to = "/", status,
 }) => {
 	const message = useMemo(() => {
@@ -55,4 +55,4 @@ export const RoomItem: FC<RoomItemProps> = ({
 			</NavLink>
 		</li>
 	);
-};
+});

@@ -24,6 +24,8 @@ export interface ProfileData {
 	}
 	benefits: string | null;
 	gender: string | null;
+	faculty_id: number | null;
+	course: number | null;
 }
 
 export interface ResponseData {

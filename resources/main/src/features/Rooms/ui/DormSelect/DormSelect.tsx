@@ -1,4 +1,6 @@
-import { FC, useCallback, useEffect } from "react";
+import {
+	FC, memo, useCallback, useEffect,
+} from "react";
 import { useSelector } from "react-redux";
 import { entityDormitoriesActions, entityDormitoriesSelectors } from "@/entities/Dormitories";
 import { entityRoomsActions } from "@/entities/Rooms";
@@ -12,20 +14,23 @@ interface DormSelectProps {
 	className?: string;
 }
 
-export const DormSelect: FC<DormSelectProps> = ({ className }) => {
-	const dispatch = useAppDispatch();
-	const { dormitory_id, faculty_id, gender } = useQueryParams();
+export const DormSelect: FC<DormSelectProps> = memo(({ className }) => {
 	const dormitoriesData = useSelector(entityDormitoriesSelectors.getData);
 
-	useEffect(() => {
-		dispatch(entityDormitoriesActions.getAllDormitories());
-	}, [dispatch]);
+	const { dormitory_id, faculty_id, gender } = useQueryParams();
+	const dispatch = useAppDispatch();
 
-	const onUpdateQP = useCallback((id: number) => {
+	useEffect(() => {
+		if (!dormitoriesData) {
+			dispatch(entityDormitoriesActions.getAllDormitories());
+		}
+	}, [dispatch, dormitoriesData]);
+
+	const onChange = useCallback((id: number) => {
 		dispatch(entityRoomsActions.getRoomsByParams({
-			faculty_id: faculty_id as string,
-			dormitory_id: id,
-			gender: gender as string,
+			faculty_id,
+			dormitory_id: `${id}`,
+			gender,
 		}));
 
 		updateUrlParams({ dormitory_id: id });
@@ -36,9 +41,9 @@ export const DormSelect: FC<DormSelectProps> = ({ className }) => {
 			className={className}
 			id={+dormitory_id!}
 			options={dormitoriesData}
-			onUpdateQP={onUpdateQP}
+			onChange={onChange}
 			placeholder="Оберіть гуртожиток"
 			SlotField={DormField}
 		/>
 	);
-};
+});

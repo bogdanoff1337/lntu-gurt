@@ -1,5 +1,5 @@
 import clsx from "clsx";
-import { FC } from "react";
+import { FC, memo } from "react";
 import { Container, ContainerModifier } from "@/shared/ui/Container";
 import { Title } from "@/shared/ui/Title";
 import { RegisterAuthForm } from "../RegisterAuthForm/RegisterAuthForm";
@@ -9,7 +9,7 @@ interface RegisterPageProps {
 	className?: string;
 }
 
-export const RegisterPage: FC<RegisterPageProps> = ({ className }) => {
+export const RegisterPage: FC<RegisterPageProps> = memo(({ className }) => {
 	return (
 		<div className={clsx(cls.RegisterPage, [className])}>
 			<Container className={cls.RegisterPage__container} modifier={ContainerModifier.AUTH}>
@@ -18,4 +18,4 @@ export const RegisterPage: FC<RegisterPageProps> = ({ className }) => {
 			</Container>
 		</div>
 	);
-};
+});

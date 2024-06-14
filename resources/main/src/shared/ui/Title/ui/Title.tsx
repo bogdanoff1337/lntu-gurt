@@ -1,5 +1,7 @@
 import clsx from "clsx";
-import { FC, ReactNode, createElement } from "react";
+import {
+	FC, ReactNode, createElement, memo,
+} from "react";
 import cls from "./Title.module.scss";
 
 enum Tags {
@@ -21,8 +23,8 @@ interface TitleProps {
 export enum TitleModifier {
 }
 
-export const Title: FC<TitleProps> = ({
+export const Title: FC<TitleProps> = memo(({
 	className, children, tag = Tags.h2, modifier = "",
 }) => {
 	return createElement(tag, { className: clsx(cls.Title, [className, cls[modifier]]) }, children);
-};
+});

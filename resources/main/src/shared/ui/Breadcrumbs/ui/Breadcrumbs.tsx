@@ -1,5 +1,7 @@
 import clsx from "clsx";
-import { FC, ReactNode, useMemo } from "react";
+import {
+	FC, ReactNode, memo, useMemo,
+} from "react";
 import { NavLink, To } from "react-router-dom";
 import cls from "./Breadcrumbs.module.scss";
 
@@ -14,7 +16,7 @@ export interface BreadcrumbsData {
 	to?: To;
 }
 
-export const Breadcrumbs: FC<BreadcrumbsProps> = ({ className, data }) => {
+export const Breadcrumbs: FC<BreadcrumbsProps> = memo(({ className, data }) => {
 	const breadcrumbsItems = useMemo(() => {
 		return data.map(({ id, to, title }) => {
 			return (
@@ -40,4 +42,4 @@ export const Breadcrumbs: FC<BreadcrumbsProps> = ({ className, data }) => {
 			</ul>
 		</nav>
 	);
-};
+});

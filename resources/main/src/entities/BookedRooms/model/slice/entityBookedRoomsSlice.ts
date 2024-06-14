@@ -1,6 +1,6 @@
 import { ThunkConfig } from "@/app/providers/StoreProvider";
 import { createSliceWithThunk } from "@/shared/lib/createSliceWithThunk";
-import { EntityBookedRoomsSchema, BookedRoomsData } from "../types/EntityBookedRoomsSchema";
+import { EntityBookedRoomsSchema } from "../types/EntityBookedRoomsSchema";
 
 const initialState: EntityBookedRoomsSchema = {
 };

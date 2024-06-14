@@ -1,6 +1,7 @@
 import clsx from "clsx";
 import {
 	FC, ReactNode,
+	memo,
 } from "react";
 import cls from "./Skeleton.module.scss";
 
@@ -10,7 +11,7 @@ interface SkeletonProps {
 	children?: ReactNode;
 }
 
-export const Skeleton: FC<SkeletonProps> = ({
+export const Skeleton: FC<SkeletonProps> = memo(({
 	className,
 	circle,
 	children,
@@ -23,4 +24,4 @@ export const Skeleton: FC<SkeletonProps> = ({
 			{children}
 		</div>
 	);
-};
+});

@@ -1,5 +1,7 @@
-import queryString from "query-string";
-import { FC, useCallback, useMemo } from "react";
+import {
+	FC, memo, useCallback, useMemo,
+} from "react";
+import { entityGendersModal } from "@/entities/Genders";
 import { entityRoomsActions } from "@/entities/Rooms";
 import { useQueryParams } from "@/shared/hooks/useQueryParams/useQueryParams";
 import { useAppDispatch } from "@/shared/lib/hooks/useAppDispatch/useAppDispatch";
@@ -10,46 +12,33 @@ interface GenderSelectProps {
 	className?: string;
 }
 
-const optionModal = [
-	{
-		id: 1,
-		slug: "Чоловіча",
-	},
-	{
-		id: 2,
-		slug: "Жіноча",
-	},
-];
-
-export const GenderSelect: FC<GenderSelectProps> = ({ className }) => {
-	// const { dormitory_id, faculty_id, gender } = useQueryParams();
+export const GenderSelect: FC<GenderSelectProps> = memo(({ className }) => {
 	const dispatch = useAppDispatch();
+	const { dormitory_id, faculty_id, gender } = useQueryParams();
 
-	const onUpdateQP = useCallback((id: number) => {
-		const genderById = optionModal.find((item) => item.id === id)?.slug;
-		const { dormitory_id, faculty_id, gender } = queryString.parse(window.location.search);
+	const onChange = useCallback((id: number) => {
+		const genderById = entityGendersModal.find((item) => item.id === id)!.slug;
 
 		dispatch(entityRoomsActions.getRoomsByParams({
-			faculty_id: faculty_id as string,
-			dormitory_id: dormitory_id as string,
-			gender: genderById as string,
+			faculty_id,
+			dormitory_id,
+			gender: genderById,
 		}));
 
 		updateUrlParams({ gender: genderById });
-	}, [dispatch]);
+	}, [dispatch, dormitory_id, faculty_id]);
 
 	const idByGender = useMemo(() => {
-		const { dormitory_id, faculty_id, gender } = queryString.parse(window.location.search);
-		return optionModal.find((item) => item.slug === gender)?.id;
-	}, []);
+		return entityGendersModal.find((item) => item.slug === gender)?.id;
+	}, [gender]);
 
 	return (
 		<Select
 			className={className}
-			id={idByGender!}
-			options={optionModal}
-			onUpdateQP={onUpdateQP}
+			id={idByGender}
+			options={entityGendersModal}
+			onChange={onChange}
 			placeholder="Оберіть стать"
 		/>
 	);
-};
+});

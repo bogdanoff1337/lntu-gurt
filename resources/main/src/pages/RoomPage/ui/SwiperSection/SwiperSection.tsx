@@ -2,7 +2,7 @@ import "swiper/css";
 import "swiper/css/pagination";
 
 import clsx from "clsx";
-import { FC, useMemo } from "react";
+import { FC, memo, useMemo } from "react";
 import { useMediaQuery } from "react-responsive";
 import { Pagination } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -15,7 +15,7 @@ interface SwiperSectionProps {
 	images?: string[];
 }
 
-export const SwiperSection: FC<SwiperSectionProps> = ({ className, images }) => {
+export const SwiperSection: FC<SwiperSectionProps> = memo(({ className, images }) => {
 	const isMobile = useMediaQuery({ maxWidth: Devices.MOBILE });
 
 	const swiperSlidesItems = useMemo(() => {
@@ -53,4 +53,4 @@ export const SwiperSection: FC<SwiperSectionProps> = ({ className, images }) => 
 			</Container>
 		</section>
 	);
-};
+});

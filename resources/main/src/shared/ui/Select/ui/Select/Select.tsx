@@ -1,16 +1,16 @@
 import clsx from "clsx";
 import {
-	FC, useCallback, useEffect, useMemo, useRef, useState,
+	FC, memo, useCallback, useEffect, useMemo, useRef, useState,
 } from "react";
 import { Option } from "../Option/Option";
 import ArrowDown from "./assets/arrow-down.svg?react";
 import cls from "./Select.module.scss";
 
 interface SelectProps {
-	id: number;
+	id?: number | null;
 	options?: OptionType[];
 	placeholder?: string;
-	onUpdateQP?: (id: number) => void;
+	onChange?: (id: number) => void;
 	className?: string;
 	SlotField?: FC<any>;
 }
@@ -21,8 +21,8 @@ export interface OptionType {
 	address?: string;
 }
 
-export const Select: FC<SelectProps> = ({
-	options, placeholder, id, onUpdateQP, className, SlotField,
+export const Select: FC<SelectProps> = memo(({
+	options, placeholder, id, onChange, className, SlotField,
 }) => {
 	const [isOpen, setIsOpen] = useState(false);
 	const [activeSelectId, setActiveSelectId] = useState<number | null>(id || null);
@@ -67,7 +67,7 @@ export const Select: FC<SelectProps> = ({
 	const onOptionClick = (id: number) => () => {
 		if (id !== activeSelectId) {
 			setActiveSelectId(id);
-			onUpdateQP && onUpdateQP(id);
+			onChange && onChange(id);
 		}
 
 		setIsOpen((prev) => !prev);
@@ -119,4 +119,4 @@ export const Select: FC<SelectProps> = ({
 			</ul>
 		</div>
 	);
-};
+});

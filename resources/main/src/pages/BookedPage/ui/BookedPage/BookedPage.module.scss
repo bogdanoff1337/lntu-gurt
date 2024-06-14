@@ -1,8 +1,5 @@
 .BookedPage {
+    $p: &;
 
-    &__title {
-        margin-bottom: rem(50);
-
-        text-align: center;
-    }
+    
 }

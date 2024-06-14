@@ -1,5 +1,5 @@
 import clsx from "clsx";
-import { FC, ReactNode } from "react";
+import { FC, ReactNode, memo } from "react";
 import cls from "./Container.module.scss";
 
 interface ContainerProps {
@@ -15,7 +15,7 @@ export enum ContainerModifier {
 	ACTIVE = "Container_active",
 }
 
-export const Container: FC<ContainerProps> = ({
+export const Container: FC<ContainerProps> = memo(({
 	className, children, isDisabled, modifier = ContainerModifier.ACTIVE,
 }) => {
 	return (
@@ -23,4 +23,4 @@ export const Container: FC<ContainerProps> = ({
 			{children}
 		</div>
 	);
-};
+});

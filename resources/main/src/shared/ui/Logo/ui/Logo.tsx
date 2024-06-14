@@ -1,5 +1,5 @@
 import clsx from "clsx";
-import { FC } from "react";
+import { FC, memo } from "react";
 import { NavLink } from "react-router-dom";
 import LogoIcon from "@/shared/assets/common/lntu-logo.svg?react";
 import { getMainRoutePath } from "../../../config/routes/path";
@@ -9,7 +9,7 @@ interface LogoProps {
 	className?: string
 }
 
-export const Logo: FC<LogoProps> = ({ className }) => {
+export const Logo: FC<LogoProps> = memo(({ className }) => {
 	return (
 		<NavLink
 			to={getMainRoutePath()}
@@ -18,4 +18,4 @@ export const Logo: FC<LogoProps> = ({ className }) => {
 			<LogoIcon className={cls.Logo__icon} />
 		</NavLink>
 	);
-};
+});

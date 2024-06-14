@@ -1,5 +1,5 @@
 import clsx from "clsx";
-import { FC } from "react";
+import { FC, memo } from "react";
 import { NavLink } from "react-router-dom";
 import { getRoomsRoutePath } from "@/shared/config/routes/path";
 import { generateQueryString } from "@/shared/lib/generateQueryString";
@@ -11,12 +11,11 @@ interface FacultyItemProps {
 	image?: string;
 	alt?: string;
 	slug?: string;
-	to?: string;
 	id: number | string;
 }
 
-export const FacultyItem: FC<FacultyItemProps> = ({
-	className, image, alt = "faculty", slug, to = "/", id,
+export const FacultyItem: FC<FacultyItemProps> = memo(({
+	className, image, alt = "faculty", slug, id,
 }) => {
 	return (
 		<li className={clsx(cls.FacultyItem, [className])}>
@@ -32,4 +31,4 @@ export const FacultyItem: FC<FacultyItemProps> = ({
 			</NavLink>
 		</li>
 	);
-};
+});

@@ -1,6 +1,6 @@
 import { Transition } from "@headlessui/react";
 import clsx from "clsx";
-import { FC } from "react";
+import { FC, memo } from "react";
 import { MenuItems } from "../MenuItems/MenuItems";
 import cls from "./DropDown.module.scss";
 
@@ -9,7 +9,7 @@ interface DropDownProps {
 	isShow?: boolean;
 }
 
-export const DropDown: FC<DropDownProps> = ({ className, isShow }) => {
+export const DropDown: FC<DropDownProps> = memo(({ className, isShow }) => {
 	return (
 		<Transition
 			show={isShow}
@@ -25,4 +25,4 @@ export const DropDown: FC<DropDownProps> = ({ className, isShow }) => {
 			<MenuItems />
 		</Transition>
 	);
-};
+});
