@@ -26,7 +26,11 @@ export const FacultyItem: FC<FacultyItemProps> = memo(({
 					search: generateQueryString({ faculty_id: id }),
 				}}
 			>
-				<Img className={{ image: cls.FacultyItem__image, skeleton: cls.FacultyItem__skeleton }} src={`${__API__}/photos/uploads/facult/${image}`} alt={alt} />
+				<Img
+					className={{ image: cls.FacultyItem__image, skeleton: cls.FacultyItem__skeleton }}
+					src={`${__API__}/photos/uploads/facult/${image}`}
+					alt={alt}
+				/>
 				<h3 className={cls.FacultyItem__slug}>{slug}</h3>
 			</NavLink>
 		</li>

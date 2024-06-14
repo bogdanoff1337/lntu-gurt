@@ -25,10 +25,12 @@
     }
 
     &__skeleton {
-        width: 70%;
-        aspect-ratio: 1 / 1;
+        width: 100%;
+
+        transform: scale(0.7);
 
         border-radius: rem(8);
+        aspect-ratio: 230 / 184;
     }
 
     &__slug {
