@@ -25,7 +25,7 @@ class StudentFull extends JsonResource
             'faculty_id'    => Faculty::make($this->faculty) ?? "",
             'gender'        => $this->gender ?? "",
             'benefits'      => $this->benefits ?? "",
-            'course'        =>  $this->course ?? "",
+            'course'        =>  $this->course,
         ];
     }
 }
