@@ -30,7 +30,7 @@ class Profile extends FormRequest
             'phone' => ['required','string', Rule::unique('students')->ignore($userId)],
             'city_id' => 'required|exists:cities,id',
             'faculty_id' => 'required|exists:faculties,id',
-            'curse' => 'required|integer',
+            'course' => 'required|integer',
             'benefits' => 'string',
             'gender' => 'required|string',
         ];

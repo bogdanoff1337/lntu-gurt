@@ -22,9 +22,10 @@ class StudentFull extends JsonResource
             'middle_name' => $this->middle_name ?? "",
             'phone' => $this->phone ?? "",
             'city' => Cities::make($this->city) ?? "",
-            'faculty' => Faculty::make($this->faculty) ?? "",
+            'faculty_id' => Faculty::make($this->faculty) ?? "",    
             'gender' => $this->gender ?? "",
             'benefits' => $this->benefits ?? "",
+            'course' => (int) $this->course ?? "",
         ];
     }
 }
