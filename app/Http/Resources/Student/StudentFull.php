@@ -25,7 +25,7 @@ class StudentFull extends JsonResource
             'faculty_id'    => (int) $this->faculty_id,
             'gender'        => $this->gender ?? "",
             'benefits'      => $this->benefits ?? "",
-            'course'        =>  $this->course,
+            'course'        => (int) $this->course,
         ];
     }
 }
