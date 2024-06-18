@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\Student\StudentFull;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\Student\Profile as StudentUpdateRequest;
+use Illuminate\Http\Request;
 class StudentProfileController extends Controller
 {
     public function index()
@@ -15,9 +16,9 @@ class StudentProfileController extends Controller
         return new StudentFull($profile);
     }
 
-    public function update(StudentUpdateRequest $request)
+    public function update(Request $request)
     {
-        $validatedData = $request->validated();
+        $validatedData = $request->all();
 
         $user = Auth::user();
 
