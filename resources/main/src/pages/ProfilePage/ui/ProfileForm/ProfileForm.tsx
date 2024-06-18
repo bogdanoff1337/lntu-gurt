@@ -132,7 +132,7 @@ export const ProfileForm: FC<ProfileFormProps> = ({ className }) => {
 				/>
 				<FacultySelect
 					className={cls.Select}
-					id={tempData?.faculty_id}
+					id={tempData!.faculty_id}
 					onChange={onChangeFaculty}
 					Icon={PenIcon}
 					readOnly={readOnly}
@@ -140,7 +140,7 @@ export const ProfileForm: FC<ProfileFormProps> = ({ className }) => {
 				/>
 				<CourseSelect
 					className={cls.Select}
-					id={tempData?.course}
+					id={tempData!.course}
 					onChange={onChangeCourse}
 					Icon={PenIcon}
 					readOnly={readOnly}
@@ -151,7 +151,7 @@ export const ProfileForm: FC<ProfileFormProps> = ({ className }) => {
 					onChange={onChangeAddress}
 					action={pageProfileActions.getCities}
 					isLoading={citiesIsLoading}
-					active={tempData?.city_id}
+					active={tempData!.city}
 					data={cities}
 					placeholder="Місце проживання"
 					readOnly={readOnly}
@@ -162,7 +162,7 @@ export const ProfileForm: FC<ProfileFormProps> = ({ className }) => {
 				<PrimaryField
 					className={cls.Input}
 					onChange={onChangePhone}
-					value={tempData?.phone}
+					value={tempData!.phone}
 					placeholder="Номер телефону"
 					readOnly={readOnly}
 					renderIcon={!readOnly}
@@ -171,7 +171,7 @@ export const ProfileForm: FC<ProfileFormProps> = ({ className }) => {
 				<PrimaryField
 					className={cls.Input}
 					onChange={onChangeBenefits}
-					value={tempData?.benefits}
+					value={tempData!.benefits}
 					placeholder="Пільга"
 					readOnly={readOnly}
 					renderIcon={!readOnly}

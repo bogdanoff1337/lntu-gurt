@@ -17,8 +17,7 @@ export interface ProfileData {
 	last_name: string | null;
 	middle_name: string | null;
 	phone: string | null;
-	// city: string | null;
-	city_id: {
+	city: {
 		id: number;
 		slug: string;
 	} | null;

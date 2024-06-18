@@ -15,7 +15,6 @@ const initialState: PageProfileSchema = {
 	readOnly: true,
 };
 
-// @ts-ignore
 export const pageProfileSlice = createSliceWithThunk({
 	name: "pageProfile",
 	initialState,
@@ -29,11 +28,10 @@ export const pageProfileSlice = createSliceWithThunk({
 				extra, rejectWithValue, getState,
 			}) => {
 				try {
-					// @ts-ignore
-					const data = getState().pageProfile.tempData;
+					const { pageProfile: { tempData } } = getState() as { pageProfile: PageProfileSchema };
 					const response = await extra.api.patch<any>("profile/me", {
-						...data,
-                        city_id: data.city_id.id,
+						...tempData,
+						city_id: tempData?.city?.id,
 					});
 
 					if (!response.data) {
@@ -138,7 +136,7 @@ export const pageProfileSlice = createSliceWithThunk({
 			state.tempData!.middle_name = action.payload;
 		}),
 		changeAddress: create.reducer((state, action: PayloadAction<{ id: number; slug: string }>) => {
-			state.tempData!.city_id = action.payload;
+			state.tempData!.city = action.payload;
 		}),
 		changeGender: create.reducer((state, action: PayloadAction<string>) => {
 			state.tempData!.gender = action.payload;

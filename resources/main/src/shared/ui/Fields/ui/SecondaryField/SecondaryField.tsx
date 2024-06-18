@@ -31,15 +31,16 @@ interface SecondaryFieldProps extends InputAttributes {
 	action: any;
 	isLoading?: boolean;
 	data?: Option[];
-	active?: Option;
+	active?: Option | null;
 }
 
 export const SecondaryField: FC<SecondaryFieldProps> = ({
 	className, placeholder, onChange, onBlur, errorMessage, type = "text", isSuccess,
 	Icon, renderIcon = true, readOnly, isFeature, isLoading, action, data, active, ...anotherProps
 }) => {
-	const [isEmpty, setIsEmpty] = useState(true);
 	const inputRef = useRef<HTMLInputElement>(null);
+
+	const [isEmpty, setIsEmpty] = useState(true);
 	const [isFocused, setIsFocused] = useState(false);
 	const [value, setValue] = useState(active?.slug || "");
 	const [isSelected, setIsSelected] = useState(false);
@@ -48,10 +49,14 @@ export const SecondaryField: FC<SecondaryFieldProps> = ({
 	const debounce = useDebounce();
 
 	useEffect(() => {
-		if (inputRef.current?.value) {
-			setIsEmpty(false);
+		setIsEmpty(!value);
+	}, [value]);
+
+	useEffect(() => {
+		if (active) {
+			setIsSelected(true);
 		}
-	}, []);
+	}, [active]);
 
 	useEffect(() => {
 		if (value.length > 2) {
@@ -61,7 +66,6 @@ export const SecondaryField: FC<SecondaryFieldProps> = ({
 
 	const onChangeHandler = useCallback((e: ChangeEvent<HTMLInputElement>) => {
 		setValue(e.target.value);
-		setIsEmpty(!e.target.value);
 	}, []);
 
 	const onClickRemoveSelect = useCallback(() => {
@@ -73,8 +77,15 @@ export const SecondaryField: FC<SecondaryFieldProps> = ({
 	const onBlurHandler = useCallback((e: ChangeEvent<HTMLInputElement>) => {
 		onBlur?.(e);
 		setIsFocused(false);
-		setIsEmpty(!e.target.value);
-	}, [onBlur]);
+
+		if (!isSelected && active) {
+			setValue(active.slug);
+			setIsSelected(true);
+		} else if (!isSelected && !active) {
+			setValue("");
+			setIsSelected(false);
+		}
+	}, [active, isSelected, onBlur]);
 
 	const onFocusHandler = useCallback(() => {
 		setIsFocused(true);
@@ -83,13 +94,13 @@ export const SecondaryField: FC<SecondaryFieldProps> = ({
 	const onClickItemHandler = useCallback((option: Option) => () => {
 		onChange?.(option);
 		setValue(option.slug);
-		setIsEmpty(false);
 		setIsSelected(true);
+		setIsFocused(false);
 	}, [onChange]);
 
 	const optionItems = useMemo(() => {
 		return data?.map((option) => (
-			<li key={option.id} className={cls.List__item} onClick={onClickItemHandler(option)}>
+			<li key={option.id} className={cls.List__item} onMouseDown={onClickItemHandler(option)}>
 				{option.slug}
 			</li>
 		));

@@ -35,24 +35,10 @@ export const PrimaryField: FC<PrimaryFieldProps> = ({
 
 	const onBlurHandler = useCallback((e: ChangeEvent<HTMLInputElement>) => {
 		onBlur?.(e);
-
-		if (!e.target.value) {
-			setIsEmty(true);
-		} else {
-			setIsEmty(false);
-		}
 	}, [onBlur]);
 
 	useEffect(() => {
-		if (inputRef.current?.value) {
-			setIsEmty(false);
-		}
-	}, []);
-
-	useEffect(() => {
-		if (value) {
-			setIsEmty(false);
-		}
+		setIsEmty(!value);
 	}, [value]);
 
 	return (

@@ -1,4 +1,5 @@
 import clsx from "clsx";
+import queryString from "query-string";
 import {
 	FC, memo, useEffect, useMemo,
 } from "react";
@@ -8,7 +9,6 @@ import {
 	RoomItem, RoomItemSkeleton, entityRoomsActions, entityRoomsSelectors,
 } from "@/entities/Rooms";
 import { getRoomsRoutePath } from "@/shared/config/routes/path";
-import { useQueryParams } from "@/shared/hooks/useQueryParams/useQueryParams";
 import { useAppDispatch } from "@/shared/lib/hooks/useAppDispatch/useAppDispatch";
 import { PageLoader } from "@/shared/ui/PageLoader";
 import cls from "./RoomsList.module.scss";
@@ -22,12 +22,13 @@ export const RoomsList: FC<RoomsListProps> = memo(({ className }) => {
 	const roomsDataIsLoading = useSelector(entityRoomsSelectors.getIsLoading);
 	const roomsDataIsFetching = useSelector(entityRoomsSelectors.getIsFetching);
 
-	const { faculty_id, dormitory_id, gender } = useQueryParams();
-
 	const dispatch = useAppDispatch();
 
 	const TriggerFetch = useTriggerFetch({
+
 		action: () => {
+			const { faculty_id, dormitory_id, gender } = queryString.parse(window.location.search);
+
 			dispatch(entityRoomsActions.getRoomsByParams({
 				faculty_id,
 				dormitory_id,
@@ -36,17 +37,16 @@ export const RoomsList: FC<RoomsListProps> = memo(({ className }) => {
 			}));
 		},
 		condition: roomsData?.meta.current_page !== roomsData?.meta.last_page && !roomsDataIsFetching,
-	}, [roomsData, faculty_id, dormitory_id, gender]);
+	}, [roomsData]);
 
 	useEffect(() => {
-		if (!roomsData || !faculty_id || roomsData.data[0].faculty.id !== +faculty_id) {
-			dispatch(entityRoomsActions.getRoomsByParams({
-				faculty_id,
-				dormitory_id,
-				gender,
-			}));
-		}
-	}, [dispatch, dormitory_id, faculty_id, gender, roomsData]);
+		const { faculty_id, dormitory_id, gender } = queryString.parse(window.location.search);
+		dispatch(entityRoomsActions.getRoomsByParams({
+			faculty_id,
+			dormitory_id,
+			gender,
+		}));
+	}, [dispatch]);
 
 	const roomsItems = useMemo(() => {
 		return roomsData?.data.map(({ id, images, number }) => (
