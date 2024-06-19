@@ -36,7 +36,7 @@ export const RoomsList: FC<RoomsListProps> = memo(({ className }) => {
 				page: `${roomsData!.meta.current_page + 1}`,
 			}));
 		},
-		condition: roomsData?.meta.current_page !== roomsData?.meta.last_page && !roomsDataIsFetching,
+		condition: roomsData && roomsData?.meta.current_page < roomsData?.meta.last_page && !roomsDataIsFetching,
 	}, [roomsData]);
 
 	useEffect(() => {

@@ -1,4 +1,92 @@
-.Img {
+
+.SwiperSection {
+   &__swiperContainer {
+      position: relative;
+
+      padding-bottom: rem(50);
+   }
+
+   &__navigation {
+      position: absolute;
+      z-index: 1;
+      bottom: 0;
+      bottom: rem(10);
+      left: 50%;
+
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      width: min(100%, rem(600));
+
+      transform: translateX(-50%);
+   }
+
+   :global {
+      .swiper-slide {
+         aspect-ratio: 680 / 410;
+         @media (min-width: em($mobile)) {
+            width: rem(660) !important;
+            height: rem(410) !important;
+      
+            transition: transform $primaryTransition !important;
+            transform: scale(0.8) !important;
+         }
+         
+      }
+   
+      .swiper-slide-active {
+         @media (min-width: em($mobile)) {
+            transform: scale(1) !important;
+         }
+   
+      }
+   
+      .swiper-wrapper {
+         cursor: grab;
+      }
+   
+      .swiper-container {
+         overflow: hidden;
+      }
+   
+   }
+}
+
+
+.ArrowButton {
+   transition: opacity $primaryTransition, transform $primaryTransition;
+   transform: scale(1);
+
+   color: $blueColor;
+   &:hover {
+      transform: scale(1.1);
+
+      opacity: 0.75;
+   }
+
+   &__icon {
+      width: em(9);
+      height: em(14);
+
+      transition: fill $primaryTransition;
+
+      font-size: rem(36);
+
+      fill: currentColor;
+      
+
+      &_prev {
+         transform: rotate(180deg);
+      }
+
+      &_next {
+
+      }
+   }
+}
+
+.Image {
    width: 100%;
    height: 100%;
    object-fit: cover;
@@ -6,30 +94,32 @@
    border-radius: rem(15) !important;
 }
 
-:global {
+.Bullets {
+   display: inline-flex;
+   align-items: center;
+   justify-content: center;
 
-   .swiper-slide {
+   gap: rem(5);
 
-      aspect-ratio: 680 / 410;
-      @media (min-width: em($mobile)) {
-         width: rem(660) !important;
-         height: rem(410) !important;
-   
-         transition: transform $primaryTransition !important;
-         transform: scale(0.8) !important;
+   &__bullet {
+      width: rem(15);
+      height: rem(15);
+
+      cursor: pointer;
+
+      transition: width $primaryTransition;
+
+      border-radius: rem(15);
+      background-color: $blueColor;
+
+
+
+      &_active {
+         width: rem(25);
+         height: rem(13);
+
+         opacity: 0.75;
       }
-      
    }
-
-   .swiper-slide-active {
-      @media (min-width: em($mobile)) {
-         transform: scale(1) !important;
-      }
-
-   }
-
-   .swiper-wrapper {
-      
-   }
-
 }
+
