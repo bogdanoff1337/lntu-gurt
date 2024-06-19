@@ -96,22 +96,10 @@ class StudentAuthController extends Controller
             return response()->json(['messages' => 'Unauthorized'], 401);
         }
 
-        $profile = $user->only([
-            'email',
-            'first_name',
-            'last_name',
-            'middle_name',
-            'phone',
-            'city',
-            'benefits',
-            'gender',
-            'phone',
-        ]);
-
         $response = [
-            'profile' => $profile,
             'id' => $user->id,
-            'profileFilled' => (bool) $user->is_edit , // true if profile filled false if not
+            'email', $user->email,
+            'profileFilled' => (bool) $user->is_edit ,
             'verified' => $user->email_verified_at !== null,
         ];
 
