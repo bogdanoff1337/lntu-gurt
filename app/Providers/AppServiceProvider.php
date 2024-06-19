@@ -5,9 +5,9 @@ namespace App\Providers;
 use Illuminate\Support\ServiceProvider;
 use App\Models\Order;
 use App\Observers\OrderObserver;
-use Illuminate\Auth\Notifications\VerifyEmail;
-use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Routing\UrlGenerator;
+use App\Models\Student;
+use App\Observers\StudentProfileObserver;
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -28,5 +28,6 @@ class AppServiceProvider extends ServiceProvider
         }
 
         Order::observe(OrderObserver::class);
+        Student::observe(StudentProfileObserver::class);
     }
 }

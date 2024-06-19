@@ -2,8 +2,9 @@
 
 namespace App\Helpers;
 
+use App\Models\Room;
 use App\Models\Settings;
-use App\Models\Order; // Припускаючи, що у вас є модель Order
+use App\Models\Order;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 
@@ -33,9 +34,33 @@ class OrderRoom
 
     public static function deadline(): bool
     {
-        $date = Carbon::now();
+        $date = Carbon::now()->format('Y-m-d');
         $deadline = Settings::get('end_date');
 
-        return $date->lte($deadline);
+        if ($date < $deadline) {
+            return false;
+        }
+
+        return true;
+    }
+
+    public static function isGender($id): bool
+    {
+        $user       = Auth::user();
+        $roomGender = Room::where('id', $id)->get('gender')->first();
+        $gender     = $user->gender ;
+        $roomGender = $roomGender->gender;
+
+        return $gender === $roomGender;
+    }
+
+    public static function isFaculty($id): bool
+    {
+        $user        = Auth::user();
+        $roomFaculty = Room::where('id', $id)->get('faculty_id')->first();
+        $faculty     = $user->faculty_id ;
+        $roomFaculty = $roomFaculty->faculty_id;
+
+        return $faculty == $roomFaculty;
     }
 }
