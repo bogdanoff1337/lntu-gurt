@@ -28,6 +28,7 @@ class Full extends JsonResource
             'booked'    => OrderRoom::isBooked(),
             'status'    => OrderRoom::status() ?? null,
             'gender_match'  => OrderRoom::isGender($this->id),
+            'faculty_match' => OrderRoom::isFaculty($this->id),
             'date' => [
                 'this'     => Settings::get('end_date'),
                 'deadline' => OrderRoom::deadline(),
