@@ -11,9 +11,6 @@ use App\Http\Resources\Api\Room\Full;
 use Illuminate\Http\Resources\Json\JsonResource;
 class RoomController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index(Request $request): JsonResource
     {
         $rooms = Room::query()
@@ -40,9 +37,6 @@ class RoomController extends Controller
         return Short::collection($rooms);
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(string $id): JsonResource
     {
         $room = Room::with('media')->findOrFail($id);
