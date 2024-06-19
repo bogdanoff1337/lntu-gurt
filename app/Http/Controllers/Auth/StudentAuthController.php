@@ -108,11 +108,10 @@ class StudentAuthController extends Controller
             'phone',
         ]);
 
-        $profile['profileFilled'] = $this->profileFilled($user);
-
         $response = [
             'profile' => $profile,
             'id' => $user->id,
+            'profileFilled' => (bool) $user->is_edit , // true if profile filled false if not
             'verified' => $user->email_verified_at !== null,
         ];
 
