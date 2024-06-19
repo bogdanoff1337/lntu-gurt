@@ -1,4 +1,8 @@
 .Button {
+
+}
+
+.primaryButtonModifier {
    $p: &;
    display: inline-flex;
    align-items: center;
@@ -13,6 +17,9 @@
    background-color: $blueColor;
 
    font-weight: 600;
+
+
+
 
    &:hover {
       background-color: $blueColorHover;
@@ -50,4 +57,18 @@
    }
 
    @include adaptiveValue("font-size", 22, 15, 0, $widthTo: $tablet);
+}
+
+.secondaryButtonModifier {
+   &_clear {
+      display: inline;
+
+      transition: color $primaryTransition;
+      text-decoration: underline !important;
+      text-decoration-color: $blueColor;
+
+      &:hover {
+         color: $blueColorHover;
+      }
+   }
 }

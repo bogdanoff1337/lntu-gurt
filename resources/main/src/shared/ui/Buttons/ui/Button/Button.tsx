@@ -1,5 +1,7 @@
 import clsx from "clsx";
-import { ButtonHTMLAttributes, FC, ReactNode } from "react";
+import {
+	ButtonHTMLAttributes, FC, ReactNode, useMemo,
+} from "react";
 import cls from "../common/style.module.scss";
 import { ButtonModifier } from "../common/types";
 
@@ -16,13 +18,21 @@ export const Button: FC<ButtonProps> = ({
 	Icon,
 	modifier = "",
 	...otherProps
-}) => (
-	<button
-		className={clsx(cls.Button, {
-			[cls.Button_disabled]: otherProps.disabled,
-		}, [className, cls[modifier]])}
-		{...otherProps}
-	>
-		{children}
-	</button>
-);
+}) => {
+	const modifiers = useMemo(() => {
+		return modifier.split(" ").map((modifier) => {
+			return cls[modifier];
+		});
+	}, [modifier]);
+
+	return (
+		<button
+			className={clsx(cls.Button, {
+				[cls.Button_disabled]: otherProps.disabled,
+			}, [className, ...modifiers])}
+			{...otherProps}
+		>
+			{children}
+		</button>
+	);
+};

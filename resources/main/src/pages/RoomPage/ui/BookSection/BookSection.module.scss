@@ -1,0 +1,25 @@
+.BookSection {
+   $p: &;
+
+   &__container {
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+   }
+
+   &__button {
+      &:not(:last-child) {
+         margin-bottom: rem(20);
+      }
+   }
+
+   &__text {
+      text-align: center;
+
+      font-size: rem(18);
+
+      &_red {
+         color: $redColor;
+      }
+   }
+}

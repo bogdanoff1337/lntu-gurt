@@ -50,7 +50,7 @@ export const RoomPage: FC<RoomPageProps> = memo(({ className }) => {
 							<b className={cls.RoomPage__bold}>{roomData?.places}</b>
 						</li>
 						<li className={cls.RoomPage__item}>
-							<span className={cls.RoomPage__name}>Стояк:</span>
+							<span className={cls.RoomPage__name}>Блок:</span>
 							<b className={cls.RoomPage__bold}>{roomData?.block}</b>
 						</li>
 						<li className={cls.RoomPage__item}>
@@ -60,6 +60,14 @@ export const RoomPage: FC<RoomPageProps> = memo(({ className }) => {
 						<li className={cls.RoomPage__item}>
 							<span className={cls.RoomPage__name}>Секція:</span>
 							<b className={cls.RoomPage__bold}>{roomData?.section}</b>
+						</li>
+						<li className={cls.RoomPage__item}>
+							<span className={cls.RoomPage__name}>Стать:</span>
+							<b className={cls.RoomPage__bold}>{roomData?.gender}</b>
+						</li>
+						<li className={cls.RoomPage__item}>
+							<span className={cls.RoomPage__name}>Факультет:</span>
+							<b className={cls.RoomPage__bold}>{roomData?.faculty.slug_short}</b>
 						</li>
 					</ul>
 				</Container>

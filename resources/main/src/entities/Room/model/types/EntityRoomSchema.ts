@@ -31,4 +31,11 @@ export interface Room {
 	gender: string;
 	section: string;
 	booked: boolean;
+	faculty_match: boolean;
+	gender_match: boolean;
+	date: {
+		this: string;
+		deadline: boolean;
+	}
+
 }

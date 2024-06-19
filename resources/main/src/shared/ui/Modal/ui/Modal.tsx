@@ -3,6 +3,7 @@ import React, {
 	FC, ReactNode,
 	memo,
 	useCallback,
+	useEffect,
 } from "react";
 import { Overlay } from "../../Overlay";
 import { Portal } from "../../Portal";
@@ -27,9 +28,9 @@ export const Modal: FC<ModalProps> = memo(({
 		e.stopPropagation();
 	}, []);
 
-	// useEffect(() => {
-	// 	document.body.style.overflow = isOpen ? "hidden" : "auto";
-	// }, [isOpen]);
+	useEffect(() => {
+		document.body.style.overflow = isOpen ? "hidden" : "auto";
+	}, [isOpen]);
 
 	return (
 		<Portal>

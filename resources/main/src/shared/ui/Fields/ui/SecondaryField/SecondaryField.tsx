@@ -108,7 +108,7 @@ export const SecondaryField: FC<SecondaryFieldProps> = ({
 
 	const renderLoader = isLoading && !isSelected && value.length > 2;
 	const renderOptions = !isLoading && value.length > 2 && !isSelected && data && data.length > 0;
-	const renderNoOptions = !isLoading && value.length > 2 && !isSelected && data && data.length === 0;
+	const renderNoOptions = !isLoading && value.length > 2 && !isSelected && (data?.length === 0 || !data);
 
 	return (
 		<div className={clsx(cls.SecondaryField, {
@@ -130,6 +130,7 @@ export const SecondaryField: FC<SecondaryFieldProps> = ({
 					onChange={onChangeHandler}
 					onBlur={onBlurHandler}
 					onFocus={onFocusHandler}
+					spellCheck="false"
 					{...anotherProps}
 				/>
 				<Transition
@@ -162,7 +163,7 @@ export const SecondaryField: FC<SecondaryFieldProps> = ({
 			</div>
 			{errorMessage && <span className={cls.SecondaryField__error}>{errorMessage}</span>}
 			<Transition
-				show={isFocused && value.length > 2 && !isSelected}
+				show={isFocused && renderLoader || renderOptions || renderNoOptions}
 				as="ul"
 				className={clsx(cls.SecondaryField__list, cls.List)}
 				enter={cls.List_enter}

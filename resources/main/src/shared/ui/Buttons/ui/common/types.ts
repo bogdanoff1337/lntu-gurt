@@ -1,5 +1,7 @@
 export enum ButtonModifier {
-	INVERTION = "Button_invetion",
-	RED = "Button_red",
-	GRAY = "Button_gray",
+	DEFAULT = "primaryButtonModifier",
+	INVERTION = "primaryButtonModifier primaryButtonModifier_invetion",
+	RED = "primaryButtonModifier primaryButtonModifier_red",
+	GRAY = "primaryButtonModifier primaryButtonModifier_gray",
+	CLEAR = "secondaryButtonModifier secondaryButtonModifier_clear",
 }

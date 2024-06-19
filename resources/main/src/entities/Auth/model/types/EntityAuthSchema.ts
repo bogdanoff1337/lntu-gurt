@@ -7,13 +7,8 @@ export interface EntityAuthSchema {
 export interface UserData {
 	id: number;
 	email: string;
-	first_name: string | null;
-	last_name: string | null;
-	middle_name: string | null;
-	phone: string | null;
-	city: string | null;
-	benefits: string | null;
 	verified: boolean;
+	profileFilled: boolean;
 }
 
 export interface TokenData {

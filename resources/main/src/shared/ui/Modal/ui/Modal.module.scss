@@ -6,6 +6,8 @@
 	&__content {
 		position: relative;
 
+		max-width: rem(600);
+
 		margin: rem(10);
 		padding: rem(30) rem(35);
 		padding-top: rem(90);

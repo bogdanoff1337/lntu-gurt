@@ -118,6 +118,9 @@ export const SelectSecondary: FC<SelectSecondaryProps> = memo(({
 					Icon={Icon}
 					readOnly={readOnly}
 					inputMode="none"
+					autoComplete="off"
+					autoCorrect="off"
+					autoCapitalize="off"
 				/>
 				<Transition
 					show={renderIcon}

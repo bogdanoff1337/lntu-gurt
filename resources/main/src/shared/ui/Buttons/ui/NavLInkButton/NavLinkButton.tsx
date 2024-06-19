@@ -1,10 +1,13 @@
 import clsx from "clsx";
-import { FC, ReactNode, memo } from "react";
+import {
+	ComponentProps, FC, ReactNode, memo,
+	useMemo,
+} from "react";
 import { NavLink } from "react-router-dom";
 import cls from "../common/style.module.scss";
 import { ButtonModifier } from "../common/types";
 
-interface NavLinkButtonProps {
+interface NavLinkButtonProps extends ComponentProps<typeof NavLink> {
 	className?: string;
 	children: ReactNode;
 	to: string;
@@ -14,10 +17,19 @@ interface NavLinkButtonProps {
 export const NavLinkButton: FC<NavLinkButtonProps> = memo(({
 	className,
 	children,
-	modifier = "",
+	modifier = ButtonModifier.DEFAULT,
 	to,
-}) => (
-	<NavLink to={to} className={clsx(cls.Button, [className, cls[modifier]])}>
-		{children}
-	</NavLink>
-));
+	...otherProps
+}) => {
+	const modifiers = useMemo(() => {
+		return modifier.split(" ").map((modifier) => {
+			return cls[modifier];
+		});
+	}, [modifier]);
+
+	return (
+		<NavLink to={to} className={clsx(cls.Button, [className, ...modifiers])} {...otherProps}>
+			{children}
+		</NavLink>
+	);
+});
