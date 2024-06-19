@@ -34,10 +34,14 @@ class OrderRoom
 
     public static function deadline(): bool
     {
-        $date = Carbon::now();
+        $date = Carbon::now()->format('Y-m-d');
         $deadline = Settings::get('end_date');
 
-        return $date->lte($deadline);
+        if ($date < $deadline) {
+            return false;
+        }
+
+        return true;
     }
 
     public static function isGender($id): bool
