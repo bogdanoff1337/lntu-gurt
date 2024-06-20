@@ -43,7 +43,10 @@ export const RoomItem: FC<RoomItemProps> = memo(({
 			<NavLink
 				className={cls.RoomItem__link}
 				to={to}
-				state={{ previousLocationPathname: location.pathname }}
+				state={{
+					previousLocationPathname: location.pathname,
+					previousLocationSearch: location.search,
+				}}
 			>
 				<Img
 					className={{ image: cls.RoomItem__image, skeleton: cls.RoomItem__skeleton }}

@@ -1,3 +1,4 @@
+import queryString from "query-string";
 import {
 	FC, memo, useCallback, useMemo,
 } from "react";
@@ -14,9 +15,10 @@ interface GenderSelectProps {
 
 export const GenderSelect: FC<GenderSelectProps> = memo(({ className }) => {
 	const dispatch = useAppDispatch();
-	const { dormitory_id, faculty_id, gender } = useQueryParams();
 
 	const onChange = useCallback((id: number) => {
+		const { dormitory_id, faculty_id, gender } = queryString.parse(window.location.search);
+
 		const genderById = entityGendersModal.find((item) => item.id === id)!.slug;
 
 		dispatch(entityRoomsActions.getRoomsByParams({
@@ -26,11 +28,12 @@ export const GenderSelect: FC<GenderSelectProps> = memo(({ className }) => {
 		}));
 
 		updateUrlParams({ gender: genderById });
-	}, [dispatch, dormitory_id, faculty_id]);
+	}, [dispatch]);
 
 	const idByGender = useMemo(() => {
+		const { gender } = queryString.parse(window.location.search);
 		return entityGendersModal.find((item) => item.slug === gender)?.id;
-	}, [gender]);
+	}, []);
 
 	return (
 		<Select

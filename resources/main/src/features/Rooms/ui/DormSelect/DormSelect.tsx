@@ -1,3 +1,4 @@
+import queryString from "query-string";
 import {
 	FC, memo, useCallback, useEffect,
 } from "react";
@@ -17,7 +18,6 @@ interface DormSelectProps {
 export const DormSelect: FC<DormSelectProps> = memo(({ className }) => {
 	const dormitoriesData = useSelector(entityDormitoriesSelectors.getData);
 
-	const { dormitory_id, faculty_id, gender } = useQueryParams();
 	const dispatch = useAppDispatch();
 
 	useEffect(() => {
@@ -27,6 +27,7 @@ export const DormSelect: FC<DormSelectProps> = memo(({ className }) => {
 	}, [dispatch, dormitoriesData]);
 
 	const onChange = useCallback((id: number) => {
+		const { gender, faculty_id, dormitory_id } = queryString.parse(window.location.search);
 		dispatch(entityRoomsActions.getRoomsByParams({
 			faculty_id,
 			dormitory_id: `${id}`,
@@ -34,7 +35,9 @@ export const DormSelect: FC<DormSelectProps> = memo(({ className }) => {
 		}));
 
 		updateUrlParams({ dormitory_id: id });
-	}, [dispatch, faculty_id, gender]);
+	}, [dispatch]);
+
+	const { dormitory_id } = queryString.parse(window.location.search);
 
 	return (
 		<Select

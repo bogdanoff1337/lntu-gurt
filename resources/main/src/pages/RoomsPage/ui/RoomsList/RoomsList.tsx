@@ -4,6 +4,7 @@ import {
 	FC, memo, useEffect, useMemo,
 } from "react";
 import { useSelector } from "react-redux";
+import { useLocation } from "react-router-dom";
 import { useTriggerFetch } from "@/features/TriggerFetch";
 import {
 	RoomItem, RoomItemSkeleton, entityRoomsActions, entityRoomsSelectors,
@@ -21,6 +22,8 @@ export const RoomsList: FC<RoomsListProps> = memo(({ className }) => {
 	const roomsData = useSelector(entityRoomsSelectors.getData);
 	const roomsDataIsLoading = useSelector(entityRoomsSelectors.getIsLoading);
 	const roomsDataIsFetching = useSelector(entityRoomsSelectors.getIsFetching);
+
+	const location = useLocation();
 
 	const dispatch = useAppDispatch();
 
@@ -41,6 +44,7 @@ export const RoomsList: FC<RoomsListProps> = memo(({ className }) => {
 
 	useEffect(() => {
 		const { faculty_id, dormitory_id, gender } = queryString.parse(window.location.search);
+
 		dispatch(entityRoomsActions.getRoomsByParams({
 			faculty_id,
 			dormitory_id,

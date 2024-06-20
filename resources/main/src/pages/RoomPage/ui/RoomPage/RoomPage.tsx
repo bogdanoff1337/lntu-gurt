@@ -22,7 +22,7 @@ interface RoomPageProps {
 
 export const RoomPage: FC<RoomPageProps> = memo(({ className }) => {
 	const location = useLocation();
-	const breadcrumbsData = useSelector((state) => getBreadcrumbs(state, location.state?.previousLocationPathname));
+	const breadcrumbsData = useSelector((state) => getBreadcrumbs(state, location.state));
 
 	const { id } = useParams();
 	const dispatch = useAppDispatch();

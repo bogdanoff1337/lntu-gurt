@@ -3,12 +3,11 @@ import { entityRoomSelectors } from "@/entities/Room";
 import {
 	getBookedRoutePath, getMainRoutePath, getRoomsRoutePath,
 } from "@/shared/config/routes/path";
-import { generateQueryString } from "@/shared/lib/generateQueryString";
 
 export const getBreadcrumbs = createSelector(
-	[entityRoomSelectors.getData, (state, previousLocationPathname) => previousLocationPathname],
-	(entityRoomData, previousLocationPathname) => {
-		if (previousLocationPathname === getBookedRoutePath()) {
+	[entityRoomSelectors.getData, (state, locationState) => locationState],
+	(entityRoomData, locationState) => {
+		if (locationState.previousLocationPathname === getBookedRoutePath()) {
 			return [
 				{
 					id: 1,
@@ -46,11 +45,7 @@ export const getBreadcrumbs = createSelector(
 				title: "Кімнати",
 				to: {
 					pathname: getRoomsRoutePath(),
-					search: generateQueryString({
-						faculty_id: entityRoomData?.faculty?.id,
-						dormitory_id: entityRoomData?.dormitory?.id,
-						gender: entityRoomData?.gender,
-					}),
+					search: locationState.previousLocationSearch,
 				},
 			},
 			{
