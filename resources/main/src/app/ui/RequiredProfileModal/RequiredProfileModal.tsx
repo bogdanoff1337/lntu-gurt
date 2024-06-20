@@ -1,7 +1,7 @@
 import clsx from "clsx";
 import { FC, memo } from "react";
 import { getProfileRoutePath } from "@/shared/config/routes/path";
-import { NavLinkButton } from "@/shared/ui/Buttons";
+import { ButtonModifier, NavLinkButton } from "@/shared/ui/Buttons";
 import { Modal } from "@/shared/ui/Modal";
 import cls from "./RequiredProfileModal.module.scss";
 
@@ -27,6 +27,7 @@ export const RequiredProfileModal: FC<RequiredProfileModalProps> = memo(({
 			<p className={clsx(cls.RequiredProfileModal__paragraph, [cls.RequiredProfileModal__paragraph_2])}>
 				<NavLinkButton
 					className={cls.RequiredProfileModal__link}
+					modifier={ButtonModifier.CLEAR}
 					to={getProfileRoutePath()}
 					onClick={() => setIsOpen(false)}
 				>

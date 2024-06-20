@@ -29,7 +29,11 @@ export const Modal: FC<ModalProps> = memo(({
 	}, []);
 
 	useEffect(() => {
-		document.body.style.overflow = isOpen ? "hidden" : "none";
+		if (isOpen) {
+			document.body.classList.add(cls.overflowHidden);
+		} else {
+			document.body.classList.remove(cls.overflowHidden);
+		}
 	}, [isOpen]);
 
 	return (
