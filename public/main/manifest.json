@@ -1,18 +1,10 @@
 {
   "src/main.tsx": {
-<<<<<<< HEAD
-    "file": "assets/main-CBbo_r26.js",
+    "file": "assets/main-D3xN7Lit.js",
     "src": "src/main.tsx",
     "isEntry": true,
     "css": [
-      "assets/main-CIcmPGo6.css"
-=======
-    "file": "assets/main-DMeBBHbm.js",
-    "src": "src/main.tsx",
-    "isEntry": true,
-    "css": [
-      "assets/main-9b-89BBb.css"
->>>>>>> 7571262cdf2b9ed021cafe64a7e29e9396b2817c
+      "assets/main-DcO4TWv5.css"
     ],
     "assets": [
       "assets/arrow-BRU2N8l5.svg"

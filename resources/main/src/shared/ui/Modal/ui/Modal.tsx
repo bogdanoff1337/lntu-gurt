@@ -29,7 +29,7 @@ export const Modal: FC<ModalProps> = memo(({
 	}, []);
 
 	useEffect(() => {
-		document.body.style.overflow = isOpen ? "hidden" : "auto";
+		document.body.style.overflow = isOpen ? "hidden" : "none";
 	}, [isOpen]);
 
 	return (

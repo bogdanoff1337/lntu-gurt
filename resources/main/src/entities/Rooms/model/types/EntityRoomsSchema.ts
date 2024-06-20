@@ -1,5 +1,12 @@
 export interface EntityRoomsSchema {
 	data?: RoomsData;
+	params?: {
+		faculty_id?: string;
+		dormitory_id?: string;
+		gender?: string;
+		page?: string;
+	}
+	scrollPosition?: number;
 	isLoading?: boolean;
 	isFetching?: boolean;
 	error?: string;

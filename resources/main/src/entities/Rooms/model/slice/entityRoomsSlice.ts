@@ -1,3 +1,4 @@
+import { PayloadAction } from "@reduxjs/toolkit";
 import { ThunkConfig } from "@/app/providers/StoreProvider";
 import { createSliceWithThunk } from "@/shared/lib/createSliceWithThunk";
 import { EntityRoomsSchema, RoomsData } from "../types/EntityRoomsSchema";
@@ -36,7 +37,12 @@ export const entityRoomsSlice = createSliceWithThunk({
 						throw new Error();
 					}
 
-					return response.data;
+					// return response.data;
+
+					return {
+						data: response.data,
+						params: response.config.params,
+					};
 				} catch (e) {
 					return rejectWithValue("error");
 				}
@@ -50,13 +56,15 @@ export const entityRoomsSlice = createSliceWithThunk({
 					}
 				},
 				fulfilled: (state, action) => {
+					state.params = action.payload.params;
+
 					if (Number(action.meta.arg.page) > 1) {
-						state.data!.data.push(...action.payload.data);
-						state.data!.meta = action.payload.meta;
+						state.data!.data.push(...action.payload.data.data);
+						state.data!.meta = action.payload.data.meta;
 						state.isFetching = false;
 					} else {
 						state.isLoading = false;
-						state.data = action.payload;
+						state.data = action.payload.data;
 					}
 				},
 				rejected: (state, action) => {
@@ -65,6 +73,9 @@ export const entityRoomsSlice = createSliceWithThunk({
 				},
 			},
 		),
+		setScrollPosition: create.reducer((state, action: PayloadAction<number>) => {
+			state.scrollPosition = action.payload;
+		}),
 	}),
 });
 
