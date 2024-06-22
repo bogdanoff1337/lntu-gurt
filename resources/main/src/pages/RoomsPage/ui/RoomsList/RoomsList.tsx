@@ -61,7 +61,7 @@ export const RoomsList: FC<RoomsListProps> = memo(({ className }) => {
 		const handleScroll = () => {
 			debaunce(() => {
 				dispatch(entityRoomsActions.setScrollPosition(window.scrollY));
-			}, 500);
+			}, 100);
 		};
 
 		window.addEventListener("scroll", handleScroll);

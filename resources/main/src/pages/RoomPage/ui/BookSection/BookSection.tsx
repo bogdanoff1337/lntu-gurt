@@ -75,7 +75,7 @@ export const BookSection: FC<BookSectionProps> = memo(({ className }) => {
 			);
 		} else if (!authData?.profileFilled) {
 			return (
-				<p className={cls.BookSection__text}>
+				<p className={clsx(cls.BookSection__text, [cls.BookSection__text_red])}>
 					Ви не можете забронювати кімнату, якщо профіль не заповнений
 					&nbsp;
 					<NavLinkButton

@@ -5,6 +5,7 @@ import {
 } from "react";
 import { useSelector } from "react-redux";
 import { CourseSelect, FacultySelect, GenderSelect } from "@/features/Profile";
+import { entityAuthActions } from "@/entities/Auth";
 import { useAppDispatch } from "@/shared/lib/hooks/useAppDispatch/useAppDispatch";
 import { Button, ButtonModifier, PrimaryButton } from "@/shared/ui/Buttons";
 import { PrimaryField, SecondaryField } from "@/shared/ui/Fields";
@@ -72,6 +73,7 @@ export const ProfileForm: FC<ProfileFormProps> = ({ className }) => {
 	const onClickSave = useCallback(() => {
 		dispatch(pageProfileActions.setReadOnly(true));
 		dispatch(pageProfileActions.patchFormData());
+		dispatch(entityAuthActions.getUser());
 	}, [dispatch]);
 
 	const onClickCancel = useCallback(() => {
