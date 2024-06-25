@@ -8,6 +8,7 @@ use App\Observers\OrderObserver;
 use Illuminate\Routing\UrlGenerator;
 use App\Models\Student;
 use App\Observers\StudentProfileObserver;
+use App\Services\Auth\StudentAuthService;
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -15,7 +16,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+        $this->app->singleton(StudentAuthService::class, function ($app) {
+            return new StudentAuthService();
+        });
     }
 
     /**
