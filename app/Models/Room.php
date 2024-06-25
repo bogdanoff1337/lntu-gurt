@@ -9,6 +9,7 @@ use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\Image\Enums\Fit;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
+
 class Room extends Model implements HasMedia
 {
     use HasFactory, InteractsWithMedia;
@@ -51,5 +52,21 @@ class Room extends Model implements HasMedia
             ->addMediaConversion('preview')
             ->fit(Fit::Contain, 1920, 1080)
             ->nonQueued();
+    }
+
+    public function scopeFilters($query, array $filters)
+    {
+        return $query->when($filters['id'] ?? null, function ($query, $id) {
+            return $query->where('id', $id);
+        })
+            ->when($filters['faculty_id'] ?? null, function ($query, $faculty_id) {
+                return $query->where('faculty_id', $faculty_id);
+            })
+            ->when($filters['dormitory_id'] ?? null, function ($query, $dormitory_id) {
+                return $query->where('dormitory_id', $dormitory_id);
+            })
+            ->when($filters['gender'] ?? null, function ($query, $gender) {
+                return $query->where('gender', $gender);
+            });
     }
 }

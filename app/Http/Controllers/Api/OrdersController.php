@@ -9,15 +9,15 @@ use Illuminate\Http\Request;
 use App\Models\Order;
 use App\Http\Resources\Api\Order as OrderResource;
 use Illuminate\Support\Facades\Auth;
-
+use Illuminate\Http\Resources\Json\ResourceCollection;
 
 class OrdersController extends Controller
 {
-    public function index()
+    protected function index(): ResourceCollection
     {
-        $user = Auth::user();
+        $student = Auth::user();
 
-        $orders = Order::where('student_id', $user->id)->get();
+        $orders = Order::whereBelongsTo($student)->get();
 
         return OrderResource::collection($orders);
     }

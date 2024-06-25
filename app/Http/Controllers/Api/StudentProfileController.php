@@ -11,15 +11,16 @@ use App\Http\Requests\Student\Profile as StudentUpdateRequest;
 use Illuminate\Http\Request;
 class StudentProfileController extends Controller
 {
-    public function index(): JsonResource
+    protected function index(): JsonResource
     {
         $profile = auth()->user();
 
         return new StudentFull($profile);
     }
 
-    public function update(Request $request): JsonResource|JsonResponse
+    protected function update(Request $request): JsonResource|JsonResponse
     {
+        // use StudentUpdateRequest
         $validatedData = $request->all();
 
         $user = Auth::user();

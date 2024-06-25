@@ -3,16 +3,13 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use App\Models\Faculty;
 use App\Http\Resources\Api\Faculty as FullFacuclties;
-use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
+use Illuminate\Http\Resources\Json\ResourceCollection;
+
 class FacultyController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function __invoke(): AnonymousResourceCollection
+    protected function index(): ResourceCollection
     {
         $resource = Faculty::all();
 

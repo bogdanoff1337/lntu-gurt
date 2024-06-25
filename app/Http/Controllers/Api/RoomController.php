@@ -13,26 +13,14 @@ class RoomController extends Controller
 {
     public function index(Request $request): JsonResource
     {
-        $rooms = Room::query()
-            ->when($request->id, function ($query, $id) {
-                return $query->where('id', $id);
-            })
-            ->when($request->faculty_id, function ($query, $faculty_id) {
-                return $query->where('faculty_id', $faculty_id);
-            })
-            ->when($request->dormitory_id, function ($query, $dormitory_id) {
-                return $query->where('dormitory_id', $dormitory_id);
-            })
-            ->when($request->gender, function ($query, $gender) {
-                return $query->where('gender', $gender);
-            })
-            ->with('media')
-            ->paginate(12);
+        $filters = $request->only('id','faculty_id', 'dormitory_id', 'gender');
 
-            if ($request->has('faculty_id')) {
-                $breadcrumbs = Faculty::where('id', $request->faculty_id)->get('slug_short')->first();
-                return Short::collection($rooms)->additional(['breadcrumbs' => $breadcrumbs]);
-            }
+        $rooms = Room::filters($filters)->with('media')->paginate(12);
+
+        if ($request->has('faculty_id')) {
+            $breadcrumbs = Faculty::where('id', $request->faculty_id)->get('slug_short')->first();
+            return Short::collection($rooms)->additional(['breadcrumbs' => $breadcrumbs]);
+        }
 
         return Short::collection($rooms);
     }
