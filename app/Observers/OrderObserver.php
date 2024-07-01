@@ -4,6 +4,10 @@ namespace App\Observers;
 
 use App\Models\Order;
 use App\Models\Room;
+use App\Models\Student;
+use App\Notifications\SuccessBookedRoom;
+use Illuminate\Support\Facades\Notification;
+
 class OrderObserver
 {
     /**
@@ -29,6 +33,8 @@ class OrderObserver
 
             if ($newStatus === 'approved') {
                 $room = Room::find($order->room_id);
+                $student = Student::find($order->student_id);
+                Notification::send($student, new SuccessBookedRoom($room));
 
                 if ($room && $room->places > 0) {
                     if ($room->places > 4) {

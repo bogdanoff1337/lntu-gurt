@@ -146,11 +146,4 @@ class StudentAuthService
     {
         return Auth::guard();
     }
-
-    private function profileFilled(Student $student): bool
-    {
-        return $student->curs !== null
-            && $student->gender !== null
-            && $student->faculty_id !== null;
-    }
 }
