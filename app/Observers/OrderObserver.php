@@ -34,8 +34,9 @@ class OrderObserver
             if ($newStatus === 'approved') {
                 $room = Room::find($order->room_id);
                 $student = Student::find($order->student_id);
-                Notification::send($student, new SuccessBookedRoom($room));
-
+                Notification::route('mail', $student->email)
+                    ->route('telegram', env('TELEGRAM_CHAT_ID'))
+                    ->notify(new SuccessBookedRoom($room));
                 if ($room && $room->places > 0) {
                     if ($room->places > 4) {
                         $room->update(['places' => 4]);

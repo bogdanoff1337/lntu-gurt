@@ -170,6 +170,7 @@ return [
         App\Providers\Filament\AdminPanelProvider::class,
         App\Providers\RouteServiceProvider::class,
         Tymon\JWTAuth\Providers\LaravelServiceProvider::class,
+        NotificationChannels\Telegram\TelegramServiceProvider::class,
     ])->toArray(),
 
     /*

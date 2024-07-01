@@ -7,6 +7,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
+use NotificationChannels\Telegram\TelegramMessage;
 
 class SuccessBookedRoom extends Notification implements ShouldQueue
 {
@@ -28,7 +29,7 @@ class SuccessBookedRoom extends Notification implements ShouldQueue
      */
     public function via(object $notifiable): array
     {
-        return ['mail'];
+        return ['mail','telegram'];
     }
 
     /**
@@ -38,11 +39,22 @@ class SuccessBookedRoom extends Notification implements ShouldQueue
     {
         return (new MailMessage)
             ->subject('Ваше бронювання кімнати підтверджено')
-            ->greeting('Вітаємо, ' . $notifiable->name . '!')
+            ->greeting('Вітаємо!')
             ->line('Інформація про кімнату:')
             ->line('Номер кімнати: ' . $this->room->number)
             ->action('Переглянути бронювання', url('/booked'))
             ->line('Дякуємо за використання нашого сервісу!');
+    }
+
+    /**
+     * Get the Telegram representation of the notification.
+     */
+    public function toTelegram($notifiable)
+    {
+        return TelegramMessage::create()
+            ->to(env('TELEGRAM_CHAT_ID'))
+            ->content("Вітаємо,!\nВаше бронювання кімнати підтверджено.\n\nІнформація про кімнату:\nНомер кімнати: {$this->room->number}\n\nПереглянути бронювання: " . url('/booked'))
+            ->button('Переглянути бронювання', url('/booked'));
     }
 
     /**

@@ -9,6 +9,7 @@ use App\Http\Controllers\Auth\StudentAuthController;
 use App\Http\Controllers\Api\StudentProfileController;
 use App\Http\Controllers\Api\Verivy;
 use App\Http\Controllers\Api\CitiesController;
+use NotificationChannels\Telegram\TelegramUpdates;
 
 Route::group([
     'middleware' => 'api',
@@ -47,3 +48,14 @@ Route::group(['middleware' => 'jwt.auth'], function () {
 Route::get('email/verify/{id}', [Verivy::class, 'verify'])->name('verification.verify');
 
 Route::get('email/send',  [Verivy::class, 'send'])->name('verification.resend');
+Route::get('/_t', function () {
+    $updates = TelegramUpdates::create()
+        ->limit(2)
+
+        ->options([
+            'timeout' => 0,
+        ])
+        ->get();
+
+    dd($updates);
+})->name('test');
