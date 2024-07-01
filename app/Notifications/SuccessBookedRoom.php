@@ -37,8 +37,8 @@ class SuccessBookedRoom extends Notification implements ShouldQueue
     public function toMail(object $notifiable): MailMessage
     {
         return (new MailMessage)
+            ->subject('Ваше бронювання кімнати підтверджено')
             ->greeting('Вітаємо, ' . $notifiable->name . '!')
-            ->line('Ваше бронювання кімнати підтверджено.')
             ->line('Інформація про кімнату:')
             ->line('Номер кімнати: ' . $this->room->number)
             ->action('Переглянути бронювання', url('/booked'))
