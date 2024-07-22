@@ -22,7 +22,6 @@ class StudentAuthService
             'password' => 'required|min:8',
         ]);
 
-
         if ($validator->fails()) {
             return response()->json([
                 'title' => 'Поля заповнені неправильно',
@@ -106,19 +105,18 @@ class StudentAuthService
 
     public function me(): array|JsonResponse
     {
-        $user = $this->guard()->user();
+        $user = Auth::user();
+
         if (!$user) {
             return response()->json(['messages' => 'Unauthorized'], 401);
         }
 
-        $response = [
+        return [
             'id' => $user->id,
-            'email', $user->email,
-            'profileFilled' => (bool) $user->is_edit ,
+            'email' => $user->email,
+            'profileFilled' => (bool) $user->is_edit,
             'verified' => $user->email_verified_at !== null,
         ];
-
-        return $response;
     }
 
     public function logout(): JsonResponse

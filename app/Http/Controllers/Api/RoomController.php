@@ -17,11 +17,6 @@ class RoomController extends Controller
 
         $rooms = Room::filters($filters)->with('media')->paginate(12);
 
-        if ($request->has('faculty_id')) {
-            $breadcrumbs = Faculty::where('id', $request->faculty_id)->get('slug_short')->first();
-            return Short::collection($rooms)->additional(['breadcrumbs' => $breadcrumbs]);
-        }
-
         return Short::collection($rooms);
     }
 

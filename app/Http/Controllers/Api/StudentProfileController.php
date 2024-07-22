@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Student\StudentFull;
+use App\Models\Student;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Facades\Auth;
@@ -13,7 +14,7 @@ class StudentProfileController extends Controller
 {
     protected function index(): JsonResource
     {
-        $profile = auth()->user();
+        $profile = Auth::user();
 
         return new StudentFull($profile);
     }
@@ -23,14 +24,14 @@ class StudentProfileController extends Controller
         // use StudentUpdateRequest
         $validatedData = $request->all();
 
-        $user = Auth::user();
+        $student = Auth::user();
 
-        if (!$user) {
+        if (!$student) {
             return response()->json(['error' => 'Unauthorized'], 401);
         }
 
-        $user->update($validatedData);
+        $student->update($validatedData);
 
-        return new StudentFull($user);
+        return new StudentFull($student);
     }
 }

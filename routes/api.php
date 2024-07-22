@@ -23,25 +23,12 @@ Route::group([
 });
 
 Route::group(['middleware' => 'jwt.auth'], function () {
-
     Route::get('dormitories', [DormitoryController::class, 'index']);
-
-    Route::resource('rooms', RoomController::class)->except([
-        'create', 'store', 'update', 'destroy'
-    ]);
-
-    Route::resource('book', OrdersController::class)->except([
-        'create', 'update'
-    ]);
-
+    Route::apiResource('rooms', RoomController::class);
+    Route::apiResource('book', OrdersController::class);
     Route::get('faculties', [FacultyController::class, 'index']);
-
-    Route::resource('profile', StudentProfileController::class)->except([
-        'create', 'store', 'destroy', 'edit',
-    ]);
-
+    Route::apiResource('profile', StudentProfileController::class);
     Route::get('cities', [CitiesController::class, 'index']);
-
     Route::patch('profile/me', [StudentProfileController::class, 'update']);
 });
 
