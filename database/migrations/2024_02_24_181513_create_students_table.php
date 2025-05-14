@@ -6,9 +6,6 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
         Schema::create('students', function (Blueprint $table) {
@@ -18,18 +15,19 @@ return new class extends Migration
             $table->string('first_name')->nullable();
             $table->string('last_name')->nullable();
             $table->string('middle_name')->nullable();
+            $table->string('gender')->nullable();
             $table->string('phone')->nullable();
-            $table->string('city')->nullable();
+            $table->foreignId('city_id')->nullable()->constrained('cities')->nullOnDelete();
+            $table->foreignId('faculty_id')->nullable()->constrained('faculties')->nullOnDelete();
+            $table->string('course')->nullable();
             $table->string('benefits')->nullable();
             $table->timestamp('email_verified_at')->nullable();
+            $table->boolean('is_edit')->default(false);
             $table->rememberToken();
             $table->timestamps();
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
         Schema::dropIfExists('students');

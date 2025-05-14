@@ -14,7 +14,7 @@ class Settings extends Model
         'value',
     ];
 
-    public static function get($key)
+    public static function get($key): mixed
     {
         return self::where('key', $key)->first()->value;
     }

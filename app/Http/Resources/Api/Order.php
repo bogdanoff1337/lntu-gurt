@@ -10,9 +10,9 @@ class Order extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'id' => $this->id,
-            'room' => RoomShort::make($this->room),
-            'status' => $this->status,
+            'id' => $this->resource->id,
+            'room' => RoomShort::make($this->resource->room),
+            'status' => $this->resource->status,
         ];
     }
 }

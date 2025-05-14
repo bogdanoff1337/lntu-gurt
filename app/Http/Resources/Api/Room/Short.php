@@ -8,20 +8,15 @@ use Illuminate\Http\Resources\Json\JsonResource;
 
 class Short extends JsonResource
 {
-    /**
-     * Transform the resource into an array.
-     *
-     * @return array<string, mixed>
-     */
     public function toArray(Request $request): array
     {
         return [
-            'id'        => $this->id,
+            'id'        => $this->resource->id,
             'images'    => $this?->getFirstMediaUrl('room', 'preview'),
-            'dormitory' => Dormitory::make($this->dormitory),
-            'faculty'   => $this->faculty->only('id', 'slug','slug_short'),
-            'gender'    => $this->gender,
-            'number'    => $this->number,
+            'dormitory' => Dormitory::make($this->resource->dormitory),
+            'faculty'   => $this->resource->faculty->only('id', 'slug','slug_short'),
+            'gender'    => $this->resource->gender,
+            'number'    => $this->resource->number,
         ];
     }
 }

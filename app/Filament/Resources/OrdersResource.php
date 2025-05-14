@@ -4,10 +4,15 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\OrdersResource\Pages;
 use App\Filament\Resources\OrdersResource\RelationManagers;
+use App\Models\Faculty;
 use App\Models\Order;
 use App\Models\Room;
+use App\Models\Student;
 use Filament\Forms\Components\Checkbox;
 use Filament\Infolists\Components\Actions;
+use Filament\Notifications\Notification;
+use Filament\Tables\Columns\SelectColumn;
+use Filament\Tables\Filters\SelectFilter;
 use Illuminate\Database\Eloquent\Builder;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -29,17 +34,17 @@ class OrdersResource extends Resource
             ->schema([
                 Select::make("student_id")
                     ->label("Студент/вступник")
-                ->options(\App\Models\Student::pluck('email', 'id')->toArray()),
+                ->options(Student::query()->pluck('email', 'id')->toArray()),
                 Select::make("room_id")
                     ->label("Кімната")
-                    ->options(Room::where('places', '>', 0)->pluck('number', 'id')->toArray()),
+                    ->options(Room::query()->where('places', '>', 0)->pluck('number', 'id')->toArray()),
             ]);
     }
 
     public static function table(Table $table): Table
     {
         return $table
-            ->paginated(false)
+            ->paginated()
             ->columns([
                 Tables\Columns\TextColumn::make("student.email")
                     ->label("Студент/вступник")
@@ -61,70 +66,27 @@ class OrdersResource extends Resource
                     ->label("Місця")
                     ->searchable()
                     ->sortable(),
-                Tables\Columns\SelectColumn::make("status")
-                    ->options(function ($record) {
-                        $options = [
-                            'new' => 'Очікує на розгляд',
-                            'approved' => 'Затверджено',
-                            'rejected' => 'Відхилено',
-                        ];
-
-                        if ($record->status !== 'new') {
-                            unset($options['new']);
-                        }
-
-                        return $options;
-                    })
+                SelectColumn::make('status')
+                    ->label('Статус')
+                    ->options(fn(Order $record) => [
+                        ...($record->status === 'new' ? ['new'      => 'Очікує на розгляд'] : []),
+                        'approved' => 'Затверджено',
+                        'rejected' => 'Відхилено',
+                    ])
                     ->default('new')
-                    ->label("Статус")
-                    ->beforeStateUpdated(function ($record, $state) {
-                        if ($state === 'approved') {
-                            $room = Room::find($record->room_id);
-
-                            if ($room && $room->places <= 0) {
-                                throw new \Exception('Неможливо затвердити замовлення. Немає доступних місць у кімнаті.');
-                            }
-                        }
-
-                        return $state;
-                    }),
-
             ])
             ->filters([
-                Tables\Filters\Filter::make('has_benefits')
+                Filter::make('has_benefits')
                     ->label('Має пільги')
-                    ->form([
-                        Checkbox::make('has_benefits')
-                            ->label('Має пільги')
-                    ])
-                    ->query(function (Builder $query, array $data): Builder {
-                        return $query->when(
-                            $data['has_benefits'],
-                            fn (Builder $query): Builder => $query->whereHas('student', function (Builder $query) {
-                                $query->whereNotNull('benefits');
-                            }),
-                        );
-                    }),
-                Tables\Filters\Filter::make('where_faculty')
-                    ->label('Факультет')
-                    ->form([
-                            Select::make('room.faculty.slug_short')
-                            ->label('Факультет')
-                            ->options([
-                                'FKIT' => 'FKIT',
-                                'FDOST' => 'FDOST',
-                                // Додайте всі доступні факультети тут
-                            ])
-                    ])
-                    ->query(function (Builder $query, array $data): Builder {
-                        return $query->when(
-                            isset($data['faculty']),
-                            fn (Builder $query) => $query->whereHas('room.faculty', function (Builder $query) use ($data) {
-                                $query->where('slug_short', $data['faculty']);
-                            })
-                        );
-                    }),
-
+                    ->query(fn (Builder $query) => $query
+                        ->whereHas('student', fn (Builder $q) => $q->whereNotNull('benefits'))
+                    ),
+                SelectFilter::make('faculty')
+                    ->label('Факультети')
+                    ->multiple()
+                    ->relationship('room.faculty', 'slug_short')
+                    ->preload()
+                    ->searchable(),
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),

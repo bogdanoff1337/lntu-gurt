@@ -12,13 +12,13 @@ class OrderSeeder extends Seeder
      */
     public function run(): void
     {
-        $genders = ['Чоловіча', 'Жіноча'];
-        $benefits = ['Пільга 1', 'Пільга 2', 'Пільга 3'];
+        $students = DB::table('students')->pluck('id')->toArray();
+        $rooms = DB::table('rooms')->pluck('id')->toArray();
 
         for ($i = 1; $i <= 100; $i++) {
             DB::table('orders')->insert([
-                'student_id' => 1, //  N студентів
-                'room_id' => rand(1, 100), // 100 кімнат
+                'student_id' => $students[array_rand($students)],
+                'room_id' => $rooms[array_rand($rooms)],
                 'created_at' => now(),
                 'updated_at' => now(),
             ]);

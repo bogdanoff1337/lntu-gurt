@@ -3,39 +3,40 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Services\Auth\StudentAuthService;
 
 class StudentAuthController extends Controller
 {
-    protected $authService;
+    protected StudentAuthService $authService;
 
     public function __construct(StudentAuthService $authService)
     {
         $this->authService = $authService;
     }
 
-    public function register(Request $request)
+    public function register(Request $request): JsonResponse
     {
         return $this->authService->register($request);
     }
 
-    public function login(Request $request)
+    public function login(Request $request): JsonResponse
     {
         return $this->authService->login($request);
     }
 
-    public function me()
+    public function me(): array
     {
         return $this->authService->me();
     }
 
-    public function logout()
+    public function logout(): JsonResponse
     {
         return $this->authService->logout();
     }
 
-    public function refresh()
+    public function refresh(): JsonResponse
     {
         return $this->authService->refresh();
     }

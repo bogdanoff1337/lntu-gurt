@@ -7,17 +7,12 @@ use Illuminate\Http\Resources\Json\JsonResource;
 
 class Dormitory extends JsonResource
 {
-    /**
-     * Transform the resource into an array.
-     *
-     * @return array<string, mixed>
-     */
     public function toArray(Request $request): array
     {
         return [
-            'id' => $this->id,
-            'slug' => $this->slug,
-            'address' => $this->address,
+            'id' => $this->resource->id,
+            'slug' => $this->resource->slug,
+            'address' => $this->resource->address,
         ];
     }
 }

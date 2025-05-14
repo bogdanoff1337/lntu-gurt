@@ -19,16 +19,11 @@ class StudentProfileController extends Controller
         return new StudentFull($profile);
     }
 
-    protected function update(Request $request): JsonResource|JsonResponse
+    protected function update(StudentUpdateRequest $request): JsonResource|JsonResponse
     {
-        // use StudentUpdateRequest
-        $validatedData = $request->all();
+        $validatedData = $request->validated();
 
         $student = Auth::user();
-
-        if (!$student) {
-            return response()->json(['error' => 'Unauthorized'], 401);
-        }
 
         $student->update($validatedData);
 

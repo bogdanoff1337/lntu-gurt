@@ -13,9 +13,9 @@ class RoomController extends Controller
 {
     public function index(Request $request): JsonResource
     {
-        $filters = $request->only('id','faculty_id', 'dormitory_id', 'gender');
+        $filters = $request->only('id', 'faculty_id', 'dormitory_id', 'gender');
 
-        $rooms = Room::filters($filters)->with('media')->paginate(12);
+        $rooms = Room::query()->filters($filters)->with('media')->paginate(12);
 
         return Short::collection($rooms);
     }

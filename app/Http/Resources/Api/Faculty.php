@@ -7,18 +7,13 @@ use Illuminate\Http\Resources\Json\JsonResource;
 
 class Faculty extends JsonResource
 {
-    /**
-     * Transform the resource into an array.
-     *
-     * @return array<string, mixed>
-     */
     public function toArray(Request $request): array
     {
         return [
-            'id' => $this->id,
-            'slug' => $this->slug,
-            'slug_short' => $this->slug_short,
-            'image' => $this->image,
+            'id' => $this->resource->id,
+            'slug' => $this->resource->slug,
+            'slug_short' => $this->resource->slug_short,
+            'image' => $this->resource->image,
         ];
     }
 }

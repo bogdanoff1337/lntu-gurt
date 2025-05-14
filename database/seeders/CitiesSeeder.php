@@ -11,7 +11,7 @@ class CitiesSeeder extends Seeder
      */
     public function run(): void
     {
-        DB::table('cities')->truncate();
+//        DB::table('cities')->truncate();
 
         $filePath = base_path('m.json');
         $file = fopen($filePath, 'r');

@@ -4,10 +4,26 @@ namespace App\Models;
 
 use App\Notifications\VerifyEmailNotification;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
+/**
+ * @property int $id
+ * @property string $email
+ * @property string $password
+ * @property string $first_name
+ * @property string $last_name
+ * @property string $middle_name
+ * @property string $gender
+ * @property string $phone
+ * @property int $city_id
+ * @property int $faculty_id
+ * @property int $course
+ * @property bool $is_edit
+ * @property \Illuminate\Support\Carbon|null $email_verified_at
+ */
 class Student extends Authenticatable implements JWTSubject
 {
     use HasFactory, Notifiable;
@@ -40,37 +56,27 @@ class Student extends Authenticatable implements JWTSubject
         'password' => 'hashed',
     ];
 
-    /**
-     * Get the identifier that will be stored in the subject claim of the JWT.
-     *
-     * @return mixed
-     */
-    public function getJWTIdentifier()
+    public function getJWTIdentifier(): mixed
     {
         return $this->getKey();
     }
 
-    /**
-     * Return a key value array, containing any custom claims to be added to the JWT.
-     *
-     * @return array
-     */
-    public function getJWTCustomClaims()
+    public function getJWTCustomClaims(): array
     {
         return [];
     }
 
-    public function sendEmailVerificationNotification()
+    public function sendEmailVerificationNotification(): void
     {
         $this->notify(new VerifyEmailNotification);
     }
 
-    public function city()
+    public function city(): BelongsTo
     {
         return $this->belongsTo(City::class);
     }
 
-    public function faculty()
+    public function faculty(): BelongsTo
     {
         return $this->belongsTo(Faculty::class);
     }

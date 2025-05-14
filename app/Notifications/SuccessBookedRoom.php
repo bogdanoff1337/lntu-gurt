@@ -14,27 +14,17 @@ class SuccessBookedRoom extends Notification implements ShouldQueue
     use Queueable;
 
     private Room $room;
-    /**
-     * Create a new notification instance.
-     */
+
     public function __construct(Room $room)
     {
         $this->room = $room;
     }
 
-    /**
-     * Get the notification's delivery channels.
-     *
-     * @return array<int, string>
-     */
     public function via(object $notifiable): array
     {
         return ['mail','telegram'];
     }
 
-    /**
-     * Get the mail representation of the notification.
-     */
     public function toMail(object $notifiable): MailMessage
     {
         return (new MailMessage)
@@ -46,9 +36,6 @@ class SuccessBookedRoom extends Notification implements ShouldQueue
             ->line('Дякуємо за використання нашого сервісу!');
     }
 
-    /**
-     * Get the Telegram representation of the notification.
-     */
     public function toTelegram($notifiable)
     {
         return TelegramMessage::create()
@@ -57,11 +44,6 @@ class SuccessBookedRoom extends Notification implements ShouldQueue
             ->button('Переглянути бронювання', url('/booked'));
     }
 
-    /**
-     * Get the array representation of the notification.
-     *
-     * @return array<string, mixed>
-     */
     public function toArray(object $notifiable): array
     {
         return [

@@ -15,12 +15,12 @@ class DatabaseSeeder extends Seeder
         $this->call([
              FacultySeeder::class,
              DormitorySeeder::class,
-//             RoomSeeder::class,
-//             StudentSeeder::class,
-//             OrderSeeder::class,
+             RoomSeeder::class,
+             StudentSeeder::class,
+             OrderSeeder::class,
              UserSeeder::class,
              SettingsSeeder::class,
-//             CitiesSeeder::class,
+             CitiesSeeder::class,
         ]);
     }
 }

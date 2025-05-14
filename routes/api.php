@@ -35,6 +35,7 @@ Route::group(['middleware' => 'jwt.auth'], function () {
 Route::get('email/verify/{id}', [Verivy::class, 'verify'])->name('verification.verify');
 
 Route::get('email/send',  [Verivy::class, 'send'])->name('verification.resend');
+
 Route::get('/_t', function () {
     $updates = TelegramUpdates::create()
         ->limit(2)
