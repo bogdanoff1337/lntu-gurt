@@ -8,7 +8,7 @@ use Filament\Resources\Pages\ListRecords;
 
 class ListOrders extends ListRecords
 {
-    protected static ?string $title = 'Список замовлень';
+    protected static ?string $title = 'Список заявок';
 
     protected static string $resource = OrdersResource::class;
 

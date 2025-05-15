@@ -4,8 +4,11 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\StudentsResource\Pages;
 use App\Filament\Resources\StudentsResource\RelationManagers;
+use App\Models\City;
+use App\Models\Faculty;
 use App\Models\Student;
 use Filament\Forms;
+use Filament\Forms\Components\Select;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
@@ -23,34 +26,59 @@ class StudentsResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make("last_name")
-                    ->label("Ім'я")
-                    ->placeholder("Ім'я"),
-                Forms\Components\TextInput::make("first_name")
-                    ->label("Прізвище")
-                    ->placeholder("Прізвище"),
-                Forms\Components\TextInput::make("middle_name")
-                    ->label("По-батькові")
-                    ->placeholder("По-батькові"),
-                Forms\Components\TextInput::make("phone")
-                    ->label("Номер телефону")
-                    ->placeholder("Номер телефону"),
-                Forms\Components\TextInput::make("gender")
-                    ->label("Стать")
-                    ->placeholder("Стать"),
-                Forms\Components\TextInput::make("city")
-                    ->label("Місце проживання")
-                    ->placeholder("Місце проживання"),
-                Forms\Components\TextInput::make("benefits")
-                    ->label("Перелік пільг")
-                    ->placeholder("Перелік пільг"),
+                Forms\Components\TextInput::make('last_name')
+                    ->label('Ім\'я')
+                    ->required()
+                    ->placeholder('Ім\'я'),
+                Forms\Components\TextInput::make('first_name')
+                    ->required()
+                    ->label('Прізвище')
+                    ->placeholder('Прізвище'),
+                Forms\Components\TextInput::make('middle_name')
+                    ->required()
+                    ->label('По-батькові')
+                    ->placeholder('По-батькові'),
+                Forms\Components\TextInput::make('phone')
+                    ->required()
+                    ->label('Номер телефону')
+                    ->placeholder('Номер телефону'),
+                Forms\Components\Select::make('gender')
+                    ->options([
+                        'male' => 'Чоловік',
+                        'female' => 'Жінка',
+                    ])
+                    ->required()
+                    ->label('Стать')
+                    ->placeholder('Стать'),
+                Select::make('city_id')
+                    ->label('Місце проживання')
+                    ->searchable()
+                    ->getSearchResultsUsing(function (string $search): array {
+                        return City::where('name', 'like', "%{$search}%")
+                            ->orWhere('community', 'like', "%{$search}%")
+                            ->limit(50)
+                            ->get()
+                            ->mapWithKeys(fn($city) => [
+                                $city->id => "{$city->name} ({$city->community})"
+                            ])
+                            ->toArray();
+                    })
+                    ->getOptionLabelUsing(fn ($value): ?string => optional(City::find($value))->name . ' (' . optional(City::find($value))->community . ')'),
+                Select::make('faculty_id')
+                    ->label('Факультет')
+                    ->options(
+                        Faculty::all()->pluck('slug_short', 'id')->toArray()
+                    )
+                    ->searchable()
+                    ->required()
+                    ->placeholder('Факультет'),
+                Forms\Components\TextInput::make('benefits')
+                    ->label('Перелік пільг')
+                    ->placeholder('Перелік пільг'),
                 Forms\Components\TextInput::make('email')
                     ->label('Email')
-                    ->disabled()
+                    ->required()
                     ->placeholder('Email'),
-//                Forms\Components\TextInput::make('password')
-//                    ->password()
-//                    ->revealable()
             ]);
     }
 
@@ -58,25 +86,25 @@ class StudentsResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make("first_name")
-                    ->label("Ім'я")
+                Tables\Columns\TextColumn::make('first_name')
+                    ->label('Ім\'я')
                     ->searchable()
                     ->sortable(),
-                Tables\Columns\TextColumn::make("last_name")
-                    ->label("Призвіще")
+                Tables\Columns\TextColumn::make('last_name')
+                    ->label('Призвіще')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('email')
                     ->label('Email')
                     ->searchable()
                     ->sortable(),
-                Tables\Columns\TextColumn::make("benefits")
-                    ->label("Перелік пільг")
+                Tables\Columns\TextColumn::make('benefits')
+                    ->label('Перелік пільг')
                     ->searchable(),
-                Tables\Columns\TextColumn::make("city")
-                    ->label("Місце проживання")
+                Tables\Columns\TextColumn::make('city')
+                    ->label('Місце проживання')
                     ->searchable(),
-                Tables\Columns\TextColumn::make("phone")
-                    ->label("Номер телефону")
+                Tables\Columns\TextColumn::make('phone')
+                    ->label('Номер телефону')
                     ->searchable(),
             ])
             ->filters([
