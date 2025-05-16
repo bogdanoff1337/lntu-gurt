@@ -46,7 +46,6 @@ class AcceptedOrdersResource extends Resource
             ->with(['student', 'room']);
     }
 
-
     public static function form(Form $form): Form
     {
         return $form

@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources;
 
+use App\Filament\Resources\PrivilegeRelationManagerResource\RelationManagers\PrivilegesRelationManager;
 use App\Filament\Resources\StudentsResource\Pages;
 use App\Filament\Resources\StudentsResource\RelationManagers;
 use App\Models\City;
@@ -13,6 +14,7 @@ use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class StudentsResource extends Resource
 {
@@ -97,10 +99,7 @@ class StudentsResource extends Resource
                     ->label('Email')
                     ->searchable()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('benefits')
-                    ->label('Перелік пільг')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('city')
+                Tables\Columns\TextColumn::make('city.name')
                     ->label('Місце проживання')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('phone')
@@ -124,7 +123,7 @@ class StudentsResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            PrivilegesRelationManager::class,
         ];
     }
 
