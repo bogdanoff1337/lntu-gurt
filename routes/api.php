@@ -10,7 +10,9 @@ use App\Http\Controllers\Api\StudentProfileController;
 use App\Http\Controllers\Api\Verivy;
 use App\Http\Controllers\Api\CitiesController;
 use NotificationChannels\Telegram\TelegramUpdates;
-
+Route::get('/ping', function(){
+    return response()->json(['pong' => true]);
+});
 Route::group([
     'middleware' => 'api',
     'prefix' => 'auth'

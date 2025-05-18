@@ -2,6 +2,8 @@
 echo "Running composer"
 composer install --working-dir=/var/www/html
 
+php artisan key:generate
+
 echo "Caching config..."
 php artisan config:cache
 
@@ -14,5 +16,3 @@ php artisan storage:link
 echo "Running migrations..."
 php artisan migrate --force
 php artisan db:seed --force
-
-php artisan queue:work
