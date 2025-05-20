@@ -3,6 +3,7 @@
 namespace App\Jobs;
 
 use App\Models\Order;
+use App\Models\Settings;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -17,12 +18,15 @@ class GenerateContractPdf implements ShouldQueue
 
     public function __construct(protected Order $order) {}
 
-
     public function handle(): void
     {
+        $settings = Settings::getMediaSettings('stamp');
+        $stamp = $settings->media->first()->getPath('settings');
+
         $pdf = PDF::loadView('pdfs.contract', [
             'student' => $this->order->student,
             'room'    => $this->order->room,
+            'sing'    => $stamp,
         ]);
 
         $path = "contracts/contract_{$this->order->id}.pdf";

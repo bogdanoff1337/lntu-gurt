@@ -18,7 +18,11 @@ class StudentAuthService
     public function register(Request $request): JsonResponse
     {
         $validator = Validator::make($request->all(), [
-            'email' => 'required|email',
+            'email' => [
+                'required',
+                'email:rfc,dns',
+                'ends_with:' . Student::AVAILABLE_EMAIL_DOMAINS,
+            ],
             'password' => 'required|min:8',
         ]);
 

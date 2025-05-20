@@ -169,6 +169,7 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\Filament\AdminPanelProvider::class,
         App\Providers\RouteServiceProvider::class,
+        App\Providers\SwaggerUiServiceProvider::class,
         Tymon\JWTAuth\Providers\LaravelServiceProvider::class,
         NotificationChannels\Telegram\TelegramServiceProvider::class,
     ])->toArray(),

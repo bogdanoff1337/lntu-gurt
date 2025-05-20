@@ -7,12 +7,10 @@ use App\Http\Controllers\Api\RoomController;
 use App\Http\Controllers\Api\FacultyController;
 use App\Http\Controllers\Auth\StudentAuthController;
 use App\Http\Controllers\Api\StudentProfileController;
-use App\Http\Controllers\Api\Verivy;
+use App\Http\Controllers\Api\VerifyController;
 use App\Http\Controllers\Api\CitiesController;
 use NotificationChannels\Telegram\TelegramUpdates;
-Route::get('/ping', function(){
-    return response()->json(['pong' => true]);
-});
+
 Route::group([
     'middleware' => 'api',
     'prefix' => 'auth'
@@ -34,9 +32,9 @@ Route::group(['middleware' => 'jwt.auth'], function () {
     Route::patch('profile/me', [StudentProfileController::class, 'update']);
 });
 
-Route::get('email/verify/{id}', [Verivy::class, 'verify'])->name('verification.verify');
+Route::get('email/verify/{id}', [VerifyController::class, 'verify'])->name('verification.verify');
 
-Route::get('email/send',  [Verivy::class, 'send'])->name('verification.resend');
+Route::get('email/send',  [VerifyController::class, 'send'])->name('verification.resend');
 
 Route::get('/_t', function () {
     $updates = TelegramUpdates::create()

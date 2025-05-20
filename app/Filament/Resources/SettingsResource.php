@@ -6,6 +6,7 @@ use App\Filament\Resources\SettingsResource\Pages;
 use App\Filament\Resources\SettingsResource\RelationManagers;
 use App\Models\Settings;
 use Filament\Forms;
+use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
@@ -26,9 +27,21 @@ class SettingsResource extends Resource
             ->schema([
                 Forms\Components\TextInput::make('title')
                     ->label('Назва'),
-                Forms\Components\TextInput::make('value')
-                    ->label('Значення')
-                    ->required(),
+                Forms\Components\Fieldset::make('Значення')
+                    ->schema([
+                        Forms\Components\TextInput::make('value')
+                            ->label('Значення')
+                            ->visible(fn ($record) => $record?->type === 'integer'),
+
+                        SpatieMediaLibraryFileUpload::make('media')
+                            ->collection('settings')
+                            ->label('Файл')
+                            ->visible(fn ($record) => $record?->type === 'file'),
+
+                        Forms\Components\DatePicker::make('value')
+                            ->label('Дата')
+                            ->visible(fn ($record) => $record?->type === 'date'),
+                    ])
             ]);
     }
 

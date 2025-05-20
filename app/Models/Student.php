@@ -46,6 +46,8 @@ class Student extends Authenticatable implements JWTSubject
         'is_edit'
     ];
 
+    public const AVAILABLE_EMAIL_DOMAINS = 'lntu.edu.ua';
+
     protected $hidden = [
         'password',
         'remember_token',
@@ -64,6 +66,11 @@ class Student extends Authenticatable implements JWTSubject
     public function getJWTCustomClaims(): array
     {
         return [];
+    }
+
+    public function getFullNameAttribute(): string
+    {
+        return "{$this->last_name} {$this->first_name} {$this->middle_name}";
     }
 
     public function sendEmailVerificationNotification(): void

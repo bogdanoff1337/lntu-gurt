@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a47a6476222d3993e3f8ad8921d3a038",
+    "content-hash": "a57b4dce499300617351e6405ee94b5f",
     "packages": [
         {
             "name": "anourvalar/eloquent-serialize",
@@ -1489,16 +1489,16 @@
         },
         {
             "name": "filament/actions",
-            "version": "v3.3.14",
+            "version": "v3.3.15",
             "source": {
                 "type": "git",
                 "url": "https://github.com/filamentphp/actions.git",
-                "reference": "08caa8dec43ebf4192dcd999cca786656a3dbc90"
+                "reference": "66b509aa72fa882ce91218eb743684a9350bc3fb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/filamentphp/actions/zipball/08caa8dec43ebf4192dcd999cca786656a3dbc90",
-                "reference": "08caa8dec43ebf4192dcd999cca786656a3dbc90",
+                "url": "https://api.github.com/repos/filamentphp/actions/zipball/66b509aa72fa882ce91218eb743684a9350bc3fb",
+                "reference": "66b509aa72fa882ce91218eb743684a9350bc3fb",
                 "shasum": ""
             },
             "require": {
@@ -1538,20 +1538,20 @@
                 "issues": "https://github.com/filamentphp/filament/issues",
                 "source": "https://github.com/filamentphp/filament"
             },
-            "time": "2025-04-30T09:16:43+00:00"
+            "time": "2025-05-19T07:25:24+00:00"
         },
         {
             "name": "filament/filament",
-            "version": "v3.3.14",
+            "version": "v3.3.15",
             "source": {
                 "type": "git",
                 "url": "https://github.com/filamentphp/panels.git",
-                "reference": "2c4783bdd973967cc2dbc2dc518c70b04839ace3"
+                "reference": "bc83f6ca48340cc4127994687be121462fed9b7a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/filamentphp/panels/zipball/2c4783bdd973967cc2dbc2dc518c70b04839ace3",
-                "reference": "2c4783bdd973967cc2dbc2dc518c70b04839ace3",
+                "url": "https://api.github.com/repos/filamentphp/panels/zipball/bc83f6ca48340cc4127994687be121462fed9b7a",
+                "reference": "bc83f6ca48340cc4127994687be121462fed9b7a",
                 "shasum": ""
             },
             "require": {
@@ -1603,20 +1603,20 @@
                 "issues": "https://github.com/filamentphp/filament/issues",
                 "source": "https://github.com/filamentphp/filament"
             },
-            "time": "2025-04-30T09:16:38+00:00"
+            "time": "2025-05-19T07:26:37+00:00"
         },
         {
             "name": "filament/forms",
-            "version": "v3.3.14",
+            "version": "v3.3.15",
             "source": {
                 "type": "git",
                 "url": "https://github.com/filamentphp/forms.git",
-                "reference": "22e62dc2b4c68018e9846aadf7e8c5310d0e38cf"
+                "reference": "0e46d1d14e6f30a57dd85103d2b07aff52a75a5a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/filamentphp/forms/zipball/22e62dc2b4c68018e9846aadf7e8c5310d0e38cf",
-                "reference": "22e62dc2b4c68018e9846aadf7e8c5310d0e38cf",
+                "url": "https://api.github.com/repos/filamentphp/forms/zipball/0e46d1d14e6f30a57dd85103d2b07aff52a75a5a",
+                "reference": "0e46d1d14e6f30a57dd85103d2b07aff52a75a5a",
                 "shasum": ""
             },
             "require": {
@@ -1659,11 +1659,11 @@
                 "issues": "https://github.com/filamentphp/filament/issues",
                 "source": "https://github.com/filamentphp/filament"
             },
-            "time": "2025-04-30T09:16:39+00:00"
+            "time": "2025-05-19T07:26:45+00:00"
         },
         {
             "name": "filament/infolists",
-            "version": "v3.3.14",
+            "version": "v3.3.15",
             "source": {
                 "type": "git",
                 "url": "https://github.com/filamentphp/infolists.git",
@@ -1714,7 +1714,7 @@
         },
         {
             "name": "filament/notifications",
-            "version": "v3.3.14",
+            "version": "v3.3.15",
             "source": {
                 "type": "git",
                 "url": "https://github.com/filamentphp/notifications.git",
@@ -1766,7 +1766,7 @@
         },
         {
             "name": "filament/spatie-laravel-media-library-plugin",
-            "version": "v3.3.14",
+            "version": "v3.3.15",
             "source": {
                 "type": "git",
                 "url": "https://github.com/filamentphp/spatie-laravel-media-library-plugin.git",
@@ -1803,7 +1803,7 @@
         },
         {
             "name": "filament/support",
-            "version": "v3.3.14",
+            "version": "v3.3.15",
             "source": {
                 "type": "git",
                 "url": "https://github.com/filamentphp/support.git",
@@ -1862,16 +1862,16 @@
         },
         {
             "name": "filament/tables",
-            "version": "v3.3.14",
+            "version": "v3.3.15",
             "source": {
                 "type": "git",
                 "url": "https://github.com/filamentphp/tables.git",
-                "reference": "bb5fad7306c39fdbb08d97982073114ac465bf92"
+                "reference": "64806e3c13caeabb23a8668a7aaf1efc8395df96"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/filamentphp/tables/zipball/bb5fad7306c39fdbb08d97982073114ac465bf92",
-                "reference": "bb5fad7306c39fdbb08d97982073114ac465bf92",
+                "url": "https://api.github.com/repos/filamentphp/tables/zipball/64806e3c13caeabb23a8668a7aaf1efc8395df96",
+                "reference": "64806e3c13caeabb23a8668a7aaf1efc8395df96",
                 "shasum": ""
             },
             "require": {
@@ -1910,11 +1910,11 @@
                 "issues": "https://github.com/filamentphp/filament/issues",
                 "source": "https://github.com/filamentphp/filament"
             },
-            "time": "2025-04-30T09:16:33+00:00"
+            "time": "2025-05-19T07:26:42+00:00"
         },
         {
             "name": "filament/widgets",
-            "version": "v3.3.14",
+            "version": "v3.3.15",
             "source": {
                 "type": "git",
                 "url": "https://github.com/filamentphp/widgets.git",
@@ -2153,16 +2153,16 @@
         },
         {
             "name": "google/cloud-core",
-            "version": "v1.62.2",
+            "version": "v1.62.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/googleapis/google-cloud-php-core.git",
-                "reference": "506b69e9e13eaac1656edd0bfc7ea5d81cf870d9"
+                "reference": "0c19d76e7f3b6810c4f2cc1330c693af2681c601"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/googleapis/google-cloud-php-core/zipball/506b69e9e13eaac1656edd0bfc7ea5d81cf870d9",
-                "reference": "506b69e9e13eaac1656edd0bfc7ea5d81cf870d9",
+                "url": "https://api.github.com/repos/googleapis/google-cloud-php-core/zipball/0c19d76e7f3b6810c4f2cc1330c693af2681c601",
+                "reference": "0c19d76e7f3b6810c4f2cc1330c693af2681c601",
                 "shasum": ""
             },
             "require": {
@@ -2213,22 +2213,22 @@
             ],
             "description": "Google Cloud PHP shared dependency, providing functionality useful to all components.",
             "support": {
-                "source": "https://github.com/googleapis/google-cloud-php-core/tree/v1.62.2"
+                "source": "https://github.com/googleapis/google-cloud-php-core/tree/v1.62.3"
             },
-            "time": "2025-05-09T21:18:44+00:00"
+            "time": "2025-05-20T19:49:54+00:00"
         },
         {
             "name": "google/cloud-storage",
-            "version": "v1.48.0",
+            "version": "v1.48.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/googleapis/google-cloud-php-storage.git",
-                "reference": "e2d7a59290ab7fb69208c45058efa3946edbb793"
+                "reference": "509b095c3ea44db92c9e62a94b5773563c831821"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/googleapis/google-cloud-php-storage/zipball/e2d7a59290ab7fb69208c45058efa3946edbb793",
-                "reference": "e2d7a59290ab7fb69208c45058efa3946edbb793",
+                "url": "https://api.github.com/repos/googleapis/google-cloud-php-storage/zipball/509b095c3ea44db92c9e62a94b5773563c831821",
+                "reference": "509b095c3ea44db92c9e62a94b5773563c831821",
                 "shasum": ""
             },
             "require": {
@@ -2270,22 +2270,22 @@
             ],
             "description": "Cloud Storage Client for PHP",
             "support": {
-                "source": "https://github.com/googleapis/google-cloud-php-storage/tree/v1.48.0"
+                "source": "https://github.com/googleapis/google-cloud-php-storage/tree/v1.48.1"
             },
-            "time": "2025-04-18T20:49:28+00:00"
+            "time": "2025-05-20T19:49:54+00:00"
         },
         {
             "name": "google/common-protos",
-            "version": "4.12.0",
+            "version": "4.12.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/googleapis/common-protos-php.git",
-                "reference": "96f6873c65fb0289fcdb6ac3d5239f9c9e5750b0"
+                "reference": "70c4eb1abab5484a23c17a43b0d455259f5d8c1b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/googleapis/common-protos-php/zipball/96f6873c65fb0289fcdb6ac3d5239f9c9e5750b0",
-                "reference": "96f6873c65fb0289fcdb6ac3d5239f9c9e5750b0",
+                "url": "https://api.github.com/repos/googleapis/common-protos-php/zipball/70c4eb1abab5484a23c17a43b0d455259f5d8c1b",
+                "reference": "70c4eb1abab5484a23c17a43b0d455259f5d8c1b",
                 "shasum": ""
             },
             "require": {
@@ -2329,22 +2329,22 @@
                 "google"
             ],
             "support": {
-                "source": "https://github.com/googleapis/common-protos-php/tree/v4.12.0"
+                "source": "https://github.com/googleapis/common-protos-php/tree/v4.12.1"
             },
-            "time": "2025-04-18T20:49:28+00:00"
+            "time": "2025-05-20T19:49:54+00:00"
         },
         {
             "name": "google/gax",
-            "version": "v1.36.0",
+            "version": "v1.36.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/googleapis/gax-php.git",
-                "reference": "140599cf5eae2432363ce6198e9fdff851625a7a"
+                "reference": "afdac3bc38a3b17d70668115d7b1a97289ac4d72"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/googleapis/gax-php/zipball/140599cf5eae2432363ce6198e9fdff851625a7a",
-                "reference": "140599cf5eae2432363ce6198e9fdff851625a7a",
+                "url": "https://api.github.com/repos/googleapis/gax-php/zipball/afdac3bc38a3b17d70668115d7b1a97289ac4d72",
+                "reference": "afdac3bc38a3b17d70668115d7b1a97289ac4d72",
                 "shasum": ""
             },
             "require": {
@@ -2386,9 +2386,9 @@
             ],
             "support": {
                 "issues": "https://github.com/googleapis/gax-php/issues",
-                "source": "https://github.com/googleapis/gax-php/tree/v1.36.0"
+                "source": "https://github.com/googleapis/gax-php/tree/v1.36.1"
             },
-            "time": "2024-12-11T02:47:43+00:00"
+            "time": "2025-05-20T19:50:43+00:00"
         },
         {
             "name": "google/grpc-gcp",
@@ -5386,16 +5386,16 @@
         },
         {
             "name": "openspout/openspout",
-            "version": "v4.29.1",
+            "version": "v4.30.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/openspout/openspout.git",
-                "reference": "ec83106bc3922fe94c9d37976ba6b7259511c4c5"
+                "reference": "df9b0f4d229c37c3caa5a9252a6ad8a94efb0fb5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/openspout/openspout/zipball/ec83106bc3922fe94c9d37976ba6b7259511c4c5",
-                "reference": "ec83106bc3922fe94c9d37976ba6b7259511c4c5",
+                "url": "https://api.github.com/repos/openspout/openspout/zipball/df9b0f4d229c37c3caa5a9252a6ad8a94efb0fb5",
+                "reference": "df9b0f4d229c37c3caa5a9252a6ad8a94efb0fb5",
                 "shasum": ""
             },
             "require": {
@@ -5409,13 +5409,13 @@
             },
             "require-dev": {
                 "ext-zlib": "*",
-                "friendsofphp/php-cs-fixer": "^3.71.0",
+                "friendsofphp/php-cs-fixer": "^3.75.0",
                 "infection/infection": "^0.29.14",
-                "phpbench/phpbench": "^1.4.0",
-                "phpstan/phpstan": "^2.1.8",
-                "phpstan/phpstan-phpunit": "^2.0.4",
-                "phpstan/phpstan-strict-rules": "^2.0.3",
-                "phpunit/phpunit": "^12.0.7"
+                "phpbench/phpbench": "^1.4.1",
+                "phpstan/phpstan": "^2.1.16",
+                "phpstan/phpstan-phpunit": "^2.0.6",
+                "phpstan/phpstan-strict-rules": "^2.0.4",
+                "phpunit/phpunit": "^12.1.5"
             },
             "suggest": {
                 "ext-iconv": "To handle non UTF-8 CSV files (if \"php-mbstring\" is not already installed or is too limited)",
@@ -5463,7 +5463,7 @@
             ],
             "support": {
                 "issues": "https://github.com/openspout/openspout/issues",
-                "source": "https://github.com/openspout/openspout/tree/v4.29.1"
+                "source": "https://github.com/openspout/openspout/tree/v4.30.0"
             },
             "funding": [
                 {
@@ -5475,7 +5475,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2025-03-11T14:40:46+00:00"
+            "time": "2025-05-20T12:33:06+00:00"
         },
         {
             "name": "phpoption/phpoption",
@@ -9972,6 +9972,75 @@
                 "source": "https://github.com/webmozarts/assert/tree/1.11.0"
             },
             "time": "2022-06-03T18:03:27+00:00"
+        },
+        {
+            "name": "wotz/laravel-swagger-ui",
+            "version": "1.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/wotzebra/laravel-swagger-ui.git",
+                "reference": "f63430e96179c919c521ebb76fc4dddcc8b3dfae"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/wotzebra/laravel-swagger-ui/zipball/f63430e96179c919c521ebb76fc4dddcc8b3dfae",
+                "reference": "f63430e96179c919c521ebb76fc4dddcc8b3dfae",
+                "shasum": ""
+            },
+            "require": {
+                "ext-json": "*",
+                "laravel/framework": "^9.0|^10.0|^11.0|^12.0",
+                "php": "^8.1|^8.2|^8.3|^8.4"
+            },
+            "require-dev": {
+                "adamwojs/php-cs-fixer-phpdoc-force-fqcn": "^2.0",
+                "friendsofphp/php-cs-fixer": "^3.0",
+                "guzzlehttp/guzzle": "^7.5",
+                "jasonmccreary/laravel-test-assertions": "^2.3",
+                "orchestra/testbench": "^7.0|^8.0|^9.0|^10.0",
+                "phpunit/phpunit": "^9.5|^10.0|^11.5.3",
+                "squizlabs/php_codesniffer": "^3.6"
+            },
+            "suggest": {
+                "ext-yaml": "*"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Wotz\\SwaggerUi\\SwaggerUiServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Wotz\\SwaggerUi\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Günther Debrauwer",
+                    "email": "gunther.debrauwer@whoownsthezebra.be",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Add Swagger UI to a Laravel application.",
+            "homepage": "https://github.com/wotzebra/laravel-swagger-ui",
+            "keywords": [
+                "laravel",
+                "openapi",
+                "swagger",
+                "swagger-ui"
+            ],
+            "support": {
+                "issues": "https://github.com/wotzebra/laravel-swagger-ui/issues",
+                "source": "https://github.com/wotzebra/laravel-swagger-ui/tree/1.2.0"
+            },
+            "time": "2025-03-05T09:26:18+00:00"
         }
     ],
     "packages-dev": [
@@ -12501,7 +12570,7 @@
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
-        "php": "^8.1"
+        "php": "^8.3"
     },
     "platform-dev": {},
     "plugin-api-version": "2.6.0"

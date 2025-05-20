@@ -3,6 +3,7 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\AcceptedOrdersResource\Pages;
+use App\Jobs\GenerateContractPdf;
 use App\Models\Order;
 use App\Models\Room;
 use App\Models\Student;
@@ -16,6 +17,8 @@ use Filament\Forms\Form;
 use Filament\Forms\Form as FilamentForm;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Actions\Action;
+use Filament\Tables\Actions\BulkAction;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\Filter;
 use Filament\Tables\Filters\QueryBuilder;
@@ -24,6 +27,7 @@ use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Filament\Tables\Actions\ViewAction;
+use Illuminate\Support\Collection;
 
 class AcceptedOrdersResource extends Resource
 {
@@ -124,9 +128,19 @@ class AcceptedOrdersResource extends Resource
                 ),
             ])
             ->actions([
+
             ])
             ->bulkActions([
                 Tables\Actions\DeleteBulkAction::make(),
+
+                BulkAction::make('exportPdf')
+                    ->label('Згенерувати PDF та відправити на пошту')
+                    ->icon('heroicon-o-document-text')
+                    ->action(function (Collection $records) {
+                        foreach ($records as $record) {
+                            GenerateContractPdf::dispatch($record);
+                        }
+                    }),
             ])
             ->searchable();
     }
