@@ -12,7 +12,9 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule): void
     {
-        // $schedule->command('inspire')->hourly();
+        $schedule->command('app:process-students-course')
+            ->cron('0 0 1 9 *') // 00:00 1 вересня щороку
+            ->timezone('Europe/Kyiv');
     }
 
     /**

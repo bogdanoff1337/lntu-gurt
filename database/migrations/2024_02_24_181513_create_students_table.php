@@ -19,10 +19,11 @@ return new class extends Migration
             $table->string('phone')->nullable();
             $table->foreignId('city_id')->nullable()->constrained('cities')->nullOnDelete();
             $table->foreignId('faculty_id')->nullable()->constrained('faculties')->nullOnDelete();
-            $table->string('course')->nullable();
+            $table->smallInteger('course')->nullable();
             $table->string('benefits')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->boolean('is_edit')->default(false);
+            $table->boolean('is_active')->default(true);
             $table->rememberToken();
             $table->timestamps();
         });

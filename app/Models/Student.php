@@ -23,6 +23,7 @@ use Illuminate\Notifications\Notifiable;
  * @property int $faculty_id
  * @property int $course
  * @property bool $is_edit
+ * @property bool $is_active
  * @property \Illuminate\Support\Carbon|null $email_verified_at
  */
 class Student extends Authenticatable implements JWTSubject
@@ -43,7 +44,8 @@ class Student extends Authenticatable implements JWTSubject
         'email_verified_at',
         'faculty_id',
         'course',
-        'is_edit'
+        'is_edit',
+        'is_active',
     ];
 
     public const AVAILABLE_EMAIL_DOMAINS = 'lntu.edu.ua';

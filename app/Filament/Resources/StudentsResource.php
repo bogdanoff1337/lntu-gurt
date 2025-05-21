@@ -28,6 +28,10 @@ class StudentsResource extends Resource
     {
         return $form
             ->schema([
+                Forms\Components\Toggle::make('is_active')
+                    ->label('Активний')
+                    ->default(true)
+                    ->inline(false),
                 Forms\Components\TextInput::make('last_name')
                     ->label('Ім\'я')
                     ->required()
@@ -74,13 +78,20 @@ class StudentsResource extends Resource
                     ->searchable()
                     ->required()
                     ->placeholder('Факультет'),
-                Forms\Components\TextInput::make('benefits')
-                    ->label('Перелік пільг')
-                    ->placeholder('Перелік пільг'),
                 Forms\Components\TextInput::make('email')
                     ->label('Email')
                     ->required()
                     ->placeholder('Email'),
+                Select::make('course')
+                    ->label('Курс')
+                    ->options([
+                        '1' => '1',
+                        '2' => '2',
+                        '3' => '3',
+                        '4' => '4',
+                    ])
+                    ->required()
+                    ->placeholder('Курс'),
             ]);
     }
 
