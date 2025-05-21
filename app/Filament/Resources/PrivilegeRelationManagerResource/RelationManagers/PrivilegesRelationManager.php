@@ -34,16 +34,25 @@ class PrivilegesRelationManager extends RelationManager
             ->recordTitleAttribute('name')
             ->columns([
                 Tables\Columns\TextColumn::make('privilege.name')
+                    ->columnSpanFull()
                     ->label('Опис пільги')
             ])
             ->filters([
                 //
             ])
             ->headerActions([
-                Tables\Actions\CreateAction::make(),
+                Tables\Actions\CreateAction::make()
+                    ->form([
+                        Forms\Components\Select::make('privilege_id')
+                            ->label('Опис пільги')
+                            ->relationship('privilege', 'name')
+                            ->searchable()
+                            ->preload()
+                            ->required(),
+                    ]),
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
+                Tables\Actions\ViewAction::make(),
                 Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
