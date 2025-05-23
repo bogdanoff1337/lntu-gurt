@@ -1,21 +1,20 @@
-FROM php:8.3-fpm
+FROM richarvey/nginx-php-fpm:3.1.6
 
-RUN apt-get update && apt-get install -y \
-    nginx \
-    git \
-    unzip \
-    libzip-dev \
-    zip \
-    && docker-php-ext-install zip pdo pdo_mysql
+COPY . .
 
-COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
+# Image config
+ENV SKIP_COMPOSER 1
+ENV WEBROOT /var/www/html/public
+ENV PHP_ERRORS_STDERR 1
+ENV RUN_SCRIPTS 1
+ENV REAL_IP_HEADER 1
 
-COPY . /var/www/html
+# Laravel config
+ENV APP_ENV production
+ENV APP_DEBUG false
+ENV LOG_CHANNEL stderr
 
-WORKDIR /var/www/html
+# Allow composer to run as root
+ENV COMPOSER_ALLOW_SUPERUSER 1
 
-ENV APP_ENV=production
-ENV APP_DEBUG=false
-ENV LOG_CHANNEL=stderr
-
-CMD ["php-fpm"]
+CMD ["/start.sh"]
