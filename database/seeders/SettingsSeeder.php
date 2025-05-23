@@ -39,12 +39,12 @@ class SettingsSeeder extends Seeder
                 'type'  => 'file',
                 'value' => null,
             ],
-            [
-                'title' => 'Останній активний курс для поселення',
-                'key'   => 'last_course',
-                'type'  => 'integer',
-                'value' => 4,
-            ]
+//            [
+//                'title' => 'Останній активний курс для поселення',
+//                'key'   => 'last_course',
+//                'type'  => 'integer',
+//                'value' => 4,
+//            ]
     ];
 
         foreach ($settings as $setting) {
