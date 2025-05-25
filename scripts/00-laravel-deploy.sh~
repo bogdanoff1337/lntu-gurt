@@ -19,6 +19,8 @@ echo "Building frontend..."
 cd /var/www/html/resources/main/
 npm install
 npm run build
+
+# Вернуться обратно, если нужно
 cd /var/www/html
 
 #echo "Running migrations..."
