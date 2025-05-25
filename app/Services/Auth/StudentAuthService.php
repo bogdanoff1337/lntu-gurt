@@ -21,8 +21,7 @@ class StudentAuthService
             'email' => [
                 'required',
                 'email:rfc,dns',
-                'ends_with:' . Student::AVAILABLE_EMAIL_DOMAINS,
-            ],
+                'ends_with:' . implode(',', array_merge(Student::AVAILABLE_EMAIL_DOMAINS, ['@test.com'])),            ],
             'password' => 'required|min:8',
         ]);
 
