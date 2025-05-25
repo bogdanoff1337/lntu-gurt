@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
@@ -31,17 +33,17 @@ class Room extends Model implements HasMedia
         return $this->morphMany(Media::class, 'model');
     }
 
-    public function dormitory()
+    public function dormitory(): BelongsTo
     {
         return $this->belongsTo(Dormitory::class, 'dormitory_id');
     }
 
-    public function faculty()
+    public function faculty(): BelongsTo
     {
         return $this->belongsTo(Faculty::class, 'faculty_id');
     }
 
-    public function order()
+    public function order(): HasMany
     {
         return $this->hasMany(Order::class);
     }

@@ -8,18 +8,8 @@ class StudentProfileObserver
     public function updated(Student $student): void
     {
         $requiredFields = [
-            'email',
-            'password',
-            'first_name',
-            'last_name',
-            'middle_name',
-            'gender',
-            'phone',
-            'city_id',
-            'benefits',
-            'email_verified_at',
-            'faculty_id',
-            'course',
+            'email', 'password', 'first_name', 'last_name', 'middle_name', 'gender',
+            'phone','city_id','benefits', 'email_verified_at', 'faculty_id','course',
         ];
 
         $allFieldsFilled = true;

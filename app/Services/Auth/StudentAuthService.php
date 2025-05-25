@@ -18,7 +18,11 @@ class StudentAuthService
     public function register(Request $request): JsonResponse
     {
         $validator = Validator::make($request->all(), [
-            'email' => 'required|email',
+            'email' => [
+                'required',
+                'email:rfc,dns',
+                'ends_with:' . Student::AVAILABLE_EMAIL_DOMAINS,
+            ],
             'password' => 'required|min:8',
         ]);
 
@@ -65,7 +69,7 @@ class StudentAuthService
                 ], 409);
         }
 
-        Student::create([
+        Student::query()->create([
             'email' => $validated['email'],
             'password' => Hash::make($validated['password']),
         ]);
@@ -103,19 +107,16 @@ class StudentAuthService
         ], 422);
     }
 
-    public function me(): array|JsonResponse
+    public function me(): array
     {
+        /* @var Student $user */
         $user = Auth::user();
-
-        if (!$user) {
-            return response()->json(['messages' => 'Unauthorized'], 401);
-        }
 
         return [
             'id' => $user->id,
             'email' => $user->email,
-            'profileFilled' => (bool) $user->is_edit,
             'verified' => $user->email_verified_at !== null,
+            'profileFilled' => $user->is_edit,
         ];
     }
 

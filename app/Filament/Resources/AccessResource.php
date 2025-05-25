@@ -11,9 +11,12 @@ use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Filament\Forms\Components\TextInput;
+
 class AccessResource extends Resource
 {
     protected static ?string $model = AccessToRegister::class;
+
+    protected static ?string $title = 'Доступ до реєстрації';
     protected static ?string $navigationGroup = 'Доступ до реєстрації';
     public static ?string $navigationLabel = 'Доступ до реєстрації';
 

@@ -1,0 +1,16 @@
+# Exported from Render on 2025-05-04T20:13:08Z
+services:
+- type: web
+  name: lntu-gurt
+  runtime: docker
+  repo: https://github.com/bogdanoff1337/lntu-gurt
+  branch: develop
+  plan: starter
+  envVars:
+  - key: .env
+    sync: false
+  region: frankfurt
+  dockerContext: .
+  dockerfilePath: ./Dockerfile
+  autoDeploy: false
+version: "1"

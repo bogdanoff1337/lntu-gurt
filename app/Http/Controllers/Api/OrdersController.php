@@ -8,29 +8,29 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Models\Order;
 use App\Http\Resources\Api\Order as OrderResource;
+use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Http\Resources\Json\ResourceCollection;
 
 class OrdersController extends Controller
 {
-    protected function index(): ResourceCollection
+    protected function index(): JsonResource
     {
         $student = Auth::user();
 
-        $orders = Order::whereBelongsTo($student)->get();
+        $orders = Order::query()->whereBelongsTo($student)->get();
 
         return OrderResource::collection($orders);
     }
 
-    public function store(Request $request): OrderResource|JsonResponse
+    public function store(Request $request): JsonResource|JsonResponse
     {
-        $order = Order::create($request->all());
+        $order = Order::query()->create($request->all());
 
         if (!$order) {
             return response()->json(['message' => 'Order not created'], 400);
         }
 
-        return new OrderResource($order);
+        return OrderResource::make($order);
     }
 
     public function destroy($id): JsonResponse
