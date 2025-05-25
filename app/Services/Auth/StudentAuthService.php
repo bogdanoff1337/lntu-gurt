@@ -71,6 +71,7 @@ class StudentAuthService
         Student::query()->create([
             'email' => $validated['email'],
             'password' => Hash::make($validated['password']),
+            'email_verified_at' => now(),
         ]);
 
         if (!$token = JWTAuth::attempt($request->only('email', 'password'))) {
