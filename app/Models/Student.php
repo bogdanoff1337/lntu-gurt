@@ -48,7 +48,7 @@ class Student extends Authenticatable implements JWTSubject
         'is_active',
     ];
 
-    public const AVAILABLE_EMAIL_DOMAINS = ['@example.com', '@domain.com'];
+    public const AVAILABLE_EMAIL_DOMAINS = ['@example.com', '@test.com'];
 
     protected $hidden = [
         'password',
