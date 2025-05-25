@@ -1,4 +1,5 @@
 FROM richarvey/nginx-php-fpm:3.1.6
+FROM node:20.17.0
 
 COPY . .
 
