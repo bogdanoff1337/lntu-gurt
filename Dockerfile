@@ -1,13 +1,5 @@
 FROM node:20.17.0 as node
 
-WORKDIR /app
-
-COPY package*.json ./
-RUN npm install
-
-COPY . .
-RUN npm run build
-
 FROM richarvey/nginx-php-fpm:3.1.6
 
 ENV APP_ENV=production
