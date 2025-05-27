@@ -22,7 +22,7 @@ interface SwiperSectionProps {
 const images = [ // !hardcore
 	"https://images.prom.ua/4330246246_w600_h600_4330246246.jpg",
 	"https://images.prom.ua/4330246253_w600_h600_4330246253.jpg",
-	"https://images.prom.ua/4330246246_w600_h600_4330246246.jpg",
+	"",
 ];
 
 export const SwiperSection: FC<SwiperSectionProps> = memo(({ className }) => {

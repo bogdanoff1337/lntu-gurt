@@ -16,9 +16,6 @@ yarn-error.log
 /.vscode
 /vendor
 
-/public/main
-/public/css
-/public/js
 /public/hot
 /public/photos/uploads/room/*
 /public/photos/uploads/facult/*.png

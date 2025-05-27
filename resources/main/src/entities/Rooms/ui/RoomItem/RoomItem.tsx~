@@ -50,7 +50,7 @@ export const RoomItem: FC<RoomItemProps> = memo(({
 			>
 				<Img
 					className={{ image: cls.RoomItem__image, skeleton: cls.RoomItem__skeleton }}
-					src="https://images.prom.ua/4330246246_w600_h600_4330246246.jpg"
+					src="https://www.google.com/url?sa=i&url=https%3A%2F%2Fmebli-centr.com.ua%2Fua%2Fp1788877816-lizhko-kimnata-bed.html&psig=AOvVaw03DG-O2dPG9cnxAdbBZUDa&ust=1748425208234000&source=images&cd=vfe&opi=89978449&ved=0CBEQjRxqFwoTCIiy1cWtw40DFQAAAAAdAAAAABAE"
 					alt={alt}
 				/>
 				{/* {image
