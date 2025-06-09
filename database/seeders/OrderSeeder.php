@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use Carbon\Carbon;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
@@ -19,8 +20,8 @@ class OrderSeeder extends Seeder
             DB::table('orders')->insert([
                 'student_id' => $students[array_rand($students)],
                 'room_id' => $rooms[array_rand($rooms)],
-                'created_at' => now(),
-                'updated_at' => now(),
+                'created_at' => Carbon::now()->subDays(rand(0, 365)),
+                'updated_at' => Carbon::now()->subDays(rand(0, 365)),
             ]);
         }
     }
