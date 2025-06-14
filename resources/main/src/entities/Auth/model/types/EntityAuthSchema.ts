@@ -8,7 +8,7 @@ export interface UserData {
 	id: number;
 	email: string;
 	verified: boolean;
-	profileFilled: boolean;
+	profile_filled: boolean;
 }
 
 export interface TokenData {

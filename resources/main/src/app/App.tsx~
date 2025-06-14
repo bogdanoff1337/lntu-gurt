@@ -36,7 +36,7 @@ const App = () => {
 
 	return (
 		<>
-			{entityAuthData && !entityAuthData.profile_filled && (
+			{entityAuthData && !entityAuthData.profileFilled && (
 				<RequiredProfileModal isOpen={isOpen} setIsOpen={setIsOpen} />
 			)}
 			<AppRouter />

@@ -7,7 +7,7 @@ import cls from "./RequiredProfileModal.module.scss";
 
 interface RequiredProfileModalProps {
 	className?: string;
-	setIsOpen: (oppened: boolean) => void;
+	setIsOpen: (opened: boolean) => void;
 	isOpen: boolean;
 }
 
@@ -23,7 +23,9 @@ export const RequiredProfileModal: FC<RequiredProfileModalProps> = memo(({
 			{...otherProps}
 		>
 			<h2 className={cls.RequiredProfileModal__title}>Будь ласка, заповніть свій профіль</h2>
-			<p className={clsx(cls.RequiredProfileModal__paragraph, [cls.RequiredProfileModal__paragraph_1])}>Для того, щоб продовжити бронювання кімнати, необхідно заповнити інформацію у вашому профілі.</p>
+			<p className={clsx(cls.RequiredProfileModal__paragraph, [cls.RequiredProfileModal__paragraph_1])}>
+                Для того, щоб продовжити бронювання кімнати, необхідно заповнити інформацію у вашому профілі.
+            </p>
 			<p className={clsx(cls.RequiredProfileModal__paragraph, [cls.RequiredProfileModal__paragraph_2])}>
 				<NavLinkButton
 					className={cls.RequiredProfileModal__link}

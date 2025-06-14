@@ -28,10 +28,6 @@ export enum Middleware {
 }
 
 export const routes: AppRouteProps[] = [
-	// {
-	// 	path: "*",
-	// 	// element: <MainPage />,
-	// },
 	{
 		path: getRegisterRoutePath(),
 		element: <RegisterPage />,
