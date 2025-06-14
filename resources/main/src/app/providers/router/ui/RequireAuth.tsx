@@ -7,7 +7,7 @@ import {
     getMainRoutePath,
     getVerifyRoutePath,
 } from "@/shared/config/routes/path";
-import { Middleware } from "../routes/routes";
+import { Middleware } from "../routes";
 
 const useAuthNavigation = (
     middleware: Middleware[],

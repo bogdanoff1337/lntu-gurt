@@ -1,12 +1,12 @@
 import { Suspense, useMemo } from "react";
 import { Route, Routes } from "react-router-dom";
 import { PageLoader } from "@/shared/ui/PageLoader";
-import { AppRouteProps, routes } from "../../routes/routes";
+import { AppRouteProps, index } from "../../routes";
 import { RequireAuth } from "../RequireAuth";
 
 const AppRouter = () => {
 	const RouteItems = useMemo(() => {
-		return routes.map((route: AppRouteProps) => {
+		return index.map((route: AppRouteProps) => {
 			const element = <Suspense fallback={<PageLoader />}>{route.element}</Suspense>;
 
 			return (

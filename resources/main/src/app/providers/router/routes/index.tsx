@@ -27,7 +27,7 @@ export enum Middleware {
 	NO_VERIFY = "noVerify",
 }
 
-export const routes: AppRouteProps[] = [
+export const index: AppRouteProps[] = [
 	{
 		path: getRegisterRoutePath(),
 		element: <RegisterPage />,

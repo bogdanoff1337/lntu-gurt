@@ -9,7 +9,7 @@ import { PageLoader } from "@/shared/ui/PageLoader";
 import { AppRouter } from "./providers/router";
 import { RequiredProfileModal } from "./ui/RequiredProfileModal/RequiredProfileModal";
 
-import { routes, Middleware } from "@/app/providers/routes/routes"; // ⚠️ Шлях до `routes`
+import { index, Middleware } from "./providers/router/routes"; // ⚠️ Шлях до `routes`
 
 const App = () => {
     const location = useLocation(); // <-- 1. Отримуємо поточний шлях
@@ -40,7 +40,7 @@ const App = () => {
     }
 
     // 2. Знаходимо поточний маршрут з масиву routes
-    const currentRoute = routes.find((route) => route.path === location.pathname);
+    const currentRoute = index.find((route) => route.path === location.pathname);
 
     // 3. Визначаємо, чи можна показувати модалку
     const shouldShowModal =
