@@ -38,7 +38,7 @@ class StudentAuthService
             Student::create([
                 'email' => $validated['email'],
                 'password' => Hash::make($validated['password']),
-//                'email_verified_at' => now(),
+                'email_verified_at' => now(),
             ]);
 
             if (!$token = JWTAuth::attempt($request->only('email', 'password'))) {
@@ -71,7 +71,7 @@ class StudentAuthService
         Student::query()->create([
             'email' => $validated['email'],
             'password' => Hash::make($validated['password']),
-//            'email_verified_at' => now(),
+            'email_verified_at' => now(),
         ]);
 
         if (!$token = JWTAuth::attempt($request->only('email', 'password'))) {
@@ -116,7 +116,7 @@ class StudentAuthService
             'id' => $user->id,
             'email' => $user->email,
             'verified' => $user->email_verified_at !== null,
-            'profileFilled' => $user->is_edit,
+            'profile_filled' => (bool) $user->is_edit,
         ];
     }
 

@@ -44,6 +44,7 @@ class Student extends Authenticatable implements JWTSubject
         'email_verified_at',
         'faculty_id',
         'course',
+        'benefits',
         'is_edit',
         'is_active',
     ];
