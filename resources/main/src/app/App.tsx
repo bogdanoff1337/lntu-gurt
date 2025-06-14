@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import { useLocation } from "react-router-dom";
+
 import { entityAuthActions, entityAuthSelectors } from "@/entities/Auth";
 import { entityFacultiesActions, entityFacultiesSelectors } from "@/entities/Faculties";
 import { useAppDispatch } from "@/shared/lib/hooks/useAppDispatch/useAppDispatch";
@@ -7,42 +9,56 @@ import { PageLoader } from "@/shared/ui/PageLoader";
 import { AppRouter } from "./providers/router";
 import { RequiredProfileModal } from "./ui/RequiredProfileModal/RequiredProfileModal";
 
+import { routes, Middleware } from "@/app/providers/routes/routes"; // ⚠️ Шлях до `routes`
+
 const App = () => {
-	const entityAuthIsLoading = useSelector(entityAuthSelectors.getIsLoading);
-	const entityAuthData = useSelector(entityAuthSelectors.getData);
+    const location = useLocation(); // <-- 1. Отримуємо поточний шлях
 
-	const entityFacultiesIsLoading = useSelector(entityFacultiesSelectors.getIsLoading);
+    const entityAuthIsLoading = useSelector(entityAuthSelectors.getIsLoading);
+    const entityAuthData = useSelector(entityAuthSelectors.getData);
 
-	const [isOpen, setIsOpen] = useState(false);
+    const entityFacultiesIsLoading = useSelector(entityFacultiesSelectors.getIsLoading);
 
-	const dispatch = useAppDispatch();
+    const [isOpen, setIsOpen] = useState(false);
+    const dispatch = useAppDispatch();
 
-	useEffect(() => {
-		dispatch(entityAuthActions.getUser());
-		dispatch(entityFacultiesActions.getAllFaculties());
-	}, [dispatch]);
+    useEffect(() => {
+        dispatch(entityAuthActions.getUser());
+        dispatch(entityFacultiesActions.getAllFaculties());
+    }, [dispatch]);
 
-	useEffect(() => {
-		if (entityAuthIsLoading || entityFacultiesIsLoading) {
-			setTimeout(() => {
-				setIsOpen(true);
-			}, 1000);
-		}
-	}, [entityAuthIsLoading, entityFacultiesIsLoading]);
+    useEffect(() => {
+        if (entityAuthIsLoading || entityFacultiesIsLoading) {
+            setTimeout(() => {
+                setIsOpen(true);
+            }, 1000);
+        }
+    }, [entityAuthIsLoading, entityFacultiesIsLoading]);
 
-	if (entityAuthIsLoading || entityFacultiesIsLoading) {
-		return <PageLoader />;
-	}
+    if (entityAuthIsLoading || entityFacultiesIsLoading) {
+        return <PageLoader />;
+    }
 
-	return (
-		<>
-			{entityAuthData && !entityAuthData.profile_filled && (
-				<RequiredProfileModal isOpen={isOpen} setIsOpen={setIsOpen} />
-			)}
-			<AppRouter />
-		</>
+    // 2. Знаходимо поточний маршрут з масиву routes
+    const currentRoute = routes.find((route) => route.path === location.pathname);
 
-	);
+    // 3. Визначаємо, чи можна показувати модалку
+    const shouldShowModal =
+        entityAuthData &&
+        !entityAuthData.profile_filled &&
+        !(
+            currentRoute?.middleware?.includes(Middleware.NO_VERIFY) ||
+            currentRoute?.middleware?.includes(Middleware.NO_AUTH)
+        );
+
+    return (
+        <>
+            {shouldShowModal && (
+                <RequiredProfileModal isOpen={isOpen} setIsOpen={setIsOpen} />
+            )}
+            <AppRouter />
+        </>
+    );
 };
 
 export default App;

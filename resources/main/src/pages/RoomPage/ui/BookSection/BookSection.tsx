@@ -73,7 +73,7 @@ export const BookSection: FC<BookSectionProps> = memo(({ className }) => {
 					Час бронювання кімнат було завершено {roomData?.date.this}
 				</p>
 			);
-		} else if (!authData?.profileFilled) {
+		} else if (!authData?.profile_filled) {
 			return (
 				<p className={clsx(cls.BookSection__text, [cls.BookSection__text_red])}>
 					Ви не можете забронювати кімнату, якщо профіль не заповнений
@@ -125,7 +125,7 @@ export const BookSection: FC<BookSectionProps> = memo(({ className }) => {
 
 			);
 		}
-	}, [authData?.profileFilled, onClickBook, onClickRemoveBook, roomData?.booked, roomData?.date.deadline, roomData?.date.this, roomData?.faculty_match, roomData?.gender_match, roomData?.places, roomDataIsFetching]);
+	}, [authData?.profile_filled, onClickBook, onClickRemoveBook, roomData?.booked, roomData?.date.deadline, roomData?.date.this, roomData?.faculty_match, roomData?.gender_match, roomData?.places, roomDataIsFetching]);
 
 	return (
 		<>
