@@ -22,7 +22,8 @@ class SuccessBookedRoom extends Notification implements ShouldQueue
 
     public function via(object $notifiable): array
     {
-        return ['mail','telegram'];
+//        ,'telegram'
+        return ['mail'];
     }
 
     public function toMail(object $notifiable): MailMessage
@@ -36,13 +37,13 @@ class SuccessBookedRoom extends Notification implements ShouldQueue
             ->line('Дякуємо за використання нашого сервісу!');
     }
 
-    public function toTelegram($notifiable)
-    {
-        return TelegramMessage::create()
-            ->to(env('TELEGRAM_CHAT_ID'))
-            ->content("Вітаємо,!\nВаше бронювання кімнати підтверджено.\n\nІнформація про кімнату:\nНомер кімнати: {$this->room->number}\n\nПереглянути бронювання: " . url('/booked'))
-            ->button('Переглянути бронювання', url('/booked'));
-    }
+//    public function toTelegram($notifiable)
+//    {
+//        return TelegramMessage::create()
+//            ->to(env('TELEGRAM_CHAT_ID'))
+//            ->content("Вітаємо,!\nВаше бронювання кімнати підтверджено.\n\nІнформація про кімнату:\nНомер кімнати: {$this->room->number}\n\nПереглянути бронювання: " . url('/booked'))
+//            ->button('Переглянути бронювання', url('/booked'));
+//    }
 
     public function toArray(object $notifiable): array
     {

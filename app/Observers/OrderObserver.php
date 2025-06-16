@@ -8,7 +8,7 @@ use App\Models\Student;
 use App\Notifications\SuccessBookedRoom;
 use Filament\Notifications\Notification;
 use Illuminate\Validation\ValidationException;
-
+use Illuminate\Support\Facades\Notification as NotificationFacade;
 class OrderObserver
 {
     public function updating(Order $order): void
@@ -48,6 +48,8 @@ class OrderObserver
         $room = $order->room;
 
         if ($new === 'approved' && $old !== 'approved' && $room) {
+            NotificationFacade::route('mail', $order->student->email)
+                ->notify(new SuccessBookedRoom($room));
             $room->decrement('places');
         }
 

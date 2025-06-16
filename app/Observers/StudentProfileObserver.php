@@ -9,7 +9,7 @@ class StudentProfileObserver
     {
         $requiredFields = [
             'email', 'password', 'first_name', 'last_name', 'middle_name', 'gender',
-            'phone','city_id','benefits', 'email_verified_at', 'faculty_id','course',
+            'phone', 'city_id', 'email_verified_at', 'faculty_id','course',
         ];
 
         $allFieldsFilled = true;
