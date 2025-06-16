@@ -4,12 +4,11 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Student\StudentFull;
-use App\Models\Student;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\Student\Profile as StudentUpdateRequest;
-use Illuminate\Http\Request;
+
 class StudentProfileController extends Controller
 {
     protected function index(): JsonResource
@@ -26,6 +25,8 @@ class StudentProfileController extends Controller
         $student = Auth::user();
 
         $student->update($validatedData);
+
+        $student->privileges()->sync($request->input('privilege_id', []));
 
         return new StudentFull($student);
     }
