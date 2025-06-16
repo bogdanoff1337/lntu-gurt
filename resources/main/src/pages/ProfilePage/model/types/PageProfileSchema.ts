@@ -13,18 +13,18 @@ export interface PageProfileSchema {
 }
 
 export interface ProfileData {
-	first_name: string | null;
-	last_name: string | null;
-	middle_name: string | null;
-	phone: string | null;
+	first_name: string;
+	last_name: string;
+    middle_name: string;
+	phone: string;
 	city: {
 		id: number;
 		slug: string;
-	} | null;
+	};
 	benefits: string | null;
-	gender: string | null;
-	faculty_id: number | null;
-	course: number | null;
+	gender: string;
+	faculty_id: number;
+	course: number;
 }
 
 export interface ResponseData {

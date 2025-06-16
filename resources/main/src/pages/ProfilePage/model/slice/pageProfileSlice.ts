@@ -150,7 +150,7 @@ export const pageProfileSlice = createSliceWithThunk({
 		changePhone: create.reducer((state, action: PayloadAction<string>) => {
 			state.tempData!.phone = action.payload;
 		}),
-		changeBenefits: create.reducer((state, action: PayloadAction<string>) => {
+		changeBenefits: create.reducer((state, action: PayloadAction<string | null>) => {
 			state.tempData!.benefits = action.payload;
 		}),
 	}),

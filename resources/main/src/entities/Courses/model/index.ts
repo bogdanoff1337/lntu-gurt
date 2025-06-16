@@ -15,8 +15,4 @@ export const entityCoursesModel = [
 		id: 4,
 		slug: "4 курс",
 	},
-	{
-		id: 5,
-		slug: "5 курс",
-	},
 ];

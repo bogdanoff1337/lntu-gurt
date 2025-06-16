@@ -18,6 +18,7 @@ export interface SelectSecondaryProps {
 	renderIcon?: boolean;
 	Icon?: FC<React.SVGProps<SVGSVGElement>>;
 	readOnly?: boolean;
+    errorMessage?: string | null
 }
 
 export interface OptionType {
@@ -135,7 +136,7 @@ export const SelectSecondary: FC<SelectSecondaryProps> = memo(({
 				>
 					<ArrowDown className={cls.SelectSecondary__arrow} />
 				</Transition>
-
+                {errorMessage && <span className={cls.SelectSecondary__error}>{errorMessage}</span>}
 			</div>
 
 			<ul
