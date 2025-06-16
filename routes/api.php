@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\PrivilegeController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\DormitoryController;
 use App\Http\Controllers\Api\OrdersController;
@@ -24,6 +25,7 @@ Route::group([
 
 Route::group(['middleware' => 'jwt.auth'], function () {
     Route::get('dormitories', [DormitoryController::class, 'index']);
+    Route::get('privilege', [PrivilegeController::class, 'index']);
     Route::apiResource('rooms', RoomController::class);
     Route::apiResource('book', OrdersController::class);
     Route::get('faculties', [FacultyController::class, 'index']);
