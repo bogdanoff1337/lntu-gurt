@@ -25,7 +25,7 @@ Route::group([
 
 Route::group(['middleware' => 'jwt.auth'], function () {
     Route::get('dormitories', [DormitoryController::class, 'index']);
-    Route::get('privilege', [PrivilegeController::class, 'index']);
+    Route::get('privileges', [PrivilegeController::class, 'index']);
     Route::apiResource('rooms', RoomController::class);
     Route::apiResource('book', OrdersController::class);
     Route::get('faculties', [FacultyController::class, 'index']);
