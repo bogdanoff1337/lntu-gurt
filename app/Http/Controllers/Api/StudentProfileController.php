@@ -31,6 +31,8 @@ class StudentProfileController extends Controller
             'privilege_id' => $validatedData['privilege'],
         ]);
 
+        $student->load('privileges');
+        dd($student);
         return new StudentFull($student);
     }
 }
