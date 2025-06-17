@@ -26,7 +26,7 @@ class StudentProfileController extends Controller
 
         $student->update($validatedData);
 
-        $student->privileges()->sync($request->input('privilege_id', []));
+        $student->privileges()->sync((array)$request->input('privilege', []));
 
         return new StudentFull($student);
     }

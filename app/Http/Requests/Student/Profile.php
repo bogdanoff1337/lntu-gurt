@@ -14,7 +14,7 @@ use Illuminate\Validation\Rule;
 * @property int $faculty_id
 * @property int $course
 * @property string|null $benefits
-* @property int|null $privilege_id
+* @property int|null $privilege
 * @property string $gender
 */
 class Profile extends FormRequest
@@ -36,8 +36,8 @@ class Profile extends FormRequest
             'city_id' => 'nullable|exists:cities,id',
             'faculty_id' => 'required|exists:faculties,id',
             'course' => 'required|integer',
-            'benefits' => 'string',
-            'privilege_id' => 'nullable|exists:privileges,id',
+            'benefits' => 'nullable|string',
+            'privilege' => 'nullable|exists:privileges,id',
             'gender' => 'required|string',
         ];
     }
