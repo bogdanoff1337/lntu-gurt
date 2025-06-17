@@ -19,9 +19,9 @@ class StudentFull extends JsonResource
             'city'          => Cities::make($this->resource->city) ?? "",
             'faculty_id'    => (int) $this->resource->faculty_id,
             'gender'        => $this->resource->gender ?? "",
-            'benefits'      => $this->resource->benefits ?? "",
+//            'benefits'      => $this->resource->benefits ?? "",
             'course'        => (int) $this->resource->course,
-            'privilege'     => $this->resource->privileges->first()->name ?? [],
+            'privilege'     => $this->resource->privileges->first()->id ?? [],
         ];
     }
 }
