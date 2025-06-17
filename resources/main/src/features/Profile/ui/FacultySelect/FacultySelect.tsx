@@ -21,6 +21,7 @@ export const FacultySelect: FC<FacultySelectProps> = memo(({
 }) => {
 	const facultiesOption = useSelector(selectors.getFacultiesOption);
 
+    console.log(id, facultiesOption)
 	return (
 		<SelectSecondary
 			className={clsx(cls.FacultySelect, [className])}

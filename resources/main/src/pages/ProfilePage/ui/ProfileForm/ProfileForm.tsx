@@ -5,7 +5,7 @@ import {
 } from "react";
 import { useSelector } from "react-redux";
 import { CourseSelect, FacultySelect, GenderSelect } from "@/features/Profile";
-import { entityAuthActions } from "@/entities/Auth";
+import {entityAuthActions, entityAuthSelectors, entityAuthSlice} from "@/entities/Auth";
 import { useAppDispatch } from "@/shared/lib/hooks/useAppDispatch/useAppDispatch";
 import { PrimaryButton } from "@/shared/ui/Buttons";
 import {PhonePrimaryField, PrimaryField, SecondaryField} from "@/shared/ui/Fields";
@@ -87,6 +87,7 @@ export const ProfileForm: FC<ProfileFormProps> = ({ className }) => {
         control,
         handleSubmit,
         formState: { errors },
+        reset,
     } = useForm<ProfileData>({
         mode: 'onSubmit',
         reValidateMode: 'onSubmit',
@@ -95,6 +96,7 @@ export const ProfileForm: FC<ProfileFormProps> = ({ className }) => {
 
 	const isLoading = useSelector(pageProfileSelectors.getIsLoading);
 	const readOnly = useSelector(pageProfileSelectors.getReadOnly);
+    const authData = useSelector(entityAuthSelectors.getData);
 
 	const cities = useSelector(pageProfileSelectors.getCities);
 	const citiesIsLoading = useSelector(pageProfileSelectors.getCitiesIsLoading);
@@ -126,6 +128,28 @@ export const ProfileForm: FC<ProfileFormProps> = ({ className }) => {
             dispatch(pageProfileActions.getPrivileges());
 		}
 	}, [dispatch, tempData]);
+
+    useEffect(() => {
+        if (authData?.profile_filled) {
+            dispatch(pageProfileActions.setReadOnly(true));
+        }
+    }, []);
+
+
+    useEffect(() => {
+        reset({
+            first_name: tempData?.first_name,
+            last_name: tempData?.last_name,
+            middle_name: tempData?.middle_name,
+            gender: tempData?.gender,
+            faculty_id: tempData?.faculty_id,
+            course: tempData?.course,
+            city: tempData?.city,
+            privilege: tempData?.privilege,
+            phone: tempData?.phone
+        });
+    }, [tempData]);
+
 
 	if (isLoading) {
 		return <PageLoader />;
@@ -239,8 +263,9 @@ export const ProfileForm: FC<ProfileFormProps> = ({ className }) => {
                     name="city"
                     control={control}
                     rules={validationRules.city}
-                    render={({ field: { value, onChange } }) => (
-                        <SecondaryField
+                    render={({ field: { value, onChange } }) => {
+                        console.log(value)
+                        return (<SecondaryField
                             className={cls.Input}
                             action={pageProfileActions.getCities}
                             isLoading={citiesIsLoading}
@@ -253,8 +278,8 @@ export const ProfileForm: FC<ProfileFormProps> = ({ className }) => {
                             Icon={PenIcon}
                             isFeature
                             errorMessage={errors.city?.message}
-                        />
-                    )}
+                        />)
+                    }}
                 />
                 <Controller
                     name="phone"
@@ -288,7 +313,6 @@ export const ProfileForm: FC<ProfileFormProps> = ({ className }) => {
                                 Icon={PenIcon}
                                 renderIcon={!readOnly}
                                 readOnly={readOnly}
-                                errorMessage={errors.privilege?.message}
                             />)
                     }}
                 />

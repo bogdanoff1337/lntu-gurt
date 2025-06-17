@@ -1,7 +1,7 @@
 import { Transition } from "@headlessui/react";
 import clsx from "clsx";
 import {
-	FC, memo, useCallback, useEffect, useMemo, useRef, useState,
+    FC, memo, useCallback, useEffect, useMemo, useRef, useState,
 } from "react";
 import { PrimaryField } from "@/shared/ui/Fields";
 import { Option } from "../Option/Option";
@@ -9,143 +9,157 @@ import ArrowDown from "./assets/arrow-down.svg?react";
 import cls from "./SelectSecondary.module.scss";
 
 export interface SelectSecondaryProps {
-	id?: number | null;
-	options?: OptionType[];
-	placeholder?: string;
-	onChange?: (id: number) => void;
-	className?: string;
-	SlotField?: FC<any>;
-	renderIcon?: boolean;
-	Icon?: FC<React.SVGProps<SVGSVGElement>>;
-	readOnly?: boolean;
-    errorMessage?: string
+    id?: number | null;
+    options?: OptionType[];
+    placeholder?: string;
+    onChange?: (id: number) => void;
+    className?: string;
+    SlotField?: FC<any>;
+    renderIcon?: boolean;
+    Icon?: FC<React.SVGProps<SVGSVGElement>>;
+    readOnly?: boolean;
+    errorMessage?: string;
 }
 
 export interface OptionType {
-	id: number;
-	slug: string;
-	address?: string;
+    id: number;
+    slug: string;
+    address?: string;
 }
 
 export const SelectSecondary: FC<SelectSecondaryProps> = memo(({
-	options, placeholder, id, onChange, className, SlotField, renderIcon, Icon, readOnly, errorMessage,
-}) => {
-	const [isOpen, setIsOpen] = useState(false);
-	const [activeSelectId, setActiveSelectId] = useState<number | null>(id || null);
-	const rootRef = useRef<HTMLDivElement>(null);
-	const summaryRef = useRef<HTMLDivElement>(null);
-	const optionsRef = useRef<HTMLUListElement>(null);
+                                                                   options,
+                                                                   placeholder,
+                                                                   id,
+                                                                   onChange,
+                                                                   className,
+                                                                   SlotField,
+                                                                   renderIcon,
+                                                                   Icon,
+                                                                   readOnly,
+                                                                   errorMessage,
+                                                               }) => {
+    const [isOpen, setIsOpen] = useState(false);
+    const [activeSelectId, setActiveSelectId] = useState<number | null>(id || null);
+    const rootRef = useRef<HTMLDivElement>(null);
+    const summaryRef = useRef<HTMLDivElement>(null);
+    const optionsRef = useRef<HTMLUListElement>(null);
 
-	useEffect(() => {
-		const onOverlayClick = (e: MouseEvent) => {
-			if (
-				e.target instanceof Node && !rootRef.current?.contains(e.target)
-			) {
-				setIsOpen(false);
-			}
-		};
+    useEffect(() => {
+        if (id !== undefined && id !== null) {
+            setActiveSelectId(id);
+        }
+    }, [id]);
 
-		window.addEventListener("click", onOverlayClick);
+    useEffect(() => {
+        const onOverlayClick = (e: MouseEvent) => {
+            if (
+                e.target instanceof Node && !rootRef.current?.contains(e.target)
+            ) {
+                setIsOpen(false);
+            }
+        };
 
-		return () => {
-			window.removeEventListener("click", onOverlayClick);
-		};
-	}, [isOpen]);
+        window.addEventListener("click", onOverlayClick);
 
-	useEffect(() => {
-		const summaryEl = summaryRef.current;
+        return () => {
+            window.removeEventListener("click", onOverlayClick);
+        };
+    }, []);
 
-		const handleEnterKeyDown = (e: KeyboardEvent) => {
-			if (e.key === "Enter") {
-				setIsOpen((prev) => !prev);
-			}
-		};
+    useEffect(() => {
+        const summaryEl = summaryRef.current;
 
-		if (summaryEl) {
-			summaryEl.addEventListener("keydown", handleEnterKeyDown);
+        const handleEnterKeyDown = (e: KeyboardEvent) => {
+            if (e.key === "Enter") {
+                setIsOpen((prev) => !prev);
+            }
+        };
 
-			return () => {
-				summaryEl.removeEventListener("keydown", handleEnterKeyDown);
-			};
-		}
-	}, []);
+        if (summaryEl) {
+            summaryEl.addEventListener("keydown", handleEnterKeyDown);
 
-	const onOptionClick = useCallback((id: number) => () => {
-		if (id !== activeSelectId) {
-			setActiveSelectId(id);
-			onChange?.(id);
-		}
+            return () => {
+                summaryEl.removeEventListener("keydown", handleEnterKeyDown);
+            };
+        }
+    }, []);
 
-		setIsOpen((prev) => !prev);
-	}, [activeSelectId, onChange]);
+    const onOptionClick = useCallback((id: number) => () => {
+        if (id !== activeSelectId) {
+            setActiveSelectId(id);
+            onChange?.(id);
+        }
+        setIsOpen(false);
+    }, [activeSelectId, onChange]);
 
-	const onClickSummary = useCallback(() => {
-		setIsOpen((prev) => !prev);
-	}, []);
+    const onClickSummary = useCallback(() => {
+        setIsOpen((prev) => !prev);
+    }, []);
 
-	const selectedOption = useMemo(() => {
-		return options?.find((option) => Number(option.id) === activeSelectId);
-	}, [activeSelectId, options]);
+    const selectedOption = useMemo(() => {
+        return options?.find((option) => Number(option.id) === activeSelectId);
+    }, [activeSelectId, options]);
 
-	const optionsItems = useMemo(() => {
-		return options?.map((option) => (
-			<Option
+    const optionsItems = useMemo(() => {
+        return options?.map((option) => (
+            <Option
                 className={cls.SelectSecondary__option}
-				key={option.id}
-				option={option}
-				onClick={onOptionClick(Number(option.id))}
-				SlotField={SlotField}
-				activeSelectId={activeSelectId}
-			/>
-		));
-	}, [SlotField, activeSelectId, onOptionClick, options]);
+                key={option.id}
+                option={option}
+                onClick={onOptionClick(Number(option.id))}
+                SlotField={SlotField}
+                activeSelectId={activeSelectId}
+            />
+        ));
+    }, [SlotField, activeSelectId, onOptionClick, options]);
 
-	return (
-		<div
-			className={clsx(cls.SelectSecondary, {
-				[cls.SelectSecondary_active]: isOpen,
-				[cls.SelectSecondary_nonActive]: !isOpen,
-			}, [className])}
-			ref={rootRef}
-		>
-			<div className={cls.SelectSecondary__summary}>
-				<PrimaryField
-					className={cls.SelectSecondary__field}
-					onClick={onClickSummary}
-					tabIndex={0}
-					role="button"
-					value={selectedOption ? selectedOption.slug : ""}
-					placeholder={placeholder}
-					renderIcon={renderIcon}
-					Icon={Icon}
-					readOnly={readOnly}
-					inputMode="none"
-					autoComplete="off"
-					autoCorrect="off"
-					autoCapitalize="off"
+    return (
+        <div
+            className={clsx(cls.SelectSecondary, {
+                [cls.SelectSecondary_active]: isOpen,
+                [cls.SelectSecondary_nonActive]: !isOpen,
+            }, [className])}
+            ref={rootRef}
+        >
+            <div className={cls.SelectSecondary__summary}>
+                <PrimaryField
+                    className={cls.SelectSecondary__field}
+                    onClick={onClickSummary}
+                    tabIndex={0}
+                    role="button"
+                    value={selectedOption ? selectedOption.slug : ""}
+                    placeholder={placeholder}
+                    renderIcon={renderIcon}
+                    Icon={Icon}
+                    readOnly={readOnly}
+                    inputMode="none"
+                    autoComplete="off"
+                    autoCorrect="off"
+                    autoCapitalize="off"
                     errorMessage={errorMessage}
-				/>
-				<Transition
-					show={renderIcon}
-					as="div"
-					className={cls.SelectSecondary__iconWrapper}
-					enter={cls.SelectSecondary__iconWrapper_enter}
-					enterFrom={cls.SelectSecondary__iconWrapper_enterFrom}
-					enterTo={cls.SelectSecondary__iconWrapper_enterTo}
-					leave={cls.SelectSecondary__iconWrapper_leave}
-					leaveFrom={cls.SelectSecondary__iconWrapper_leaveFrom}
-					leaveTo={cls.SelectSecondary__iconWrapper_leaveTo}
-				>
-					<ArrowDown className={cls.SelectSecondary__arrow} />
-				</Transition>
-			</div>
+                />
+                <Transition
+                    show={renderIcon}
+                    as="div"
+                    className={cls.SelectSecondary__iconWrapper}
+                    enter={cls.SelectSecondary__iconWrapper_enter}
+                    enterFrom={cls.SelectSecondary__iconWrapper_enterFrom}
+                    enterTo={cls.SelectSecondary__iconWrapper_enterTo}
+                    leave={cls.SelectSecondary__iconWrapper_leave}
+                    leaveFrom={cls.SelectSecondary__iconWrapper_leaveFrom}
+                    leaveTo={cls.SelectSecondary__iconWrapper_leaveTo}
+                >
+                    <ArrowDown className={cls.SelectSecondary__arrow} />
+                </Transition>
+            </div>
 
-			<ul
-				className={cls.SelectSecondary__options}
-				ref={optionsRef}
-			>
-				{optionsItems}
-			</ul>
-		</div>
-	);
+            <ul
+                className={cls.SelectSecondary__options}
+                ref={optionsRef}
+            >
+                {optionsItems}
+            </ul>
+        </div>
+    );
 });
