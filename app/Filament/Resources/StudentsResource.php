@@ -131,12 +131,12 @@ class StudentsResource extends Resource
             ]);
     }
 
-    public static function getRelations(): array
-    {
-        return [
-            PrivilegesRelationManager::class,
-        ];
-    }
+//    public static function getRelations(): array
+//    {
+//        return [
+//            PrivilegesRelationManager::class,
+//        ];
+//    }
 
     public static function getPages(): array
     {
