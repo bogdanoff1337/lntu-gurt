@@ -14,7 +14,7 @@ class CitiesController extends Controller
     {
         $search = $request->input('search');
 
-        $city = City::query()->where('name', 'ILIKE', "%$search%")
+        $city = City::query()->where('name', 'LIKE', "%$search%")
             ->limit(15)
             ->get();
 

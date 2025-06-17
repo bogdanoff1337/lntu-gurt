@@ -25,7 +25,7 @@ class Full extends JsonResource
             'block'     => $this->resource->block,
             'gender'    => $this->resource->gender,
             'section'   => $this->resource->section,
-            'booked'    => OrderRoom::isBooked(),
+            'booked'    => OrderRoom::isBooked($this->resource),
             'status'    => OrderRoom::status() ?? null,
             'gender_match'  => OrderRoom::isGender($this->resource->id),
             'faculty_match' => OrderRoom::isFaculty($this->resource->id),

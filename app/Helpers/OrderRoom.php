@@ -10,11 +10,12 @@ use Illuminate\Support\Facades\Auth;
 
 class OrderRoom
 {
-    public static function isBooked(): bool
+    public static function isBooked($room): bool
     {
         $user = Auth::user();
 
         $booked = Order::where('student_id', $user->id)
+            ->where('room_id', $room->id)
             ->orWhere('status', 'rejected')
             ->first();
 
