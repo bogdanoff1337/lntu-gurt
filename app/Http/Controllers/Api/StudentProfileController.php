@@ -26,13 +26,13 @@ class StudentProfileController extends Controller
 
         $student->update($validatedData);
 
-         $student->privileges()->firstOrCreate([
+        $student->privileges()->firstOrCreate([
             'student_id' => $student->id,
             'privilege_id' => $validatedData['privilege'],
         ]);
 
         $student->load('privileges');
-        dd($student);
+
         return new StudentFull($student);
     }
 }
