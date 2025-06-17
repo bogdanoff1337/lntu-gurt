@@ -9,11 +9,9 @@
 
     cursor: pointer;
 
-    transition: background-color $primaryTransition;
-
-    transition: font-size $primaryTransition;
-
     text-wrap: nowrap;
+
+    transition: background-color $primaryTransition;
 
     color: $blueColor;
 

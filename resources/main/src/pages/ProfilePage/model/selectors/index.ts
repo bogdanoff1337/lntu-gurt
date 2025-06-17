@@ -7,3 +7,4 @@ export const getIsFetching = (state: RootState) => state.pageProfile.isFetching;
 export const getReadOnly = (state: RootState) => state.pageProfile.readOnly;
 export const getCities = (state: RootState) => state.pageProfile.cities;
 export const getCitiesIsLoading = (state: RootState) => state.pageProfile.citiesIsLoading;
+export const getPrivileges = (state: RootState) => state.pageProfile.privileges;

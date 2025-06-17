@@ -8,8 +8,13 @@ export interface PageProfileSchema {
 	citiesIsLoading: boolean;
 	cities?: {
 		id: number;
-		slug: string;
+		name: string;
 	}[];
+    privileges?: {
+        id: number;
+        name: string;
+    }[];
+    privilegesIsLoading: boolean
 }
 
 export interface ProfileData {
@@ -19,9 +24,10 @@ export interface ProfileData {
 	phone: string;
 	city: {
 		id: number;
-		slug: string;
+		name: string;
 	};
-	benefits: string | null;
+    privilege: number
+    privilegesIsLoading: boolean
 	gender: string;
 	faculty_id: number;
 	course: number;

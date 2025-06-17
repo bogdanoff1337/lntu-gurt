@@ -4,9 +4,9 @@ import {
 } from "react";
 import { Option } from "../Option/Option";
 import ArrowDown from "./assets/arrow-down.svg?react";
-import cls from "./Select.module.scss";
+import cls from "./ThirdSelect.module.scss";
 
-interface SelectProps {
+interface ThirdSelectProps {
 	id?: number | null;
 	options?: OptionType[];
 	placeholder?: string;
@@ -21,7 +21,7 @@ export interface OptionType {
 	address?: string;
 }
 
-export const Select: FC<SelectProps> = memo(({
+export const ThirdSelect: FC<ThirdSelectProps> = memo(({
 	options, placeholder, id, onChange, className, SlotField,
 }) => {
 	const [isOpen, setIsOpen] = useState(false);
@@ -83,33 +83,32 @@ export const Select: FC<SelectProps> = memo(({
 
 	return (
 		<div
-			className={clsx(cls.Select, {
-				[cls.Select_active]: isOpen,
-				[cls.Select_nonActive]: !isOpen,
+			className={clsx(cls.ThirdSelect, {
+				[cls.ThirdSelect_active]: isOpen,
+				[cls.ThirdSelect_nonActive]: !isOpen,
 			}, [className])}
 			ref={rootRef}
 		>
 			<div
-				className={cls.Select__summary}
+				className={cls.ThirdSelect__summary}
 				onClick={onClickSummary}
 				tabIndex={0}
 				ref={summaryRef}
 				role="button"
 			>
 				<div
-					className={cls.Select__placeholder}
+					className={cls.ThirdSelect__placeholder}
 				>
 					{selectedOption && (SlotField && <SlotField option={selectedOption} /> || selectedOption.slug) || placeholder}
 				</div>
-				<ArrowDown className={cls.Select__arrow} />
+				<ArrowDown className={cls.ThirdSelect__arrow} />
 			</div>
 			<ul
-				className={cls.Select__options}
+				className={cls.ThirdSelect__options}
 				ref={optionsRef}
 			>
 				{options?.map((option) => (
 					<Option
-                        className={cls.Select__option}
 						key={option.id}
 						option={option}
 						onClick={onOptionClick(Number(option.id))}

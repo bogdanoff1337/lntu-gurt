@@ -1,4 +1,4 @@
-.Select {
+.ThirdSelect {
     $p: &;
     position: relative;
     z-index: 1;
@@ -9,10 +9,6 @@
 
     font-size: rem(16);
 
-
-    &__option {
-        text-wrap: wrap !important;
-    }
 
     &__summary {
         display: flex;
@@ -61,7 +57,6 @@
     }
 
     &__options {
-        width: 100%;
         position: absolute;
         top: calc(100% + rem(1));
         left: 0;

@@ -5,11 +5,10 @@ import {
 import { useSelector } from "react-redux";
 import { entityDormitoriesActions, entityDormitoriesSelectors } from "@/entities/Dormitories";
 import { entityRoomsActions } from "@/entities/Rooms";
-import { useQueryParams } from "@/shared/hooks/useQueryParams/useQueryParams";
 import { useAppDispatch } from "@/shared/lib/hooks/useAppDispatch/useAppDispatch";
 import { updateUrlParams } from "@/shared/lib/updateUrlParams/updateUrlParams";
-import { Select } from "@/shared/ui/Select/ui/Select/Select";
 import { DormField } from "./DormField";
+import { ThirdSelect } from "@/shared/ui/Select";
 
 interface DormSelectProps {
 	className?: string;
@@ -27,7 +26,7 @@ export const DormSelect: FC<DormSelectProps> = memo(({ className }) => {
 	}, [dispatch, dormitoriesData]);
 
 	const onChange = useCallback((id: number) => {
-		const { gender, faculty_id, dormitory_id } = queryString.parse(window.location.search);
+		const { gender, faculty_id } = queryString.parse(window.location.search);
 		dispatch(entityRoomsActions.getRoomsByParams({
 			faculty_id,
 			dormitory_id: `${id}`,
@@ -40,7 +39,7 @@ export const DormSelect: FC<DormSelectProps> = memo(({ className }) => {
 	const { dormitory_id } = queryString.parse(window.location.search);
 
 	return (
-		<Select
+		<ThirdSelect
 			className={className}
 			id={+dormitory_id!}
 			options={dormitoriesData}

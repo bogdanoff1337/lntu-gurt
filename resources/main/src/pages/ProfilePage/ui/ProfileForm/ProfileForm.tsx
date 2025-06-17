@@ -8,7 +8,7 @@ import { CourseSelect, FacultySelect, GenderSelect } from "@/features/Profile";
 import { entityAuthActions } from "@/entities/Auth";
 import { useAppDispatch } from "@/shared/lib/hooks/useAppDispatch/useAppDispatch";
 import { PrimaryButton } from "@/shared/ui/Buttons";
-import { PrimaryField, SecondaryField } from "@/shared/ui/Fields";
+import {PhonePrimaryField, PrimaryField, SecondaryField} from "@/shared/ui/Fields";
 import { PageLoader } from "@/shared/ui/PageLoader";
 import PenIcon from "../../assets/pen.svg?react";
 import * as pageProfileSelectors from "../../model/selectors";
@@ -16,6 +16,7 @@ import { pageProfileActions } from "../../model/slice/pageProfileSlice";
 import cls from "./ProfileForm.module.scss";
 import {Controller, useForm} from "react-hook-form";
 import { ProfileData } from "../../model/types/PageProfileSchema";
+import {SelectSecondary} from "@/shared/ui/Select";
 
 interface ProfileFormProps {
 	className?: string
@@ -24,6 +25,10 @@ interface ProfileFormProps {
 export const validationRules = {
     first_name: {
         required: 'Ім’я обов’язкове',
+        minLength: {
+            value: 2,
+            message: 'Мінімум 2 символи',
+        },
         maxLength: {
             value: 32,
             message: 'Максимум 32 символи',
@@ -31,12 +36,21 @@ export const validationRules = {
     },
     last_name: {
         required: 'Прізвище обов’язкове',
+        minLength: {
+            value: 2,
+            message: 'Мінімум 2 символи',
+        },
         maxLength: {
             value: 32,
             message: 'Максимум 32 символи',
         },
     },
     middle_name: {
+        required: 'По-батькові обов’язкове',
+        minLength: {
+            value: 2,
+            message: 'Мінімум 2 символи',
+        },
         maxLength: {
             value: 32,
             message: 'Максимум 32 символи',
@@ -55,17 +69,12 @@ export const validationRules = {
         required: 'Виберіть місто',
     },
     phone: {
+        minLength: {
+            value: 5,
+            message: 'Некоректний номер телефону',
+        },
         required: 'Введіть номер телефону',
-        pattern: {
-            value: /^\+380\d{9}$/,
-            message: 'Некоректний номер',
-        },
-    },
-    benefits: {
-        maxLength: {
-            value: 100,
-            message: 'Максимум 100 символів',
-        },
+
     },
 }
 
@@ -77,26 +86,20 @@ export const ProfileForm: FC<ProfileFormProps> = ({ className }) => {
     const {
         control,
         handleSubmit,
-        reset,
         formState: { errors },
     } = useForm<ProfileData>({
-        mode: 'onBlur',
+        mode: 'onSubmit',
+        reValidateMode: 'onSubmit',
         defaultValues: tempData,
     });
 
-    useEffect(() => {
-        if (tempData) {
-            reset(tempData);
-        }
-    }, [tempData, reset]);
-
 	const isLoading = useSelector(pageProfileSelectors.getIsLoading);
-	// const isFetching = useSelector(pageProfileSelectors.getIsFetching);
 	const readOnly = useSelector(pageProfileSelectors.getReadOnly);
 
 	const cities = useSelector(pageProfileSelectors.getCities);
 	const citiesIsLoading = useSelector(pageProfileSelectors.getCitiesIsLoading);
 
+    const privileges = useSelector(pageProfileSelectors.getPrivileges);
 
 
     const onSubmit = useCallback((data: ProfileData) => {
@@ -107,7 +110,7 @@ export const ProfileForm: FC<ProfileFormProps> = ({ className }) => {
         dispatch(pageProfileActions.changeFaculty(data.faculty_id));
         dispatch(pageProfileActions.changeCourse(data.course));
         dispatch(pageProfileActions.changeAddress(data.city));
-        dispatch(pageProfileActions.changeBenefits(data?.benefits ?? null));
+        dispatch(pageProfileActions.changePrivilege(data?.privilege));
         dispatch(pageProfileActions.changePhone(data.phone));
 
         dispatch(pageProfileActions.setReadOnly(true));
@@ -120,6 +123,7 @@ export const ProfileForm: FC<ProfileFormProps> = ({ className }) => {
 	useEffect(() => {
 		if (!tempData) {
 			dispatch(pageProfileActions.getFormData());
+            dispatch(pageProfileActions.getPrivileges());
 		}
 	}, [dispatch, tempData]);
 
@@ -130,7 +134,7 @@ export const ProfileForm: FC<ProfileFormProps> = ({ className }) => {
     return (
         <form
             className={clsx(cls.ProfileForm, {}, [className])}
-            onSubmit={handleSubmit(onSubmit)}
+            onSubmit={handleSubmit(onSubmit, (e) => console.log(e))}
         >
             <div className={cls.ProfileForm__list}>
                 <Controller
@@ -185,9 +189,10 @@ export const ProfileForm: FC<ProfileFormProps> = ({ className }) => {
                     name="gender"
                     control={control}
                     rules={validationRules.gender}
-                    render={({ field }) => (
+                    render={({ field: { onChange, value } }) => (
                         <GenderSelect
-                            {...field}
+                            onChange={onChange}
+                            value={value}
                             className={cls.Select}
                             Icon={PenIcon}
                             renderIcon={!readOnly}
@@ -200,24 +205,28 @@ export const ProfileForm: FC<ProfileFormProps> = ({ className }) => {
                     name="faculty_id"
                     control={control}
                     rules={validationRules.faculty_id}
-                    render={({ field }) => (
-                        <FacultySelect
-                            {...field}
-                            className={cls.Select}
-                            Icon={PenIcon}
-                            renderIcon={!readOnly}
-                            readOnly={readOnly}
-                            errorMessage={errors.faculty_id?.message}
-                        />
-                    )}
+                    render={({ field: { onChange, value } }) => {
+                        return (
+                            <FacultySelect
+                                onChange={onChange}
+                                id={value}
+                                className={cls.Select}
+                                Icon={PenIcon}
+                                renderIcon={!readOnly}
+                                readOnly={readOnly}
+                                errorMessage={errors.faculty_id?.message}
+                            />
+                        )
+                    }}
                 />
                 <Controller
                     name="course"
                     control={control}
                     rules={validationRules.course}
-                    render={({ field }) => (
+                    render={({ field: { onChange, value } }) => (
                         <CourseSelect
-                            {...field}
+                            onChange={onChange}
+                            id={value}
                             className={cls.Select}
                             Icon={PenIcon}
                             renderIcon={!readOnly}
@@ -230,13 +239,13 @@ export const ProfileForm: FC<ProfileFormProps> = ({ className }) => {
                     name="city"
                     control={control}
                     rules={validationRules.city}
-                    render={({ field }) => (
+                    render={({ field: { value, onChange } }) => (
                         <SecondaryField
-                            {...field}
                             className={cls.Input}
                             action={pageProfileActions.getCities}
                             isLoading={citiesIsLoading}
-                            active={field.value}
+                            active={value}
+                            onChange={onChange}
                             data={cities}
                             placeholder="Місце проживання"
                             readOnly={readOnly}
@@ -252,7 +261,7 @@ export const ProfileForm: FC<ProfileFormProps> = ({ className }) => {
                     control={control}
                     rules={validationRules.phone}
                     render={({ field }) => (
-                        <PrimaryField
+                        <PhonePrimaryField
                             {...field}
                             className={cls.Input}
                             placeholder="Номер телефону"
@@ -264,29 +273,33 @@ export const ProfileForm: FC<ProfileFormProps> = ({ className }) => {
                     )}
                 />
                 <Controller
-                    name="benefits"
+                    name="privilege"
                     control={control}
-                    rules={validationRules.benefits}
-                    render={({ field }) => (
-                        <PrimaryField
-                            {...field}
-                            className={cls.Input}
-                            placeholder="Пільга"
-                            readOnly={readOnly}
-                            renderIcon={!readOnly}
-                            Icon={PenIcon}
-                            errorMessage={errors.benefits?.message}
-                        />
-                    )}
+                    render={({ field: { value, onChange } }) => {
+                        return (
+                            <SelectSecondary
+                                id={value}
+                                placeholder="Пільга"
+                                onChange={onChange}
+                                options={privileges?.map((item) => ({
+                                    id: item.id,
+                                    slug: item.name
+                                }))}
+                                Icon={PenIcon}
+                                renderIcon={!readOnly}
+                                readOnly={readOnly}
+                                errorMessage={errors.course?.message}
+                            />)
+                    }}
                 />
             </div>
-            <PrimaryButton
+            {!readOnly && <PrimaryButton
                 type="submit"
                 className={clsx(cls.ProfileForm__saveButton, cls.ProfileForm__submit)}
                 isLoading={isLoading}
             >
                 Зберегти
-            </PrimaryButton>
+            </PrimaryButton>}
         </form>
     );
 };

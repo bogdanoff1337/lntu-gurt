@@ -18,7 +18,7 @@ export interface SelectSecondaryProps {
 	renderIcon?: boolean;
 	Icon?: FC<React.SVGProps<SVGSVGElement>>;
 	readOnly?: boolean;
-    errorMessage?: string | null
+    errorMessage?: string
 }
 
 export interface OptionType {
@@ -28,7 +28,7 @@ export interface OptionType {
 }
 
 export const SelectSecondary: FC<SelectSecondaryProps> = memo(({
-	options, placeholder, id, onChange, className, SlotField, renderIcon, Icon, readOnly,
+	options, placeholder, id, onChange, className, SlotField, renderIcon, Icon, readOnly, errorMessage,
 }) => {
 	const [isOpen, setIsOpen] = useState(false);
 	const [activeSelectId, setActiveSelectId] = useState<number | null>(id || null);
@@ -90,6 +90,7 @@ export const SelectSecondary: FC<SelectSecondaryProps> = memo(({
 	const optionsItems = useMemo(() => {
 		return options?.map((option) => (
 			<Option
+                className={cls.SelectSecondary__option}
 				key={option.id}
 				option={option}
 				onClick={onOptionClick(Number(option.id))}
@@ -122,6 +123,7 @@ export const SelectSecondary: FC<SelectSecondaryProps> = memo(({
 					autoComplete="off"
 					autoCorrect="off"
 					autoCapitalize="off"
+                    errorMessage={errorMessage}
 				/>
 				<Transition
 					show={renderIcon}
@@ -136,7 +138,6 @@ export const SelectSecondary: FC<SelectSecondaryProps> = memo(({
 				>
 					<ArrowDown className={cls.SelectSecondary__arrow} />
 				</Transition>
-                {errorMessage && <span className={cls.SelectSecondary__error}>{errorMessage}</span>}
 			</div>
 
 			<ul

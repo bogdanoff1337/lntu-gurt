@@ -10,11 +10,11 @@ interface OptionProps {
 	onClick: () => void;
 	SlotField?: FC<any>;
 	activeSelectId: number | null;
-
+    className?: string
 }
 
 export const Option: FC<OptionProps> = memo(({
-	option, onClick, SlotField, activeSelectId,
+	option, onClick, SlotField, activeSelectId, className
 }) => {
 	const optionRef = useRef<HTMLLIElement>(null);
 
@@ -40,10 +40,11 @@ export const Option: FC<OptionProps> = memo(({
 		<li
 			className={clsx(cls.Option, {
 				[cls.Option_active]: option.id === activeSelectId,
-			}, [])}
+			}, [className])}
 			onClick={() => onClick()}
 			tabIndex={0}
 			ref={optionRef}
+
 		>
 			{SlotField && <SlotField option={option} /> || option.slug}
 		</li>

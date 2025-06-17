@@ -11,7 +11,7 @@ import cls from "./SecondaryField.module.scss";
 
 interface Option {
 	id: number;
-	slug: string;
+	name: string;
 }
 
 type InputAttributes = Omit<InputHTMLAttributes<HTMLInputElement>, "value" | "onChange">;
@@ -42,7 +42,7 @@ export const SecondaryField: FC<SecondaryFieldProps> = ({
 
 	const [isEmpty, setIsEmpty] = useState(true);
 	const [isFocused, setIsFocused] = useState(false);
-	const [value, setValue] = useState(active?.slug || "");
+	const [value, setValue] = useState(active?.name || "");
 	const [isSelected, setIsSelected] = useState(false);
 
 	const dispatch = useAppDispatch();
@@ -79,7 +79,7 @@ export const SecondaryField: FC<SecondaryFieldProps> = ({
 		setIsFocused(false);
 
 		if (!isSelected && active) {
-			setValue(active.slug);
+			setValue(active.name);
 			setIsSelected(true);
 		} else if (!isSelected && !active) {
 			setValue("");
@@ -93,7 +93,7 @@ export const SecondaryField: FC<SecondaryFieldProps> = ({
 
 	const onClickItemHandler = useCallback((option: Option) => () => {
 		onChange?.(option);
-		setValue(option.slug);
+		setValue(option.name);
 		setIsSelected(true);
 		setIsFocused(false);
 	}, [onChange]);
@@ -101,7 +101,7 @@ export const SecondaryField: FC<SecondaryFieldProps> = ({
 	const optionItems = useMemo(() => {
 		return data?.map((option) => (
 			<li key={option.id} className={cls.List__item} onMouseDown={onClickItemHandler(option)}>
-				{option.slug}
+				{option.name}
 			</li>
 		));
 	}, [data, onClickItemHandler]);

@@ -7,10 +7,15 @@
 
     font-size: rem(16);
 
+    &__option {
+        text-wrap: wrap;
+    }
+
     &__field {
         input {
             cursor: pointer !important;
             caret-color: transparent;
+            padding-right: rem(60);
         }
     }
 
@@ -47,12 +52,13 @@
         display: grid;
         overflow: auto;
 
+        width: 100%;
         min-width: 100%;
         max-height: rem(49 * 4);
 
         transition: opacity $primaryTransition;
 
-        border: rem(1) solid ;                                                                      
+        border: rem(1) solid ;
         border-radius: rem(8);
         background-color: rgba(255, 255, 255, 1);
 
@@ -74,10 +80,10 @@
 
 
         &::-webkit-scrollbar {
-            width: rem(5); 
+            width: rem(5);
             height: rem(5);
         }
-          
+
         &::-webkit-scrollbar-thumb {
             border-radius: rem(50);
             border-top-right-radius: rem(300);
@@ -85,7 +91,7 @@
 
             background-color: $blueColor;
         }
-          
+
         &::-webkit-scrollbar-track {
             border-radius: rem(50);
             border-top-right-radius: rem(300);
@@ -96,7 +102,7 @@
     }
 
 
-    &__arrow {        
+    &__arrow {
         width: rem(20);
         height: rem(20);
 
@@ -108,37 +114,37 @@
         z-index: -1;
         top: rem(25);
         right: rem(30);
-  
-  
+
+
         &_enter {
            transition: opacity $primaryTransition, transform $primaryTransition;
         }
-  
+
         &_enterFrom {
            transform: scale(0.5);
-  
+
            opacity: 0;
         }
-  
+
         &_enterTo {
            transform: scale(1);
-  
+
            opacity: 1;
         }
-  
+
         &_leave {
            transition: opacity $primaryTransition, transform $primaryTransition;
         }
-  
+
         &_leaveFrom {
            transform: scale(1);
-  
+
            opacity: 1;
         }
-  
+
         &_leaveTo {
            transform: scale(0.5);
-  
+
            opacity: 0;
         }
     }

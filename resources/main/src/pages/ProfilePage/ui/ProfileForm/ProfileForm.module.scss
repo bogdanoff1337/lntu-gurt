@@ -2,12 +2,12 @@
 .ProfileForm {
    display: grid;
 
-   row-gap: rem(60);
+   row-gap: rem(30);
    &__list {
       display: grid;
 
 
-      gap: em(80) em(130);
+      gap: em(40) em(100);
 
 
       @media (min-width: em($tablet)) {

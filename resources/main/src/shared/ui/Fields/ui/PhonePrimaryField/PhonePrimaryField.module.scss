@@ -1,4 +1,4 @@
-.PrimaryField {
+.PhonePrimaryField {
    $p: &;
    position: relative;
 
@@ -6,6 +6,14 @@
    padding-bottom: em(18, 24);
 
    font-size: rem(24);
+
+    &__phoneContainer {
+
+        .special-label {
+            display: none !important;
+        }
+    }
+
 
    &_readOnly {
       #{$p} {
@@ -183,11 +191,13 @@
    &__input {
       width: 100%;
       padding-left: em(3, 24);
+       font-size: rem(24);
 
       border-bottom: $purpleColor solid em(2, 24);
       background-color: transparent;
 
       line-height: em(21, 24);
+
 
       &::placeholder {
          transition: opacity 0.35s ease;
@@ -318,4 +328,11 @@
    &_leaveTo {
       opacity: 0;
    }
+}
+
+:global {
+
+    .react-tel-input .flag-dropdown {
+        display: none !important;
+    }
 }

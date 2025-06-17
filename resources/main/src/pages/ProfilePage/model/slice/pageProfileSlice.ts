@@ -12,7 +12,10 @@ const initialState: PageProfileSchema = {
 	cities: undefined,
 	citiesIsLoading: false,
 
-	readOnly: true,
+    privileges: undefined,
+    privilegesIsLoading: false,
+
+	readOnly: false,
 };
 
 export const pageProfileSlice = createSliceWithThunk({
@@ -122,6 +125,32 @@ export const pageProfileSlice = createSliceWithThunk({
 			},
 		),
 
+        getPrivileges: create.asyncThunk<any, void, ThunkConfig<string>>(
+            async (_, {
+                extra, rejectWithValue,
+            }) => {
+                try {
+                    const response = await extra.api.get<any>("privileges");
+
+                    return response.data.data;
+                } catch (error: any) {
+                    return rejectWithValue(error.response.data);
+                }
+            },
+            {
+                pending: (state) => {
+                    state.privilegesIsLoading = true;
+                },
+                fulfilled: (state, action) => {
+                    state.privilegesIsLoading = false;
+                    state.privileges = action.payload;
+                },
+                rejected: (state, action: any) => {
+                    state.isLoading = false;
+                },
+            },
+        ),
+
 		cancelForm: create.reducer((state) => {
 			state.tempData = state.data;
 		}),
@@ -135,7 +164,7 @@ export const pageProfileSlice = createSliceWithThunk({
 		changeFatherName: create.reducer((state, action: PayloadAction<string>) => {
 			state.tempData!.middle_name = action.payload;
 		}),
-		changeAddress: create.reducer((state, action: PayloadAction<{ id: number; slug: string }>) => {
+		changeAddress: create.reducer((state, action: PayloadAction<{ id: number; name: string }>) => {
 			state.tempData!.city = action.payload;
 		}),
 		changeGender: create.reducer((state, action: PayloadAction<string>) => {
@@ -150,9 +179,9 @@ export const pageProfileSlice = createSliceWithThunk({
 		changePhone: create.reducer((state, action: PayloadAction<string>) => {
 			state.tempData!.phone = action.payload;
 		}),
-		changeBenefits: create.reducer((state, action: PayloadAction<string | null>) => {
-			state.tempData!.benefits = action.payload;
-		}),
+        changePrivilege: create.reducer((state, action: PayloadAction<number>) => {
+            state.tempData!.privilege = action.payload;
+        })
 	}),
 });
 

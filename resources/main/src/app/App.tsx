@@ -10,6 +10,7 @@ import { AppRouter } from "./providers/router";
 import { RequiredProfileModal } from "./ui/RequiredProfileModal/RequiredProfileModal";
 
 import { index, Middleware } from "./providers/router/routes";
+import {getProfileRoutePath} from "@/shared/config/routes/path.tsx";
 
 const App = () => {
     const location = useLocation();
@@ -36,7 +37,7 @@ const App = () => {
     }, [entityAuthIsLoading, entityFacultiesIsLoading]);
 
     if (entityAuthIsLoading || entityFacultiesIsLoading) {
-        return <PageLoader />;
+        return <PageLoader/>;
     }
 
     const currentRoute = index.find((route) => route.path === location.pathname);
@@ -47,7 +48,7 @@ const App = () => {
         !(
             currentRoute?.middleware?.includes(Middleware.NO_VERIFY) ||
             currentRoute?.middleware?.includes(Middleware.NO_AUTH)
-        );
+        ) && currentRoute?.path !== getProfileRoutePath();
 
     return (
         <>
