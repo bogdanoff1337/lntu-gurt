@@ -34,7 +34,7 @@ class OrdersResource extends Resource
             ->schema([
                 Select::make("student_id")
                     ->label("Студент/вступник")
-                ->options(Student::query()->pluck('email', 'id')->toArray()),
+                    ->options(Student::query()->pluck('email', 'id')->toArray()),
                 Select::make("room_id")
                     ->label("Кімната")
                     ->options(Room::query()->where('places', '>', 0)->pluck('number', 'id')->toArray()),
@@ -50,10 +50,10 @@ class OrdersResource extends Resource
                     ->label("Студент/вступник")
                     ->searchable()
                     ->sortable(),
-                Tables\Columns\TextColumn::make("student.benefits")
-                    ->label("Пільги")
-                    ->searchable()
-                    ->sortable(),
+                Tables\Columns\IconColumn::make('has_privileges')
+                    ->label('Пільги')
+                    ->boolean()
+                    ->state(fn ($record) => $record->student?->privileges->isNotEmpty()),
                 Tables\Columns\TextColumn::make("room.number")
                     ->label("Кімната")
                     ->searchable()
@@ -69,17 +69,16 @@ class OrdersResource extends Resource
                 SelectColumn::make('status')
                     ->label('Статус')
                     ->options(fn(Order $record) => [
-                        ...($record->status === 'new' ? ['new'      => 'Очікує на розгляд'] : []),
+                        ...($record->status === 'new' ? ['new' => 'Очікує на розгляд'] : []),
                         'approved' => 'Затверджено',
                         'rejected' => 'Відхилено',
                     ])
                     ->default('new')
             ])
             ->filters([
-                Filter::make('has_benefits')
+                Filter::make('has_privileges')
                     ->label('Має пільги')
-                    ->query(fn (Builder $query) => $query
-                        ->whereHas('student', fn (Builder $q) => $q->whereNotNull('benefits'))
+                    ->query(fn(Builder $query) => $query->whereHas('student.privileges')
                     ),
                 SelectFilter::make('faculty')
                     ->label('Факультети')
