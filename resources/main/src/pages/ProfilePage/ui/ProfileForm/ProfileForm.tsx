@@ -288,7 +288,7 @@ export const ProfileForm: FC<ProfileFormProps> = ({ className }) => {
                                 Icon={PenIcon}
                                 renderIcon={!readOnly}
                                 readOnly={readOnly}
-                                errorMessage={errors.course?.message}
+                                errorMessage={errors.privilege?.message}
                             />)
                     }}
                 />
