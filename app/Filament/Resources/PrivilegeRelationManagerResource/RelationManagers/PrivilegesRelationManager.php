@@ -45,7 +45,7 @@ class PrivilegesRelationManager extends RelationManager
                     ->form([
                         Forms\Components\Select::make('privilege_id')
                             ->label('Опис пільги')
-                            ->relationship('privileges', 'name')
+                            ->relationship('privilege', 'name')
                             ->searchable()
                             ->preload()
                             ->required(),
