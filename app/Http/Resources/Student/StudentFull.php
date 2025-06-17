@@ -12,15 +12,16 @@ class StudentFull extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'first_name'    => $this->first_name ?? "",
-            'last_name'     => $this->last_name ?? "",
-            'middle_name'   => $this->middle_name ?? "",
-            'phone'         => $this->phone ?? "",
-            'city'          => Cities::make($this->city) ?? "",
-            'faculty_id'    => (int) $this->faculty_id,
-            'gender'        => $this->gender ?? "",
-            'benefits'      => $this->benefits ?? "",
-            'course'        => (int) $this->course,
+            'first_name'    => $this->resource->first_name ?? "",
+            'last_name'     => $this->resource->last_name ?? "",
+            'middle_name'   => $this->resource->middle_name ?? "",
+            'phone'         => $this->resource->phone ?? "",
+            'city'          => Cities::make($this->resource->city) ?? "",
+            'faculty_id'    => (int) $this->resource->faculty_id,
+            'gender'        => $this->resource->gender ?? "",
+            'benefits'      => $this->resource->benefits ?? "",
+            'course'        => (int) $this->resource->course,
+            'privilege'     => $this->resource->privileges->first()->name ?? [],
         ];
     }
 }

@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Notifications\VerifyEmailNotification;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -96,8 +97,13 @@ class Student extends Authenticatable implements JWTSubject
         return $this->hasMany(Order::class);
     }
 
-    public function privileges(): HasMany
+    public function privileges(): BelongsToMany
     {
-        return $this->hasMany(StudentPrivilege::class);
+        return $this->belongsToMany(
+            Privilege::class,
+            'student_privileges',
+            'student_id',
+            'privilege_id'
+        );
     }
 }
