@@ -34,9 +34,9 @@ class OrderChart extends ApexChartWidget
         };
 
         $groupBy = match ($filter) {
-            'today' => 'HOUR(created_at)',
-            'week', 'month' => 'DATE(created_at)',
-            'year' => 'MONTH(created_at)',
+            'today' => "EXTRACT(HOUR FROM created_at)",
+            'week', 'month' => "DATE(created_at)",
+            'year' => "EXTRACT(MONTH FROM created_at)",
         };
 
         $orders = $query->selectRaw("$groupBy as label, COUNT(*) as total")
@@ -57,7 +57,8 @@ class OrderChart extends ApexChartWidget
                 collect(['Січ', 'Лют', 'Бер', 'Квіт', 'Трав', 'Черв', 'Лип', 'Серп', 'Вер', 'Жовт', 'Лист', 'Груд']),
                 collect(range(1, 12))->map(fn($m) => $orders->get($m, 0)),
             ],
-        };
+];
+
 
         return [
             'chart' => [
