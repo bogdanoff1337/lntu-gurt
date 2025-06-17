@@ -56,9 +56,8 @@ class OrderChart extends ApexChartWidget
             'year' => [
                 collect(['Січ', 'Лют', 'Бер', 'Квіт', 'Трав', 'Черв', 'Лип', 'Серп', 'Вер', 'Жовт', 'Лист', 'Груд']),
                 collect(range(1, 12))->map(fn($m) => $orders->get($m, 0)),
-            ],
-];
-
+            ]
+        };
 
         return [
             'chart' => [
